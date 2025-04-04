@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/pages/FullScreenGallery/full_screen_gallery_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class FullscreenGallery extends StatefulWidget {
@@ -15,33 +16,10 @@ class FullscreenGallery extends StatefulWidget {
 }
 
 class _FullscreenGalleryState extends State<FullscreenGallery> {
-  late PageController _pageController;
-  late int _currentPageIndex;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentPageIndex = widget.initialIndex;
-    _pageController = PageController(initialPage: widget.initialIndex)
-      ..addListener(() {
-        final page = _pageController.page?.round() ?? 0;
-        if (_currentPageIndex != page) {
-          setState(() {
-            _currentPageIndex = page;
-          });
-        }
-      });
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final viewModel = Provider.of<FullscreenGalleryViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: themeProvider.textColor),
@@ -68,7 +46,7 @@ class _FullscreenGalleryState extends State<FullscreenGallery> {
         children: [
           Expanded(
             child: PageView.builder(
-              controller: _pageController,
+              controller: viewModel.pageController,
               itemCount: widget.images.length,
               itemBuilder: (context, index) {
                 return Center(
@@ -111,7 +89,7 @@ class _FullscreenGalleryState extends State<FullscreenGallery> {
             decoration: BoxDecoration(
               color: themeProvider.isDarkMode
                   ? themeProvider.cardColor
-                  : themeProvider.textColor.withOpacity(0.5),
+                  : themeProvider.textColor.withOpacity(0.3),
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(25)),
             ),
@@ -138,7 +116,7 @@ class _FullscreenGalleryState extends State<FullscreenGallery> {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        "${_currentPageIndex + 1}/${widget.images.length}",
+                        "${viewModel.currentPageIndex + 1}/${widget.images.length}",
                         style: GoogleFonts.poppins(
                           color: Colors.white,
                           fontSize: 16,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
 import 'package:rota_erzincan/pages/FullScreenGallery/full_screen_gallery_page.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/BuildCircularButton.dart';
@@ -16,42 +17,18 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage>
     with SingleTickerProviderStateMixin {
-  bool isExpanded = false;
-  late AnimationController _controller;
-  late Animation<double> _fadeAnimation;
-  final String fullText =
-      "Terzibaba Camii ve Külliyesi, Erzincan'da bulunan ve şehrin en önemli dini ve kültürel yapılarından biridir. Caminin adı, halk arasında büyük bir manevi şahsiyet olarak kabul edilen Terzibaba'ya ithafen verilmiştir. 1980'li yıllarda inşa edilen cami, mimarisiyle hem modern hem de geleneksel unsurları bir araya getirir. Büyük ve gösterişli kubbesi, geniş iç hacmi ve dikkat çekici süslemeleriyle bölgenin en büyük ibadet merkezlerinden biri olarak kabul edilir. Caminin iç mekânında kalem işi süslemeler ve hat sanatı örnekleri yer alırken, avlusu da geniş bir kullanım alanına sahiptir."
-      "Külliye, sadece bir ibadet alanı olmanın ötesinde, eğitim ve sosyal faaliyetlerin de gerçekleştirildiği bir merkez olarak tasarlanmıştır. Burada Kur'an kursları, dini sohbetler ve çeşitli kültürel etkinlikler düzenlenmektedir. Caminin yanında yer alan yapılar, ziyaretçilerin ve ibadet edenlerin ihtiyaçlarını karşılamak için çeşitli hizmetler sunmaktadır. Aynı zamanda, Terzibaba Camii, özellikle Cuma ve bayram namazlarında yoğun bir ziyaretçi akınına uğrar. Erzincan halkı için manevi bir merkez olmasının yanı sıra, şehir dışından gelen ziyaretçiler için de önemli bir cazibe noktasıdır."
-      "Cami, Erzincan'ın şehir siluetinde önemli bir yer tutarken, özellikle akşam saatlerinde aydınlatmasıyla da ayrı bir görsel şölen sunar. İslam sanatının zarif detaylarını barındıran mimarisiyle, ziyaret edenlere huzurlu bir atmosfer sunar. Erzincan'ın kültürel ve dini mirasının bir parçası olan Terzibaba Camii ve Külliyesi, geçmişten günümüze kadar bölge halkının manevi hayatında büyük bir yer edinmiştir.";
-  final List<String> imageUrls = List.generate(
-      3, (index) => 'https://picsum.photos/800/500?random=$index');
-
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 1500),
-      vsync: this,
-    );
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.0, 0.6, curve: Curves.easeOut),
-      ),
-    );
-
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+    final viewModel = Provider.of<DetailsPageViewModel>(context, listen: false);
+    viewModel.init(vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final viewModel = Provider.of<DetailsPageViewModel>(context);
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -63,6 +40,7 @@ class _DetailsPageState extends State<DetailsPage>
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
                   Navigator.pop(context);
+                  viewModel.stopSpeaking();
                 },
               ),
             ),
@@ -130,14 +108,14 @@ class _DetailsPageState extends State<DetailsPage>
                       ),
                     ),
                     AnimatedBuilder(
-                      animation: _controller,
+                      animation: viewModel.controller,
                       builder: (context, child) {
                         return Positioned(
                           left: 0,
                           right: 0,
                           bottom: 20,
                           child: Opacity(
-                            opacity: _fadeAnimation.value,
+                            opacity: viewModel.fadeAnimation.value,
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
@@ -177,7 +155,7 @@ class _DetailsPageState extends State<DetailsPage>
           ),
           SliverToBoxAdapter(
             child: FadeTransition(
-              opacity: _fadeAnimation,
+              opacity: viewModel.fadeAnimation,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -236,21 +214,29 @@ class _DetailsPageState extends State<DetailsPage>
                                   children: [
                                     BuildCircularButton(
                                         icon: Icons.add,
+                                        onTap: () {},
                                         bgColor: themeProvider
                                             .buttonColor, // Turuncu ton
                                         iconColor: Colors.white),
-                                    const BuildCircularButton(
+                                    BuildCircularButton(
                                         icon: Icons.location_on,
-                                        bgColor: Color.fromARGB(
+                                        onTap: () {},
+                                        bgColor: const Color.fromARGB(
                                             255, 211, 84, 0), // Koyu turuncu
-                                        iconColor: Color.fromARGB(255, 245, 183,
-                                            70)), // Açık turuncu tonu
-                                    const BuildCircularButton(
-                                        icon: Icons.play_arrow,
-                                        bgColor: Color.fromARGB(
+                                        iconColor: const Color.fromARGB(255,
+                                            245, 183, 70)), // Açık turuncu tonu
+                                    BuildCircularButton(
+                                        onTap: () async {
+                                          await viewModel.toggleSpeaking();
+                                        },
+                                        icon: viewModel.isSpeaking
+                                            ? Icons.stop
+                                            : Icons.play_arrow,
+                                        isGlowing: viewModel.isSpeaking,
+                                        bgColor: const Color.fromARGB(
                                             255, 211, 84, 0), // Koyu turuncu
-                                        iconColor: Color.fromARGB(255, 245, 183,
-                                            70)), // Açık turuncu tonu
+                                        iconColor: const Color.fromARGB(255,
+                                            245, 183, 70)), // Açık turuncu tonu
                                   ],
                                 ),
                               ),
@@ -271,9 +257,9 @@ class _DetailsPageState extends State<DetailsPage>
                           ),
                           const SizedBox(height: 20),
                           Text(
-                            isExpanded
-                                ? fullText
-                                : '${fullText.substring(0, 300)}...',
+                            viewModel.isExpanded
+                                ? viewModel.fullText
+                                : '${viewModel.fullText.substring(0, 300)}...',
                             textAlign: TextAlign.justify,
                             style: GoogleFonts.poppins(
                               fontSize: 17,
@@ -319,12 +305,10 @@ class _DetailsPageState extends State<DetailsPage>
                                       horizontal: 32, vertical: 16),
                                 ),
                                 onPressed: () {
-                                  setState(() {
-                                    isExpanded = !isExpanded;
-                                  });
+                                  viewModel.toggleExpanded();
                                 },
                                 child: Text(
-                                  isExpanded
+                                  viewModel.isExpanded
                                       ? 'Daha Az Göster'
                                       : 'Devamını Oku',
                                   style: GoogleFonts.poppins(
@@ -393,7 +377,7 @@ class _DetailsPageState extends State<DetailsPage>
                             height: 170,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: imageUrls.length,
+                              itemCount: viewModel.imageUrls.length,
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.only(right: 12),
@@ -404,7 +388,7 @@ class _DetailsPageState extends State<DetailsPage>
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               FullscreenGallery(
-                                            images: imageUrls,
+                                            images: viewModel.imageUrls,
                                             initialIndex: index,
                                           ),
                                         ),
@@ -443,7 +427,8 @@ class _DetailsPageState extends State<DetailsPage>
                                               FadeInImage.assetNetwork(
                                                 placeholder:
                                                     ImageConstants.loading,
-                                                image: imageUrls[index],
+                                                image:
+                                                    viewModel.imageUrls[index],
                                                 fit: BoxFit.cover,
                                               ),
                                               Container(

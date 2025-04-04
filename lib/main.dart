@@ -6,6 +6,8 @@ import 'package:rota_erzincan/init/navigation/custom_navigation_observer.dart';
 import 'package:rota_erzincan/init/navigation/navigation_route.dart';
 import 'package:rota_erzincan/init/navigation/navigation_service.dart';
 import 'package:rota_erzincan/init/start/application_start.dart';
+import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
+import 'package:rota_erzincan/pages/FullScreenGallery/full_screen_gallery_page_view_model.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page_view_model.dart';
@@ -18,9 +20,13 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => HomePageViewModel()),
+        ChangeNotifierProvider(create: (_) => DetailsPageViewModel()),
+        ChangeNotifierProvider<FullscreenGalleryViewModel>(
+          create: (context) =>
+              FullscreenGalleryViewModel(0), // veya uygun bir başlangıç index'i
+        ),
         ChangeNotifierProvider(create: (_) => splashViewModel),
-        ChangeNotifierProvider(
-            create: (_) => ThemeProvider()), 
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: const MyApp(),
     ),
@@ -37,12 +43,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppThemes.lightTheme.copyWith(
-        textTheme: GoogleFonts.poppinsTextTheme(), 
+        textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       darkTheme: AppThemes.darkTheme.copyWith(
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      themeMode: themeProvider.themeMode, 
+      themeMode: themeProvider.themeMode,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
       navigatorKey: NavigationService.instance.navigatorKey,
       navigatorObservers: [CustomNavigatorObserver()],

@@ -1,34 +1,51 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 
 class BuildCircularButton extends StatelessWidget {
   final IconData icon;
   final Color bgColor;
   final Color iconColor;
-  const BuildCircularButton({super.key, required this.bgColor, required this.icon, required this.iconColor});
+  final VoidCallback? onTap;
+  final bool isGlowing;
+
+  const BuildCircularButton(
+      {super.key,
+      required this.bgColor,
+      required this.onTap,
+      required this.icon,
+      this.isGlowing = false,
+      required this.iconColor});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 4.0),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: bgColor.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
+    return Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: AvatarGlow(
+        glowColor: bgColor,
+        glowRadiusFactor: 0.2,
+        animate: isGlowing, // 🔥 Glow aç/kapat
+        child: Material(
+          color: Colors.transparent,
+          shape: const CircleBorder(),
+          child: InkWell(
+            onTap: onTap,
+            customBorder: const CircleBorder(),
+            splashColor: Colors.white.withOpacity(0.2), // Hafif bir efekt
+            child: Ink(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: bgColor,
+              ),
+              child: SizedBox(
+                width: 44, // radius: 22 için çap = 44
+                height: 44,
+                child: Center(
+                  child: Icon(icon, color: iconColor, size: 24),
+                ),
+              ),
+            ),
           ),
-          BoxShadow(
-            color: bgColor.withOpacity(0.1),
-            blurRadius: 15,
-            offset: const Offset(0, 0),
-          ),
-        ],
-      ),
-      child: CircleAvatar(
-        radius: 22,
-        backgroundColor: bgColor,
-        child: Icon(icon, color: iconColor, size: 24),
+        ),
       ),
     );
   }
