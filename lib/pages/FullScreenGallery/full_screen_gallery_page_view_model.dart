@@ -29,6 +29,18 @@ class FullscreenGalleryViewModel extends ChangeNotifier {
     );
   }
 
+  void setCurrentPage(int index) {
+    _currentPageIndex = index;
+    notifyListeners();
+  }
+  
+   double calculateDynamicMaxSize(int imageCount) {
+    const double baseHeight = 0.13;
+    const double rowHeight = 0.15;
+    int rowCount = (imageCount / 3).ceil();
+    return (baseHeight + (rowCount * rowHeight)).clamp(0.25, 0.9);
+  }
+
   @override
   void dispose() {
     _pageController.removeListener(_onPageChanged);

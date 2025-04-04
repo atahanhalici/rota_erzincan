@@ -274,8 +274,8 @@ class _DetailsPageState extends State<DetailsPage>
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   colors: [
-                                    themeProvider.buttonColor.withOpacity(0.2),
-                                    themeProvider.buttonColor.withOpacity(0.1),
+                                    themeProvider.buttonColor.withOpacity(0.8),
+                                    themeProvider.buttonColor.withOpacity(0.4),
                                   ],
                                 ),
                                 borderRadius: BorderRadius.circular(30),
