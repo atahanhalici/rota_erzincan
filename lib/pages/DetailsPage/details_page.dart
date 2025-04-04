@@ -17,11 +17,19 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage>
     with SingleTickerProviderStateMixin {
+  late DetailsPageViewModel viewModel;
   @override
   void initState() {
     super.initState();
-    final viewModel = Provider.of<DetailsPageViewModel>(context, listen: false);
+    viewModel = Provider.of<DetailsPageViewModel>(context, listen: false);
     viewModel.init(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    viewModel.stopSpeaking(); // Ses varsa durdur
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -40,7 +48,6 @@ class _DetailsPageState extends State<DetailsPage>
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
                   Navigator.pop(context);
-                  viewModel.stopSpeaking();
                 },
               ),
             ),
