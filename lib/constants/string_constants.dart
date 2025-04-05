@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class StringConstants {
   // Can't instantiate this class. Use it directly.
   const StringConstants._();
+  static const String appName = "Rota Erzincan";
+
   //region Error screen strings
   static const String notFound = "Aradığınız Sayfayı Bulamadık";
   static const String notFoundSub =

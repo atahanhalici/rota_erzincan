@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/constants/theme_data.dart';
 import 'package:rota_erzincan/init/navigation/custom_navigation_observer.dart';
 import 'package:rota_erzincan/init/navigation/navigation_route.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return MaterialApp(
+      title: StringConstants.appName,
       debugShowCheckedModeBanner: false,
       theme: AppThemes.lightTheme.copyWith(
         textTheme: GoogleFonts.poppinsTextTheme(),
