@@ -32,4 +32,15 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
   void navigateToDetails(BuildContext context) {
     navigationService.navigateToPage("/details", null);
   }
+
+  void openStory(BuildContext context, CategoryModel model) {
+    int currentIndex = categories.indexOf(model);
+    navigationService.navigateToPage(
+      "/story",
+      {
+        'list': categories,
+        'index': currentIndex,
+      },
+    );
+  }
 }

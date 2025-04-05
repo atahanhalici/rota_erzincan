@@ -4,6 +4,7 @@ import 'package:rota_erzincan/constants/navigator_constants.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page.dart';
+import 'package:rota_erzincan/pages/StoryPage/story_page.dart';
 import 'package:rota_erzincan/pages/error_pages/need_update/need_update_page.dart';
 import 'package:rota_erzincan/pages/error_pages/no_network/no_network_page.dart';
 import 'package:rota_erzincan/pages/error_pages/not_found/not_found_page.dart';
@@ -30,8 +31,8 @@ class NavigationRoute {
         return slideAnimatedRoute(const NeedUpdatePage(), args.arguments);
       case NavigatorConstants.SERVER_ERROR:
         return slideAnimatedRoute(const ServerErrorPage(), args.arguments);
-      /* case NavigatorConstants.ONBOARDING_PAGE:
-        return slideAnimatedRoute(const OnBoardingPage(), args.arguments);*/
+      case NavigatorConstants.STORY:
+        return slideAnimatedRoute(const StoryPage(), args.arguments);
       case NavigatorConstants.HOME:
         return slideAnimatedRoute(const HomePage(), args.arguments);
       case NavigatorConstants.DETAILS:

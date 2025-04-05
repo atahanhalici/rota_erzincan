@@ -14,13 +14,8 @@ class Appbar extends StatelessWidget {
     return AppBar(
       centerTitle: true,
       backgroundColor: themeProvider.cardColor,
-      leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.dehaze,
-            size: 30,
-            color: ColorConstants.buttonColor,
-          )),
+      iconTheme:
+          const IconThemeData(color: ColorConstants.buttonColor, size: 30),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -35,7 +30,8 @@ class Appbar extends StatelessWidget {
           ),
           Text(
             StringConstants.appName,
-            style: TextStyle(color: themeProvider.textColor),
+            style: TextStyle(
+                color: themeProvider.textColor, fontWeight: FontWeight.w600),
           ),
           const SizedBox(
             width: 15,

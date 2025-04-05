@@ -14,4 +14,5 @@ class NavigatorConstants {
   static const NEED_UPDATE = "/needUpdate";
   static const HOME = "/home";
   static const DETAILS = "/details";
+  static const STORY = "/story";
 }

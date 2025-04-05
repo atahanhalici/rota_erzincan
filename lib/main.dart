@@ -12,6 +12,7 @@ import 'package:rota_erzincan/pages/FullScreenGallery/full_screen_gallery_page_v
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page_view_model.dart';
+import 'package:rota_erzincan/pages/StoryPage/story_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 void main() async {
@@ -22,6 +23,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => HomePageViewModel()),
         ChangeNotifierProvider(create: (_) => DetailsPageViewModel()),
+        ChangeNotifierProvider(create: (_) => StoryPageViewModel()),
         ChangeNotifierProvider<FullscreenGalleryViewModel>(
           create: (context) =>
               FullscreenGalleryViewModel(0), // veya uygun bir başlangıç index'i

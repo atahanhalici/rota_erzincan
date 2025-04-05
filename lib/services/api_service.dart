@@ -23,7 +23,7 @@ class ApiService {
       String title = entry.value;
       return CategoryModel(
         title: title,
-        imageUrl: "https://picsum.photos/seed/${index + 1}/100/100",
+        imageUrl: "https://picsum.photos/seed/${index + 1}/600/1000",
       );
     }).toList();
   }
