@@ -255,9 +255,9 @@ class _DetailsPageState extends State<DetailsPage>
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  themeProvider.transparentColor,
+                                  themeProvider.cardColor,
                                   themeProvider.infoItemColor,
-                                  themeProvider.transparentColor,
+                                  themeProvider.cardColor,
                                 ],
                               ),
                             ),

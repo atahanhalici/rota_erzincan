@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Arka plan deseni
+          /* // Arka plan deseni
           Positioned.fill(
             child: Opacity(
               opacity: themeProvider.isDarkMode ? 0.03 : 0.05,
@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                 repeat: ImageRepeat.repeat,
               ),
             ),
-          ),
+          ),*/
 
           // Ana içerik
           SingleChildScrollView(
@@ -106,14 +106,14 @@ class HomePage extends StatelessWidget {
                               Opacity(
                                 opacity: 0.4,
                                 child: Image.network(
-                                  "https://picsum.photos/id/307/1280/720",
+                                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/YbJ067cDS03GSSQ.jpg?alt=media&token=50bfb43b-07dc-4250-b2a2-7f667fcc1321", //  "https://picsum.photos/id/307/1280/720",
                                   fit: BoxFit.cover,
                                   width: double.infinity,
                                   height: double.infinity,
                                 ),
                               ),
 
-                              // Desen overlay
+                              /* // Desen overlay
                               Positioned.fill(
                                 child: Opacity(
                                   opacity: 0.1,
@@ -123,7 +123,7 @@ class HomePage extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                                 ),
-                              ),
+                              ),*/
                             ],
                           ),
                         ),
