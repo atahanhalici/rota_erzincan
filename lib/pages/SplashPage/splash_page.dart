@@ -1,28 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/pages/SplashPage/splash_page_view_model.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    //final viewModel = Provider.of<SplashPageViewModel>(context, listen: false);
-    return
-        // ignore: unused_local_variable
+  State<SplashPage> createState() => _SplashPageState();
+}
 
-        Scaffold(
-      body: Column(
+class _SplashPageState extends State<SplashPage>
+    with SingleTickerProviderStateMixin {
+  late SplashPageViewModel viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel = SplashPageViewModel();
+    viewModel.init(this);
+  }
+
+  @override
+  void dispose() {
+    viewModel.disposeAnimation();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
         children: [
-          const Expanded(child: SizedBox()),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Image.asset(ImageConstants.logo),
+          // 🔹 Arkaplan görseli + Zoom animasyonu
+          AnimatedBuilder(
+            animation: viewModel.scaleAnimation,
+            builder: (context, child) {
+              return Transform.scale(
+                scale: viewModel.scaleAnimation.value,
+                child: Image.asset(
+                  ImageConstants.splash,
+                  fit: BoxFit.cover,
+                ),
+              );
+            },
           ),
-          const Expanded(child: SizedBox()),
-          const LinearProgressIndicator(
-            color: ColorConstants.buttonColor,
-            backgroundColor: ColorConstants.backgroundColor,
+
+          // 🔹 Sol üst logo
+          Positioned(
+            top: 70,
+            left: 20,
+            child: Image.asset(
+              ImageConstants.logo,
+              width: 160,
+            ),
           ),
         ],
       ),

@@ -7,6 +7,7 @@ class ImageConstants {
 
   static final String logo = 'logo_png'.logoToPng;
   static final String loading = 'loading'.imageToJpg;
+  static final String splash = 'splash'.imageToJpeg;
 
   static final String serverError = 'server_error'.imageToPng;
   static final String notFound = 'not_found_asset'.imageToPng;
@@ -21,6 +22,7 @@ class ImageConstants {
 extension _StringPath on String {
   String get imageToPng => 'assets/images/$this.png';
   String get imageToJpg => 'assets/images/$this.jpg';
+  String get imageToJpeg => 'assets/images/$this.jpeg';
   String get imageToGif => 'assets/images/$this.gif';
   String get iconToPng => 'assets/icons/$this.png';
   String get onboardingToPng => 'assets/onboarding/$this.png';

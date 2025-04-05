@@ -7,6 +7,24 @@ import 'package:rota_erzincan/services/version_service.dart';
 import 'package:rota_erzincan/utilities/version_manager.dart';
 
 class SplashPageViewModel with ChangeNotifier, BaseViewModel {
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+
+  void init(TickerProvider vsync) {
+    controller = AnimationController(
+      vsync: vsync,
+      duration: const Duration(seconds: 15),
+    )..repeat(reverse: false);
+
+    scaleAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeOut),
+    );
+  }
+
+  void disposeAnimation() {
+    controller.dispose();
+  }
+
   final VersionService _versionService = VersionService();
   bool _isRequiredUpdate = false;
   bool _serverError = false;
