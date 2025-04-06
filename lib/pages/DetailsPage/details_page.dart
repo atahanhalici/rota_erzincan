@@ -18,18 +18,77 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage>
     with SingleTickerProviderStateMixin {
   late DetailsPageViewModel viewModel;
+  bool _hasShownMapError = false;
+  late VoidCallback _viewModelListener;
   @override
   void initState() {
     super.initState();
     viewModel = Provider.of<DetailsPageViewModel>(context, listen: false);
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     viewModel.init(vsync: this);
+    _viewModelListener = () {
+      final errorMessage = viewModel.mapErrorMessage;
+      if (errorMessage != null &&
+          errorMessage.isNotEmpty &&
+          !_hasShownMapError) {
+        showErrorSnackBar(errorMessage, themeProvider);
+        _hasShownMapError = true;
+
+        Future.delayed(const Duration(seconds: 5), () {
+          _hasShownMapError = false;
+        });
+      }
+    };
+
+    viewModel.addListener(_viewModelListener);
   }
 
   @override
   void dispose() {
     viewModel.stopSpeaking(); // Ses varsa durdur
     // TODO: implement dispose
+    viewModel.removeListener(_viewModelListener);
     super.dispose();
+  }
+
+  void showErrorSnackBar(String message, ThemeProvider themeProvider) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              Icon(Icons.error_outline, color: themeProvider.backgroundColor),
+              const SizedBox(width: 12),
+              Expanded(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown, // Yazı büyüsün ama taşmasın
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    message,
+                    maxLines: 1, // Zorunlu: hep tek satır
+                    overflow: TextOverflow.ellipsis, // Taşarsa ... koyar
+                    style: TextStyle(
+                      color: themeProvider.backgroundColor,
+                      fontSize: 16, // Maksimum kullanılabilir font
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          backgroundColor: themeProvider.textColor.withOpacity(0.8),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          duration: const Duration(seconds: 4),
+          margin: const EdgeInsets.all(16),
+        ),
+      );
+    });
   }
 
   @override
@@ -227,7 +286,10 @@ class _DetailsPageState extends State<DetailsPage>
                                         iconColor: Colors.white),
                                     BuildCircularButton(
                                         icon: Icons.location_on,
-                                        onTap: () {},
+                                        onTap: () {
+                                          viewModel.openMapApp(
+                                              context, themeProvider);
+                                        },
                                         bgColor: const Color.fromARGB(
                                             255, 211, 84, 0), // Koyu turuncu
                                         iconColor: const Color.fromARGB(255,

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
+import 'package:rota_erzincan/theme_provider.dart';
+import 'package:rota_erzincan/widgets/FancyMenuLogoItem.dart';
 
 class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
   late AnimationController _controller;
@@ -76,6 +80,102 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
       await stopSpeaking();
     } else {
       await speakText();
+    }
+  }
+
+  final double targetLatitude =
+      39.71662446276216; // Örnek: Erzincan Merkez Koordinatları (Terzibaba Camii için güncelleyin)
+  final double targetLongitude =
+      39.4981052503663; // Örnek: Erzincan Merkez Koordinatları (Terzibaba Camii için güncelleyin)
+  final String targetTitle = "Terzibaba Camii"; // Haritada gösterilecek başlık
+  String? _mapErrorMessage;
+  String? get mapErrorMessage => _mapErrorMessage; // UI'ın okuması için getter
+
+  // Hata mesajını temizleyen fonksiyon
+  void clearMapError() {
+    _mapErrorMessage = null;
+    notifyListeners();
+  }
+
+  Future<void> openMapApp(
+      BuildContext context, ThemeProvider themeProvider) async {
+    _mapErrorMessage = null;
+    notifyListeners();
+
+    try {
+      final availableMaps = await MapLauncher.installedMaps;
+
+      if (availableMaps.isEmpty) {
+        _mapErrorMessage =
+            'Cihazınızda yüklü bir harita uygulaması bulunamadı.';
+        notifyListeners();
+        return;
+      }
+
+      if (availableMaps.length == 1) {
+        // Tek harita varsa direkt aç
+        await MapLauncher.showMarker(
+          mapType: availableMaps.first.mapType,
+          coords: Coords(targetLatitude, targetLongitude),
+          title: targetTitle,
+        );
+      } else {
+        // Birden fazla varsa seçim menüsü göster
+        showModalBottomSheet(
+          context: context,
+          builder: (context) => Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Konuma Gitmek İstediğiniz Harita Uygulamasını Seçin",
+                  style: GoogleFonts.poppins(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: themeProvider.textColor,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  height: 2,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        themeProvider.cardColor,
+                        themeProvider.infoItemColor,
+                        themeProvider.cardColor,
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                ...availableMaps.map((map) {
+                  return FancyMenuLogoItem(
+                    icon: map.icon,
+                    label: map.mapName,
+                    color: themeProvider
+                        .buttonColor, // You can customize the color based on the map type
+                    onTap: () {
+                      Navigator.pop(context); // Close the sheet
+                      MapLauncher.showMarker(
+                        mapType: map.mapType,
+                        coords: Coords(targetLatitude, targetLongitude),
+                        title: targetTitle,
+                      );
+                    },
+                  );
+                }).toList(),
+              ],
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      debugPrint('Harita uygulaması açılamadı: $e');
+      _mapErrorMessage = 'Harita uygulaması açılırken bir hata oluştu.';
+      notifyListeners();
     }
   }
 }
