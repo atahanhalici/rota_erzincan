@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
-import 'package:rota_erzincan/constants/image_constants.dart';
 import 'package:rota_erzincan/models/CategoryModel.dart';
 import 'package:rota_erzincan/pages/StoryPage/story_page_view_model.dart';
+import 'package:rota_erzincan/widgets/SmoothProgressBar.dart';
 import 'package:rota_erzincan/widgets/SwipeUpHint.dart';
 
 class StoryPage extends StatefulWidget {
@@ -13,7 +13,7 @@ class StoryPage extends StatefulWidget {
   State<StoryPage> createState() => _StoryPageState();
 }
 
-class _StoryPageState extends State<StoryPage> {
+class _StoryPageState extends State<StoryPage> with TickerProviderStateMixin {
   final viewModel = StoryPageViewModel();
 
   @override
@@ -23,7 +23,11 @@ class _StoryPageState extends State<StoryPage> {
     final stories = args['list'] as List<CategoryModel>;
     final index = args['index'] as int;
 
-    viewModel.init(storyList: stories, index: index);
+    viewModel.init(
+      storyList: stories,
+      index: index,
+      ticker: this, // <== önemli
+    );
     viewModel.onLastStoryCompleted = () => Navigator.pop(context);
   }
 
@@ -71,7 +75,9 @@ class _StoryPageState extends State<StoryPage> {
                   physics: const BouncingScrollPhysics(),
                   itemCount: viewModel.stories.length,
                   onPageChanged: (index) {
+                    // Yeni sayfa index'ini viewModel'e set et
                     viewModel.setCurrentIndex(index);
+
                     //viewModel.resetProgress();
                     /*  viewModel.checkIfImageCachedAndHandle(
                         viewModel.stories[index].imageUrl, true);*/
@@ -153,14 +159,9 @@ class _StoryPageState extends State<StoryPage> {
                           Row(
                             children: [
                               Expanded(
-                                child: LinearProgressIndicator(
-                                  value: viewModel.progress,
-                                  backgroundColor: Colors.white30,
-                                  valueColor:
-                                      const AlwaysStoppedAnimation<Color>(
-                                          Colors.white),
-                                ),
-                              ),
+                                  child: SmoothProgressBar(
+                                      animation:
+                                          viewModel.animationController)),
                               const SizedBox(width: 8),
                               GestureDetector(
                                 onTap: () => Navigator.pop(context),

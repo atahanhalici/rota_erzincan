@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
@@ -8,6 +10,8 @@ import 'package:rota_erzincan/widgets/CategoryList.dart';
 import 'package:rota_erzincan/widgets/CategoryListView.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:rota_erzincan/widgets/CustomBottomNavBar.dart';
+import 'package:rota_erzincan/widgets/CustomDrawer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -19,7 +23,13 @@ class HomePage extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
-      drawer: Drawer(),
+      drawer: CustomDrawer(
+        toggleTheme: themeProvider.toggleTheme,
+        isDarkMode: themeProvider.isDarkMode,
+        textColor: themeProvider.textColor,
+        appName: StringConstants.appName,
+        logoPath: ImageConstants.logo,
+      ),
       backgroundColor: themeProvider.backgroundColor,
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
@@ -353,52 +363,28 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: themeProvider.toggleTheme,
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 16),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 10,
-                            ),
-                            decoration: BoxDecoration(
-                              color: themeProvider.textColor.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(30),
-                              border: Border.all(
-                                color: themeProvider.textColor.withOpacity(0.3),
-                                width: 1,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  themeProvider.isDarkMode
-                                      ? Icons.light_mode
-                                      : Icons.dark_mode,
-                                  color: themeProvider.textColor,
-                                  size: 18,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  themeProvider.isDarkMode
-                                      ? "Aydınlık Mod"
-                                      : "Karanlık Mod",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: themeProvider.textColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 80,
+                ),
               ],
+            ),
+          ),
+          Positioned(
+            left: 16,
+            right: 16,
+            bottom: 0,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: CustomBottomNavBar(
+                currentIndex: 0,
+                onTap: (index) {
+                  // index'e göre sayfa geçişi
+                },
+              ),
             ),
           ),
         ],

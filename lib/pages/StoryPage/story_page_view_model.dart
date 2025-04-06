@@ -14,6 +14,9 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
 
   void setCurrentIndex(int index) {
     initialIndex = index;
+    pauseProgress();
+    resetProgress();
+    checkIfImageCachedAndHandle(stories[initialIndex].imageUrl, true);
     notifyListeners();
   }
 
@@ -22,42 +25,47 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
     return stories[initialIndex].title;
   }
 
-  void init({required List<CategoryModel> storyList, required int index}) {
+  late AnimationController animationController;
+
+  void init({
+    required List<CategoryModel> storyList,
+    required int index,
+    required TickerProvider ticker,
+  }) {
     stories = storyList;
     initialIndex = index;
     pageController = PageController(initialPage: index);
+
+    animationController = AnimationController(
+      vsync: ticker,
+      duration: const Duration(seconds: 5), // hikaye süresi
+    )..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          if (pageController.page!.toInt() < stories.length - 1) {
+            nextStory();
+          } else {
+            onLastStoryCompleted?.call();
+          }
+        }
+      });
 
     checkIfImageCachedAndHandle(stories[index].imageUrl, true);
   }
 
   void startProgress() {
-    timer?.cancel();
-    timer = Timer.periodic(const Duration(milliseconds: 50), (_) {
-      progress += 0.02;
-      if (progress >= 1.0) {
-        progress = 0.0;
-        if (pageController.page!.toInt() < stories.length - 1) {
-          nextStory();
-        } else {
-          timer?.cancel();
-          onLastStoryCompleted?.call();
-        }
-      }
-      notifyListeners();
-    });
+    animationController.forward(from: 0.0);
   }
 
   void pauseProgress() {
-    timer?.cancel();
+    animationController.stop();
   }
 
   void resumeProgress() {
-    checkIfImageCachedAndHandle(stories[initialIndex].imageUrl, false);
+    animationController.forward();
   }
 
   void resetProgress() {
-    progress = 0.0;
-    notifyListeners();
+    animationController.reset();
   }
 
   void toggleUI(bool value) {
@@ -71,8 +79,8 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
-      pauseProgress();
-      checkIfImageCachedAndHandle(stories[initialIndex - 1].imageUrl, true);
+      /*pauseProgress();
+      checkIfImageCachedAndHandle(stories[initialIndex - 1].imageUrl, true);*/
     }
   }
 
@@ -82,8 +90,8 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
-      pauseProgress();
-      checkIfImageCachedAndHandle(stories[initialIndex + 1].imageUrl, true);
+      /* pauseProgress();
+      checkIfImageCachedAndHandle(stories[initialIndex + 1].imageUrl, true);*/
     } else {
       onLastStoryCompleted?.call();
     }
