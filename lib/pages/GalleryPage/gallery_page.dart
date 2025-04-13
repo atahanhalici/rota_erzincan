@@ -296,7 +296,16 @@ class _GalleryPageState extends State<GalleryPage>
                                 );
                               },
                               child: BuildGalleryItem(
-                                  index: index, controller: _controller),
+                                index: _galleryModel.currentImageUrls.indexOf(
+                                  _galleryModel.currentImageList[index].url,
+                                ),
+                                controller: _controller,
+                                galleryUrls: _galleryModel.currentImageUrls,
+                                imageUrl:
+                                    _galleryModel.currentImageList[index].url,
+                                title:
+                                    _galleryModel.currentImageList[index].title,
+                              ),
                             );
                           },
                         ),

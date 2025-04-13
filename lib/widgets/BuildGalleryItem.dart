@@ -1,28 +1,31 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
 import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page.dart';
-import 'package:rota_erzincan/pages/GalleryPage/gallery_page_view_model.dart';
-import 'package:provider/provider.dart';
+import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page_view_model.dart';
 
 class BuildGalleryItem extends StatelessWidget {
   final int index;
   final AnimationController controller;
+  final List<String> galleryUrls;
+  final String imageUrl;
+  final String title;
 
   const BuildGalleryItem({
-    Key? key,
+    super.key,
     required this.index,
     required this.controller,
-  }) : super(key: key);
+    required this.galleryUrls,
+    required this.imageUrl,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final _galleryModel =
-        Provider.of<GalleryPageViewModel>(context, listen: false);
-
     return Hero(
-      tag: 'gallery_image_$index',
+      tag: 'gallery_image_$imageUrl', // unique olsun diye url kullandık
       child: Material(
         borderRadius: BorderRadius.circular(18),
         elevation: 6,
@@ -32,24 +35,19 @@ class BuildGalleryItem extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    DetailPhotoView(
-                  imageUrl: _galleryModel.currentImageList[index].url,
-                  heroTag: 'gallery_image_$index',
-                  galleryImages: _galleryModel.currentImageUrls,
-                  initialIndex: index,
-                  title: "Erzincan Kareleri",
+              MaterialPageRoute(
+                builder: (_) => ChangeNotifierProvider(
+                  create: (_) => DetailPhotoViewPageViewModel(
+                    galleryUrls.indexOf(imageUrl), // 🎯 Doğru index burada
+                  ),
+                  child: DetailPhotoView(
+                    imageUrl: imageUrl,
+                    heroTag: 'gallery_image_$imageUrl',
+                    galleryImages: galleryUrls,
+                    initialIndex: galleryUrls.indexOf(imageUrl),
+                    title: "Erzincan Kareleri",
+                  ),
                 ),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                  var tween = Tween(begin: 0.0, end: 1.0)
-                      .chain(CurveTween(curve: Curves.easeInOut));
-                  return FadeTransition(
-                    opacity: animation.drive(tween),
-                    child: child,
-                  );
-                },
               ),
             );
           },
@@ -59,9 +57,8 @@ class BuildGalleryItem extends StatelessWidget {
               fit: StackFit.expand,
               children: [
                 FadeInImage.assetNetwork(
-                  placeholder:
-                      ImageConstants.loading, // Yüklenirken gösterilecek resim
-                  image: _galleryModel.currentImageList[index].url,
+                  placeholder: ImageConstants.loading,
+                  image: imageUrl,
                   fit: BoxFit.cover,
                 ),
                 Positioned.fill(
@@ -110,7 +107,7 @@ class BuildGalleryItem extends StatelessWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          _galleryModel.currentImageList[index].title,
+                          title,
                           style: GoogleFonts.poppins(
                             color: Colors.white,
                             fontSize: 14,
