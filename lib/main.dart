@@ -8,7 +8,8 @@ import 'package:rota_erzincan/init/navigation/navigation_route.dart';
 import 'package:rota_erzincan/init/navigation/navigation_service.dart';
 import 'package:rota_erzincan/init/start/application_start.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
-import 'package:rota_erzincan/pages/FullScreenGallery/full_screen_gallery_page_view_model.dart';
+import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page_view_model.dart';
+import 'package:rota_erzincan/pages/GalleryPage/gallery_page_view_model.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page_view_model.dart';
@@ -22,11 +23,12 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => HomePageViewModel()),
+        ChangeNotifierProvider(create: (_) => GalleryPageViewModel()),
         ChangeNotifierProvider(create: (_) => DetailsPageViewModel()),
         ChangeNotifierProvider(create: (_) => StoryPageViewModel()),
-        ChangeNotifierProvider<FullscreenGalleryViewModel>(
-          create: (context) =>
-              FullscreenGalleryViewModel(0), // veya uygun bir başlangıç index'i
+        ChangeNotifierProvider<DetailPhotoViewPageViewModel>(
+          create: (context) => DetailPhotoViewPageViewModel(
+              0), // veya uygun bir başlangıç index'i
         ),
         ChangeNotifierProvider(create: (_) => splashViewModel),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),

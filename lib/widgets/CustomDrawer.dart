@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
+import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuItem.dart';
 
@@ -12,16 +14,12 @@ class CustomDrawer extends StatelessWidget {
   final Function toggleTheme;
   final bool isDarkMode;
   final Color textColor;
-  final String appName;
-  final String logoPath;
 
   const CustomDrawer({
     super.key,
     required this.toggleTheme,
     required this.isDarkMode,
     required this.textColor,
-    required this.appName,
-    required this.logoPath,
   });
 
   @override
@@ -49,11 +47,11 @@ class CustomDrawer extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 9,
-                      child: Image.asset(logoPath),
+                      child: Image.asset(ImageConstants.logo),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      appName,
+                      StringConstants.appName,
                       style: TextStyle(
                         color: textColor,
                         fontWeight: FontWeight.bold,

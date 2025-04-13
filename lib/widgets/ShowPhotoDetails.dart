@@ -1,0 +1,99 @@
+import 'package:flutter/material.dart';
+import 'package:rota_erzincan/widgets/InfoRow.dart';
+
+class ShowPhotoDetails extends StatelessWidget {
+  final Color cardColor;
+  final Color textColor;
+
+  const ShowPhotoDetails({
+    super.key,
+    required this.cardColor,
+    required this.textColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: cardColor.withOpacity(0.95),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 15,
+                offset: const Offset(0, -3),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 12),
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: textColor.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(24, 12, 24, 16),
+                child: Text(
+                  "Fotoğraf Detayları",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    color: textColor,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const InfoRow(
+                      icon: Icons.location_on_outlined,
+                      title: "Konum",
+                      value: "Erzincan, Türkiye",
+                    ),
+                    const SizedBox(height: 16),
+                    const InfoRow(
+                      icon: Icons.calendar_today_outlined,
+                      title: "Tarih",
+                      value: "2023",
+                    ),
+                    const SizedBox(height: 16),
+                    const InfoRow(
+                      icon: Icons.camera_alt_outlined,
+                      title: "Fotoğrafçı",
+                      value: "Rota Erzincan",
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      "Bu fotoğraf, Erzincan'ın eşsiz doğal güzelliklerini göstermektedir. Bölgenin karakteristik coğrafi özellikleri ve kültürel zenginliği gözler önüne serilmektedir.",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: textColor.withOpacity(0.8),
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}

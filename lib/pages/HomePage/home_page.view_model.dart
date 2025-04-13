@@ -33,6 +33,16 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
     navigationService.navigateToPage("/details", null);
   }
 
+  void navigateBottomBar(BuildContext context, int index) {
+    if (index == 0) {
+      navigationService.navigateToPageClear("/home", null);
+    } else if (index == 1) {
+      //navigationService.navigateToPage("/home", null);
+    } else if (index == 2) {
+      navigationService.navigateToPageClear("/gallery", null);
+    }
+  }
+
   void openStory(BuildContext context, CategoryModel model) {
     int currentIndex = categories.indexOf(model);
     navigationService.navigateToPage(

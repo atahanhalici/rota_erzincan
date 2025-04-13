@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:rota_erzincan/constants/image_constants.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
@@ -27,8 +25,6 @@ class HomePage extends StatelessWidget {
         toggleTheme: themeProvider.toggleTheme,
         isDarkMode: themeProvider.isDarkMode,
         textColor: themeProvider.textColor,
-        appName: StringConstants.appName,
-        logoPath: ImageConstants.logo,
       ),
       backgroundColor: themeProvider.backgroundColor,
       extendBodyBehindAppBar: true,
@@ -382,7 +378,7 @@ class HomePage extends StatelessWidget {
               child: CustomBottomNavBar(
                 currentIndex: 0,
                 onTap: (index) {
-                  // index'e göre sayfa geçişi
+                  _homeModel.navigateBottomBar(context, index);
                 },
               ),
             ),

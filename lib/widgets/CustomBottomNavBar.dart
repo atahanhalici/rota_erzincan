@@ -99,7 +99,9 @@ class CustomBottomNavBar extends StatelessWidget {
                                   ),
                                 ],
                               )
-                            : null,
+                            : const BoxDecoration(
+                                color: Colors.transparent,
+                              ),
                         child: /*isSelected
                             ? AnimatedGlow(
                                 glowColor: themeProvider.buttonColor,

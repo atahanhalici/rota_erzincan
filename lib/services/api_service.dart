@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rota_erzincan/models/CategoryModel.dart';
 import 'package:rota_erzincan/models/FeatureModel.dart';
+import 'package:rota_erzincan/models/PhotoModel.dart';
 
 class ApiService {
   Future<List<CategoryModel>> fetchCategories() async {
@@ -77,5 +78,101 @@ class ApiService {
     ];
 
     return _features.map((item) => FeatureModel.fromJson(item)).toList();
+  }
+
+  Future<Map<String, List<PhotoModel>>> fetchGalleryPhotos() async {
+    await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
+
+    final Map<String, List<Map<String, String>>> rawCategorizedImages = {
+      "Tümü": [
+        {
+          "title": "Erzincan Vadisi",
+          "url": "https://picsum.photos/id/1015/600/900"
+        },
+        {
+          "title": "Dağ Manzarası",
+          "url": "https://picsum.photos/id/1016/600/900"
+        },
+        {
+          "title": "Köprü ve Irmak",
+          "url": "https://picsum.photos/id/1018/600/900"
+        },
+        {
+          "title": "Tarihi Evler",
+          "url": "https://picsum.photos/id/1019/600/900"
+        },
+        {
+          "title": "Erzincan Sofrası",
+          "url": "https://picsum.photos/id/1020/600/900"
+        },
+        {
+          "title": "Mimari Detaylar",
+          "url": "https://picsum.photos/id/1021/600/900"
+        },
+        {"title": "Yayla Yolu", "url": "https://picsum.photos/id/1022/600/900"},
+        {
+          "title": "Kültürel Etkinlik",
+          "url": "https://picsum.photos/id/1023/600/900"
+        },
+        {
+          "title": "Lezzetli Tatlar",
+          "url": "https://picsum.photos/id/1024/600/900"
+        },
+        {
+          "title": "Erzincan Manzarası",
+          "url": "https://picsum.photos/id/1025/600/900"
+        },
+      ],
+      "Doğa": [
+        {
+          "title": "Erzincan Vadisi",
+          "url": "https://picsum.photos/id/1015/600/900"
+        },
+        {
+          "title": "Dağ Manzarası",
+          "url": "https://picsum.photos/id/1016/600/900"
+        },
+        {"title": "Yayla Yolu", "url": "https://picsum.photos/id/1022/600/900"},
+        {
+          "title": "Erzincan Manzarası",
+          "url": "https://picsum.photos/id/1025/600/900"
+        },
+      ],
+      "Mimari": [
+        {
+          "title": "Tarihi Evler",
+          "url": "https://picsum.photos/id/1019/600/900"
+        },
+        {
+          "title": "Mimari Detaylar",
+          "url": "https://picsum.photos/id/1021/600/900"
+        },
+      ],
+      "Kültür": [
+        {
+          "title": "Kültürel Etkinlik",
+          "url": "https://picsum.photos/id/1023/600/900"
+        },
+      ],
+      "Yemek": [
+        {
+          "title": "Erzincan Sofrası",
+          "url": "https://picsum.photos/id/1020/600/900"
+        },
+        {
+          "title": "Lezzetli Tatlar",
+          "url": "https://picsum.photos/id/1024/600/900"
+        },
+      ]
+    };
+
+    final categorizedImages = <String, List<PhotoModel>>{};
+
+    rawCategorizedImages.forEach((key, value) {
+      categorizedImages[key] =
+          value.map((item) => PhotoModel.fromJson(item)).toList();
+    });
+
+    return categorizedImages;
   }
 }

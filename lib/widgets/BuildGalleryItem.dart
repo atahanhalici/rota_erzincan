@@ -1,0 +1,152 @@
+import 'dart:math' as math;
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page.dart';
+import 'package:rota_erzincan/pages/GalleryPage/gallery_page_view_model.dart';
+import 'package:provider/provider.dart';
+
+class BuildGalleryItem extends StatelessWidget {
+  final int index;
+  final AnimationController controller;
+
+  const BuildGalleryItem({
+    Key? key,
+    required this.index,
+    required this.controller,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _galleryModel =
+        Provider.of<GalleryPageViewModel>(context, listen: false);
+
+    return Hero(
+      tag: 'gallery_image_$index',
+      child: Material(
+        borderRadius: BorderRadius.circular(18),
+        elevation: 6,
+        shadowColor: Colors.black.withOpacity(0.3),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(18),
+          onTap: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    DetailPhotoView(
+                  imageUrl: _galleryModel.currentImageList[index].url,
+                  heroTag: 'gallery_image_$index',
+                  galleryImages: _galleryModel.currentImageUrls,
+                  initialIndex: index,
+                  title: "Erzincan Kareleri",
+                ),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  var tween = Tween(begin: 0.0, end: 1.0)
+                      .chain(CurveTween(curve: Curves.easeInOut));
+                  return FadeTransition(
+                    opacity: animation.drive(tween),
+                    child: child,
+                  );
+                },
+              ),
+            );
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                FadeInImage.assetNetwork(
+                  placeholder:
+                      ImageConstants.loading, // Yüklenirken gösterilecek resim
+                  image: _galleryModel.currentImageList[index].url,
+                  fit: BoxFit.cover,
+                ),
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          Colors.black.withOpacity(0.6),
+                        ],
+                        stops: const [0.7, 1.0],
+                      ),
+                    ),
+                  ),
+                ),
+                AnimatedBuilder(
+                  animation: controller,
+                  builder: (context, child) {
+                    return IgnorePointer(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment(-0.8, -0.8),
+                            end: Alignment(0.8, 0.8),
+                            colors: [
+                              Colors.white.withOpacity(0.0),
+                              Colors.white.withOpacity(
+                                  0.2 * math.sin(controller.value * math.pi)),
+                              Colors.white.withOpacity(0.0),
+                            ],
+                            stops: const [0.0, 0.5, 1.0],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                Positioned(
+                  bottom: 12,
+                  left: 12,
+                  right: 12,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          _galleryModel.currentImageList[index].title,
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            shadows: [
+                              Shadow(
+                                offset: const Offset(0, 1),
+                                blurRadius: 3,
+                                color: Colors.black.withOpacity(0.5),
+                              ),
+                            ],
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: const Icon(
+                          Icons.zoom_in,
+                          color: Colors.white,
+                          size: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

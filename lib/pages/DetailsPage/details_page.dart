@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
-import 'package:rota_erzincan/pages/FullScreenGallery/full_screen_gallery_page.dart';
+import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/BuildCircularButton.dart';
 import 'package:rota_erzincan/widgets/BuildInfoItem.dart';
@@ -455,10 +455,14 @@ class _DetailsPageState extends State<DetailsPage>
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              FullscreenGallery(
-                                            images: viewModel.imageUrls,
+                                          builder: (context) => DetailPhotoView(
+                                            imageUrl:
+                                                viewModel.imageUrls[index],
+                                            heroTag: 'gallery_image_$index',
+                                            galleryImages: viewModel.imageUrls,
                                             initialIndex: index,
+                                            title:
+                                                'Terzibaba Mezarlığı ve Türbesi', // Replace with your dynamic title
                                           ),
                                         ),
                                       );
