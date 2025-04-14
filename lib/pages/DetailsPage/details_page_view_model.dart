@@ -7,8 +7,14 @@ import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuLogoItem.dart';
 
 class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
+  // Animasyon kontrolleri
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
+  late Animation<double> _slideAnimation;
+  late Animation<double> _headerAnimation;
+  late Animation<double> _galleryAnimation;
+  late Animation<double> _buttonsAnimation;
+
   bool isExpanded = false;
   bool isSpeaking = false;
   final String fullText =
@@ -19,15 +25,23 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
   final List<String> imageUrls = List.generate(
       3, (index) => 'https://picsum.photos/800/500?random=$index');
   final FlutterTts _flutterTts = FlutterTts();
-  // Getter for animation
+
+  // Getters for animations
   AnimationController get controller => _controller;
   Animation<double> get fadeAnimation => _fadeAnimation;
+  Animation<double> get slideAnimation => _slideAnimation;
+  Animation<double> get headerAnimation => _headerAnimation;
+  Animation<double> get galleryAnimation => _galleryAnimation;
+  Animation<double> get buttonsAnimation => _buttonsAnimation;
 
   void init({required TickerProvider vsync}) {
+    // Ana animasyon kontrolcüsü
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: vsync,
     );
+
+    // Animasyonları oluştur
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
@@ -35,7 +49,38 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
       ),
     );
 
+    _slideAnimation = Tween<double>(begin: 50.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.2, 0.7, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    _headerAnimation = Tween<double>(begin: -30.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.1, 0.5, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    _galleryAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.5, 0.9, curve: Curves.easeOut),
+      ),
+    );
+
+    _buttonsAnimation = Tween<double>(begin: 20.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.3, 0.8, curve: Curves.easeOutBack),
+      ),
+    );
+
+    // Animasyonu başlat
     _controller.forward();
+
+    // TTS ayarları
     _flutterTts.setStartHandler(() {
       isSpeaking = true;
       notifyListeners();
@@ -70,7 +115,6 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
     await _flutterTts.speak(fullText);
   }
 
-  // Gerekirse stop fonksiyonu da ekleyebilirsin
   Future<void> stopSpeaking() async {
     await _flutterTts.stop();
   }
@@ -83,15 +127,12 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
     }
   }
 
-  final double targetLatitude =
-      39.71662446276216; // Örnek: Erzincan Merkez Koordinatları (Terzibaba Camii için güncelleyin)
-  final double targetLongitude =
-      39.4981052503663; // Örnek: Erzincan Merkez Koordinatları (Terzibaba Camii için güncelleyin)
-  final String targetTitle = "Terzibaba Camii"; // Haritada gösterilecek başlık
+  final double targetLatitude = 39.71662446276216;
+  final double targetLongitude = 39.4981052503663;
+  final String targetTitle = "Terzibaba Camii";
   String? _mapErrorMessage;
-  String? get mapErrorMessage => _mapErrorMessage; // UI'ın okuması için getter
+  String? get mapErrorMessage => _mapErrorMessage;
 
-  // Hata mesajını temizleyen fonksiyon
   void clearMapError() {
     _mapErrorMessage = null;
     notifyListeners();
@@ -155,10 +196,9 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
                   return FancyMenuLogoItem(
                     icon: map.icon,
                     label: map.mapName,
-                    color: themeProvider
-                        .buttonColor, // You can customize the color based on the map type
+                    color: themeProvider.buttonColor,
                     onTap: () {
-                      Navigator.pop(context); // Close the sheet
+                      Navigator.pop(context);
                       MapLauncher.showMarker(
                         mapType: map.mapType,
                         coords: Coords(targetLatitude, targetLongitude),
@@ -177,5 +217,21 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
       _mapErrorMessage = 'Harita uygulaması açılırken bir hata oluştu.';
       notifyListeners();
     }
+  }
+
+  // Her bir galeri öğesi için animasyon oluşturucu yardımcı metodu
+  Animation<double> createGalleryItemAnimation(
+      int index, AnimationController controller) {
+    final delay = 0.5 + (index * 0.1);
+    return Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: Interval(
+          delay < 1.0 ? delay : 0.9,
+          (delay + 0.2) < 1.0 ? (delay + 0.2) : 1.0,
+          curve: Curves.easeOutQuart,
+        ),
+      ),
+    );
   }
 }
