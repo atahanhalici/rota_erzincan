@@ -140,6 +140,7 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
 
   void disposeController() {
     timer?.cancel();
+    animationController.dispose(); // BU SATIR OLMALI
     pageController.dispose();
   }
 }
