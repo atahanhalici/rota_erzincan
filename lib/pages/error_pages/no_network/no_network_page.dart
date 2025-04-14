@@ -22,20 +22,45 @@ class NoNetworkPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Spacer(),
-              Image.asset(ImageConstants.noNetworkVector),
-              context.sized.emptySizedHeightBoxLow,
-              Text(StringConstants.noNetwork,
-                  style: GoogleFonts.poppins(
-                    textStyle: context.general.textTheme.headlineMedium!
-                        .copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: themeProvider.textColor),
-                  )),
-              context.sized.emptySizedHeightBoxLow3x,
-              Text(
-                StringConstants.noNetworkSub,
-                style: context.general.textTheme.titleMedium!
-                    .copyWith(color: themeProvider.textColor),
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: themeProvider.cardColor,
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: [
+                    BoxShadow(
+                      color: themeProvider.buttonColor.withOpacity(0.2),
+                      blurRadius: 20,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(ImageConstants.noNetworkVector),
+                    const SizedBox(height: 24),
+                    Text(
+                      StringConstants.noNetwork,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        textStyle:
+                            context.general.textTheme.headlineMedium!.copyWith(
+                          fontWeight: FontWeight.w500,
+                          color: themeProvider.textColor,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      StringConstants.noNetworkSub,
+                      textAlign: TextAlign.center,
+                      style: context.general.textTheme.titleMedium!.copyWith(
+                        color: themeProvider.textColor.withOpacity(0.85),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const Spacer(),
               Image.asset(

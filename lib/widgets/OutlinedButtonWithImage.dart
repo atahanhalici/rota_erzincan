@@ -9,10 +9,12 @@ class OutlinedButtonWithImage extends StatelessWidget {
   final String text;
   final String imagePath;
   final Color textColor;
+  final Color backgroundColor;
   const OutlinedButtonWithImage(
       {super.key,
       required this.onPressed,
       required this.textColor,
+      required this.backgroundColor,
       required this.text,
       required this.imagePath});
 
@@ -26,7 +28,7 @@ class OutlinedButtonWithImage extends StatelessWidget {
           width: double.infinity,
           height: context.sized.dynamicHeight(0.06),
           decoration: BoxDecoration(
-            color: ColorConstants.outlinedButtonColor,
+            color: backgroundColor,
             border: Border.all(color: ColorConstants.outlinedButtonBorderColor),
             borderRadius:
                 BorderRadius.circular(context.sized.dynamicHeight(0.06)),
@@ -47,10 +49,10 @@ class OutlinedButtonWithImage extends StatelessWidget {
                     child: Text(
                       text.toUpperCase(),
                       style: GoogleFonts.poppins(
-                          textStyle: context.general.textTheme.labelMedium!
-                              .copyWith(
-                                  color: textColor,
-                                  fontWeight: FontWeight.w600)),
+                          textStyle: TextStyle(
+                              color: textColor,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600)),
                     )),
               ],
             ),

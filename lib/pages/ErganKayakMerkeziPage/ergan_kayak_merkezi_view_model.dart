@@ -88,6 +88,10 @@ class ErganViewModel extends ChangeNotifier with BaseViewModel {
     animationController.forward();
   }
 
+  void navigateToCameras() {
+    navigationService.navigateToPage("/cameras", null);
+  }
+
   Widget get animatedTextKit => AnimatedTextKit(
         animatedTexts: [
           TypewriterAnimatedText('Heyecan dolu kayak deneyimi',

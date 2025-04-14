@@ -25,23 +25,46 @@ class NotFound extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Spacer(
-              flex: 7,
+              flex: 8,
             ),
-            Image.asset(ImageConstants.notFound),
-            Text(
-              StringConstants.notFound,
-              style: GoogleFonts.poppins(
-                textStyle: context.general.textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: themeProvider.textColor),
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: themeProvider.cardColor,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: themeProvider.buttonColor.withOpacity(0.2),
+                    blurRadius: 20,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
               ),
-              textAlign: TextAlign.center,
-            ),
-            context.sized.emptySizedHeightBoxLow3x,
-            Text(
-              StringConstants.notFoundSub,
-              style: context.general.textTheme.titleMedium!
-                  .copyWith(color: themeProvider.textColor),
+              child: Column(
+                children: [
+                  Image.asset(ImageConstants.notFound),
+                  const SizedBox(height: 24),
+                  Text(
+                    StringConstants.notFound,
+                    style: GoogleFonts.poppins(
+                      textStyle:
+                          context.general.textTheme.headlineMedium!.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: themeProvider.textColor,
+                      ),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    StringConstants.notFoundSub,
+                    style: context.general.textTheme.titleMedium!.copyWith(
+                      color: themeProvider.textColor.withOpacity(0.85),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
             const Spacer(
               flex: 5,

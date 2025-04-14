@@ -10,7 +10,7 @@ class StringConstants {
   static const String notFound = "Aradığınız Sayfayı Bulamadık";
   static const String notFoundSub =
       "Bir şeyler yanlış gitmiş olmalı. Lütfen daha sonra tekrar deneyin.";
-  static const String back = "Back";
+  static const String back = "Geri Dön";
   //endregion
 
   //region No Network screen strings

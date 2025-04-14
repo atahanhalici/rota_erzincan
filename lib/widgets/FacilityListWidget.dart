@@ -90,7 +90,11 @@ class _FacilityListWidgetState extends State<FacilityListWidget> {
                                     offset: Offset(
                                         0, 20 * (1 - itemAnimation.value)),
                                     child: GestureDetector(
-                                      onTap: item.onTap,
+                                      onTap: () {
+                                        if (item.label == "Kameralar") {
+                                          _erganModel.navigateToCameras();
+                                        }
+                                      },
                                       child: Container(
                                         margin: const EdgeInsets.symmetric(
                                             vertical: 8),

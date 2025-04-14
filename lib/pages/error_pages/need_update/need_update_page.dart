@@ -27,25 +27,51 @@ class NeedUpdatePage extends StatelessWidget {
             const Spacer(
               flex: 2,
             ),
-            Image.asset(ImageConstants.updateRequiredVector),
-            Text(
-              StringConstants.needUpdate,
-              style: GoogleFonts.poppins(
-                textStyle: context.general.textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: themeProvider.textColor),
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: themeProvider.cardColor,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: themeProvider.buttonColor.withOpacity(0.2),
+                    blurRadius: 20,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
               ),
-            ),
-            context.sized.emptySizedHeightBoxLow3x,
-            Text(
-              StringConstants.needUpdateSub,
-              style: context.general.textTheme.titleMedium!
-                  .copyWith(color: themeProvider.textColor),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(ImageConstants.updateRequiredVector),
+                  const SizedBox(height: 24),
+                  Text(
+                    StringConstants.needUpdate,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      textStyle:
+                          context.general.textTheme.headlineMedium!.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: themeProvider.textColor,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    StringConstants.needUpdateSub,
+                    textAlign: TextAlign.center,
+                    style: context.general.textTheme.titleMedium!.copyWith(
+                      color: themeProvider.textColor.withOpacity(0.85),
+                    ),
+                  ),
+                ],
+              ),
             ),
             const Spacer(),
             OutlinedButtonWithImage(
                 onPressed: () {},
-                textColor: themeProvider.textColor,
+                backgroundColor: themeProvider.buttonColor,
+                textColor: Colors.white,
                 text: StringConstants.update,
                 imagePath: imagePath),
             const Spacer(),
