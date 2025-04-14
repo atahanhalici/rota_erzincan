@@ -95,11 +95,15 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
     navigationService.navigateToPage("/details", null);
   }
 
+  void navigateToErgan(BuildContext context) {
+    navigationService.navigateToPage("/ergan", null);
+  }
+
   void navigateBottomBar(BuildContext context, int index) {
     if (index == 0) {
       navigationService.navigateToPageClear("/home", null);
     } else if (index == 1) {
-      //navigationService.navigateToPage("/home", null);
+      // navigationService.navigateToPage("/ergan", null);
     } else if (index == 2) {
       navigationService.navigateToPageClear("/gallery", null);
     }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rota_erzincan/animations/right_transition.dart';
 import 'package:rota_erzincan/constants/navigator_constants.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page.dart';
+import 'package:rota_erzincan/pages/ErganKayakMerkeziPage/ergan_kayak_merkezi_page.dart';
 import 'package:rota_erzincan/pages/GalleryPage/gallery_page.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page.dart';
@@ -40,6 +41,8 @@ class NavigationRoute {
         return slideAnimatedRoute(const DetailsPage(), args.arguments);
       case NavigatorConstants.GALLERY:
         return slideAnimatedRoute(GalleryPage(), args.arguments);
+      case NavigatorConstants.ERGAN:
+        return slideAnimatedRoute(const ErganKayakMerkeziPage(), args.arguments);
       default:
         return slideAnimatedRoute(const NotFound(), args.arguments);
     }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class DestinationCard extends StatefulWidget {
@@ -49,7 +50,7 @@ class _DestinationCardState extends State<DestinationCard>
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-
+    final _homeModel = Provider.of<HomePageViewModel>(context, listen: true);
     return MouseRegion(
       onEnter: (_) {
         setState(() => _isHovered = true);
@@ -61,7 +62,9 @@ class _DestinationCardState extends State<DestinationCard>
       },
       child: GestureDetector(
         onTap: () {
-          // Kategoriye göre ilgili sayfaya yönlendirme yapılabilir
+          if (widget.title.contains("Ergan")) {
+            _homeModel.navigateToErgan(context);
+          }
         },
         onTapDown: (_) {
           _controller.forward();
