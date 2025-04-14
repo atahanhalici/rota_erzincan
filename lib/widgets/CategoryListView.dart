@@ -50,7 +50,7 @@ class _CategoryListViewState extends State<CategoryListView> {
 
         // Kategoriler Listesi (Veri Gelene Kadar Shimmer Efekti)
         if (viewModel.isLoading)
-          _buildShimmerEffect() // Eğer veri yoksa shimmer göster
+          _buildShimmerEffect(themeProvider) // Eğer veri yoksa shimmer göster
         else
           ListView.builder(
             shrinkWrap: true,
@@ -78,7 +78,7 @@ class _CategoryListViewState extends State<CategoryListView> {
     );
   }
 
-  Widget _buildShimmerEffect() {
+  Widget _buildShimmerEffect(ThemeProvider themeProvider) {
     return Column(
       children: List.generate(6, (index) {
         return Padding(
@@ -90,7 +90,7 @@ class _CategoryListViewState extends State<CategoryListView> {
             child: Container(
               height: 180,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: themeProvider.shimmerColor,
                 borderRadius: BorderRadius.circular(24),
               ),
             ),

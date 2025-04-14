@@ -25,6 +25,7 @@ class _ErganKayakMerkeziPageState extends State<ErganKayakMerkeziPage>
     super.initState();
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     _viewModel = ErganViewModel(vsync: this, themeProvider: themeProvider);
+    _viewModel.init();
   }
 
   @override

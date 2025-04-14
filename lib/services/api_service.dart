@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rota_erzincan/models/CategoryModel.dart';
+import 'package:rota_erzincan/models/FacilityModel.dart';
 import 'package:rota_erzincan/models/FeatureModel.dart';
+import 'package:rota_erzincan/models/InfoCardModel.dart';
 import 'package:rota_erzincan/models/PhotoModel.dart';
 
 class ApiService {
@@ -78,6 +80,66 @@ class ApiService {
     ];
 
     return _features.map((item) => FeatureModel.fromJson(item)).toList();
+  }
+
+  Future<List<InfoCardModel>> fetchInfoCards() async {
+    await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
+
+    final rawData = [
+      {"label": "Sıcaklık", "value": "-2°C", "icon": "thermostat"},
+      {"label": "Rüzgar", "value": "15 km/h", "icon": "air"},
+      {"label": "Hava", "value": "Kar Yağışlı", "icon": "cloud"},
+      {"label": "3278 m", "value": "150 cm", "icon": "ac_unit"},
+      {"label": "2355 m", "value": "120 cm", "icon": "ac_unit"},
+      {"label": "1740 m", "value": "95 cm", "icon": "ac_unit"},
+    ];
+
+    List<InfoCardModel> infoCards =
+        rawData.map((e) => InfoCardModel.fromJson(e)).toList();
+    return infoCards;
+  }
+
+  Future<List<FacilityModel>> fetchFacilityItems() async {
+    await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
+
+    final List<Map<String, dynamic>> items = [
+      {
+        "label": "Kameralar",
+        "icon": Icons.videocam,
+        "active": true,
+        "extraText": "İzlemek için tıklayın",
+        "onTap": () {},
+      },
+      {
+        "label": "Gondol",
+        "icon": Icons.cable,
+        "active": true,
+      },
+      {
+        "label": "Kızak Pisti",
+        "icon": Icons.snowboarding,
+        "active": false,
+      },
+      {
+        "label": "T-Bar",
+        "icon": Icons.arrow_upward,
+        "active": true,
+      },
+      {
+        "label": "1. Etap",
+        "icon": Icons.landscape,
+        "active": true,
+      },
+      {
+        "label": "2. Etap",
+        "icon": Icons.terrain,
+        "active": false,
+      },
+    ];
+
+    List<FacilityModel> facilityItems =
+        items.map((e) => FacilityModel.fromJson(e)).toList();
+    return facilityItems;
   }
 
   Future<Map<String, List<PhotoModel>>> fetchGalleryPhotos() async {

@@ -1,4 +1,6 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/CategoryModel.dart';
 import 'package:rota_erzincan/models/FeatureModel.dart';
@@ -21,6 +23,40 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
   late Animation<double> categoryHeaderAnimation;
   late Animation<double> categoryListAnimation;
   late Animation<double> infoCardAnimation;
+
+  Widget get animatedTextKit => DefaultTextStyle(
+        style: GoogleFonts.poppins(
+          fontSize: 17,
+          fontWeight: FontWeight.w500,
+          color: Colors.white.withOpacity(0.95),
+        ),
+        child: AnimatedTextKit(
+          animatedTexts: [
+            TypewriterAnimatedText(
+              'Keşfetmeye',
+              speed: const Duration(milliseconds: 100),
+              cursor: '',
+            ),
+            TypewriterAnimatedText(
+              'Öğrenmeye',
+              speed: const Duration(milliseconds: 100),
+              cursor: '',
+            ),
+            TypewriterAnimatedText(
+              'Tatmaya',
+              speed: const Duration(milliseconds: 100),
+              cursor: '',
+            ),
+            TypewriterAnimatedText(
+              'Maceraya',
+              speed: const Duration(milliseconds: 100),
+              cursor: '',
+            ),
+          ],
+          repeatForever: true,
+          pause: const Duration(milliseconds: 1500),
+        ),
+      );
 
   HomePageViewModel() {
     fetchCategoryData();

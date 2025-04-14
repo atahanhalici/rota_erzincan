@@ -7,7 +7,6 @@ import 'package:rota_erzincan/widgets/AppBar.dart';
 import 'package:rota_erzincan/widgets/CategoryList.dart';
 import 'package:rota_erzincan/widgets/CategoryListView.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:rota_erzincan/widgets/CustomBottomNavBar.dart';
 import 'package:rota_erzincan/widgets/CustomDrawer.dart';
 
@@ -18,7 +17,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   late HomePageViewModel _homeModel;
 
   @override
@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                               Opacity(
                                 opacity: 0.4,
                                 child: Image.network(
-                                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/YbJ067cDS03GSSQ.jpg?alt=media&token=50bfb43b-07dc-4250-b2a2-7f667fcc1321", 
+                                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/YbJ067cDS03GSSQ.jpg?alt=media&token=50bfb43b-07dc-4250-b2a2-7f667fcc1321",
                                   fit: BoxFit.cover,
                                   width: double.infinity,
                                   height: double.infinity,
@@ -148,7 +148,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 animation: _homeModel.headerAnimation,
                                 builder: (context, child) {
                                   return Transform.translate(
-                                    offset: Offset(0, _homeModel.headerAnimation.value),
+                                    offset: Offset(
+                                        0, _homeModel.headerAnimation.value),
                                     child: Text(
                                       "Erzincan'da",
                                       style: GoogleFonts.poppins(
@@ -173,50 +174,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 animation: _homeModel.subHeaderAnimation,
                                 builder: (context, child) {
                                   return Opacity(
-                                    opacity: _homeModel.subHeaderAnimation.value,
+                                    opacity:
+                                        _homeModel.subHeaderAnimation.value,
                                     child: Row(
                                       children: [
                                         // Değişen kısım
-                                        DefaultTextStyle(
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white.withOpacity(0.95),
-                                          ),
-                                          child: AnimatedTextKit(
-                                            animatedTexts: [
-                                              TypewriterAnimatedText(
-                                                'Keşfetmeye',
-                                                speed: const Duration(milliseconds: 100),
-                                                cursor: '',
-                                              ),
-                                              TypewriterAnimatedText(
-                                                'Öğrenmeye',
-                                                speed: const Duration(milliseconds: 100),
-                                                cursor: '',
-                                              ),
-                                              TypewriterAnimatedText(
-                                                'Tatmaya',
-                                                speed: const Duration(milliseconds: 100),
-                                                cursor: '',
-                                              ),
-                                              TypewriterAnimatedText(
-                                                'Maceraya',
-                                                speed: const Duration(milliseconds: 100),
-                                                cursor: '',
-                                              ),
-                                            ],
-                                            repeatForever: true,
-                                            pause: const Duration(milliseconds: 1500),
-                                          ),
-                                        ),
+                                        _homeModel.animatedTextKit,
                                         const SizedBox(width: 4),
                                         Text(
                                           "hazır mısın? ",
                                           style: GoogleFonts.poppins(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w500,
-                                            color: Colors.white.withOpacity(0.95),
+                                            color:
+                                                Colors.white.withOpacity(0.95),
                                           ),
                                         ),
                                       ],
@@ -237,7 +208,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   animation: _homeModel.categoryHeaderAnimation,
                   builder: (context, child) {
                     return Transform.translate(
-                      offset: Offset(0, _homeModel.categoryHeaderAnimation.value),
+                      offset:
+                          Offset(0, _homeModel.categoryHeaderAnimation.value),
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
                         child: Row(
@@ -254,7 +226,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                     borderRadius: BorderRadius.circular(4),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: themeProvider.buttonColor.withOpacity(0.4),
+                                        color: themeProvider.buttonColor
+                                            .withOpacity(0.4),
                                         blurRadius: 8,
                                         offset: const Offset(0, 2),
                                       ),
@@ -266,8 +239,15 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   shaderCallback: (bounds) {
                                     return LinearGradient(
                                       colors: themeProvider.isDarkMode
-                                          ? [Colors.white, Colors.white.withOpacity(0.8)]
-                                          : [themeProvider.textColor, themeProvider.textColor.withOpacity(0.8)],
+                                          ? [
+                                              Colors.white,
+                                              Colors.white.withOpacity(0.8)
+                                            ]
+                                          : [
+                                              themeProvider.textColor,
+                                              themeProvider.textColor
+                                                  .withOpacity(0.8)
+                                            ],
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomRight,
                                     ).createShader(bounds);
@@ -303,7 +283,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   },
                 ),
                 const SizedBox(height: 10),
-                
+
                 // Kategori Listesi - Animasyonlu
                 AnimatedBuilder(
                   animation: _homeModel.categoryListAnimation,
@@ -317,9 +297,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     );
                   },
                 ),
-                
+
                 const SizedBox(height: 10),
-                
+
                 // Ana Kategoriler - Animasyonlu
                 AnimatedBuilder(
                   animation: _homeModel.categoryListAnimation,
@@ -341,7 +321,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     return Opacity(
                       opacity: _homeModel.infoCardAnimation.value,
                       child: Transform.translate(
-                        offset: Offset(0, 30 * (1 - _homeModel.infoCardAnimation.value)),
+                        offset: Offset(
+                            0, 30 * (1 - _homeModel.infoCardAnimation.value)),
                         child: Padding(
                           padding: const EdgeInsets.all(24.0),
                           child: Container(
@@ -353,7 +334,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 BoxShadow(
                                   color: themeProvider.isDarkMode
                                       ? themeProvider.textColor.withOpacity(0.3)
-                                      : themeProvider.buttonColor.withOpacity(0.3),
+                                      : themeProvider.buttonColor
+                                          .withOpacity(0.3),
                                   blurRadius: 15,
                                   offset: const Offset(0, 0),
                                 ),
@@ -367,7 +349,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                     Container(
                                       padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
-                                        color: themeProvider.buttonColor.withOpacity(0.1),
+                                        color: themeProvider.buttonColor
+                                            .withOpacity(0.1),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Icon(
@@ -393,7 +376,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     height: 1.5,
-                                    color: themeProvider.textColor.withOpacity(0.8),
+                                    color: themeProvider.textColor
+                                        .withOpacity(0.8),
                                   ),
                                 ),
                                 const SizedBox(height: 16),
@@ -404,7 +388,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                       _homeModel.navigateToDetails(context);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: themeProvider.buttonColor,
+                                      backgroundColor:
+                                          themeProvider.buttonColor,
                                       foregroundColor: Colors.white,
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 20, vertical: 12),

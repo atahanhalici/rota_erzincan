@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:rota_erzincan/core/base/base_view_model.dart';
+import 'package:rota_erzincan/models/FacilityModel.dart';
+import 'package:rota_erzincan/models/InfoCardModel.dart';
+import 'package:rota_erzincan/services/api_service.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
-class ErganViewModel extends ChangeNotifier {
+class ErganViewModel extends ChangeNotifier with BaseViewModel {
+  final ApiService _apiService = ApiService();
   late AnimationController animationController;
   late Animation<double> headerAnimation;
   late Animation<double> infoCardsAnimation;
@@ -11,6 +16,26 @@ class ErganViewModel extends ChangeNotifier {
   late Animation<double> aboutSectionAnimation;
 
   late ThemeProvider themeProvider;
+  bool isLoading = false;
+  bool isInitialized = false;
+  List<InfoCardModel> infoCards = [];
+  List<FacilityModel> facilityItems = [];
+
+  Future<void> init() async {
+    if (isInitialized) return;
+
+    isLoading = true;
+    notifyListeners();
+
+    // 🔽 Buraya API çağrıları
+
+    infoCards = await _apiService.fetchInfoCards(); // örnek
+    facilityItems = await _apiService.fetchFacilityItems(); // örnek
+
+    isLoading = false;
+    isInitialized = true;
+    notifyListeners();
+  }
 
   ErganViewModel({
     required TickerProvider vsync,

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:rota_erzincan/pages/ErganKayakMerkeziPage/ergan_kayak_merkezi_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class WeatherSectionWidget extends StatelessWidget {
   final Animation<double> animation;
@@ -10,14 +13,8 @@ class WeatherSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final infoCards = [
-      {"label": "Sıcaklık", "value": "-2°C", "icon": Icons.thermostat},
-      {"label": "Rüzgar", "value": "15 km/h", "icon": Icons.air},
-      {"label": "Hava", "value": "Kar Yağışlı", "icon": Icons.cloud},
-      {"label": "3278 m", "value": "150 cm", "icon": Icons.ac_unit},
-      {"label": "2355 m", "value": "120 cm", "icon": Icons.ac_unit},
-      {"label": "1740 m", "value": "95 cm", "icon": Icons.ac_unit},
-    ];
+    ErganViewModel _erganModel =
+        Provider.of<ErganViewModel>(context, listen: true);
     return AnimatedBuilder(
       animation: animation,
       builder: (context, child) {
@@ -102,68 +99,94 @@ class WeatherSectionWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Container(
+                  SizedBox(
                     height: 140,
                     child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: infoCards.length,
-                      itemBuilder: (context, index) {
-                        final item = infoCards[index];
-                        return Container(
-                          width: 130,
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                themeProvider.buttonColor.withOpacity(0.9),
-                                themeProvider.buttonColor.withOpacity(0.6),
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color:
-                                    themeProvider.buttonColor.withOpacity(0.3),
-                                blurRadius: 12,
-                                offset: const Offset(0, 6),
+                        physics: const BouncingScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _erganModel.isLoading
+                            ? 4
+                            : _erganModel.infoCards.length,
+                        itemBuilder: (context, index) {
+                          if ( _erganModel.isLoading) {
+                            // 🔄 SHIMMER göster
+                            return AnimatedContainer(
+                              duration: const Duration(milliseconds: 400),
+                              curve: Curves.easeInOut,
+                              width: 130,
+                              margin: const EdgeInsets.symmetric(horizontal: 8),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                item['icon'] as IconData,
-                                color: Colors.white,
-                                size: 36,
-                              ),
-                              const SizedBox(height: 12),
-                              Text(
-                                item['label'] as String,
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
+                              child: Shimmer.fromColors(
+                                baseColor: const Color(0xFFE0E0E0), // açık gri
+                                highlightColor:
+                                    const Color(0xFFF5F5F5), // daha açık
+                                period: const Duration(milliseconds: 1000),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: themeProvider.shimmerColor,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
                                 ),
                               ),
-                              const SizedBox(height: 4),
-                              Text(
-                                item['value'] as String,
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
+                            );
+                          } else {
+                            // ✅ NORMAL içerik
+                            final item = _erganModel.infoCards[index];
+                            return AnimatedContainer(
+                              duration: const Duration(milliseconds: 400),
+                              curve: Curves.easeOut,
+                              width: 130,
+                              margin: const EdgeInsets.symmetric(horizontal: 8),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    themeProvider.buttonColor.withOpacity(0.9),
+                                    themeProvider.buttonColor.withOpacity(0.6),
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
                                 ),
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: themeProvider.buttonColor
+                                        .withOpacity(0.3),
+                                    blurRadius: 12,
+                                    offset: const Offset(0, 6),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(item.icon,
+                                      color: Colors.white, size: 36),
+                                  const SizedBox(height: 12),
+                                  Text(
+                                    item.label,
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    item.value,
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        }),
                   ),
                 ],
               ),

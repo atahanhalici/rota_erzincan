@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
+import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/CategoryCircle.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -10,6 +11,7 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<HomePageViewModel>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     if (viewModel.isLoading) {
       // Shimmer efekti
       return SizedBox(
@@ -29,8 +31,8 @@ class CategoryList extends StatelessWidget {
                   Container(
                     width: 100,
                     height: 100,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: themeProvider.shimmerColor,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -39,7 +41,7 @@ class CategoryList extends StatelessWidget {
                     width: 90,
                     height: 12,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: themeProvider.shimmerColor,
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
