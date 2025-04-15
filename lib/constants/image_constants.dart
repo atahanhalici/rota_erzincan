@@ -9,11 +9,11 @@ class ImageConstants {
   static final String loading = 'loading'.imageToJpg;
   static final String splash = 'splash'.imageToJpeg;
 
-  static final String serverError = 'server_error'.imageToPng;
-  static final String notFound = 'not_found_asset'.imageToPng;
-  static final String noNetworkVector = 'no_network'.imageToPng;
+  static final String serverError = 'server_error2'.imageToPng;
+  static final String notFound = 'not_found_asset2'.imageToPng;
+  static final String noNetworkVector = 'no_network2'.imageToPng;
   static final String updateRequiredVector =
-      'update_required_vector'.imageToPng;
+      'update_required_vector2'.imageToPng;
 
   static final String googlePlayStore = 'google_play_store'.iconToPng;
   static final String appleStore = 'apple_store'.iconToPng;
