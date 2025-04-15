@@ -17,4 +17,5 @@ class NavigatorConstants {
   static const STORY = "/story";
   static const GALLERY = "/gallery";
   static const ERGAN = "/ergan";
+  static const CAMERAS = "/cameras";
 }

@@ -5,6 +5,7 @@ import 'package:rota_erzincan/pages/DetailsPage/details_page.dart';
 import 'package:rota_erzincan/pages/ErganKayakMerkeziPage/ergan_kayak_merkezi_page.dart';
 import 'package:rota_erzincan/pages/GalleryPage/gallery_page.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.dart';
+import 'package:rota_erzincan/pages/LiveCamsPage/live_cams_page.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page.dart';
 import 'package:rota_erzincan/pages/StoryPage/story_page.dart';
 import 'package:rota_erzincan/pages/error_pages/need_update/need_update_page.dart';
@@ -43,6 +44,8 @@ class NavigationRoute {
         return slideAnimatedRoute(GalleryPage(), args.arguments);
       case NavigatorConstants.ERGAN:
         return slideAnimatedRoute(const ErganKayakMerkeziPage(), args.arguments);
+      case NavigatorConstants.CAMERAS:
+        return slideAnimatedRoute(const LiveCamsPage(), args.arguments);
       default:
         return slideAnimatedRoute(const NotFound(), args.arguments);
     }

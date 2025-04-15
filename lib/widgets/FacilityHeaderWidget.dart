@@ -5,7 +5,8 @@ import 'package:rota_erzincan/theme_provider.dart';
 class FacilityHeaderWidget extends StatelessWidget {
   final Animation<double> animation;
   final ThemeProvider themeProvider;
-  const FacilityHeaderWidget({super.key, required this.animation, required this.themeProvider});
+  const FacilityHeaderWidget(
+      {super.key, required this.animation, required this.themeProvider});
 
   @override
   Widget build(BuildContext context) {

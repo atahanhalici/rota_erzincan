@@ -23,9 +23,9 @@ extension _StringPath on String {
   String get imageToPng => 'assets/images/$this.png';
   String get imageToJpg => 'assets/images/$this.jpg';
   String get imageToJpeg => 'assets/images/$this.jpeg';
-  String get imageToGif => 'assets/images/$this.gif';
+ // String get imageToGif => 'assets/images/$this.gif';
   String get iconToPng => 'assets/icons/$this.png';
-  String get onboardingToPng => 'assets/onboarding/$this.png';
+ // String get onboardingToPng => 'assets/onboarding/$this.png';
   String get logoToPng => 'assets/logos/$this.png';
-  String get logoToJpg => 'assets/logos/$this.jpg';
+//  String get logoToJpg => 'assets/logos/$this.jpg';
 }

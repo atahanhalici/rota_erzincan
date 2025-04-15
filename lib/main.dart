@@ -11,6 +11,7 @@ import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page_view_model.dart';
 import 'package:rota_erzincan/pages/GalleryPage/gallery_page_view_model.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
+import 'package:rota_erzincan/pages/LiveCamsPage/live_cams_page_view_model.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page_view_model.dart';
 import 'package:rota_erzincan/pages/StoryPage/story_page_view_model.dart';
@@ -32,6 +33,7 @@ void main() async {
         ),
         ChangeNotifierProvider(create: (_) => splashViewModel),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => LiveCamsPageViewModel()),
       ],
       child: const MyApp(),
     ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/pages/ErganKayakMerkeziPage/ergan_kayak_merkezi_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AboutSectionWidget.dart';
+import 'package:rota_erzincan/widgets/AppBar.dart';
 import 'package:rota_erzincan/widgets/FacilityHeaderWidget.dart';
 import 'package:rota_erzincan/widgets/FacilityListWidget.dart';
 import 'package:rota_erzincan/widgets/HeroSectionWidget.dart';
@@ -43,17 +43,27 @@ class _ErganKayakMerkeziPageState extends State<ErganKayakMerkeziPage>
           return Scaffold(
             backgroundColor: themeProvider.backgroundColor,
             extendBodyBehindAppBar: true,
-            appBar: AppBar(
-              backgroundColor: themeProvider.cardColor.withOpacity(1),
-              elevation: 0,
-              centerTitle: true,
-              title: Text(
-                "Ergan Dağı Kayak Merkezi",
-                style: GoogleFonts.poppins(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: themeProvider.textColor,
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(kToolbarHeight),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                decoration: BoxDecoration(
+                  color: themeProvider.cardColor.withOpacity(0.85),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: themeProvider.isDarkMode
+                          ? Colors.black.withOpacity(0.4)
+                          : Colors.grey.withOpacity(0.2),
+                      blurRadius: 15,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
+                child: const Appbar(),
               ),
             ),
             body: Stack(
