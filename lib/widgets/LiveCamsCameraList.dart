@@ -79,7 +79,7 @@ class LiveCamsCameraList extends StatelessWidget {
                         AspectRatio(
                           aspectRatio: 16 / 9,
                           child: Image.asset(
-                            ImageConstants.logo,
+                            ImageConstants.ergan,
                             fit: BoxFit.cover,
                           ),
                         ),

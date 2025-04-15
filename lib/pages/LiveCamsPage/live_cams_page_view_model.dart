@@ -11,23 +11,26 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
 
   final List<Map<String, dynamic>> cameras = [
     {
-      'name': 'Ergan Giriş',
+      'name': 'Ergan Kayak Merkezi - Göl',
       'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
-      'description': 'Ergan Kayak Merkezi giriş noktası canlı izleme kamerası',
+      'description':
+          'Ergan Göl bölgesine ait canlı kamera görüntüsü. Göl çevresi ve çevredeki doğal manzarayı anlık izleyebilirsiniz.',
       'status': 'Çevrimiçi',
       'icon': Icons.terrain
     },
     {
-      'name': 'Ergan Zirve',
+      'name': 'Ergan Kayak Merkezi - 1. Etap',
       'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
-      'description': 'Ergan Dağı zirvesindeki panoramik manzara',
+      'description':
+          '1. etap kayak pistinden canlı yayın. Pist giriş noktası ve çevresindeki kayak faaliyetlerini buradan takip edin.',
       'status': 'Çevrimiçi',
       'icon': Icons.landscape
     },
     {
-      'name': 'Ergan Pist',
+      'name': 'Ergan Kayak Merkezi - 2. Etap',
       'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
-      'description': 'Kayak pistlerinin canlı görüntüsü',
+      'description':
+          '2. etap zirve bölgesinden panoramik canlı yayın. Geniş manzara, kayak rotaları ve hava durumu takibi için birebir.',
       'status': 'Çevrimiçi',
       'icon': Icons.downhill_skiing
     },
