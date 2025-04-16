@@ -23,11 +23,34 @@ class _LiveCamsPageState extends State<LiveCamsPage>
     with SingleTickerProviderStateMixin {
   late LiveCamsPageViewModel viewModel;
 
+  late AnimationController _controller;
+  late Animation<double> _headerAnimation;
+
   @override
   void initState() {
     super.initState();
     viewModel = Provider.of<LiveCamsPageViewModel>(context, listen: false);
-    viewModel.initialize(this);
+    viewModel.initialize();
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+
+    _headerAnimation = Tween<double>(begin: -50, end: 0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.5, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   void _goFullScreen(String url, String title) {
@@ -79,11 +102,11 @@ class _LiveCamsPageState extends State<LiveCamsPage>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               LiveCamsHeaderTitle(
-                animation: viewModel.headerAnimation,
+                animation: _headerAnimation,
                 themeProvider: themeProvider,
               ),
               LiveCamsSubtitle(
-                animation: viewModel.controller,
+                animation: _controller,
                 themeProvider: themeProvider,
               ),
               Expanded(
@@ -91,7 +114,7 @@ class _LiveCamsPageState extends State<LiveCamsPage>
                     ? LiveCamsCameraList(
                         themeProvider: themeProvider,
                         cameras: viewModel.cameras,
-                        controller: viewModel.controller,
+                        controller: _controller,
                         onTap: _goFullScreen,
                       )
                     : LiveCamsShimmerList(themeProvider: themeProvider),

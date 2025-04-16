@@ -7,40 +7,21 @@ import 'package:video_player/video_player.dart';
 
 class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
   final ApiService _apiService = ApiService();
-  late final AnimationController controller;
-  late final Animation<double> headerAnimation;
   bool isInitialized = false;
   bool _isDisposed = false;
   bool isLoading = false;
 
   List<CameraModel> cameras = [];
-  /* LiveCamsPageViewModel() {
-    loadCameras();
-  }*/
 
   Future<void> loadCameras() async {
-    print("sa");
     isLoading = false;
-    cameras =
-        await _apiService.fetchFakeCameras(); // burası sahte veriyi alacak
+    cameras = await _apiService.fetchFakeCameras();
     isLoading = true;
     notifyListeners();
   }
 
-  void initialize(TickerProvider vsync) {
-    // 🛡️ controller zaten varsa yeniden oluşturma
-    if (isInitialized) return;
-    controller = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: vsync,
-    )..forward();
-
-    headerAnimation = Tween<double>(begin: -50, end: 0).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: const Interval(0.0, 0.5, curve: Curves.easeOutCubic),
-      ),
-    );
+  void initialize() {
+    isInitialized = false;
     loadCameras();
     isInitialized = true;
   }
@@ -48,25 +29,21 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
   @override
   void dispose() {
     _isDisposed = true;
-
-    // eğer controller varsa, dispose et
     try {
-      controller.dispose();
+      videoController.dispose();
     } catch (_) {}
-
     super.dispose();
   }
 
   void showControlsTemporarily() {
-    if (_isDisposed) return; // ✅ önce dispose kontrolü
-
+    if (_isDisposed) return;
     showPlayPause = true;
     notifyListeners();
 
     Future.delayed(const Duration(seconds: 3)).then((_) {
       if (_isDisposed) return;
       showPlayPause = false;
-      notifyListeners(); // ✅ sadece hâlâ aktifse
+      notifyListeners();
     });
   }
 
@@ -88,7 +65,7 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
         isVideoReady = true;
         videoController.play();
         notifyListeners();
-        onReady(); // FastLiveStream içinde setState tetiklemek için
+        onReady();
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
           DeviceOrientation.landscapeLeft,
