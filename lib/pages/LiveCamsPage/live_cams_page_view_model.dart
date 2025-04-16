@@ -11,6 +11,9 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
   bool isLoading = false;
 
   List<CameraModel> cameras = [];
+  LiveCamsPageViewModel() {
+    loadCameras();
+  }
 
   Future<void> loadCameras() async {
     isLoading = false;
@@ -19,7 +22,6 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
     isLoading = true;
     notifyListeners();
   }
-
 
   @override
   void dispose() {

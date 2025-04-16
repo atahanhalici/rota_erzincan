@@ -33,11 +33,6 @@ class _GalleryPageState extends State<GalleryPage>
         curve: Interval(0.0, 0.5, curve: Curves.easeOutCubic),
       ),
     );
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<GalleryPageViewModel>(context, listen: false)
-          .fetchGalleryPhotos();
-    });
   }
 
   @override
@@ -172,32 +167,46 @@ class _GalleryPageState extends State<GalleryPage>
 
               // Kategoriler
               _galleryModel.isLoading
-                  ? Container(
-                      height: 45,
-                      margin: const EdgeInsets.only(bottom: 20),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return Shimmer.fromColors(
-                            baseColor: const Color(0xFFE0E0E0), // açık gri
-                            highlightColor:
-                                const Color(0xFFF5F5F5), // daha açık
-                            period: const Duration(milliseconds: 1000),
-                            child: Container(
-                              margin: const EdgeInsets.only(right: 12),
-                              width: 90,
-                              height: 36,
-                              decoration: BoxDecoration(
-                                color: themeProvider.shimmerColor,
-                                borderRadius: BorderRadius.circular(20),
+                  ? AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, child) {
+                        return Transform.translate(
+                            offset: Offset(0, 50 * (1 - _controller.value)),
+                            child: Opacity(
+                              opacity: _controller.value,
+                              child: Container(
+                                height: 45,
+                                margin: const EdgeInsets.only(bottom: 20),
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  itemCount: 5,
+                                  itemBuilder: (context, index) {
+                                    return Shimmer.fromColors(
+                                      baseColor:
+                                          const Color(0xFFE0E0E0), // açık gri
+                                      highlightColor:
+                                          const Color(0xFFF5F5F5), // daha açık
+                                      period:
+                                          const Duration(milliseconds: 1000),
+                                      child: Container(
+                                        margin:
+                                            const EdgeInsets.only(right: 12),
+                                        width: 90,
+                                        height: 36,
+                                        decoration: BoxDecoration(
+                                          color: themeProvider.shimmerColor,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                    )
+                            ));
+                      })
                   : AnimatedBuilder(
                       animation: _controller,
                       builder: (context, child) {
@@ -284,20 +293,45 @@ class _GalleryPageState extends State<GalleryPage>
                             mainAxisSpacing: 16,
                             childAspectRatio: 0.75,
                           ),
-                          itemBuilder: (context, index) => Shimmer.fromColors(
-                            baseColor: const Color(0xFFE0E0E0), // açık gri
-                            highlightColor:
-                                const Color(0xFFF5F5F5), // daha açık
-                            period: const Duration(milliseconds: 1000),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: themeProvider.shimmerColor,
-                                borderRadius: BorderRadius.circular(18),
+                          itemBuilder: (context, index) {
+                            final delay = 0.2 + (index * 0.1);
+                            final delayedAnimation =
+                                Tween<double>(begin: 0.0, end: 1.0).animate(
+                              CurvedAnimation(
+                                parent: _controller,
+                                curve: Interval(delay < 1.0 ? delay : 0.9,
+                                    (delay + 0.2) < 1.0 ? (delay + 0.2) : 1.0,
+                                    curve: Curves.easeOutQuart),
                               ),
-                              margin: const EdgeInsets.only(bottom: 4),
-                            ),
-                          ),
-                        )
+                            );
+
+                            return AnimatedBuilder(
+                              animation: delayedAnimation,
+                              builder: (context, child) {
+                                return Transform.translate(
+                                  offset: Offset(
+                                      0, 50 * (1 - delayedAnimation.value)),
+                                  child: Opacity(
+                                    opacity: delayedAnimation.value,
+                                    child: child,
+                                  ),
+                                );
+                              },
+                              child: Shimmer.fromColors(
+                                baseColor: const Color(0xFFE0E0E0), // açık gri
+                                highlightColor:
+                                    const Color(0xFFF5F5F5), // daha açık
+                                period: const Duration(milliseconds: 1000),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: themeProvider.shimmerColor,
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                  margin: const EdgeInsets.only(bottom: 4),
+                                ),
+                              ),
+                            );
+                          })
                       : GridView.builder(
                           physics: const BouncingScrollPhysics(),
                           padding: const EdgeInsets.only(bottom: 100),

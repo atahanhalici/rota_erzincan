@@ -29,8 +29,6 @@ class _LiveCamsPageState extends State<LiveCamsPage>
   @override
   void initState() {
     super.initState();
-    viewModel = Provider.of<LiveCamsPageViewModel>(context, listen: false);
-    viewModel.loadCameras();
 
     _controller = AnimationController(
       duration: const Duration(seconds: 1),

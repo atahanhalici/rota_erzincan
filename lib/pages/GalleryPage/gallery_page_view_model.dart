@@ -5,7 +5,9 @@ import 'package:rota_erzincan/services/api_service.dart';
 
 class GalleryPageViewModel extends ChangeNotifier with BaseViewModel {
   final ApiService _apiService = ApiService();
-  GalleryPageViewModel();
+  GalleryPageViewModel() {
+    fetchGalleryPhotos();
+  }
 
   final List<String> categories = ["Tümü", "Doğa", "Mimari", "Kültür", "Yemek"];
   int selectedCategoryIndex = 0;
@@ -23,16 +25,6 @@ class GalleryPageViewModel extends ChangeNotifier with BaseViewModel {
 
   List<String> get currentImageUrls =>
       currentImageList.map((e) => e.url).toList();
-
-  void navigateBottomBar(BuildContext context, int index) {
-    if (index == 0) {
-      navigationService.navigateToPageClear("/home", null);
-    } else if (index == 1) {
-      // Placeholder
-    } else if (index == 2) {
-      navigationService.navigateToPageClear("/gallery", null);
-    }
-  }
 
   Future<void> fetchGalleryPhotos() async {
     isLoading = true;
