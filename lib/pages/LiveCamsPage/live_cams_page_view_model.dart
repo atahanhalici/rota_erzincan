@@ -7,7 +7,6 @@ import 'package:video_player/video_player.dart';
 
 class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
   final ApiService _apiService = ApiService();
-  bool isInitialized = false;
   bool _isDisposed = false;
   bool isLoading = false;
 
@@ -15,16 +14,12 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
 
   Future<void> loadCameras() async {
     isLoading = false;
+    _isDisposed = false;
     cameras = await _apiService.fetchFakeCameras();
     isLoading = true;
     notifyListeners();
   }
 
-  void initialize() {
-    isInitialized = false;
-    loadCameras();
-    isInitialized = true;
-  }
 
   @override
   void dispose() {

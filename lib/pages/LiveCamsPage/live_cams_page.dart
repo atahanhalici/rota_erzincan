@@ -30,7 +30,7 @@ class _LiveCamsPageState extends State<LiveCamsPage>
   void initState() {
     super.initState();
     viewModel = Provider.of<LiveCamsPageViewModel>(context, listen: false);
-    viewModel.initialize();
+    viewModel.loadCameras();
 
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
@@ -117,7 +117,10 @@ class _LiveCamsPageState extends State<LiveCamsPage>
                         controller: _controller,
                         onTap: _goFullScreen,
                       )
-                    : LiveCamsShimmerList(themeProvider: themeProvider),
+                    : LiveCamsShimmerList(
+                        themeProvider: themeProvider,
+                        controller: _controller,
+                      ),
               ),
             ],
           ),
