@@ -25,10 +25,12 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
 
   @override
   void dispose() {
-    _isDisposed = true;
-    try {
-      videoController.dispose();
-    } catch (_) {}
+    if (!_isDisposed) {
+      try {
+        videoController.dispose();
+      } catch (_) {}
+      _isDisposed = true;
+    }
     super.dispose();
   }
 
