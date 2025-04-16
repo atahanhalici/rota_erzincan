@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
@@ -21,18 +22,102 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   late HomePageViewModel _homeModel;
 
+  late AnimationController _controller;
+  late Animation<double> _headerAnimation;
+  late Animation<double> _subHeaderAnimation;
+  late Animation<double> _categoryHeaderAnimation;
+  late Animation<double> _categoryListAnimation;
+  late Animation<double> _infoCardAnimation;
+
   @override
   void initState() {
     super.initState();
     _homeModel = Provider.of<HomePageViewModel>(context, listen: false);
-    _homeModel.initAnimations(this);
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+
+    _headerAnimation = Tween<double>(begin: -50, end: 0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.5, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    _subHeaderAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.3, 0.7, curve: Curves.easeOut),
+      ),
+    );
+
+    _categoryHeaderAnimation = Tween<double>(begin: -30, end: 0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.4, 0.8, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    _categoryListAnimation = Tween<double>(begin: 50, end: 0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.5, 0.9, curve: Curves.easeOutQuart),
+      ),
+    );
+
+    _infoCardAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.6, 1.0, curve: Curves.easeOut),
+      ),
+    );
+
+    _controller.forward();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final args = ModalRoute.of(context)?.settings.arguments;
+    final shouldReset = args is Map && args['reset'] == true;
+
+    if (shouldReset) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _controller.reset();
+        _controller.forward();
+      });
+    }
   }
 
   @override
   void dispose() {
-    _homeModel.disposeAnimations();
+    _controller.dispose();
     super.dispose();
   }
+
+  Widget get animatedTextKit => DefaultTextStyle(
+        style: GoogleFonts.poppins(
+          fontSize: 17,
+          fontWeight: FontWeight.w500,
+          color: Colors.white.withOpacity(0.95),
+        ),
+        child: AnimatedTextKit(
+          animatedTexts: [
+            TypewriterAnimatedText('Keşfetmeye',
+                speed: const Duration(milliseconds: 100), cursor: ''),
+            TypewriterAnimatedText('Öğrenmeye',
+                speed: const Duration(milliseconds: 100), cursor: ''),
+            TypewriterAnimatedText('Tatmaya',
+                speed: const Duration(milliseconds: 100), cursor: ''),
+            TypewriterAnimatedText('Maceraya',
+                speed: const Duration(milliseconds: 100), cursor: ''),
+          ],
+          repeatForever: true,
+          pause: const Duration(milliseconds: 1500),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -145,11 +230,10 @@ class _HomePageState extends State<HomePage>
                             children: [
                               // Animasyonlu başlık
                               AnimatedBuilder(
-                                animation: _homeModel.headerAnimation,
+                                animation: _headerAnimation,
                                 builder: (context, child) {
                                   return Transform.translate(
-                                    offset: Offset(
-                                        0, _homeModel.headerAnimation.value),
+                                    offset: Offset(0, _headerAnimation.value),
                                     child: Text(
                                       "Erzincan'da",
                                       style: GoogleFonts.poppins(
@@ -171,15 +255,14 @@ class _HomePageState extends State<HomePage>
                               const SizedBox(height: 8),
                               // Animasyonlu alt başlık
                               AnimatedBuilder(
-                                animation: _homeModel.subHeaderAnimation,
+                                animation: _subHeaderAnimation,
                                 builder: (context, child) {
                                   return Opacity(
-                                    opacity:
-                                        _homeModel.subHeaderAnimation.value,
+                                    opacity: _subHeaderAnimation.value,
                                     child: Row(
                                       children: [
                                         // Değişen kısım
-                                        _homeModel.animatedTextKit,
+                                        animatedTextKit,
                                         const SizedBox(width: 4),
                                         Text(
                                           "hazır mısın? ",
@@ -205,11 +288,10 @@ class _HomePageState extends State<HomePage>
 
                 // Popüler Yerler (Yatay Kaydırılabilir) - Animasyonlu Başlık
                 AnimatedBuilder(
-                  animation: _homeModel.categoryHeaderAnimation,
+                  animation: _categoryHeaderAnimation,
                   builder: (context, child) {
                     return Transform.translate(
-                      offset:
-                          Offset(0, _homeModel.categoryHeaderAnimation.value),
+                      offset: Offset(0, _categoryHeaderAnimation.value),
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
                         child: Row(
@@ -286,12 +368,12 @@ class _HomePageState extends State<HomePage>
 
                 // Kategori Listesi - Animasyonlu
                 AnimatedBuilder(
-                  animation: _homeModel.categoryListAnimation,
+                  animation: _categoryListAnimation,
                   builder: (context, child) {
                     return Transform.translate(
-                      offset: Offset(0, _homeModel.categoryListAnimation.value),
+                      offset: Offset(0, _categoryListAnimation.value),
                       child: Opacity(
-                        opacity: _homeModel.animationController.value,
+                        opacity: _controller.value,
                         child: const CategoryList(),
                       ),
                     );
@@ -302,12 +384,12 @@ class _HomePageState extends State<HomePage>
 
                 // Ana Kategoriler - Animasyonlu
                 AnimatedBuilder(
-                  animation: _homeModel.categoryListAnimation,
+                  animation: _categoryListAnimation,
                   builder: (context, child) {
                     return Transform.translate(
-                      offset: Offset(0, _homeModel.categoryListAnimation.value),
+                      offset: Offset(0, _categoryListAnimation.value),
                       child: Opacity(
-                        opacity: _homeModel.animationController.value,
+                        opacity: _controller.value,
                         child: const CategoryListView(),
                       ),
                     );
@@ -316,13 +398,12 @@ class _HomePageState extends State<HomePage>
 
                 // Alt Bilgi - Erzincan Hakkında - Animasyonlu
                 AnimatedBuilder(
-                  animation: _homeModel.infoCardAnimation,
+                  animation: _infoCardAnimation,
                   builder: (context, child) {
                     return Opacity(
-                      opacity: _homeModel.infoCardAnimation.value,
+                      opacity: _infoCardAnimation.value,
                       child: Transform.translate(
-                        offset: Offset(
-                            0, 30 * (1 - _homeModel.infoCardAnimation.value)),
+                        offset: Offset(0, 30 * (1 - _infoCardAnimation.value)),
                         child: Padding(
                           padding: const EdgeInsets.all(24.0),
                           child: Container(
@@ -425,11 +506,8 @@ class _HomePageState extends State<HomePage>
             bottom: 0,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(30),
-              child: CustomBottomNavBar(
+              child: const CustomBottomNavBar(
                 currentIndex: 0,
-                onTap: (index) {
-                  _homeModel.navigateBottomBar(context, index);
-                },
               ),
             ),
           ),

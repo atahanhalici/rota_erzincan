@@ -98,13 +98,12 @@ class _LiveCamsPageState extends State<LiveCamsPage>
               ),
             ],
           ),
-          Positioned(
+          const Positioned(
             left: 16,
             right: 16,
             bottom: 0,
             child: CustomBottomNavBar(
               currentIndex: 0,
-              onTap: (index) {},
             ),
           ),
         ],

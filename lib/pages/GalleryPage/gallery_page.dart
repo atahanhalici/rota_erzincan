@@ -353,15 +353,12 @@ class _GalleryPageState extends State<GalleryPage>
           ),
 
           // Alt Navigation Bar
-          Positioned(
+          const Positioned(
             left: 16,
             right: 16,
             bottom: 0,
             child: CustomBottomNavBar(
               currentIndex: 2,
-              onTap: (index) {
-                _galleryModel.navigateBottomBar(context, index);
-              },
             ),
           ),
         ],

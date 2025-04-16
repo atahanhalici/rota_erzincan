@@ -2,16 +2,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int currentIndex;
-  final Function(int) onTap;
 
   const CustomBottomNavBar({
     super.key,
     required this.currentIndex,
-    required this.onTap,
   });
 
   @override
@@ -25,6 +24,7 @@ class CustomBottomNavBar extends StatelessWidget {
     ];
 
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final _homeModel = Provider.of<HomePageViewModel>(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final bottomPadding = MediaQuery.of(context).viewPadding.bottom;
 
@@ -79,7 +79,9 @@ class CustomBottomNavBar extends StatelessWidget {
 
                   return Expanded(
                     child: GestureDetector(
-                      onTap: () => onTap(idx),
+                      onTap: () {
+                         _homeModel.navigateBottomBar(context, idx);
+                      },
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeOut,

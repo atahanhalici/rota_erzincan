@@ -1,6 +1,4 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/CategoryModel.dart';
 import 'package:rota_erzincan/models/FeatureModel.dart';
@@ -16,104 +14,8 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
 
   bool isLoading = false;
 
-  // Animasyon kontrolleri
-  late AnimationController animationController;
-  late Animation<double> headerAnimation;
-  late Animation<double> subHeaderAnimation;
-  late Animation<double> categoryHeaderAnimation;
-  late Animation<double> categoryListAnimation;
-  late Animation<double> infoCardAnimation;
-
-  Widget get animatedTextKit => DefaultTextStyle(
-        style: GoogleFonts.poppins(
-          fontSize: 17,
-          fontWeight: FontWeight.w500,
-          color: Colors.white.withOpacity(0.95),
-        ),
-        child: AnimatedTextKit(
-          animatedTexts: [
-            TypewriterAnimatedText(
-              'Keşfetmeye',
-              speed: const Duration(milliseconds: 100),
-              cursor: '',
-            ),
-            TypewriterAnimatedText(
-              'Öğrenmeye',
-              speed: const Duration(milliseconds: 100),
-              cursor: '',
-            ),
-            TypewriterAnimatedText(
-              'Tatmaya',
-              speed: const Duration(milliseconds: 100),
-              cursor: '',
-            ),
-            TypewriterAnimatedText(
-              'Maceraya',
-              speed: const Duration(milliseconds: 100),
-              cursor: '',
-            ),
-          ],
-          repeatForever: true,
-          pause: const Duration(milliseconds: 1500),
-        ),
-      );
-
   HomePageViewModel() {
     fetchCategoryData();
-  }
-
-  void initAnimations(TickerProvider vsync) {
-    animationController = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: vsync,
-    );
-
-    headerAnimation = Tween<double>(begin: -50, end: 0).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: const Interval(0.0, 0.5, curve: Curves.easeOutCubic),
-      ),
-    );
-
-    subHeaderAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: const Interval(0.3, 0.7, curve: Curves.easeOut),
-      ),
-    );
-
-    categoryHeaderAnimation = Tween<double>(begin: -30, end: 0).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: const Interval(0.4, 0.8, curve: Curves.easeOutCubic),
-      ),
-    );
-
-    categoryListAnimation = Tween<double>(begin: 50, end: 0).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: const Interval(0.5, 0.9, curve: Curves.easeOutQuart),
-      ),
-    );
-
-    infoCardAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: const Interval(0.6, 1.0, curve: Curves.easeOut),
-      ),
-    );
-
-    // Animasyonu başlat
-    animationController.forward();
-  }
-
-  void disposeAnimations() {
-    animationController.dispose();
-  }
-
-  void resetAndPlayAnimations() {
-    animationController.reset();
-    animationController.forward();
   }
 
   Future<void> fetchCategoryData() async {
@@ -137,7 +39,7 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
 
   void navigateBottomBar(BuildContext context, int index) {
     if (index == 0) {
-      navigationService.navigateToPageClear("/home", null);
+      navigationService.navigateToPageClear("/home", {"reset": true});
     } else if (index == 1) {
       // navigationService.navigateToPage("/ergan", null);
     } else if (index == 2) {
