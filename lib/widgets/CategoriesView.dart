@@ -89,7 +89,7 @@ class CategoriesView extends StatelessWidget {
                       child: CategoryCard(
                         item: item,
                         onTap: () {
-                          // Navigator.push(...)
+                          _categoriesModel.navigateToPage(item.title);
                         },
                       ),
                     ),
