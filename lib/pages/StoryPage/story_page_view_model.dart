@@ -11,6 +11,7 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
   double progress = 0.0;
   Timer? timer;
   bool showUI = true;
+  bool showHint = false;
 
   void setCurrentIndex(int index) {
     initialIndex = index;
@@ -102,6 +103,8 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
   }
 
   void checkIfImageCachedAndHandle(String imageUrl, bool sifirla) {
+    showHint = false;
+    notifyListeners();
     final imageProvider = NetworkImage(imageUrl);
     final ImageStream stream =
         imageProvider.resolve(const ImageConfiguration());
@@ -112,6 +115,8 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
         (ImageInfo image, bool synchronousCall) {
           print("✅ Resim cache’deydi veya yüklendi");
           resetProgress();
+          showHint = true;
+          notifyListeners();
           startProgress();
           stream.removeListener(listener);
         },
@@ -126,6 +131,8 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
       listener = ImageStreamListener(
         (ImageInfo image, bool synchronousCall) {
           print("✅ Resim cache’deydi veya yüklendi");
+          showHint = true;
+          notifyListeners();
           startProgress();
           stream.removeListener(listener);
         },

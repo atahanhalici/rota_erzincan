@@ -80,7 +80,9 @@ class _StoryPageState extends State<StoryPage> with TickerProviderStateMixin {
             if (details.primaryDelta != null &&
                 details.primaryDelta! < -12 && // yukarı doğru hareket
                 dy > screenHeight * 0.5) {
-              viewModel.navigateToDetails(context);
+              if (viewModel.showHint) {
+                viewModel.navigateToDetails(context);
+              }
             }
           },
           child: Scaffold(
@@ -240,7 +242,7 @@ class _StoryPageState extends State<StoryPage> with TickerProviderStateMixin {
                   ),
                 ),
                 AnimatedOpacity(
-                  opacity: viewModel.showUI ? 1.0 : 0.0,
+                  opacity: viewModel.showUI && viewModel.showHint ? 1.0 : 0.0,
                   duration: const Duration(milliseconds: 300),
                   child: Align(
                     alignment: Alignment.bottomCenter, // Ortaya yerleştir
