@@ -4,6 +4,7 @@ import 'package:rota_erzincan/pages/ErganKayakMerkeziPage/ergan_kayak_merkezi_vi
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AboutSectionWidget.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
+import 'package:rota_erzincan/widgets/CustomBottomNavBar.dart';
 import 'package:rota_erzincan/widgets/FacilityHeaderWidget.dart';
 import 'package:rota_erzincan/widgets/FacilityListWidget.dart';
 import 'package:rota_erzincan/widgets/HeroSectionWidget.dart';
@@ -95,6 +96,14 @@ class _ErganKayakMerkeziPageState extends State<ErganKayakMerkeziPage>
                         themeProvider: themeProvider,
                       ),
                     ],
+                  ),
+                ),
+                const Positioned(
+                  left: 16,
+                  right: 16,
+                  bottom: 0,
+                  child: CustomBottomNavBar(
+                    currentIndex: 0,
                   ),
                 ),
               ],

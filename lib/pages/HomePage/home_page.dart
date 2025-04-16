@@ -78,20 +78,6 @@ class _HomePageState extends State<HomePage>
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final args = ModalRoute.of(context)?.settings.arguments;
-    final shouldReset = args is Map && args['reset'] == true;
-
-    if (shouldReset) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _controller.reset();
-        _controller.forward();
-      });
-    }
-  }
-
-  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -347,7 +333,7 @@ class _HomePageState extends State<HomePage>
                             ),
                             GestureDetector(
                               onTap: () {
-                                // Tüm popüler yerleri göster
+                                _homeModel.navigateBottomBar(context, 1);
                               },
                               child: Text(
                                 "Tümünü Gör",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rota_erzincan/models/CameraModel.dart';
+import 'package:rota_erzincan/models/CategoryItem.dart';
 import 'package:rota_erzincan/models/CategoryModel.dart';
 import 'package:rota_erzincan/models/FacilityModel.dart';
 import 'package:rota_erzincan/models/FeatureModel.dart';
@@ -31,6 +32,132 @@ class ApiService {
       );
     }).toList();
   }
+
+  Future<List<CategoryItem>> fetchAllCategories() async {
+  await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
+
+  final List<Map<String, dynamic>> responseData = [
+    {
+      "title": "Müzeler",
+      "subtitle": "Erzincan'ın tarihi müzeleri",
+      "imageUrl": "https://picsum.photos/id/1003/600/900",
+      "icon": Icons.museum,
+    },
+    {
+      "title": "Lezzet Durakları",
+      "subtitle": "Yöresel tatları keşfedin",
+      "imageUrl": "https://picsum.photos/id/1080/600/900",
+      "icon": Icons.restaurant,
+    },
+    {
+      "title": "Kış Sporları",
+      "subtitle": "Kayak ve diğer kış aktiviteleri",
+      "imageUrl": "https://picsum.photos/id/1011/600/900",
+      "icon": Icons.snowboarding,
+    },
+    {
+      "title": "Şehrin Simgesel Eserleri",
+      "subtitle": "Erzincan'ın sembol yapıları",
+      "imageUrl": "https://picsum.photos/id/1015/600/900",
+      "icon": Icons.location_city,
+    },
+    {
+      "title": "Camiler",
+      "subtitle": "Tarihi ve modern camiler",
+      "imageUrl": "https://picsum.photos/id/1016/600/900",
+      "icon": Icons.mosque,
+    },
+    {
+      "title": "Türbeler",
+      "subtitle": "Dini ve tarihi türbeler",
+      "imageUrl": "https://picsum.photos/id/1019/600/900",
+      "icon": Icons.account_balance,
+    },
+    {
+      "title": "Oteller",
+      "subtitle": "Konaklama seçenekleri",
+      "imageUrl": "https://picsum.photos/id/1020/600/900",
+      "icon": Icons.hotel,
+    },
+    {
+      "title": "Kale ve Köprüler",
+      "subtitle": "Tarihi yapılar ve manzaralar",
+      "imageUrl": "https://picsum.photos/id/1024/600/900",
+      "icon": Icons.fort,
+    },
+    {
+      "title": "Sinemalar",
+      "subtitle": "Film ve eğlence mekanları",
+      "imageUrl": "https://picsum.photos/id/1025/600/900",
+      "icon": Icons.movie,
+    },
+    {
+      "title": "Arkeolojik Alanlar",
+      "subtitle": "Antik yerleşimler ve kazı alanları",
+      "imageUrl": "https://picsum.photos/id/1026/600/900",
+      "icon": Icons.architecture,
+    },
+    {
+      "title": "Kiliseler",
+      "subtitle": "Tarihi kiliseler ve manastırlar",
+      "imageUrl": "https://picsum.photos/id/1027/600/900",
+      "icon": Icons.church,
+    },
+    {
+      "title": "Zanaat ve Halk Sanatları",
+      "subtitle": "Yerel el sanatları ve atölyeler",
+      "imageUrl": "https://picsum.photos/id/1031/600/900",
+      "icon": Icons.brush,
+    },
+    {
+      "title": "Parklar ve Piknik Alanları",
+      "subtitle": "Doğayla iç içe alanlar",
+      "imageUrl": "https://picsum.photos/id/1033/600/900",
+      "icon": Icons.park,
+    },
+    {
+      "title": "Kütüphaneler",
+      "subtitle": "Kitap ve kültür merkezleri",
+      "imageUrl": "https://picsum.photos/id/1035/600/900",
+      "icon": Icons.book,
+    },
+    {
+      "title": "Nasıl Gelirim",
+      "subtitle": "Ulaşım rehberi",
+      "imageUrl": "https://picsum.photos/id/1036/600/900",
+      "icon": Icons.directions_bus,
+    },
+    {
+      "title": "Şehir İçi Ulaşım İmkanları",
+      "subtitle": "Toplu taşıma ve araç kiralama",
+      "imageUrl": "https://picsum.photos/id/1037/600/900",
+      "icon": Icons.emoji_transportation,
+    },
+    {
+      "title": "Erzincan Lezzetleri",
+      "subtitle": "Yöresel mutfak ve tarifler",
+      "imageUrl": "https://picsum.photos/id/1038/600/900",
+      "icon": Icons.restaurant_menu,
+    },
+    {
+      "title": "Spor Alanları",
+      "subtitle": "Spor tesisleri ve aktiviteleri",
+      "imageUrl": "https://picsum.photos/id/1039/600/900",
+      "icon": Icons.sports_soccer,
+    },
+  ];
+
+  // Map'ten CategoryItem listesine dönüştür
+  return responseData.map((data) {
+    return CategoryItem(
+      title: data['title'],
+      subtitle: data['subtitle'],
+      imageUrl: data['imageUrl'],
+      icon: data['icon'],
+    );
+  }).toList();
+}
+
 
   Future<List<FeatureModel>> fetchFeatures() async {
     await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme

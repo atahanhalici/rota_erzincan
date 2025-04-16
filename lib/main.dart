@@ -7,6 +7,7 @@ import 'package:rota_erzincan/init/navigation/custom_navigation_observer.dart';
 import 'package:rota_erzincan/init/navigation/navigation_route.dart';
 import 'package:rota_erzincan/init/navigation/navigation_service.dart';
 import 'package:rota_erzincan/init/start/application_start.dart';
+import 'package:rota_erzincan/pages/CategoriesPage/categories_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page_view_model.dart';
 import 'package:rota_erzincan/pages/GalleryPage/gallery_page_view_model.dart';
@@ -27,6 +28,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => GalleryPageViewModel()),
         ChangeNotifierProvider(create: (_) => DetailsPageViewModel()),
         ChangeNotifierProvider(create: (_) => StoryPageViewModel()),
+        ChangeNotifierProvider(create: (_) => CategoriesPageViewModel()),
         ChangeNotifierProvider<DetailPhotoViewPageViewModel>(
           create: (context) => DetailPhotoViewPageViewModel(
               0), // veya uygun bir başlangıç index'i

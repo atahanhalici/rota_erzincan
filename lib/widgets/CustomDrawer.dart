@@ -46,7 +46,7 @@ class CustomDrawer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 9,
+                      height: MediaQuery.of(context).size.height / 9.1,
                       child: Image.asset(ImageConstants.logo),
                     ),
                     const SizedBox(height: 8),
