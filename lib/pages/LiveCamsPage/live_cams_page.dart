@@ -26,14 +26,8 @@ class _LiveCamsPageState extends State<LiveCamsPage>
   @override
   void initState() {
     super.initState();
-    viewModel = LiveCamsPageViewModel();
+    viewModel = Provider.of<LiveCamsPageViewModel>(context, listen: false);
     viewModel.initialize(this);
-  }
-
-  @override
-  void dispose() {
-    viewModel.disposeController();
-    super.dispose();
   }
 
   void _goFullScreen(String url, String title) {
@@ -53,7 +47,7 @@ class _LiveCamsPageState extends State<LiveCamsPage>
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-
+    viewModel = Provider.of<LiveCamsPageViewModel>(context, listen: true);
     return Scaffold(
       backgroundColor: themeProvider.backgroundColor,
       appBar: PreferredSize(
@@ -93,14 +87,14 @@ class _LiveCamsPageState extends State<LiveCamsPage>
                 themeProvider: themeProvider,
               ),
               Expanded(
-                child: !viewModel.isInitialized
-                    ? LiveCamsShimmerList(themeProvider: themeProvider)
-                    : LiveCamsCameraList(
+                child: viewModel.isLoading
+                    ? LiveCamsCameraList(
                         themeProvider: themeProvider,
                         cameras: viewModel.cameras,
                         controller: viewModel.controller,
                         onTap: _goFullScreen,
-                      ),
+                      )
+                    : LiveCamsShimmerList(themeProvider: themeProvider),
               ),
             ],
           ),

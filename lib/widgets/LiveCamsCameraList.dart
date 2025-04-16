@@ -2,11 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/models/CameraModel.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class LiveCamsCameraList extends StatelessWidget {
   final ThemeProvider themeProvider;
-  final List<Map<String, dynamic>> cameras;
+  final List<CameraModel> cameras;
   final AnimationController controller;
   final void Function(String url, String title) onTap;
 
@@ -50,7 +51,7 @@ class LiveCamsCameraList extends StatelessWidget {
             );
           },
           child: GestureDetector(
-            onTap: () => onTap(cam['url']!, cam['name']!),
+            onTap: () => onTap(cam.url, cam.name),
             child: Container(
               margin: const EdgeInsets.only(bottom: 24),
               decoration: BoxDecoration(
@@ -78,8 +79,10 @@ class LiveCamsCameraList extends StatelessWidget {
                       children: [
                         AspectRatio(
                           aspectRatio: 16 / 9,
-                          child: Image.asset(
-                            ImageConstants.ergan,
+                          child: FadeInImage.assetNetwork(
+                            placeholder: ImageConstants
+                                .loading, // Yüklenirken gösterilecek resim
+                            image: cam.thumbnail,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -96,7 +99,7 @@ class LiveCamsCameraList extends StatelessWidget {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              onTap: () => onTap(cam['url']!, cam['name']!),
+                              onTap: () => onTap(cam.url, cam.name),
                             ),
                           ),
                         ),
@@ -122,7 +125,7 @@ class LiveCamsCameraList extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 6),
                                 Text(
-                                  cam['status'],
+                                  cam.status,
                                   style: GoogleFonts.poppins(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -144,13 +147,13 @@ class LiveCamsCameraList extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              cam['icon'],
+                              cam.icon,
                               color: themeProvider.buttonColor,
                               size: 20,
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              cam['name'],
+                              cam.name,
                               style: GoogleFonts.poppins(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -161,7 +164,7 @@ class LiveCamsCameraList extends StatelessWidget {
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          cam['description'],
+                          cam.description,
                           style: GoogleFonts.poppins(
                             fontSize: 14,
                             color: themeProvider.textColor.withOpacity(0.7),

@@ -1,42 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
+import 'package:rota_erzincan/models/CameraModel.dart';
+import 'package:rota_erzincan/services/api_service.dart';
 import 'package:video_player/video_player.dart';
 
 class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
+  final ApiService _apiService = ApiService();
   late final AnimationController controller;
   late final Animation<double> headerAnimation;
   bool isInitialized = false;
   bool _isDisposed = false;
+  bool isLoading = false;
 
-  final List<Map<String, dynamic>> cameras = [
-    {
-      'name': 'Ergan Kayak Merkezi - Göl',
-      'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
-      'description':
-          'Ergan Göl bölgesine ait canlı kamera görüntüsü. Göl çevresi ve çevredeki doğal manzarayı anlık izleyebilirsiniz.',
-      'status': 'Çevrimiçi',
-      'icon': Icons.terrain
-    },
-    {
-      'name': 'Ergan Kayak Merkezi - 1. Etap',
-      'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
-      'description':
-          '1. etap kayak pistinden canlı yayın. Pist giriş noktası ve çevresindeki kayak faaliyetlerini buradan takip edin.',
-      'status': 'Çevrimiçi',
-      'icon': Icons.landscape
-    },
-    {
-      'name': 'Ergan Kayak Merkezi - 2. Etap',
-      'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
-      'description':
-          '2. etap zirve bölgesinden panoramik canlı yayın. Geniş manzara, kayak rotaları ve hava durumu takibi için birebir.',
-      'status': 'Çevrimiçi',
-      'icon': Icons.downhill_skiing
-    },
-  ];
+  List<CameraModel> cameras = [];
+  /* LiveCamsPageViewModel() {
+    loadCameras();
+  }*/
+
+  Future<void> loadCameras() async {
+    print("sa");
+    isLoading = false;
+    cameras =
+        await _apiService.fetchFakeCameras(); // burası sahte veriyi alacak
+    isLoading = true;
+    notifyListeners();
+  }
 
   void initialize(TickerProvider vsync) {
+    // 🛡️ controller zaten varsa yeniden oluşturma
+    if (isInitialized) return;
     controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: vsync,
@@ -48,18 +41,24 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
         curve: const Interval(0.0, 0.5, curve: Curves.easeOutCubic),
       ),
     );
-
+    loadCameras();
     isInitialized = true;
   }
 
-  void disposeController() {
-    controller.dispose();
+  @override
+  void dispose() {
     _isDisposed = true;
+
+    // eğer controller varsa, dispose et
+    try {
+      controller.dispose();
+    } catch (_) {}
+
     super.dispose();
   }
 
   void showControlsTemporarily() {
-    if (_isDisposed) return;
+    if (_isDisposed) return; // ✅ önce dispose kontrolü
 
     showPlayPause = true;
     notifyListeners();
@@ -67,7 +66,7 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
     Future.delayed(const Duration(seconds: 3)).then((_) {
       if (_isDisposed) return;
       showPlayPause = false;
-      notifyListeners();
+      notifyListeners(); // ✅ sadece hâlâ aktifse
     });
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rota_erzincan/models/CameraModel.dart';
 import 'package:rota_erzincan/models/CategoryModel.dart';
 import 'package:rota_erzincan/models/FacilityModel.dart';
 import 'package:rota_erzincan/models/FeatureModel.dart';
@@ -237,4 +238,39 @@ class ApiService {
 
     return categorizedImages;
   }
+
+  Future<List<CameraModel>> fetchFakeCameras() async {
+  await Future.delayed(const Duration(seconds: 1)); // simülasyon gecikmesi
+
+  const String thumbnailUrl = 'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/ergan.jpeg?alt=media&token=21637606-bf8f-4bf3-b758-ef8858560097';
+
+  final List<Map<String, dynamic>> fakeData = [
+    {
+      'name': 'Ergan Kayak Merkezi - Göl',
+      'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
+      'description': 'Ergan Göl bölgesine ait canlı kamera görüntüsü. Göl çevresi ve çevredeki doğal manzarayı anlık izleyebilirsiniz.',
+      'status': 'Çevrimiçi',
+      'icon': Icons.terrain.codePoint,
+      'thumbnail': thumbnailUrl,
+    },
+    {
+      'name': 'Ergan Kayak Merkezi - 1. Etap',
+      'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
+      'description': '1. etap kayak pistinden canlı yayın. Pist giriş noktası ve çevresindeki kayak faaliyetlerini buradan takip edin.',
+      'status': 'Çevrimiçi',
+      'icon': Icons.landscape.codePoint,
+      'thumbnail': thumbnailUrl,
+    },
+    {
+      'name': 'Ergan Kayak Merkezi - 2. Etap',
+      'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
+      'description': '2. etap zirve bölgesinden panoramik canlı yayın. Geniş manzara, kayak rotaları ve hava durumu takibi için birebir.',
+      'status': 'Çevrimiçi',
+      'icon': Icons.downhill_skiing.codePoint,
+      'thumbnail': thumbnailUrl,
+    },
+  ];
+
+  return fakeData.map((json) => CameraModel.fromJson(json)).toList();
+}
 }
