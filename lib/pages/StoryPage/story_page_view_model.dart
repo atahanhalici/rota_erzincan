@@ -25,6 +25,10 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
     return stories[initialIndex].title;
   }
 
+  void navigateToDetails(BuildContext context) {
+    navigationService.navigateToPage("/details", null);
+  }
+
   late AnimationController animationController;
 
   void init({
@@ -139,8 +143,12 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
   VoidCallback? onLastStoryCompleted;
 
   void disposeController() {
+    try {
+      animationController.dispose();
+    } catch (e) {
+      debugPrint("⚠️ animationController zaten dispose edilmiş: $e");
+    }
     timer?.cancel();
-    animationController.dispose(); // BU SATIR OLMALI
     pageController.dispose();
   }
 }

@@ -16,19 +16,25 @@ class StoryPage extends StatefulWidget {
 class _StoryPageState extends State<StoryPage> with TickerProviderStateMixin {
   final viewModel = StoryPageViewModel();
 
+  bool _isInitialized = false;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final args = ModalRoute.of(context)!.settings.arguments as Map;
-    final stories = args['list'] as List<CategoryModel>;
-    final index = args['index'] as int;
 
-    viewModel.init(
-      storyList: stories,
-      index: index,
-      ticker: this, // <== önemli
-    );
-    viewModel.onLastStoryCompleted = () => Navigator.pop(context);
+    if (!_isInitialized) {
+      final args = ModalRoute.of(context)!.settings.arguments as Map;
+      final stories = args['list'] as List<CategoryModel>;
+      final index = args['index'] as int;
+
+      viewModel.init(
+        storyList: stories,
+        index: index,
+        ticker: this,
+      );
+      viewModel.onLastStoryCompleted = () => Navigator.pop(context);
+      _isInitialized = true;
+    }
   }
 
   @override
@@ -62,8 +68,19 @@ class _StoryPageState extends State<StoryPage> with TickerProviderStateMixin {
             }
           },
           onVerticalDragUpdate: (details) {
+            final dy = details.globalPosition.dy;
+            final screenHeight = MediaQuery.of(context).size.height;
+
+            // 👇 aşağı kaydırma (örneğin sayfayı kapatmak için)
             if (details.primaryDelta != null && details.primaryDelta! > 12) {
               Navigator.pop(context);
+            }
+
+            // 👆 yukarı kaydırma - sadece ekranın alt yarısından başlarsa
+            if (details.primaryDelta != null &&
+                details.primaryDelta! < -12 && // yukarı doğru hareket
+                dy > screenHeight * 0.5) {
+              viewModel.navigateToDetails(context);
             }
           },
           child: Scaffold(
