@@ -67,6 +67,7 @@ class _CategoryListViewState extends State<CategoryListView> {
                   subtitle: feature.subtitle,
                   imageUrl: feature.imageUrl,
                   icon: feature.icon,
+                  id:feature.id
                 ),
               );
             },

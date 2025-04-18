@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
+import 'package:rota_erzincan/models/CategoryItem.dart';
 import 'package:rota_erzincan/models/CategoryModel.dart';
 import 'package:rota_erzincan/models/FeatureModel.dart';
 import 'package:rota_erzincan/services/api_service.dart';
@@ -46,6 +47,13 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
 
   void navigateToErgan(BuildContext context) {
     navigationService.navigateToPage("/ergan", null);
+  }
+
+  void navigateToCategoryDetail(
+      String title, String subtitle, String imageUrl, IconData icon) {
+    CategoryItem _categoryItem = CategoryItem(
+        icon: icon, title: title, subtitle: subtitle, imageUrl: imageUrl);
+    navigationService.navigateToCategoryDetail(_categoryItem);
   }
 
   void navigateBottomBar(BuildContext context, int index) {

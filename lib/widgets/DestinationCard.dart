@@ -9,6 +9,7 @@ class DestinationCard extends StatefulWidget {
   final String title;
   final String subtitle;
   final String imageUrl;
+  final int id;
   final IconData icon;
 
   const DestinationCard({
@@ -16,6 +17,7 @@ class DestinationCard extends StatefulWidget {
     required this.title,
     required this.subtitle,
     required this.imageUrl,
+    required this.id,
     required this.icon,
   });
 
@@ -64,6 +66,9 @@ class _DestinationCardState extends State<DestinationCard>
         onTap: () {
           if (widget.title.contains("Ergan")) {
             _homeModel.navigateToErgan(context);
+          } else {
+            _homeModel.navigateToCategoryDetail(
+                widget.title, widget.subtitle, widget.imageUrl, widget.icon);
           }
         },
         onTapDown: (_) {

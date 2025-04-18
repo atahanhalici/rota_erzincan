@@ -5,12 +5,14 @@ class FeatureModel {
   final String subtitle;
   final String imageUrl;
   final IconData icon;
+  final int id;
 
   FeatureModel({
     required this.title,
     required this.subtitle,
     required this.imageUrl,
     required this.icon,
+    required this.id,
   });
 
   // JSON'dan nesneye dönüştürme
@@ -19,6 +21,7 @@ class FeatureModel {
       title: json["title"],
       subtitle: json["subtitle"],
       imageUrl: json["imageUrl"],
+      id: json["id"],
       icon: json["icon"], // Direkt icon objesi döndüğümüz için map'e gerek yok
     );
   }

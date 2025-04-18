@@ -183,42 +183,49 @@ class ApiService {
         "subtitle": "Canlı Durum",
         "imageUrl": "https://picsum.photos/id/1036/800/500",
         "icon": Icons.snowboarding,
+        "id": 0
       },
       {
         "title": "Bu Ayın Etkinlikleri",
         "subtitle": "Kaçırma!",
         "imageUrl": "https://picsum.photos/id/169/800/500",
         "icon": Icons.event,
+        "id": 1
       },
       {
         "title": "Macera ve Doğa",
         "subtitle": "İç İçe Olduğu Yerler",
         "imageUrl": "https://picsum.photos/id/110/800/500",
         "icon": Icons.terrain,
+        "id": 2
       },
       {
         "title": "Coğrafi İşaretli Ürünler",
         "subtitle": "Yerel Lezzetler",
         "imageUrl": "https://picsum.photos/id/292/800/500",
         "icon": Icons.verified,
+        "id": 3
       },
       {
         "title": "Görülmesi Gereken Yerler",
         "subtitle": "Erzincan'ın İncileri",
         "imageUrl": "https://picsum.photos/id/15/800/500",
         "icon": Icons.place,
+        "id": 4
       },
       {
         "title": "Yapmadan Ayrılmayın",
         "subtitle": "Deneyimler",
         "imageUrl": "https://picsum.photos/id/184/800/500",
         "icon": Icons.star,
+        "id": 5
       },
       {
         "title": "Konaklama",
         "subtitle": "Nerede Kalınır?",
         "imageUrl": "https://picsum.photos/id/238/800/500",
         "icon": Icons.hotel,
+        "id": 6
       },
     ];
 
