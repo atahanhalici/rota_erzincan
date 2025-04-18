@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/image_constants.dart';
 import 'package:rota_erzincan/models/CategoryItem.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/theme_provider.dart';
@@ -64,9 +65,9 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
             10,
             (index) => CategoryContentItem(
               id: 'content_${category.title.toLowerCase()}_$index',
-              title: '${category.title} İçerik ${index + 1}',
+              title: 'Terzibaba Camii ve Külliyesi ${index + 1}',
               description:
-                  'Bu ${category.title} kategorisi için içerik ${index + 1} açıklamasıdır.',
+                  'Bu Terzibaba Camii ve Külliyesi ${index + 1} kategorisi için içerik ${index + 1} açıklamasıdır.',
               imageUrl:
                   'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
             ),
@@ -174,8 +175,11 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
                                 child: Stack(
                                   fit: StackFit.expand,
                                   children: [
-                                    Image.network(category.imageUrl,
-                                        fit: BoxFit.cover),
+                                    FadeInImage.assetNetwork(
+                                      placeholder: ImageConstants.loading,
+                                      image: category.imageUrl,
+                                      fit: BoxFit.cover,
+                                    ),
                                     Container(
                                       decoration: BoxDecoration(
                                         gradient: LinearGradient(
@@ -455,114 +459,93 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
         );
       },
       child: GestureDetector(
-        onTap: () {
-          // İçerik detay sayfasına yönlendirme burada yapılacak
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("${item.title} seçildi"),
-              backgroundColor: themeProvider.buttonColor,
-              behavior: SnackBarBehavior.floating,
-              duration: const Duration(milliseconds: 1500),
-            ),
-          );
-        },
+        onTap: () {},
         child: Container(
-          height: 100,
-          margin: const EdgeInsets.only(bottom: 16),
+          height: 135,
+          margin: const EdgeInsets.only(bottom: 18),
           decoration: BoxDecoration(
             color: themeProvider.cardColor,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
                 color: themeProvider.isDarkMode
-                    ? Colors.black.withOpacity(0.2)
-                    : Colors.grey.withOpacity(0.2),
-                blurRadius: 8,
-                offset: const Offset(0, 4),
+                    ? Colors.black.withOpacity(0.25)
+                    : Colors.grey.withOpacity(0.15),
+                blurRadius: 10,
+                offset: const Offset(0, 6),
               ),
             ],
           ),
           child: Row(
             children: [
-              // İçerik resmi
+              // 🔥 Görsel: BorderRadius ve Materyal uyumu
               Hero(
                 tag: 'content_${item.id}',
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16),
-                      bottomLeft: Radius.circular(16),
-                    ),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
                   ),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(16),
-                      bottomLeft: Radius.circular(16),
-                    ),
-                    child: Image.network(
-                      item.imageUrl,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Container(
-                          color: themeProvider.isDarkMode
-                              ? Colors.grey[800]
-                              : Colors.grey[300],
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: themeProvider.buttonColor,
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                  : null,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                  child: FadeInImage.assetNetwork(
+                    placeholder: ImageConstants.loading,
+                    image: item.imageUrl,
+                    fit: BoxFit.cover,
+                    width: 110,
+                    height: 135,
+                  ),
+                ),
+              ),
+
+              const SizedBox(width: 16),
+
+              // 🔤 Yazı alanı
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.title,
+                        style: GoogleFonts.poppins(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: themeProvider.textColor,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        item.description,
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: themeProvider.textColor.withOpacity(0.7),
+                        ),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
                 ),
               ),
               const SizedBox(width: 16),
-              // İçerik başlığı ve detayları
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      item.title,
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: themeProvider.textColor,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      item.description,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: themeProvider.textColor.withOpacity(0.7),
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              // Ok ikonu
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Icon(
-                  Icons.arrow_forward_ios,
-                  color: themeProvider.buttonColor,
-                  size: 16,
+              // 👉 Ok simgesi modernleştirilmiş
+              Padding(
+                padding: const EdgeInsets.only(right: 12),
+                child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: themeProvider.buttonColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: themeProvider.buttonColor,
+                    size: 16,
+                  ),
                 ),
               ),
             ],

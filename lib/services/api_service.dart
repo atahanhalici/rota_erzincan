@@ -34,130 +34,129 @@ class ApiService {
   }
 
   Future<List<CategoryItem>> fetchAllCategories() async {
-  await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
+    await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
 
-  final List<Map<String, dynamic>> responseData = [
-    {
-      "title": "Müzeler",
-      "subtitle": "Erzincan'ın tarihi müzeleri",
-      "imageUrl": "https://picsum.photos/id/1003/600/900",
-      "icon": Icons.museum,
-    },
-    {
-      "title": "Lezzet Durakları",
-      "subtitle": "Yöresel tatları keşfedin",
-      "imageUrl": "https://picsum.photos/id/1080/600/900",
-      "icon": Icons.restaurant,
-    },
-    {
-      "title": "Kış Sporları",
-      "subtitle": "Kayak ve diğer kış aktiviteleri",
-      "imageUrl": "https://picsum.photos/id/1011/600/900",
-      "icon": Icons.snowboarding,
-    },
-    {
-      "title": "Şehrin Simgesel Eserleri",
-      "subtitle": "Erzincan'ın sembol yapıları",
-      "imageUrl": "https://picsum.photos/id/1015/600/900",
-      "icon": Icons.location_city,
-    },
-    {
-      "title": "Camiler",
-      "subtitle": "Tarihi ve modern camiler",
-      "imageUrl": "https://picsum.photos/id/1016/600/900",
-      "icon": Icons.mosque,
-    },
-    {
-      "title": "Türbeler",
-      "subtitle": "Dini ve tarihi türbeler",
-      "imageUrl": "https://picsum.photos/id/1019/600/900",
-      "icon": Icons.account_balance,
-    },
-    {
-      "title": "Oteller",
-      "subtitle": "Konaklama seçenekleri",
-      "imageUrl": "https://picsum.photos/id/1020/600/900",
-      "icon": Icons.hotel,
-    },
-    {
-      "title": "Kale ve Köprüler",
-      "subtitle": "Tarihi yapılar ve manzaralar",
-      "imageUrl": "https://picsum.photos/id/1024/600/900",
-      "icon": Icons.fort,
-    },
-    {
-      "title": "Sinemalar",
-      "subtitle": "Film ve eğlence mekanları",
-      "imageUrl": "https://picsum.photos/id/1025/600/900",
-      "icon": Icons.movie,
-    },
-    {
-      "title": "Arkeolojik Alanlar",
-      "subtitle": "Antik yerleşimler ve kazı alanları",
-      "imageUrl": "https://picsum.photos/id/1026/600/900",
-      "icon": Icons.architecture,
-    },
-    {
-      "title": "Kiliseler",
-      "subtitle": "Tarihi kiliseler ve manastırlar",
-      "imageUrl": "https://picsum.photos/id/1027/600/900",
-      "icon": Icons.church,
-    },
-    {
-      "title": "Zanaat ve Halk Sanatları",
-      "subtitle": "Yerel el sanatları ve atölyeler",
-      "imageUrl": "https://picsum.photos/id/1031/600/900",
-      "icon": Icons.brush,
-    },
-    {
-      "title": "Parklar ve Piknik Alanları",
-      "subtitle": "Doğayla iç içe alanlar",
-      "imageUrl": "https://picsum.photos/id/1033/600/900",
-      "icon": Icons.park,
-    },
-    {
-      "title": "Kütüphaneler",
-      "subtitle": "Kitap ve kültür merkezleri",
-      "imageUrl": "https://picsum.photos/id/1035/600/900",
-      "icon": Icons.book,
-    },
-    {
-      "title": "Nasıl Gelirim",
-      "subtitle": "Ulaşım rehberi",
-      "imageUrl": "https://picsum.photos/id/1036/600/900",
-      "icon": Icons.directions_bus,
-    },
-    {
-      "title": "Şehir İçi Ulaşım İmkanları",
-      "subtitle": "Toplu taşıma ve araç kiralama",
-      "imageUrl": "https://picsum.photos/id/1037/600/900",
-      "icon": Icons.emoji_transportation,
-    },
-    {
-      "title": "Erzincan Lezzetleri",
-      "subtitle": "Yöresel mutfak ve tarifler",
-      "imageUrl": "https://picsum.photos/id/1038/600/900",
-      "icon": Icons.restaurant_menu,
-    },
-    {
-      "title": "Spor Alanları",
-      "subtitle": "Spor tesisleri ve aktiviteleri",
-      "imageUrl": "https://picsum.photos/id/1039/600/900",
-      "icon": Icons.sports_soccer,
-    },
-  ];
+    final List<Map<String, dynamic>> responseData = [
+      {
+        "title": "Müzeler",
+        "subtitle": "Erzincan'ın tarihi müzeleri",
+        "imageUrl": "https://picsum.photos/id/1003/600/900",
+        "icon": Icons.museum,
+      },
+      {
+        "title": "Lezzet Durakları",
+        "subtitle": "Yöresel tatları keşfedin",
+        "imageUrl": "https://picsum.photos/id/1080/600/900",
+        "icon": Icons.restaurant,
+      },
+      {
+        "title": "Kış Sporları",
+        "subtitle": "Kayak ve diğer kış aktiviteleri",
+        "imageUrl": "https://picsum.photos/id/1011/600/900",
+        "icon": Icons.snowboarding,
+      },
+      {
+        "title": "Şehrin Simgesel Eserleri",
+        "subtitle": "Erzincan'ın sembol yapıları",
+        "imageUrl": "https://picsum.photos/id/1015/600/900",
+        "icon": Icons.location_city,
+      },
+      {
+        "title": "Camiler",
+        "subtitle": "Tarihi ve modern camiler",
+        "imageUrl": "https://picsum.photos/id/1016/600/900",
+        "icon": Icons.mosque,
+      },
+      {
+        "title": "Türbeler",
+        "subtitle": "Dini ve tarihi türbeler",
+        "imageUrl": "https://picsum.photos/id/1019/600/900",
+        "icon": Icons.account_balance,
+      },
+      {
+        "title": "Oteller",
+        "subtitle": "Konaklama seçenekleri",
+        "imageUrl": "https://picsum.photos/id/1020/600/900",
+        "icon": Icons.hotel,
+      },
+      {
+        "title": "Kale ve Köprüler",
+        "subtitle": "Tarihi yapılar ve manzaralar",
+        "imageUrl": "https://picsum.photos/id/1024/600/900",
+        "icon": Icons.fort,
+      },
+      {
+        "title": "Sinemalar",
+        "subtitle": "Film ve eğlence mekanları",
+        "imageUrl": "https://picsum.photos/id/1025/600/900",
+        "icon": Icons.movie,
+      },
+      {
+        "title": "Arkeolojik Alanlar",
+        "subtitle": "Antik yerleşimler ve kazı alanları",
+        "imageUrl": "https://picsum.photos/id/1026/600/900",
+        "icon": Icons.architecture,
+      },
+      {
+        "title": "Kiliseler",
+        "subtitle": "Tarihi kiliseler ve manastırlar",
+        "imageUrl": "https://picsum.photos/id/1027/600/900",
+        "icon": Icons.church,
+      },
+      {
+        "title": "Zanaat ve Halk Sanatları",
+        "subtitle": "Yerel el sanatları ve atölyeler",
+        "imageUrl": "https://picsum.photos/id/1031/600/900",
+        "icon": Icons.brush,
+      },
+      {
+        "title": "Parklar ve Piknik Alanları",
+        "subtitle": "Doğayla iç içe alanlar",
+        "imageUrl": "https://picsum.photos/id/1033/600/900",
+        "icon": Icons.park,
+      },
+      {
+        "title": "Kütüphaneler",
+        "subtitle": "Kitap ve kültür merkezleri",
+        "imageUrl": "https://picsum.photos/id/1035/600/900",
+        "icon": Icons.book,
+      },
+      {
+        "title": "Nasıl Gelirim",
+        "subtitle": "Ulaşım rehberi",
+        "imageUrl": "https://picsum.photos/id/1036/600/900",
+        "icon": Icons.directions_bus,
+      },
+      {
+        "title": "Şehir İçi Ulaşım İmkanları",
+        "subtitle": "Toplu taşıma ve araç kiralama",
+        "imageUrl": "https://picsum.photos/id/1037/600/900",
+        "icon": Icons.emoji_transportation,
+      },
+      {
+        "title": "Erzincan Lezzetleri",
+        "subtitle": "Yöresel mutfak ve tarifler",
+        "imageUrl": "https://picsum.photos/id/1038/600/900",
+        "icon": Icons.restaurant_menu,
+      },
+      {
+        "title": "Spor Alanları",
+        "subtitle": "Spor tesisleri ve aktiviteleri",
+        "imageUrl": "https://picsum.photos/id/1039/600/900",
+        "icon": Icons.sports_soccer,
+      },
+    ];
 
-  // Map'ten CategoryItem listesine dönüştür
-  return responseData.map((data) {
-    return CategoryItem(
-      title: data['title'],
-      subtitle: data['subtitle'],
-      imageUrl: data['imageUrl'],
-      icon: data['icon'],
-    );
-  }).toList();
-}
-
+    // Map'ten CategoryItem listesine dönüştür
+    return responseData.map((data) {
+      return CategoryItem(
+        title: data['title'],
+        subtitle: data['subtitle'],
+        imageUrl: data['imageUrl'],
+        icon: data['icon'],
+      );
+    }).toList();
+  }
 
   Future<List<FeatureModel>> fetchFeatures() async {
     await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
@@ -367,37 +366,41 @@ class ApiService {
   }
 
   Future<List<CameraModel>> fetchFakeCameras() async {
-  await Future.delayed(const Duration(seconds: 1)); // simülasyon gecikmesi
+    await Future.delayed(const Duration(seconds: 1)); // simülasyon gecikmesi
 
-  const String thumbnailUrl = 'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/ergan.jpeg?alt=media&token=21637606-bf8f-4bf3-b758-ef8858560097';
+    const String thumbnailUrl =
+        'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/ergan.jpeg?alt=media&token=21637606-bf8f-4bf3-b758-ef8858560097';
 
-  final List<Map<String, dynamic>> fakeData = [
-    {
-      'name': 'Ergan Kayak Merkezi - Göl',
-      'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
-      'description': 'Ergan Göl bölgesine ait canlı kamera görüntüsü. Göl çevresi ve çevredeki doğal manzarayı anlık izleyebilirsiniz.',
-      'status': 'Çevrimiçi',
-      'icon': Icons.terrain.codePoint,
-      'thumbnail': thumbnailUrl,
-    },
-    {
-      'name': 'Ergan Kayak Merkezi - 1. Etap',
-      'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
-      'description': '1. etap kayak pistinden canlı yayın. Pist giriş noktası ve çevresindeki kayak faaliyetlerini buradan takip edin.',
-      'status': 'Çevrimiçi',
-      'icon': Icons.landscape.codePoint,
-      'thumbnail': thumbnailUrl,
-    },
-    {
-      'name': 'Ergan Kayak Merkezi - 2. Etap',
-      'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
-      'description': '2. etap zirve bölgesinden panoramik canlı yayın. Geniş manzara, kayak rotaları ve hava durumu takibi için birebir.',
-      'status': 'Çevrimiçi',
-      'icon': Icons.downhill_skiing.codePoint,
-      'thumbnail': thumbnailUrl,
-    },
-  ];
+    final List<Map<String, dynamic>> fakeData = [
+      {
+        'name': 'Ergan Kayak Merkezi - Göl',
+        'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
+        'description':
+            'Ergan Göl bölgesine ait canlı kamera görüntüsü. Göl çevresi ve çevredeki doğal manzarayı anlık izleyebilirsiniz.',
+        'status': 'Çevrimiçi',
+        'icon': Icons.terrain.codePoint,
+        'thumbnail': thumbnailUrl,
+      },
+      {
+        'name': 'Ergan Kayak Merkezi - 1. Etap',
+        'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
+        'description':
+            '1. etap kayak pistinden canlı yayın. Pist giriş noktası ve çevresindeki kayak faaliyetlerini buradan takip edin.',
+        'status': 'Çevrimiçi',
+        'icon': Icons.landscape.codePoint,
+        'thumbnail': thumbnailUrl,
+      },
+      {
+        'name': 'Ergan Kayak Merkezi - 2. Etap',
+        'url': 'https://tv-trt1.medya.trt.com.tr/master_480.m3u8',
+        'description':
+            '2. etap zirve bölgesinden panoramik canlı yayın. Geniş manzara, kayak rotaları ve hava durumu takibi için birebir.',
+        'status': 'Çevrimiçi',
+        'icon': Icons.downhill_skiing.codePoint,
+        'thumbnail': thumbnailUrl,
+      },
+    ];
 
-  return fakeData.map((json) => CameraModel.fromJson(json)).toList();
-}
+    return fakeData.map((json) => CameraModel.fromJson(json)).toList();
+  }
 }
