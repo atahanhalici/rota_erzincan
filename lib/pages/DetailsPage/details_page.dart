@@ -134,16 +134,20 @@ class _DetailsPageState extends State<DetailsPage>
                 return Stack(
                   fit: StackFit.expand,
                   children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                      ),
-                      child: FadeInImage.assetNetwork(
-                        placeholder: ImageConstants.loading,
-                        image:
-                            "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc",
-                        fit: BoxFit.cover,
+                    // Hero Widget wrapped around the image
+                    Hero(
+                      tag: 'content_0', // Use unique tag for the Hero animation
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(30),
+                          bottomRight: Radius.circular(30),
+                        ),
+                        child: FadeInImage.assetNetwork(
+                          placeholder: ImageConstants.loading,
+                          image:
+                              "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc",
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Container(

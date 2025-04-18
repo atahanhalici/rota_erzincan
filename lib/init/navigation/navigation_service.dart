@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/navigator_constants.dart';
 import 'package:rota_erzincan/init/navigation/INavigationService.dart';
+import 'package:rota_erzincan/models/CategoryItem.dart';
+import 'package:rota_erzincan/pages/CategoryDetail/category_detail_page.dart';
+import 'package:rota_erzincan/pages/CategoryDetail/category_detail_page_view_model.dart';
 
 class NavigationService implements INavigationService {
   static final NavigationService _instance = NavigationService._();
@@ -65,5 +69,21 @@ class NavigationService implements INavigationService {
 
   String _getPathFromPageName(String pageName) {
     return pageNameToPathMap[pageName] ?? pageName;
+  }
+
+  @override
+  Future<void> navigateToCategoryDetail(CategoryItem item) async {
+    if (NavigatorConstants.CATEGORYDETAIL != page) {
+      page = NavigatorConstants.CATEGORYDETAIL;
+
+      await navigatorKey.currentState?.push(
+        MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+            create: (_) => CategoryDetailViewModel(category: item),
+            child: const CategoryDetailPage(),
+          ),
+        ),
+      );
+    }
   }
 }

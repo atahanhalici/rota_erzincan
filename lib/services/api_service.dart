@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rota_erzincan/models/CameraModel.dart';
+import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/models/CategoryItem.dart';
 import 'package:rota_erzincan/models/CategoryModel.dart';
 import 'package:rota_erzincan/models/FacilityModel.dart';
@@ -156,6 +157,21 @@ class ApiService {
         icon: data['icon'],
       );
     }).toList();
+  }
+
+  Future<List<CategoryContentItem>> getContents(CategoryItem category) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    return List.generate(
+      10,
+      (index) => CategoryContentItem(
+        id: 'content_${category.title.toLowerCase()}_$index',
+        title: 'Terzibaba Camii ve Külliyesi ${index + 1}',
+        description:
+            'Bu Terzibaba Camii ve Külliyesi ${index + 1} kategorisi için içerik ${index + 1} açıklamasıdır.',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+      ),
+    );
   }
 
   Future<List<FeatureModel>> fetchFeatures() async {

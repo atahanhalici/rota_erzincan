@@ -26,7 +26,9 @@ class CategoriesPageViewModel extends ChangeNotifier with BaseViewModel {
     if (item.title.contains("Ulaşım") || item.title.contains("Gelirim")) {
       navigationService.navigateToPage("/details", null);
     } else {
-      navigationService.navigateToPage("/categoryDetail", item);
+      
+       
+    navigationService.navigateToCategoryDetail(item);
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rota_erzincan/models/CategoryItem.dart';
 
 abstract class INavigationService {
   void navigateToBack();
@@ -7,4 +8,6 @@ abstract class INavigationService {
 
   // Route parametresini alacak şekilde updatePageOnBack fonksiyonunu tanımlıyoruz
   void updatePageOnBack(Route<dynamic> route);
+
+  Future<void> navigateToCategoryDetail(CategoryItem item);
 }
