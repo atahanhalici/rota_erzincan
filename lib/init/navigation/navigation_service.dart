@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/navigator_constants.dart';
 import 'package:rota_erzincan/init/navigation/INavigationService.dart';
+import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/models/CategoryItem.dart';
 import 'package:rota_erzincan/pages/CategoryDetail/category_detail_page.dart';
 import 'package:rota_erzincan/pages/CategoryDetail/category_detail_page_view_model.dart';
+import 'package:rota_erzincan/pages/DetailsPage/details_page.dart';
+import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
 
 class NavigationService implements INavigationService {
   static final NavigationService _instance = NavigationService._();
@@ -85,5 +88,25 @@ class NavigationService implements INavigationService {
         ),
       );
     }
+  }
+
+  @override
+  Future<void> navigateToDetailsPage(CategoryContentItem item) async {
+    await navigatorKey.currentState?.push(
+      PageRouteBuilder(
+        pageBuilder: (_, __, ___) => ChangeNotifierProvider(
+          create: (_) => DetailsPageViewModel(),
+          child: DetailsPage(key: UniqueKey()),
+        ),
+        settings: RouteSettings(
+          arguments: item,
+          name: 'details_${item.id}_${DateTime.now().millisecondsSinceEpoch}',
+        ),
+        transitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder: (_, animation, __, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+      ),
+    );
   }
 }

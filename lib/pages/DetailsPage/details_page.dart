@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page.dart';
@@ -18,48 +19,108 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage>
     with SingleTickerProviderStateMixin {
-  late DetailsPageViewModel viewModel;
+  late AnimationController _controller;
+  late Animation<double> _fadeAnimation;
+  late Animation<double> _slideAnimation;
+  late Animation<double> _headerAnimation;
+  late Animation<double> _galleryAnimation;
+  late Animation<double> _buttonsAnimation;
+
   bool _hasShownMapError = false;
+  bool _isInitialized = false;
   late VoidCallback _viewModelListener;
+  late DetailsPageViewModel viewModel;
 
   @override
   void initState() {
     super.initState();
-
     viewModel = Provider.of<DetailsPageViewModel>(context, listen: false);
-    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
 
-    // ViewModel'e vsync parametresini vererek animasyonları başlat
-    viewModel.init(vsync: this);
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.6, curve: Curves.easeOut),
+      ),
+    );
+
+    _slideAnimation = Tween<double>(begin: 50.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.2, 0.7, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    _headerAnimation = Tween<double>(begin: -30.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.1, 0.5, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    _galleryAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.5, 0.9, curve: Curves.easeOut),
+      ),
+    );
+
+    _buttonsAnimation = Tween<double>(begin: 20.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.3, 0.8, curve: Curves.easeOutBack),
+      ),
+    );
 
     _viewModelListener = () {
+      final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+      // zaten yukarıda alındı
       final errorMessage = viewModel.mapErrorMessage;
       if (errorMessage != null &&
           errorMessage.isNotEmpty &&
           !_hasShownMapError) {
         showErrorSnackBar(errorMessage, themeProvider);
         _hasShownMapError = true;
-
         Future.delayed(const Duration(seconds: 5), () {
           _hasShownMapError = false;
         });
       }
     };
 
+    viewModel = Provider.of<DetailsPageViewModel>(context, listen: false);
     viewModel.addListener(_viewModelListener);
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isInitialized) {
+      final args =
+          ModalRoute.of(context)!.settings.arguments as CategoryContentItem;
+      final viewModel =
+          Provider.of<DetailsPageViewModel>(context, listen: false);
+      viewModel.init(item: args);
+      _controller.forward();
+      _isInitialized = true;
+    }
+  }
+
+  @override
   void dispose() {
-    viewModel.stopSpeaking(); // Ses varsa durdur
+    // context güvenli değil, viewModel referansını önceden saklayarak kullan
+    viewModel.stopSpeaking();
     viewModel.removeListener(_viewModelListener);
+    _controller.dispose();
     super.dispose();
   }
 
   void showErrorSnackBar(String message, ThemeProvider themeProvider) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Row(
@@ -68,15 +129,15 @@ class _DetailsPageState extends State<DetailsPage>
               const SizedBox(width: 12),
               Expanded(
                 child: FittedBox(
-                  fit: BoxFit.scaleDown, // Yazı büyüsün ama taşmasın
+                  fit: BoxFit.scaleDown,
                   alignment: Alignment.centerLeft,
                   child: Text(
                     message,
-                    maxLines: 1, // Zorunlu: hep tek satır
-                    overflow: TextOverflow.ellipsis, // Taşarsa ... koyar
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: themeProvider.backgroundColor,
-                      fontSize: 16, // Maksimum kullanılabilir font
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -109,10 +170,10 @@ class _DetailsPageState extends State<DetailsPage>
             leading: Padding(
               padding: const EdgeInsets.only(bottom: 60),
               child: AnimatedBuilder(
-                animation: viewModel.fadeAnimation,
+                animation: _fadeAnimation,
                 builder: (context, child) {
                   return Opacity(
-                    opacity: viewModel.fadeAnimation.value,
+                    opacity: _fadeAnimation.value,
                     child: IconButton(
                       icon: const Icon(Icons.arrow_back, color: Colors.white),
                       onPressed: () {
@@ -136,7 +197,8 @@ class _DetailsPageState extends State<DetailsPage>
                   children: [
                     // Hero Widget wrapped around the image
                     Hero(
-                      tag: 'content_0', // Use unique tag for the Hero animation
+                      tag:
+                          'content_${viewModel.contentItem.id}', // Use unique tag for the Hero animation
                       child: ClipRRect(
                         borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(30),
@@ -168,15 +230,14 @@ class _DetailsPageState extends State<DetailsPage>
                       right: 0,
                       top: MediaQuery.of(context).padding.top + 10,
                       child: AnimatedBuilder(
-                        animation: viewModel.controller,
+                        animation: _controller,
                         builder: (context, child) {
                           return AnimatedOpacity(
                             duration: const Duration(milliseconds: 300),
-                            opacity: opacity * viewModel.fadeAnimation.value,
+                            opacity: opacity * _fadeAnimation.value,
                             child: Center(
                               child: Transform.translate(
-                                offset:
-                                    Offset(0, viewModel.headerAnimation.value),
+                                offset: Offset(0, _headerAnimation.value),
                                 child: Text(
                                   'Terzibaba Mezarlığı ve Türbesi',
                                   style: GoogleFonts.poppins(
@@ -199,17 +260,16 @@ class _DetailsPageState extends State<DetailsPage>
                       ),
                     ),
                     AnimatedBuilder(
-                      animation: viewModel.controller,
+                      animation: _controller,
                       builder: (context, child) {
                         return Positioned(
                           left: 0,
                           right: 0,
                           bottom: 20,
                           child: Transform.translate(
-                            offset: Offset(
-                                0, (1 - viewModel.fadeAnimation.value) * 30),
+                            offset: Offset(0, (1 - _fadeAnimation.value) * 30),
                             child: Opacity(
-                              opacity: viewModel.fadeAnimation.value,
+                              opacity: _fadeAnimation.value,
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 10),
@@ -252,20 +312,20 @@ class _DetailsPageState extends State<DetailsPage>
           ),
           SliverToBoxAdapter(
             child: AnimatedBuilder(
-              animation: viewModel.fadeAnimation,
+              animation: _fadeAnimation,
               builder: (context, child) {
                 return Opacity(
-                  opacity: viewModel.fadeAnimation.value,
+                  opacity: _fadeAnimation.value,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AnimatedBuilder(
-                          animation: viewModel.slideAnimation,
+                          animation: _slideAnimation,
                           builder: (context, child) {
                             return Transform.translate(
-                              offset: Offset(0, viewModel.slideAnimation.value),
+                              offset: Offset(0, _slideAnimation.value),
                               child: Container(
                                 padding: const EdgeInsets.all(20),
                                 decoration: BoxDecoration(
@@ -290,13 +350,11 @@ class _DetailsPageState extends State<DetailsPage>
                                     Stack(
                                       children: [
                                         AnimatedBuilder(
-                                          animation: viewModel.headerAnimation,
+                                          animation: _headerAnimation,
                                           builder: (context, child) {
                                             return Transform.translate(
                                               offset: Offset(
-                                                  viewModel
-                                                      .headerAnimation.value,
-                                                  0),
+                                                  _headerAnimation.value, 0),
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                     bottom: 15.0),
@@ -333,14 +391,11 @@ class _DetailsPageState extends State<DetailsPage>
                                           right: 0,
                                           bottom: 0,
                                           child: AnimatedBuilder(
-                                            animation:
-                                                viewModel.buttonsAnimation,
+                                            animation: _buttonsAnimation,
                                             builder: (context, child) {
                                               return Transform.translate(
                                                 offset: Offset(
-                                                    0,
-                                                    viewModel.buttonsAnimation
-                                                        .value),
+                                                    0, _buttonsAnimation.value),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.min,
@@ -420,13 +475,11 @@ class _DetailsPageState extends State<DetailsPage>
                                     const SizedBox(height: 20),
                                     Center(
                                       child: AnimatedBuilder(
-                                        animation: viewModel.buttonsAnimation,
+                                        animation: _buttonsAnimation,
                                         builder: (context, child) {
                                           return Transform.translate(
                                             offset: Offset(
-                                                0,
-                                                viewModel
-                                                    .buttonsAnimation.value),
+                                                0, _buttonsAnimation.value),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 gradient: LinearGradient(
@@ -499,13 +552,13 @@ class _DetailsPageState extends State<DetailsPage>
                         ),
                         const SizedBox(height: 20),
                         AnimatedBuilder(
-                          animation: viewModel.galleryAnimation,
+                          animation: _galleryAnimation,
                           builder: (context, child) {
                             return Transform.translate(
-                              offset: Offset(0,
-                                  30 * (1 - viewModel.galleryAnimation.value)),
+                              offset:
+                                  Offset(0, 30 * (1 - _galleryAnimation.value)),
                               child: Opacity(
-                                opacity: viewModel.galleryAnimation.value,
+                                opacity: _galleryAnimation.value,
                                 child: Container(
                                   padding: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
@@ -570,7 +623,7 @@ class _DetailsPageState extends State<DetailsPage>
                                                     begin: 0.0, end: 1.0)
                                                 .animate(
                                               CurvedAnimation(
-                                                parent: viewModel.controller,
+                                                parent: _controller,
                                                 curve: Interval(
                                                   delay < 1.0 ? delay : 0.9,
                                                   (delay + 0.2) < 1.0

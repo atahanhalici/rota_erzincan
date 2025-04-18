@@ -32,7 +32,7 @@ class CategoryDetailViewModel extends ChangeNotifier with BaseViewModel {
   }
 
   Future<void> navigateToPage(CategoryContentItem item) async {
-    navigationService.navigateToPage("/details", null);
+    navigationService.navigateToDetailsPage(item);
   }
 
   @override

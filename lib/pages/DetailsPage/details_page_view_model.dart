@@ -3,17 +3,13 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
+import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuLogoItem.dart';
 
 class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
-  // Animasyon kontrolleri
-  late AnimationController _controller;
-  late Animation<double> _fadeAnimation;
-  late Animation<double> _slideAnimation;
-  late Animation<double> _headerAnimation;
-  late Animation<double> _galleryAnimation;
-  late Animation<double> _buttonsAnimation;
+  late CategoryContentItem _contentItem;
+  CategoryContentItem get contentItem => _contentItem;
 
   bool isExpanded = false;
   bool isSpeaking = false;
@@ -26,59 +22,10 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
       3, (index) => 'https://picsum.photos/800/500?random=$index');
   final FlutterTts _flutterTts = FlutterTts();
 
-  // Getters for animations
-  AnimationController get controller => _controller;
-  Animation<double> get fadeAnimation => _fadeAnimation;
-  Animation<double> get slideAnimation => _slideAnimation;
-  Animation<double> get headerAnimation => _headerAnimation;
-  Animation<double> get galleryAnimation => _galleryAnimation;
-  Animation<double> get buttonsAnimation => _buttonsAnimation;
-
-  void init({required TickerProvider vsync}) {
-    // Ana animasyon kontrolcüsü
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 1500),
-      vsync: vsync,
-    );
-
-    // Animasyonları oluştur
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.0, 0.6, curve: Curves.easeOut),
-      ),
-    );
-
-    _slideAnimation = Tween<double>(begin: 50.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.2, 0.7, curve: Curves.easeOutCubic),
-      ),
-    );
-
-    _headerAnimation = Tween<double>(begin: -30.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.1, 0.5, curve: Curves.easeOutCubic),
-      ),
-    );
-
-    _galleryAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.5, 0.9, curve: Curves.easeOut),
-      ),
-    );
-
-    _buttonsAnimation = Tween<double>(begin: 20.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.3, 0.8, curve: Curves.easeOutBack),
-      ),
-    );
-
-    // Animasyonu başlat
-    _controller.forward();
+  void init({
+    required CategoryContentItem item,
+  }) {
+    _contentItem = item;
 
     // TTS ayarları
     _flutterTts.setStartHandler(() {
@@ -99,7 +46,6 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
