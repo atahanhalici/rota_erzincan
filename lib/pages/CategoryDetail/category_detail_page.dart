@@ -102,9 +102,44 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
               SliverAppBar(
                 expandedHeight: expandedHeight,
                 floating: false,
-                pinned: false,
+                pinned: true, // 🔥 Sticky title için bu ŞART
                 automaticallyImplyLeading: false,
                 backgroundColor: themeProvider.backgroundColor,
+                title: Row(
+                  children: [
+                    Container(
+                      width: 5,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: themeProvider.buttonColor,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          category.title,
+                          style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            color: themeProvider.textColor,
+                          ),
+                        ),
+                        Text(
+                          category.subtitle,
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: themeProvider.textColor.withOpacity(0.7),
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
                 flexibleSpace: ClipRRect(
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(24),
@@ -165,49 +200,58 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
                 ),
               ),
 
+              const SliverToBoxAdapter(
+                  child: SizedBox(height: 12)), // görsel ile çakışmasın diye
+
               // Başlık - alt başlık vs. zaten mevcut
-              SliverToBoxAdapter(
-                child: Container(
-                  color: themeProvider.backgroundColor,
-                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            width: 5,
-                            height: 28,
-                            decoration: BoxDecoration(
-                              color: themeProvider.buttonColor,
-                              borderRadius: BorderRadius.circular(4),
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: _StickyHeaderDelegate(
+                  minHeight: 80,
+                  maxHeight: 80, // 🔥 EŞİT OLMASI ŞART!
+                  child: Container(
+                    color: themeProvider.backgroundColor,
+                    padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 5,
+                              height: 28,
+                              decoration: BoxDecoration(
+                                color: themeProvider.buttonColor,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            category.title,
+                            const SizedBox(width: 10),
+                            Text(
+                              category.title,
+                              style: GoogleFonts.poppins(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                                color: themeProvider.textColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Text(
+                            category.subtitle,
                             style: GoogleFonts.poppins(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                              color: themeProvider.textColor,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                              color: themeProvider.textColor.withOpacity(0.7),
+                              fontStyle: FontStyle.italic,
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 4),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15),
-                        child: Text(
-                          category.subtitle,
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: themeProvider.textColor.withOpacity(0.7),
-                            fontStyle: FontStyle.italic,
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -527,4 +571,32 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
       ),
     );
   }
+}
+
+class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  _StickyHeaderDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return child; // 🔥 Gölge ve elevation YOK
+  }
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      true;
 }
