@@ -95,6 +95,7 @@ class _ErganKayakMerkeziPageState extends State<ErganKayakMerkeziPage>
                         animation: viewModel.aboutSectionAnimation,
                         themeProvider: themeProvider,
                       ),
+                      const SizedBox(height: 100)
                     ],
                   ),
                 ),

@@ -22,9 +22,11 @@ class CategoriesPageViewModel extends ChangeNotifier with BaseViewModel {
     notifyListeners(); // shimmer dursun, liste gözüksün
   }
 
-  Future<void> navigateToPage(String pageName) async {
-    if (pageName.contains("Ulaşım") || pageName.contains("Gelirim")) {
+  Future<void> navigateToPage(CategoryItem item) async {
+    if (item.title.contains("Ulaşım") || item.title.contains("Gelirim")) {
       navigationService.navigateToPage("/details", null);
+    } else {
+      navigationService.navigateToPage("/categoryDetail", item);
     }
   }
 }

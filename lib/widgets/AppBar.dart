@@ -12,6 +12,7 @@ class Appbar extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return AppBar(
+      surfaceTintColor: Colors.transparent,
       centerTitle: true,
       backgroundColor: themeProvider.cardColor,
       iconTheme:

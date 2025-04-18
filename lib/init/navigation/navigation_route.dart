@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rota_erzincan/animations/right_transition.dart';
 import 'package:rota_erzincan/constants/navigator_constants.dart';
 import 'package:rota_erzincan/pages/CategoriesPage/categories_page.dart';
+import 'package:rota_erzincan/pages/CategoryDetail/category_Detail_page.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page.dart';
 import 'package:rota_erzincan/pages/ErganKayakMerkeziPage/ergan_kayak_merkezi_page.dart';
 import 'package:rota_erzincan/pages/GalleryPage/gallery_page.dart';
@@ -50,6 +51,8 @@ class NavigationRoute {
         return slideAnimatedRoute(const LiveCamsPage(), args.arguments);
       case NavigatorConstants.CATEGORIES:
         return slideAnimatedRoute(const CategoriesPage(), args.arguments);
+      case NavigatorConstants.CATEGORYDETAIL:
+        return slideAnimatedRoute( CategoryDetailPage(), args.arguments);
       default:
         return slideAnimatedRoute(const NotFound(), args.arguments);
     }
