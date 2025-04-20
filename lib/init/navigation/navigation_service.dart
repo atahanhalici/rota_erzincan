@@ -71,6 +71,14 @@ class NavigationService implements INavigationService {
     'NeedUpdatePage': NavigatorConstants.NEED_UPDATE,
     'DetailsPage': NavigatorConstants.DETAILS,
     'HomePage': NavigatorConstants.HOME,
+    'StoryPage': NavigatorConstants.STORY,
+    'GalleryPage': NavigatorConstants.GALLERY,
+    'ErganPage': NavigatorConstants.ERGAN,
+    'CategoriesPage': NavigatorConstants.CATEGORIES,
+    'CamerasPage': NavigatorConstants.CAMERAS,
+    'CategoryDetailPage': NavigatorConstants.CATEGORYDETAIL,
+    'RoutesPage': NavigatorConstants.ROUTES,
+    'RouteDetailPage': NavigatorConstants.ROUTEDETAIL,
   };
 
   String _getPathFromPageName(String pageName) {
@@ -99,7 +107,7 @@ class NavigationService implements INavigationService {
       PageRouteBuilder(
         pageBuilder: (_, __, ___) => ChangeNotifierProvider(
           create: (_) => DetailsPageViewModel(),
-          child: DetailsPage(key: UniqueKey()),
+          child: const DetailsPage(),
         ),
         settings: RouteSettings(
           arguments: item,

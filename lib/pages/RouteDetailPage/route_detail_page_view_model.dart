@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
+import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
 import 'package:rota_erzincan/models/RouteStop.dart';
 import 'package:map_launcher/map_launcher.dart';
@@ -33,7 +34,8 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
         id: '1',
         title: 'Saat Kulesi',
         description: 'Tarihi Erzincan saat kulesi.',
-        imageUrl: 'https://picsum.photos/id/200/600/400',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
         latitude: 39.7524,
         longitude: 39.4921,
       ),
@@ -41,7 +43,8 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
         id: '2',
         title: 'Erzincan Müzesi',
         description: 'Yerel tarih ve kültür zenginliği.',
-        imageUrl: 'https://picsum.photos/id/201/600/400',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
         latitude: 39.7508,
         longitude: 39.4935,
       ),
@@ -49,7 +52,8 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
         id: '3',
         title: 'Erzincan Müzesi 2',
         description: 'Yerel tarih ve kültür zenginliği.',
-        imageUrl: 'https://picsum.photos/id/201/600/400',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
         latitude: 39.7497,
         longitude: 39.4912,
       ),
@@ -57,7 +61,8 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
         id: '4',
         title: 'Erzincan Müzesi 3',
         description: 'Yerel tarih ve kültür zenginliği.',
-        imageUrl: 'https://picsum.photos/id/201/600/400',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
         latitude: 39.7511,
         longitude: 39.4899,
       ),
@@ -75,6 +80,10 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
 
     isLoading = false;
     notifyListeners();
+  }
+
+  Future<void> navigateToPage(CategoryContentItem item) async {
+    navigationService.navigateToDetailsPage(item);
   }
 
   void navigateToStop(

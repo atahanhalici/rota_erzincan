@@ -38,7 +38,6 @@ class ContentSliver extends StatelessWidget {
 
             return GestureDetector(
               onTap: () {
-                debugPrint(">>> TIKLADIM: ${item.title}");
                 viewModel.navigateToPage(item);
               },
               child: AnimatedBuilder(

@@ -32,8 +32,7 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
   }
 
   void navigateToDetails(BuildContext context) {
-    navigationService.navigateToPage(
-      "/details",
+    navigationService.navigateToDetailsPage(
       CategoryContentItem(
         id: 'content_0',
         title: 'Terzibaba Camii ve Külliyesi 1',
