@@ -61,7 +61,7 @@ class RoutesHeader extends StatelessWidget {
                         ).createShader(bounds);
                       },
                       child: Text(
-                        "Kategoriler",
+                        "Rotalar",
                         style: GoogleFonts.poppins(
                           fontSize: 24,
                           fontWeight: FontWeight.w700,
@@ -82,9 +82,9 @@ class RoutesHeader extends StatelessWidget {
             return Opacity(
               opacity: controller.value,
               child: Padding(
-                padding: const EdgeInsets.only(left: 35, bottom: 15),
+                padding: const EdgeInsets.only(left: 35, right: 35, bottom: 15),
                 child: Text(
-                  "Erzincan'ın keşfedilmeyi bekleyen hazineleriyle tanışın",
+                  "Erzincan’ın en özel rotalarında yolculuğa çıkmaya hazır mısınız?",
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
