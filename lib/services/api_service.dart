@@ -7,6 +7,7 @@ import 'package:rota_erzincan/models/FacilityModel.dart';
 import 'package:rota_erzincan/models/FeatureModel.dart';
 import 'package:rota_erzincan/models/InfoCardModel.dart';
 import 'package:rota_erzincan/models/PhotoModel.dart';
+import 'package:rota_erzincan/models/RouteItem.dart';
 
 class ApiService {
   Future<List<CategoryModel>> fetchCategories() async {
@@ -151,6 +152,55 @@ class ApiService {
     // Map'ten CategoryItem listesine dönüştür
     return responseData.map((data) {
       return CategoryItem(
+        title: data['title'],
+        subtitle: data['subtitle'],
+        imageUrl: data['imageUrl'],
+        icon: data['icon'],
+      );
+    }).toList();
+  }
+
+  Future<List<RouteItem>> fetchAllRoutes() async {
+    await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
+
+    final List<Map<String, dynamic>> responseData = [
+      {
+        "title": "Tarihin İçinden Rotası",
+        "subtitle": "Erzincan'ın tarihi ve kültürel zenginliklerini keşfedin.",
+        "imageUrl":
+            "https://picsum.photos/id/1011/600/400", // Tarihi yerler havası
+        "icon": Icons.account_balance,
+      } // Tarihi bina simgesi
+      ,
+      {
+        "title": "Çocuğumla Geziyorum Rotası",
+        "subtitle": "Ailece eğlenebileceğiniz parklar ve etkinlikler.",
+        "imageUrl": "https://picsum.photos/id/1027/600/400", // Çocuk teması
+        "icon": Icons.child_friendly, // Çocuk dostu simgesi
+      },
+      {
+        "title": "Doğadan Esintiler Rotası",
+        "subtitle": "Doğayla iç içe huzurlu rotaları keşfedin.",
+        "imageUrl": "https://picsum.photos/id/1043/600/400", // Doğa manzarası
+        "icon": Icons.nature_people, // Doğa yürüyüşü ikonu
+      },
+      {
+        "title": "Sporcunun Dostu Rotası",
+        "subtitle": "Aktif yaşamı sevenler için ideal parkurlar.",
+        "imageUrl": "https://picsum.photos/id/1052/600/400", // Spor yapma alanı
+        "icon": Icons.fitness_center, // Spor ikonu
+      },
+      {
+        "title": "Erzincan ve Macera Rotası",
+        "subtitle": "Adrenalin ve keşif dolu bir Erzincan deneyimi.",
+        "imageUrl": "https://picsum.photos/id/1062/600/400", // Macera teması
+        "icon": Icons.explore, // Keşif simgesi
+      }
+    ];
+
+    // Map'ten CategoryItem listesine dönüştür
+    return responseData.map((data) {
+      return RouteItem(
         title: data['title'],
         subtitle: data['subtitle'],
         imageUrl: data['imageUrl'],
