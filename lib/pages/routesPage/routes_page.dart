@@ -149,7 +149,7 @@ class _RoutesPageState extends State<RoutesPage>
             right: 0,
             bottom: 0,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 8.0),
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: CustomBottomNavBar(currentIndex: 3),
             ),
           ),
