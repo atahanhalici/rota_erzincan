@@ -92,7 +92,7 @@ class CustomDrawer extends StatelessWidget {
                   _buildSocialIcons(themeProvider),
                   const SizedBox(height: 14),
                   Text(
-                    'Erzincan Valiliği © 2025',
+                    'Erzincan Valiliği © ${DateTime.now().year}',
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       color: textColor.withOpacity(0.6),

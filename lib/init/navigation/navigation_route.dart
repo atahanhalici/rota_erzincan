@@ -14,6 +14,7 @@ import 'package:rota_erzincan/pages/error_pages/need_update/need_update_page.dar
 import 'package:rota_erzincan/pages/error_pages/no_network/no_network_page.dart';
 import 'package:rota_erzincan/pages/error_pages/not_found/not_found_page.dart';
 import 'package:rota_erzincan/pages/error_pages/server_error/server_error_page.dart';
+import 'package:rota_erzincan/pages/routesPage/routes_page.dart';
 
 @immutable
 class NavigationRoute {
@@ -52,7 +53,9 @@ class NavigationRoute {
       case NavigatorConstants.CATEGORIES:
         return slideAnimatedRoute(const CategoriesPage(), args.arguments);
       case NavigatorConstants.CATEGORYDETAIL:
-        return slideAnimatedRoute( CategoryDetailPage(), args.arguments);
+        return slideAnimatedRoute(const CategoryDetailPage(), args.arguments);
+      case NavigatorConstants.ROUTES:
+        return slideAnimatedRoute(const RoutesPage(), args.arguments);
       default:
         return slideAnimatedRoute(const NotFound(), args.arguments);
     }

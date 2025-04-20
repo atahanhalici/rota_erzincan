@@ -63,6 +63,8 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
       navigationService.navigateToPageClear("/categories", null);
     } else if (index == 2) {
       navigationService.navigateToPageClear("/gallery", null);
+    } else if (index == 3) {
+      navigationService.navigateToPageClear("/routes", null);
     }
   }
 

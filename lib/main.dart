@@ -16,6 +16,7 @@ import 'package:rota_erzincan/pages/LiveCamsPage/live_cams_page_view_model.dart'
 import 'package:rota_erzincan/pages/SplashPage/splash_page.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page_view_model.dart';
 import 'package:rota_erzincan/pages/StoryPage/story_page_view_model.dart';
+import 'package:rota_erzincan/pages/routesPage/routes_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 void main() async {
@@ -29,6 +30,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => DetailsPageViewModel()),
         ChangeNotifierProvider(create: (_) => StoryPageViewModel()),
         ChangeNotifierProvider(create: (_) => CategoriesPageViewModel()),
+        ChangeNotifierProvider(create: (_) => RoutesPageViewModel()),
         ChangeNotifierProvider<DetailPhotoViewPageViewModel>(
           create: (context) => DetailPhotoViewPageViewModel(
               0), // veya uygun bir başlangıç index'i
