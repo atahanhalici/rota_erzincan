@@ -156,136 +156,148 @@ class UserRoutesCard extends StatelessWidget {
                                         itemBuilder: (context, index) {
                                           final route =
                                               viewModel.userRoutes[index];
-                                          return Padding(
-                                            padding: EdgeInsets.only(
-                                              left: 16,
-                                              right: 16,
-                                              bottom: index ==
-                                                      viewModel.userRoutes
-                                                              .length -
-                                                          1
-                                                  ? 0
-                                                  : 10,
-                                            ),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                              child: Stack(
-                                                children: [
-                                                  Positioned.fill(
-                                                    child: Container(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 20),
-                                                      color: Colors.redAccent,
-                                                      child: const Icon(
-                                                          Icons.delete,
-                                                          color: Colors.white,
-                                                          size: 28),
-                                                    ),
-                                                  ),
-                                                  Dismissible(
-                                                    key: Key(route.id),
-                                                    direction: DismissDirection
-                                                        .endToStart,
-                                                    resizeDuration:
-                                                        const Duration(
-                                                            milliseconds: 200),
-                                                    onDismissed: (direction) {
-                                                      viewModel
-                                                          .removeRouteAt(index);
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                        SnackBar(
-                                                          backgroundColor:
-                                                              themeProvider
-                                                                  .cardColor,
-                                                          content: Text(
-                                                              '${route.title} adlı rota silindi'),
-                                                          duration:
-                                                              const Duration(
-                                                                  seconds: 2),
-                                                        ),
-                                                      );
-                                                    },
-                                                    background:
-                                                        const SizedBox(),
-                                                    child: Container(
-                                                      color: themeProvider
-                                                              .isDarkMode
-                                                          ? Colors.grey[850]
-                                                          : Colors.grey[100],
-                                                      child: ListTile(
-                                                        contentPadding:
+                                          return GestureDetector(
+                                            onTap: () {
+                                              viewModel.navigateToRouteDetails(
+                                                  route);
+                                            },
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                left: 16,
+                                                right: 16,
+                                                bottom: index ==
+                                                        viewModel.userRoutes
+                                                                .length -
+                                                            1
+                                                    ? 0
+                                                    : 10,
+                                              ),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                child: Stack(
+                                                  children: [
+                                                    Positioned.fill(
+                                                      child: Container(
+                                                        alignment: Alignment
+                                                            .centerRight,
+                                                        padding:
                                                             const EdgeInsets
                                                                 .symmetric(
-                                                                horizontal: 16,
-                                                                vertical: 8),
-                                                        title: Text(
-                                                          route.title,
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            color: themeProvider
-                                                                .textColor,
+                                                                horizontal: 20),
+                                                        color: Colors.redAccent,
+                                                        child: const Icon(
+                                                            Icons.delete,
+                                                            color: Colors.white,
+                                                            size: 28),
+                                                      ),
+                                                    ),
+                                                    Dismissible(
+                                                      key: Key(route.id),
+                                                      direction:
+                                                          DismissDirection
+                                                              .endToStart,
+                                                      resizeDuration:
+                                                          const Duration(
+                                                              milliseconds:
+                                                                  200),
+                                                      onDismissed: (direction) {
+                                                        viewModel.removeRouteAt(
+                                                            index);
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            backgroundColor:
+                                                                themeProvider
+                                                                    .cardColor,
+                                                            content: Text(
+                                                                '${route.title} adlı rota silindi'),
+                                                            duration:
+                                                                const Duration(
+                                                                    seconds: 2),
                                                           ),
-                                                        ),
-                                                        subtitle: Row(
-                                                          children: [
-                                                            Icon(Icons.route,
-                                                                size: 16,
-                                                                color: themeProvider
-                                                                    .textColor
-                                                                    .withOpacity(
-                                                                        0.6)),
-                                                            const SizedBox(
-                                                                width: 4),
-                                                            Text(
-                                                                "${route.distanceKm} km",
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .poppins(
-                                                                  fontSize: 12,
+                                                        );
+                                                      },
+                                                      background:
+                                                          const SizedBox(),
+                                                      child: Container(
+                                                        color: themeProvider
+                                                                .isDarkMode
+                                                            ? Colors.grey[850]
+                                                            : Colors.grey[100],
+                                                        child: ListTile(
+                                                          contentPadding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  horizontal:
+                                                                      16,
+                                                                  vertical: 8),
+                                                          title: Text(
+                                                            route.title,
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color:
+                                                                  themeProvider
+                                                                      .textColor,
+                                                            ),
+                                                          ),
+                                                          subtitle: Row(
+                                                            children: [
+                                                              Icon(Icons.route,
+                                                                  size: 16,
                                                                   color: themeProvider
                                                                       .textColor
                                                                       .withOpacity(
-                                                                          0.6),
-                                                                )),
-                                                            const SizedBox(
-                                                                width: 12),
-                                                            Icon(
-                                                                Icons
-                                                                    .access_time_rounded,
-                                                                size: 16,
-                                                                color: themeProvider
-                                                                    .textColor
-                                                                    .withOpacity(
-                                                                        0.6)),
-                                                            const SizedBox(
-                                                                width: 4),
-                                                            Text(
-                                                                _formatDuration(
-                                                                    route
-                                                                        .duration),
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .poppins(
-                                                                  fontSize: 12,
+                                                                          0.6)),
+                                                              const SizedBox(
+                                                                  width: 4),
+                                                              Text(
+                                                                  "${route.distanceKm} km",
+                                                                  style: GoogleFonts
+                                                                      .poppins(
+                                                                    fontSize:
+                                                                        12,
+                                                                    color: themeProvider
+                                                                        .textColor
+                                                                        .withOpacity(
+                                                                            0.6),
+                                                                  )),
+                                                              const SizedBox(
+                                                                  width: 12),
+                                                              Icon(
+                                                                  Icons
+                                                                      .access_time_rounded,
+                                                                  size: 16,
                                                                   color: themeProvider
                                                                       .textColor
                                                                       .withOpacity(
-                                                                          0.6),
-                                                                )),
-                                                          ],
+                                                                          0.6)),
+                                                              const SizedBox(
+                                                                  width: 4),
+                                                              Text(
+                                                                  _formatDuration(
+                                                                      route
+                                                                          .duration),
+                                                                  style: GoogleFonts
+                                                                      .poppins(
+                                                                    fontSize:
+                                                                        12,
+                                                                    color: themeProvider
+                                                                        .textColor
+                                                                        .withOpacity(
+                                                                            0.6),
+                                                                  )),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           );
