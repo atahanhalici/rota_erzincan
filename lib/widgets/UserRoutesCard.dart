@@ -46,61 +46,60 @@ class UserRoutesCard extends StatelessWidget {
               children: [
                 Material(
                   color: Colors.transparent,
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    borderRadius:
-                        const BorderRadius.vertical(top: Radius.circular(16)),
+                  child: GestureDetector(
                     onTap: viewModel.toggleUserRoutes,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: 4,
-                            height: 25,
-                            decoration: BoxDecoration(
-                              color: themeProvider.buttonColor,
-                              borderRadius: BorderRadius.circular(4),
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 4,
+                              height: 25,
+                              decoration: BoxDecoration(
+                                color: themeProvider.buttonColor,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Rotalarım",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                    color: themeProvider.textColor,
-                                  ),
-                                ),
-                                if (viewModel.showUserRoutes &&
-                                    viewModel.userRoutes.isNotEmpty)
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                                   Text(
-                                    "Rotaları silmek için sola kaydırabilirsiniz.",
+                                    "Rotalarım",
                                     style: GoogleFonts.poppins(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w400,
-                                      color: themeProvider.textColor
-                                          .withOpacity(0.7),
-                                      fontStyle: FontStyle.italic,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                      color: themeProvider.textColor,
                                     ),
                                   ),
-                              ],
+                                  if (viewModel.showUserRoutes &&
+                                      viewModel.userRoutes.isNotEmpty)
+                                    Text(
+                                      "Rotaları silmek için sola kaydırabilirsiniz.",
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w400,
+                                        color: themeProvider.textColor
+                                            .withOpacity(0.7),
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                    ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Icon(
-                            viewModel.showUserRoutes
-                                ? Icons.keyboard_arrow_up_rounded
-                                : Icons.keyboard_arrow_down_rounded,
-                            color: themeProvider.textColor,
-                            size: 24,
-                          ),
-                        ],
+                            Icon(
+                              viewModel.showUserRoutes
+                                  ? Icons.keyboard_arrow_up_rounded
+                                  : Icons.keyboard_arrow_down_rounded,
+                              color: themeProvider.textColor,
+                              size: 24,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -232,9 +231,7 @@ class UserRoutesCard extends StatelessWidget {
                                                         ),
                                                         subtitle: Row(
                                                           children: [
-                                                            Icon(
-                                                                Icons
-                                                                    .straighten_rounded,
+                                                            Icon(Icons.route,
                                                                 size: 16,
                                                                 color: themeProvider
                                                                     .textColor
