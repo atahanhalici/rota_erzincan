@@ -40,6 +40,8 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
             'Bu Terzibaba Camii ve Külliyesi 1 kategorisi için içerik 1 açıklamasıdır.',
         imageUrl:
             'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+        latitude: 39.6152, // Ergan Dağı civarı
+        longitude: 39.5558,
       ),
     );
   }

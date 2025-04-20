@@ -51,10 +51,13 @@ class RouteContentSliver extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     viewModel.navigateToPage(CategoryContentItem(
-                        id: item.id,
-                        title: item.title,
-                        description: item.description,
-                        imageUrl: item.imageUrl));
+                      id: item.id,
+                      title: item.title,
+                      description: item.description,
+                      imageUrl: item.imageUrl,
+                      latitude: 39.7531, // Erzincan merkez koordinatları
+                      longitude: 39.4985,
+                    ));
                   },
                   child: Container(
                     height: 130,

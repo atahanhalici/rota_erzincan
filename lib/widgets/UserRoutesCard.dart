@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/pages/routesPage/routes_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
+import 'package:rota_erzincan/widgets/NewRouteModal.dart';
 
 class UserRoutesCard extends StatelessWidget {
   final RoutesPageViewModel viewModel;
@@ -185,7 +187,7 @@ class UserRoutesCard extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Dismissible(
-                                                    key: Key(route['id']),
+                                                    key: Key(route.id),
                                                     direction: DismissDirection
                                                         .endToStart,
                                                     resizeDuration:
@@ -198,8 +200,11 @@ class UserRoutesCard extends StatelessWidget {
                                                               context)
                                                           .showSnackBar(
                                                         SnackBar(
+                                                          backgroundColor:
+                                                              themeProvider
+                                                                  .cardColor,
                                                           content: Text(
-                                                              '${route['name']} silindi'),
+                                                              '${route.title} adlı rota silindi'),
                                                           duration:
                                                               const Duration(
                                                                   seconds: 2),
@@ -220,7 +225,7 @@ class UserRoutesCard extends StatelessWidget {
                                                                 horizontal: 16,
                                                                 vertical: 8),
                                                         title: Text(
-                                                          route['name'],
+                                                          route.title,
                                                           style: GoogleFonts
                                                               .poppins(
                                                             fontWeight:
@@ -240,8 +245,7 @@ class UserRoutesCard extends StatelessWidget {
                                                             const SizedBox(
                                                                 width: 4),
                                                             Text(
-                                                                route[
-                                                                    'distance'],
+                                                                "${route.distanceKm} km",
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(
@@ -264,8 +268,9 @@ class UserRoutesCard extends StatelessWidget {
                                                             const SizedBox(
                                                                 width: 4),
                                                             Text(
-                                                                route[
-                                                                    'duration'],
+                                                                _formatDuration(
+                                                                    route
+                                                                        .duration),
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(
@@ -293,7 +298,22 @@ class UserRoutesCard extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.fromLTRB(16, 0, 16, 0),
                                   child: InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        isScrollControlled: true,
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(20)),
+                                        ),
+                                        builder: (context) =>
+                                            ChangeNotifierProvider(
+                                          create: (_) =>
+                                              NewRouteModalViewModel(),
+                                          child: const NewRouteModal(),
+                                        ),
+                                      );
+                                    },
                                     child: Container(
                                       margin: const EdgeInsets.only(top: 16),
                                       width: double.infinity,
@@ -354,5 +374,16 @@ class UserRoutesCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _formatDuration(Duration duration) {
+    final hours = duration.inHours;
+    final minutes = duration.inMinutes % 60;
+
+    if (hours > 0) {
+      return '${hours} sa ${minutes} dk';
+    } else {
+      return '$minutes dk';
+    }
   }
 }

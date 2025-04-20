@@ -53,6 +53,14 @@ class _RoutesPageState extends State<RoutesPage>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final viewModel = Provider.of<RoutesPageViewModel>(context, listen: false);
+    viewModel.loadSavedRoutes();
+  }
+
+  @override
   void dispose() {
     _scrollController.dispose();
     _controller.dispose();

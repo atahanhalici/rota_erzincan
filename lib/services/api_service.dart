@@ -8,6 +8,8 @@ import 'package:rota_erzincan/models/FeatureModel.dart';
 import 'package:rota_erzincan/models/InfoCardModel.dart';
 import 'package:rota_erzincan/models/PhotoModel.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
+import 'dart:math';
+import 'package:uuid/uuid.dart';
 
 class ApiService {
   Future<List<CategoryModel>> fetchCategories() async {
@@ -205,31 +207,43 @@ class ApiService {
         "durationMinutes": 55,
       },
     ];
-
+    final uuid = Uuid();
     return responseData.map((data) {
       return RouteItem(
-        title: data['title'],
-        subtitle: data['subtitle'],
-        imageUrl: data['imageUrl'],
-        icon: data['icon'],
-        distanceKm: data['distanceKm'],
-        duration: Duration(minutes: data['durationMinutes']),
-      );
+          id: uuid.v4(),
+          title: data['title'],
+          subtitle: data['subtitle'],
+          imageUrl: data['imageUrl'],
+          icon: data['icon'],
+          distanceKm: data['distanceKm'],
+          duration: Duration(minutes: data['durationMinutes']),
+          isUserAdded: false,
+          stops: []);
     }).toList();
   }
 
   Future<List<CategoryContentItem>> getContents(CategoryItem category) async {
     await Future.delayed(const Duration(milliseconds: 500));
+    final Random random = Random();
+
     return List.generate(
       10,
-      (index) => CategoryContentItem(
-        id: 'content_${category.title.toLowerCase()}_$index',
-        title: 'Terzibaba Camii ve Külliyesi ${index + 1}',
-        description:
-            'Bu Terzibaba Camii ve Külliyesi ${index + 1} kategorisi için içerik ${index + 1} açıklamasıdır.',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-      ),
+      (index) {
+        // Erzincan merkezine göre ±0.02 derece sapma
+        double latitude = 39.75 + (random.nextDouble() * 0.04 - 0.02);
+        double longitude = 39.49 + (random.nextDouble() * 0.04 - 0.02);
+
+        return CategoryContentItem(
+          id: 'content_${category.title.toLowerCase()}_$index',
+          title: 'Terzibaba Camii ve Külliyesi ${index + 1}',
+          description:
+              'Bu Terzibaba Camii ve Külliyesi ${index + 1} kategorisi için içerik ${index + 1} açıklamasıdır.',
+          imageUrl:
+              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+          latitude: latitude,
+          longitude: longitude,
+        );
+      },
     );
   }
 

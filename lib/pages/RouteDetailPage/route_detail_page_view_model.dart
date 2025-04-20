@@ -107,7 +107,6 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
 
       if (availableMaps.length == 1 ||
           googleMapsApp.mapType == MapType.google) {
-        // Direkt Google Maps ile aç
         final stopUrl = Uri.parse(
           'https://www.google.com/maps/dir/?api=1'
           '&destination=${stop.latitude},${stop.longitude}'
@@ -123,7 +122,6 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
           );
         }
       } else {
-        // Kullanıcıya seçim sun
         showModalBottomSheet(
           context: context,
           backgroundColor: themeProvider.cardColor,
@@ -231,7 +229,6 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
 
       if (availableMaps.length == 1 ||
           googleMapsApp.mapType == MapType.google) {
-        // Eğer sadece Google Maps varsa ya da Google Maps varsa onu kullan
         final origin =
             '${contentItems.first.latitude},${contentItems.first.longitude}';
         final destination = '${lastStop.latitude},${lastStop.longitude}';
@@ -255,7 +252,6 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
           notifyListeners();
         }
       } else {
-        // Diğer haritalar için seçim menüsü
         showModalBottomSheet(
           context: context,
           backgroundColor: themeProvider.cardColor,
