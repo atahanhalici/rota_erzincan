@@ -4,10 +4,13 @@ import 'package:rota_erzincan/constants/navigator_constants.dart';
 import 'package:rota_erzincan/init/navigation/INavigationService.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/models/CategoryItem.dart';
+import 'package:rota_erzincan/models/RouteItem.dart';
 import 'package:rota_erzincan/pages/CategoryDetail/category_detail_page.dart';
 import 'package:rota_erzincan/pages/CategoryDetail/category_detail_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
+import 'package:rota_erzincan/pages/RouteDetailPage/route_Detail_page.dart';
+import 'package:rota_erzincan/pages/RouteDetailPage/route_detail_page_view_model.dart';
 
 class NavigationService implements INavigationService {
   static final NavigationService _instance = NavigationService._();
@@ -101,6 +104,25 @@ class NavigationService implements INavigationService {
         settings: RouteSettings(
           arguments: item,
           name: 'details_${item.id}_${DateTime.now().millisecondsSinceEpoch}',
+        ),
+        transitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder: (_, animation, __, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+      ),
+    );
+  }
+
+  @override
+  Future<void> navigateToRouteDetailsPage(RouteItem item) async {
+    await navigatorKey.currentState?.push(
+      PageRouteBuilder(
+        pageBuilder: (_, __, ___) => ChangeNotifierProvider(
+          create: (_) => RouteDetailPageViewModel(route: item),
+          child: RouteDetailPage(key: UniqueKey()),
+        ),
+        settings: RouteSettings(
+          arguments: item,
         ),
         transitionDuration: const Duration(milliseconds: 300),
         transitionsBuilder: (_, animation, __, child) {

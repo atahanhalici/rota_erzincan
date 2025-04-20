@@ -54,6 +54,10 @@ class RoutesPageViewModel extends ChangeNotifier with BaseViewModel {
     notifyListeners(); // shimmer dursun, liste gözüksün
   }
 
+  void navigateToRouteDetails(RouteItem item) {
+    navigationService.navigateToRouteDetailsPage(item);
+  }
+
   @override
   void dispose() {
     super.dispose();

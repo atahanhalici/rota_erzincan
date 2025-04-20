@@ -21,4 +21,5 @@ class NavigatorConstants {
   static const CAMERAS = "/cameras";
   static const CATEGORYDETAIL = "/categoryDetail";
   static const ROUTES = "/routes";
+  static const ROUTEDETAIL = "/routeDetail";
 }

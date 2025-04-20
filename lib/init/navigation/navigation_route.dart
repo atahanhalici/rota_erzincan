@@ -8,6 +8,7 @@ import 'package:rota_erzincan/pages/ErganKayakMerkeziPage/ergan_kayak_merkezi_pa
 import 'package:rota_erzincan/pages/GalleryPage/gallery_page.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.dart';
 import 'package:rota_erzincan/pages/LiveCamsPage/live_cams_page.dart';
+import 'package:rota_erzincan/pages/RouteDetailPage/route_Detail_page.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page.dart';
 import 'package:rota_erzincan/pages/StoryPage/story_page.dart';
 import 'package:rota_erzincan/pages/error_pages/need_update/need_update_page.dart';
@@ -53,9 +54,11 @@ class NavigationRoute {
       case NavigatorConstants.CATEGORIES:
         return slideAnimatedRoute(const CategoriesPage(), args.arguments);
       case NavigatorConstants.CATEGORYDETAIL:
-        return slideAnimatedRoute(const CategoryDetailPage(), args.arguments);
+      return slideAnimatedRoute(const CategoryDetailPage(), args.arguments);
       case NavigatorConstants.ROUTES:
         return slideAnimatedRoute(const RoutesPage(), args.arguments);
+       case NavigatorConstants.ROUTEDETAIL:
+        return slideAnimatedRoute(const RouteDetailPage(), args.arguments);
       default:
         return slideAnimatedRoute(const NotFound(), args.arguments);
     }

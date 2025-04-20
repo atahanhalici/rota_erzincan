@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/models/CategoryItem.dart';
+import 'package:rota_erzincan/models/RouteItem.dart';
 
 abstract class INavigationService {
   void navigateToBack();
@@ -13,4 +14,5 @@ abstract class INavigationService {
   Future<void> navigateToCategoryDetail(CategoryItem item);
 
   Future<void> navigateToDetailsPage(CategoryContentItem item);
+  Future<void> navigateToRouteDetailsPage(RouteItem item);
 }

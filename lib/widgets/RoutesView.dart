@@ -87,7 +87,7 @@ class RoutesView extends StatelessWidget {
                       child: RouteCard(
                         item: item,
                         onTap: () {
-                          // _routesModel.navigateToPage(item);
+                          _routesModel.navigateToRouteDetails(item);
                         },
                       ),
                     ),
