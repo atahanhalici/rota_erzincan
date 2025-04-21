@@ -108,6 +108,16 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
         );
         return stop;
       }).toList();
+      route.stops = contentItems
+          .map((e) => CategoryContentItem(
+                id: e.id,
+                title: e.title,
+                description: e.description,
+                latitude: e.latitude,
+                longitude: e.longitude,
+                imageUrl: e.imageUrl,
+              ))
+          .toList();
     } else {
       // 🔹 Hazır (sabit) rota → manuel sabit liste
       contentItems = [

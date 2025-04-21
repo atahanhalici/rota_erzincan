@@ -10,69 +10,106 @@ class NewRouteModalViewModel extends ChangeNotifier {
   final descController = TextEditingController();
   final uuid = Uuid();
 
-  final List<CategoryContentItem> allItems;
+  late List<CategoryContentItem> allItems;
   final Set<String> selectedIds = {};
 
-  NewRouteModalViewModel({CategoryContentItem? initialItem})
-      : allItems = List<CategoryContentItem>.from([
-          // 👇 Varsayılan 5 yer
-          CategoryContentItem(
-            id: 'item_0',
-            title: 'Ergan Dağı Kayak Merkezi',
-            description:
-                'Kış turizmiyle öne çıkan, doğayla iç içe bir kayak merkezi.',
-            imageUrl: 'https://picsum.photos/id/1011/600/400',
-            latitude: 39.6152,
-            longitude: 39.5558,
-          ),
-          CategoryContentItem(
-            id: 'item_1',
-            title: 'Girlevik Şelalesi',
-            description:
-                'Doğal güzelliğiyle ünlü, piknik ve fotoğrafçılık için harika bir şelale.',
-            imageUrl: 'https://picsum.photos/id/1025/600/400',
-            latitude: 39.6255,
-            longitude: 39.7813,
-          ),
-          CategoryContentItem(
-            id: 'item_2',
-            title: 'Kemaliye Karanlık Kanyon',
-            description:
-                'Dünyanın en dar geçitlerinden biri, muazzam manzaralı yürüyüş yollarıyla ünlü.',
-            imageUrl: 'https://picsum.photos/id/1043/600/400',
-            latitude: 39.2601,
-            longitude: 38.4968,
-          ),
-          CategoryContentItem(
-            id: 'item_3',
-            title: 'Ekşisu Mesire Alanı',
-            description:
-                'Doğal maden suyu kaynakları ve piknik alanları ile ünlü.',
-            imageUrl: 'https://picsum.photos/id/1062/600/400',
-            latitude: 39.6613,
-            longitude: 39.6907,
-          ),
-          CategoryContentItem(
-            id: 'item_4',
-            title: 'Erzincan Kalesi',
-            description:
-                'Tarihi dokusunu koruyan ve şehre hâkim bir noktada bulunan kale.',
-            imageUrl: 'https://picsum.photos/id/1050/600/400',
-            latitude: 39.7508,
-            longitude: 39.4977,
-          ),
-          if (initialItem != null) initialItem,
-        ]) {
+  NewRouteModalViewModel({
+    CategoryContentItem? initialItem,
+    RouteItem? editingRoute,
+  }) {
+    // ✅ 1. ID bazlı benzersiz item'lar için geçici map
+    final Map<String, CategoryContentItem> uniqueMap = {};
+
+    // ✅ 2. Hepsini ekleyelim (ID aynıysa üzerine yazar, böylece duplicate'lar gider)
+    for (final item in [
+      // 👇 Varsayılan 5 yer
+      CategoryContentItem(
+        id: 'item_0',
+        title: 'Ergan Dağı Kayak Merkezi',
+        description:
+            'Kış turizmiyle öne çıkan, doğayla iç içe bir kayak merkezi.',
+        imageUrl: 'https://picsum.photos/id/1011/600/400',
+        latitude: 39.6152,
+        longitude: 39.5558,
+      ),
+      CategoryContentItem(
+        id: 'item_1',
+        title: 'Girlevik Şelalesi',
+        description:
+            'Doğal güzelliğiyle ünlü, piknik ve fotoğrafçılık için harika bir şelale.',
+        imageUrl: 'https://picsum.photos/id/1025/600/400',
+        latitude: 39.6255,
+        longitude: 39.7813,
+      ),
+      CategoryContentItem(
+        id: 'item_2',
+        title: 'Kemaliye Karanlık Kanyon',
+        description:
+            'Dünyanın en dar geçitlerinden biri, muazzam manzaralı yürüyüş yollarıyla ünlü.',
+        imageUrl: 'https://picsum.photos/id/1043/600/400',
+        latitude: 39.2601,
+        longitude: 38.4968,
+      ),
+      CategoryContentItem(
+        id: 'item_3',
+        title: 'Ekşisu Mesire Alanı',
+        description: 'Doğal maden suyu kaynakları ve piknik alanları ile ünlü.',
+        imageUrl: 'https://picsum.photos/id/1062/600/400',
+        latitude: 39.6613,
+        longitude: 39.6907,
+      ),
+      CategoryContentItem(
+        id: 'item_4',
+        title: 'Erzincan Kalesi',
+        description:
+            'Tarihi dokusunu koruyan ve şehre hâkim bir noktada bulunan kale.',
+        imageUrl: 'https://picsum.photos/id/1050/600/400',
+        latitude: 39.7508,
+        longitude: 39.4977,
+      ),
+      if (initialItem != null) initialItem,
+      if (editingRoute != null) ...editingRoute.stops,
+    ]) {
+      uniqueMap[item.id] =
+          item; // 🔁 Aynı ID varsa üzerine yazar → duplicate çözülür
+    }
+
+    // ✅ 3. Benzersiz öğeleri al
+    allItems = uniqueMap.values.toList();
+
+    // ✅ 4. Seçili durakları işaretle
     if (initialItem != null) {
       selectedIds.add(initialItem.id);
     }
 
-    // ✅ Seçili olanları en üste taşı
+    if (editingRoute != null) {
+      nameController.text = editingRoute.title;
+      descController.text = editingRoute.subtitle;
+      selectedIds.addAll(editingRoute.stops.map((e) => e.id));
+    }
+
+    // ✅ 5. Seçili olanları üstte göstermek için sırala
     allItems.sort((a, b) {
       final aSelected = selectedIds.contains(a.id) ? 0 : 1;
       final bSelected = selectedIds.contains(b.id) ? 0 : 1;
       return aSelected.compareTo(bSelected);
     });
+
+    // ✅ Debug logları
+    print("➡️ editingRoute varsa gelen başlık: ${editingRoute?.title}");
+    print("➡️ editingRoute varsa gelen açıklama: ${editingRoute?.subtitle}");
+    print(
+        "➡️ editingRoute.stops: ${editingRoute?.stops.map((e) => e.id).toList()}");
+
+    print("✅ selectedIds ilk hali: $selectedIds");
+
+    print("📦 allItems (toplam: ${allItems.length}):");
+    for (var item in allItems) {
+      print("  - ${item.id} | ${item.title}");
+    }
+
+    print(
+        "🎯 Seçili olanlar: ${allItems.where((e) => selectedIds.contains(e.id)).map((e) => e.title).toList()}");
   }
 
   void toggleSelection(String id) {
@@ -163,5 +200,52 @@ class NewRouteModalViewModel extends ChangeNotifier {
   void disposeControllers() {
     nameController.dispose();
     descController.dispose();
+  }
+
+  Future<void> updateRoute(String routeId) async {
+    final stops = selectedStops;
+
+    double totalDistance = 0.0;
+    for (int i = 0; i < stops.length - 1; i++) {
+      totalDistance += Geolocator.distanceBetween(
+        stops[i].latitude,
+        stops[i].longitude,
+        stops[i + 1].latitude,
+        stops[i + 1].longitude,
+      );
+    }
+
+    final db = await DatabaseHelper.instance.database;
+
+    // ✅ Güncelle
+    await db.update(
+      'routes',
+      {
+        'title': nameController.text.trim(),
+        'subtitle': descController.text.trim(),
+        'distanceKm': double.parse((totalDistance / 1000).toStringAsFixed(2)),
+        'durationMinutes': ((totalDistance / 1000) / 50 * 60).round(),
+      },
+      where: 'id = ?',
+      whereArgs: [routeId],
+    );
+
+    // ✅ Eski durakları sil
+    await db.delete('route_stops', where: 'routeId = ?', whereArgs: [routeId]);
+
+    int order = 0;
+    for (final stop in stops) {
+      await db.insert('route_stops', {
+        'id': stop.id,
+        'routeId': routeId,
+        'latitude': stop.latitude,
+        'longitude': stop.longitude,
+        'title': stop.title,
+        'description': stop.description,
+        'stopOrder': order++,
+      });
+    }
+
+    print('Rota güncellendi: $routeId');
   }
 }

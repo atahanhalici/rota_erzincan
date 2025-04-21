@@ -10,6 +10,9 @@ class StickyHeaderWithWidget extends StatelessWidget {
   final Widget subtitleWidget;
   final VoidCallback onStartRoutePressed;
   final bool showButton;
+  final bool isUserAdded;
+  final VoidCallback? onAddPressed; // 👈 yeni parametre
+
   const StickyHeaderWithWidget({
     Key? key,
     required this.title,
@@ -17,6 +20,8 @@ class StickyHeaderWithWidget extends StatelessWidget {
     required this.subtitleWidget,
     required this.onStartRoutePressed,
     this.showButton = true,
+    this.onAddPressed, // 👈
+    required this.isUserAdded,
   }) : super(key: key);
 
   @override
@@ -26,52 +31,98 @@ class StickyHeaderWithWidget extends StatelessWidget {
     return SliverPersistentHeader(
       pinned: true,
       delegate: _StickyHeaderWithWidgetDelegate(
-        minHeight: 165,
-        maxHeight: 165,
+        minHeight: 175,
+        maxHeight: 175,
         child: Container(
           color: themeProvider.backgroundColor,
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+              Stack(
                 children: [
-                  Container(
-                    width: 5,
-                    height: 28,
-                    decoration: BoxDecoration(
-                      color: themeProvider.buttonColor,
-                      borderRadius: BorderRadius.circular(4),
+                  // Başlık ve alt yazılar
+                  Padding(
+                    padding: isUserAdded
+                        ? const EdgeInsets.only(right: 60)
+                        : const EdgeInsets.only(
+                            right: 0), // Buton için boşluk bırak
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 5,
+                              height: 28,
+                              decoration: BoxDecoration(
+                                color: themeProvider.buttonColor,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                title,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w700,
+                                  color: themeProvider.textColor,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Text(
+                            subtitle,
+                            style: GoogleFonts.poppins(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                              color: themeProvider.textColor.withOpacity(0.7),
+                              fontStyle: FontStyle.italic,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: subtitleWidget,
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Text(
-                    title,
-                    style: GoogleFonts.poppins(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      color: themeProvider.textColor,
+
+                  // Sağ üst köşeye yuvarlak buton
+                  if (onAddPressed != null && isUserAdded)
+                    Positioned(
+                      right: 0,
+                      top: 0,
+                      child: GestureDetector(
+                        onTap: onAddPressed,
+                        child: Container(
+                          width: 45,
+                          height: 45,
+                          decoration: BoxDecoration(
+                            color: themeProvider.buttonColor,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.edit_rounded,
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
                 ],
-              ),
-              const SizedBox(height: 4),
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: Text(
-                  subtitle,
-                  style: GoogleFonts.poppins(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400,
-                    color: themeProvider.textColor.withOpacity(0.7),
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 4),
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: subtitleWidget,
               ),
               ...[
                 if (showButton)

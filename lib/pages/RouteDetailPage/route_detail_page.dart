@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/route_detail_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
+import 'package:rota_erzincan/widgets/NewRouteModal.dart';
 import 'package:rota_erzincan/widgets/RouteDetailSliverAppBar.dart';
 import 'package:rota_erzincan/widgets/DetailTopBarShadow.dart';
 import 'package:rota_erzincan/widgets/StatusBarOverlay.dart';
@@ -112,6 +114,29 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                   viewModel.openMapApp(context, themeProvider);
                 },
                 showButton: viewModel.convertedStops.isNotEmpty,
+                onAddPressed: () {
+                  if (!viewModel.route.isUserAdded) {
+                    // ❌ Sabit rota, düzenlenemez → fonksiyon çalışmaz
+                    return;
+                  }
+                  if (viewModel.route.stops.isEmpty) {
+                    print("⛔ Rota durakları henüz yüklenmedi!");
+                    return;
+                  }
+
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (_) {
+                      return ChangeNotifierProvider(
+                        create: (_) => NewRouteModalViewModel(
+                            editingRoute: viewModel.route),
+                        child: NewRouteModal(editingRoute: viewModel.route),
+                      );
+                    },
+                  );
+                },
+                isUserAdded: viewModel.route.isUserAdded,
               ),
               ...[
                 if (viewModel.isLoading)

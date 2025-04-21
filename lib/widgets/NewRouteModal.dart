@@ -4,11 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/models/RouteItem.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class NewRouteModal extends StatefulWidget {
-  const NewRouteModal({super.key});
+  final RouteItem? editingRoute; // 👈 yeni eklendi
+  const NewRouteModal({super.key, this.editingRoute});
 
   @override
   State<NewRouteModal> createState() => _NewRouteModalState();
@@ -274,17 +276,29 @@ class _NewRouteModalState extends State<NewRouteModal> {
                   return;
                 }
 
-                await vm.createRoute();
-
-                Fluttertoast.cancel();
-                Fluttertoast.showToast(
-                  msg: "Rota Başarıyla Kaydedildi",
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.BOTTOM,
-                  backgroundColor: ColorConstants.cardColor,
-                  textColor: Colors.white,
-                  fontSize: 14,
-                );
+                if (widget.editingRoute != null) {
+                  await vm.updateRoute(widget.editingRoute!.id);
+                  Fluttertoast.cancel();
+                  Fluttertoast.showToast(
+                    msg: "Rota Başarıyla Kaydedildi",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.BOTTOM,
+                    backgroundColor: ColorConstants.cardColor,
+                    textColor: Colors.white,
+                    fontSize: 14,
+                  );
+                } else {
+                  await vm.createRoute();
+                  Fluttertoast.cancel();
+                  Fluttertoast.showToast(
+                    msg: "Rota Başarıyla Kaydedildi",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.BOTTOM,
+                    backgroundColor: ColorConstants.cardColor,
+                    textColor: Colors.white,
+                    fontSize: 14,
+                  );
+                }
 
                 Navigator.pop(context);
               },
@@ -303,7 +317,9 @@ class _NewRouteModalState extends State<NewRouteModal> {
                   const Icon(Icons.bookmark_add, color: Colors.white, size: 20),
                   const SizedBox(width: 8),
                   Text(
-                    "Rotayı Kaydet",
+                    widget.editingRoute != null
+                        ? "Rotayı Güncelle"
+                        : "Rotayı Kaydet",
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,

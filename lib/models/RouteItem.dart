@@ -10,7 +10,7 @@ class RouteItem {
   final double distanceKm;
   final Duration duration;
   final bool isUserAdded;
-  final List<CategoryContentItem> stops;
+  List<CategoryContentItem> stops;
 
   RouteItem({
     required this.id, // ✅ constructor'a eklendi
