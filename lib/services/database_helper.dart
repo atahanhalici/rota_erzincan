@@ -20,8 +20,9 @@ class DatabaseHelper {
     String path = join(documentsDirectory.path, 'rota_erzincan.db');
     return await openDatabase(
       path,
-      version: 1,
+      version: 3, // versiyon yükseltildi 🔺
       onCreate: _onCreate,
+      onUpgrade: _onUpgrade, // upgrade fonksiyonu eklendi
     );
   }
 
@@ -30,7 +31,7 @@ class DatabaseHelper {
       CREATE TABLE routes (
         id TEXT PRIMARY KEY,
         title TEXT,
-        subtitle TEXT,
+        subtitle TEXT, -- ✅ burada olmalı
         imageUrl TEXT,
         icon INTEGER,
         distanceKm REAL,
@@ -46,24 +47,37 @@ class DatabaseHelper {
         latitude REAL,
         longitude REAL,
         title TEXT,
+        description TEXT, -- 🔺 eklendi
+        stopOrder INTEGER DEFAULT 0, -- ✅ EKLE BUNU
         FOREIGN KEY(routeId) REFERENCES routes(id) ON DELETE CASCADE
       )
     ''');
   }
 
-  // İsteğe bağlı: Tüm route'ları çekme
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('ALTER TABLE route_stops ADD COLUMN description TEXT');
+    }
+    if (oldVersion < 3) {
+      await db.execute(
+          'ALTER TABLE route_stops ADD COLUMN stopOrder INTEGER DEFAULT 0'); // ✅ EKLENDİ
+    }
+  }
+
   Future<List<Map<String, dynamic>>> getAllRoutes() async {
     final db = await database;
     return await db.query('routes');
   }
 
-  // İsteğe bağlı: Bir route'ın duraklarını çekme
   Future<List<Map<String, dynamic>>> getStopsForRoute(String routeId) async {
     final db = await database;
-    return await db.query('route_stops', where: 'routeId = ?', whereArgs: [routeId]);
+    return await db.query(
+      'route_stops',
+      where: 'routeId = ?',
+      whereArgs: [routeId],
+    );
   }
 
-  // Tüm veritabanını sil (debug için faydalı)
   Future<void> clearDatabase() async {
     final db = await database;
     await db.delete('route_stops');

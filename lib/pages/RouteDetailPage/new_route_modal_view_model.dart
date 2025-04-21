@@ -128,7 +128,7 @@ class NewRouteModalViewModel extends ChangeNotifier {
       'durationMinutes': route.duration.inMinutes,
       'isUserAdded': route.isUserAdded ? 1 : 0,
     });
-
+    int order = 0;
     // ✅ Stop'ları kaydet
     for (final stop in stops) {
       await db.insert('route_stops', {
@@ -137,6 +137,8 @@ class NewRouteModalViewModel extends ChangeNotifier {
         'latitude': stop.latitude,
         'longitude': stop.longitude,
         'title': stop.title,
+        'description': stop.description,
+        'stopOrder': order++, // ✅ sıralı index
       });
     }
 

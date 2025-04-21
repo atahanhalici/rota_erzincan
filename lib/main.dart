@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/string_constants.dart';
@@ -13,6 +14,7 @@ import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page_view_
 import 'package:rota_erzincan/pages/GalleryPage/gallery_page_view_model.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/pages/LiveCamsPage/live_cams_page_view_model.dart';
+import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page.dart';
 import 'package:rota_erzincan/pages/SplashPage/splash_page_view_model.dart';
 import 'package:rota_erzincan/pages/StoryPage/story_page_view_model.dart';
@@ -22,6 +24,7 @@ import 'package:rota_erzincan/theme_provider.dart';
 void main() async {
   final splashViewModel = SplashPageViewModel();
   ApplicationStart.init(splashViewModel);
+  await _handleLocationPermission();
   runApp(
     MultiProvider(
       providers: [
@@ -31,6 +34,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => StoryPageViewModel()),
         ChangeNotifierProvider(create: (_) => CategoriesPageViewModel()),
         ChangeNotifierProvider(create: (_) => RoutesPageViewModel()),
+        ChangeNotifierProvider(create: (_) => NewRouteModalViewModel()),
         ChangeNotifierProvider<DetailPhotoViewPageViewModel>(
           create: (context) => DetailPhotoViewPageViewModel(
               0), // veya uygun bir başlangıç index'i
@@ -42,6 +46,28 @@ void main() async {
       child: const MyApp(),
     ),
   );
+}
+
+Future<void> _handleLocationPermission() async {
+  bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    // Lokasyon servisi açık değilse hata fırlat
+    throw Exception('Konum servisi etkin değil.');
+  }
+
+  LocationPermission permission = await Geolocator.checkPermission();
+
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      throw Exception('Konum izni reddedildi.');
+    }
+  }
+
+  if (permission == LocationPermission.deniedForever) {
+    throw Exception(
+        'Konum izni kalıcı olarak reddedildi, ayarlardan açmanız gerekiyor.');
+  }
 }
 
 class MyApp extends StatelessWidget {

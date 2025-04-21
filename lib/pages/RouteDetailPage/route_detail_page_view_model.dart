@@ -6,6 +6,7 @@ import 'package:rota_erzincan/models/RouteItem.dart';
 import 'package:rota_erzincan/models/RouteStop.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:rota_erzincan/services/database_helper.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuLogoItem.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -16,66 +17,142 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
   bool isLoading = true;
   String? _mapErrorMessage;
   String? get mapErrorMessage => _mapErrorMessage;
+  List<CategoryContentItem> get convertedStops => contentItems.map((stop) {
+        return CategoryContentItem(
+          id: stop.id,
+          title: stop.title,
+          description: stop.description,
+          imageUrl: stop.imageUrl,
+          latitude: stop.latitude,
+          longitude: stop.longitude,
+          distanceFromUser: stop.distanceFromUser,
+        );
+      }).toList();
 
   RouteDetailPageViewModel({required this.route}) {
     _loadContent();
+  }
+
+  Future<void> recalculateDistanceAndDuration() async {
+    final db = await DatabaseHelper.instance.database;
+    final stops = await db.query(
+      'route_stops',
+      where: 'routeId = ?',
+      whereArgs: [route.id],
+      orderBy: 'stopOrder ASC',
+    );
+
+    double totalDistance = 0.0;
+    for (int i = 0; i < stops.length - 1; i++) {
+      totalDistance += Geolocator.distanceBetween(
+        stops[i]['latitude'] as double,
+        stops[i]['longitude'] as double,
+        stops[i + 1]['latitude'] as double,
+        stops[i + 1]['longitude'] as double,
+      );
+    }
+
+    final totalKm = totalDistance / 1000;
+    final estimatedDuration = Duration(minutes: (totalKm / 50 * 60).round());
+
+    await db.update(
+      'routes',
+      {
+        'distanceKm': double.parse(totalKm.toStringAsFixed(2)),
+        'durationMinutes': estimatedDuration.inMinutes,
+      },
+      where: 'id = ?',
+      whereArgs: [route.id],
+    );
+
+    await _loadContent();
   }
 
   Future<void> _loadContent() async {
     isLoading = true;
     notifyListeners();
 
-    await Future.delayed(const Duration(milliseconds: 500));
-
     final currentPosition = await Geolocator.getCurrentPosition();
 
-    contentItems = [
-      RouteStop(
-        id: '1',
-        title: 'Saat Kulesi',
-        description: 'Tarihi Erzincan saat kulesi.',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.7524,
-        longitude: 39.4921,
-      ),
-      RouteStop(
-        id: '2',
-        title: 'Erzincan Müzesi',
-        description: 'Yerel tarih ve kültür zenginliği.',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.7508,
-        longitude: 39.4935,
-      ),
-      RouteStop(
-        id: '3',
-        title: 'Erzincan Müzesi 2',
-        description: 'Yerel tarih ve kültür zenginliği.',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.7497,
-        longitude: 39.4912,
-      ),
-      RouteStop(
-        id: '4',
-        title: 'Erzincan Müzesi 3',
-        description: 'Yerel tarih ve kültür zenginliği.',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.7511,
-        longitude: 39.4899,
-      ),
-    ];
-
-    for (var stop in contentItems) {
-      final distance = Geolocator.distanceBetween(
-        currentPosition.latitude,
-        currentPosition.longitude,
-        stop.latitude,
-        stop.longitude,
+    if (route.isUserAdded) {
+      // 🔹 Kullanıcı tarafından eklenen rota → veritabanından çek
+      final db = await DatabaseHelper.instance.database;
+      final List<Map<String, dynamic>> stopsData = await db.query(
+        'route_stops',
+        where: 'routeId = ?',
+        whereArgs: [route.id],
       );
-      stop.distanceFromUser = distance;
+
+      contentItems = stopsData.map((map) {
+        final stop = RouteStop(
+          id: map['id'] as String,
+          title: map['title'] as String,
+          description: map['description'] ?? '', // veritabanında yoksa boş
+          imageUrl:
+              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc', // default image
+          latitude: map['latitude'] as double,
+          longitude: map['longitude'] as double,
+        );
+
+        stop.distanceFromUser = Geolocator.distanceBetween(
+          currentPosition.latitude,
+          currentPosition.longitude,
+          stop.latitude,
+          stop.longitude,
+        );
+        return stop;
+      }).toList();
+    } else {
+      // 🔹 Hazır (sabit) rota → manuel sabit liste
+      contentItems = [
+        RouteStop(
+          id: '1',
+          title: 'Saat Kulesi',
+          description: 'Tarihi Erzincan saat kulesi.',
+          imageUrl:
+              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+          latitude: 39.7524,
+          longitude: 39.4921,
+        ),
+        RouteStop(
+          id: '2',
+          title: 'Erzincan Müzesi',
+          description: 'Yerel tarih ve kültür zenginliği.',
+          imageUrl:
+              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+          latitude: 39.7508,
+          longitude: 39.4935,
+        ),
+        RouteStop(
+          id: '3',
+          title: 'Erzincan Müzesi 2',
+          description: 'Yerel tarih ve kültür zenginliği.',
+          imageUrl:
+              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+          latitude: 39.7497,
+          longitude: 39.4912,
+        ),
+        RouteStop(
+          id: '4',
+          title: 'Erzincan Müzesi 3',
+          description: 'Yerel tarih ve kültür zenginliği.',
+          imageUrl:
+              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+          latitude: 39.7511,
+          longitude: 39.4899,
+        ),
+      ];
+
+      // 🔄 Mesafeleri hesapla
+      for (var stop in contentItems) {
+        final distance = Geolocator.distanceBetween(
+          currentPosition.latitude,
+          currentPosition.longitude,
+          stop.latitude,
+          stop.longitude,
+        );
+        stop.distanceFromUser = distance;
+      }
     }
 
     isLoading = false;
@@ -86,8 +163,8 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
     navigationService.navigateToDetailsPage(item);
   }
 
-  void navigateToStop(
-      BuildContext context, ThemeProvider themeProvider, RouteStop stop) async {
+  void navigateToStop(BuildContext context, ThemeProvider themeProvider,
+      CategoryContentItem stop) async {
     debugPrint('📍 Durak detayına gidiliyor: ${stop.title}');
 
     try {

@@ -118,6 +118,8 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                       themeProvider: themeProvider,
                       controller: _controller,
                       viewModel: viewModel,
+                      items: viewModel.convertedStops,
+                      scaffoldContext: context,
                     ),
             ],
           ),

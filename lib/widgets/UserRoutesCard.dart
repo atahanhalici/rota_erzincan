@@ -212,7 +212,11 @@ class UserRoutesCard extends StatelessWidget {
                                                                 themeProvider
                                                                     .cardColor,
                                                             content: Text(
-                                                                '${route.title} adlı rota silindi'),
+                                                              '${route.title} adlı rota silindi',
+                                                              style: TextStyle(
+                                                                  color: themeProvider
+                                                                      .textColor),
+                                                            ),
                                                             duration:
                                                                 const Duration(
                                                                     seconds: 2),
