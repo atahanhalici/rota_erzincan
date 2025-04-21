@@ -70,7 +70,7 @@ class StickyHeaderWithWidget extends StatelessWidget {
                                   fontWeight: FontWeight.w700,
                                   color: themeProvider.textColor,
                                 ),
-                                maxLines: 2,
+                                maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),

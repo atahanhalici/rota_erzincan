@@ -17,6 +17,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
   bool isLoading = true;
   String? _mapErrorMessage;
   String? get mapErrorMessage => _mapErrorMessage;
+  bool _disposed = false;
   List<CategoryContentItem> get convertedStops => contentItems.map((stop) {
         return CategoryContentItem(
           id: stop.id,
@@ -31,6 +32,15 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
 
   RouteDetailPageViewModel({required this.route}) {
     _loadContent();
+  }
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  void safeNotifyListeners() {
+    if (!_disposed) notifyListeners();
   }
 
   Future<void> recalculateDistanceAndDuration() async {
@@ -76,7 +86,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
 
   Future<void> _loadContent() async {
     isLoading = true;
-    notifyListeners();
+    safeNotifyListeners();
 
     final currentPosition = await Geolocator.getCurrentPosition();
 
@@ -172,7 +182,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
     }
 
     isLoading = false;
-    notifyListeners();
+    safeNotifyListeners();
   }
 
   Future<void> navigateToPage(CategoryContentItem item) async {
@@ -296,7 +306,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
   Future<void> openMapApp(
       BuildContext context, ThemeProvider themeProvider) async {
     _mapErrorMessage = null;
-    notifyListeners();
+    safeNotifyListeners();
 
     try {
       final availableMaps = await MapLauncher.installedMaps;
@@ -304,7 +314,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       if (availableMaps.isEmpty) {
         _mapErrorMessage =
             'Cihazınızda yüklü bir harita uygulaması bulunamadı.';
-        notifyListeners();
+        safeNotifyListeners();
         return;
       }
 
@@ -342,7 +352,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
           await launchUrl(googleUrl, mode: LaunchMode.externalApplication);
         } else {
           _mapErrorMessage = 'Google Maps açılamadı.';
-          notifyListeners();
+          safeNotifyListeners();
         }
       } else {
         showModalBottomSheet(
@@ -404,7 +414,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
     } catch (e) {
       debugPrint('Harita uygulaması açılamadı: $e');
       _mapErrorMessage = 'Harita uygulaması açılırken bir hata oluştu.';
-      notifyListeners();
+      safeNotifyListeners();
     }
   }
 }
