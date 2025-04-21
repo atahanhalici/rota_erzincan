@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
 import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuItem.dart';
 
@@ -25,7 +26,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-
+    final _homeModel = Provider.of<HomePageViewModel>(context, listen: false);
     return Drawer(
       child: Container(
         decoration: BoxDecoration(
@@ -69,7 +70,7 @@ class CustomDrawer extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 children: [
-                  ..._buildMenuItems(),
+                  ..._buildMenuItems(_homeModel, context),
                 ],
               ),
             ),
@@ -107,18 +108,29 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildMenuItems() {
+  List<Widget> _buildMenuItems(
+      HomePageViewModel homeModel, BuildContext context) {
     return [
       FancyMenuItem(
         icon: Icons.person,
         label: "Valimizden Mesaj",
-        onTap: () {},
+        onTap: () {
+          homeModel.navigateToDetails(context,
+              imageUrl:
+                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/makam-foto-2.jpeg?alt=media&token=b9eb519f-17de-44c8-aee6-b03fa0bb8c35",
+              title: "Valimizden Mesaj");
+        },
         color: ColorConstants.buttonColor.withOpacity(0.1),
       ),
       FancyMenuItem(
         icon: Icons.info_outline,
         label: "Erzincan Hakkında",
-        onTap: () {},
+        onTap: () {
+          homeModel.navigateToDetails(context,
+              imageUrl:
+                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/erzincana-kar-yeniden-geliyor.jpg?alt=media&token=0b910000-dd18-4edc-8724-66268562adb4",
+              title: "Erzincan Hakkında");
+        },
         color: ColorConstants.buttonColor.withOpacity(0.3),
       ),
       FancyMenuItem(
@@ -130,7 +142,12 @@ class CustomDrawer extends StatelessWidget {
       FancyMenuItem(
         icon: Icons.app_settings_alt,
         label: "Uygulama Hakkında",
-        onTap: () {},
+        onTap: () {
+          homeModel.navigateToDetails(context,
+              imageUrl:
+                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/loading.jpg?alt=media&token=1e8517f0-5a7d-4d96-891b-3adb85d850c2",
+              title: "Uygulama Hakkında");
+        },
         color: ColorConstants.buttonColor.withOpacity(0.7),
       ),
       FancyMenuItem(

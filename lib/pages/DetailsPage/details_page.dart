@@ -347,20 +347,22 @@ class _DetailsPageState extends State<DetailsPage>
                                 ),
                                 child: Column(
                                   children: [
-                                    Stack(
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
-                                        AnimatedBuilder(
-                                          animation: _headerAnimation,
-                                          builder: (context, child) {
-                                            return Transform.translate(
-                                              offset: Offset(
-                                                  _headerAnimation.value, 0),
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 15.0),
-                                                child: Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
+                                        // Yazı kısmı
+                                        Expanded(
+                                          child: AnimatedBuilder(
+                                            animation: _headerAnimation,
+                                            builder: (context, child) {
+                                              return Transform.translate(
+                                                offset: Offset(
+                                                    _headerAnimation.value, 0),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 15.0),
                                                   child: Text(
                                                     viewModel.contentItem.title,
                                                     style: GoogleFonts.poppins(
@@ -383,80 +385,77 @@ class _DetailsPageState extends State<DetailsPage>
                                                     softWrap: true,
                                                   ),
                                                 ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                        Positioned(
-                                          right: 0,
-                                          bottom: 0,
-                                          child: AnimatedBuilder(
-                                            animation: _buttonsAnimation,
-                                            builder: (context, child) {
-                                              return Transform.translate(
-                                                offset: Offset(
-                                                    0, _buttonsAnimation.value),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    BuildCircularButton(
-                                                        icon: Icons.add,
-                                                        onTap: () {
-                                                          showDialog(
-                                                            context: context,
-                                                            builder: (_) =>
-                                                                ChangeNotifierProvider
-                                                                    .value(
-                                                              value: Provider.of<
-                                                                      DetailsPageViewModel>(
-                                                                  context,
-                                                                  listen:
-                                                                      false),
-                                                              child:
-                                                                  const AddToRouteDialog(),
-                                                            ),
-                                                          );
-                                                        },
-                                                        bgColor: themeProvider
-                                                            .buttonColor,
-                                                        iconColor:
-                                                            Colors.white),
-                                                    BuildCircularButton(
-                                                        icon: Icons.location_on,
-                                                        onTap: () {
-                                                          viewModel.openMapApp(
-                                                              context,
-                                                              themeProvider);
-                                                        },
-                                                        bgColor: const Color
-                                                            .fromARGB(
-                                                            255, 211, 84, 0),
-                                                        iconColor: const Color
-                                                            .fromARGB(
-                                                            255, 245, 183, 70)),
-                                                    BuildCircularButton(
-                                                        onTap: () async {
-                                                          await viewModel
-                                                              .toggleSpeaking();
-                                                        },
-                                                        icon: viewModel
-                                                                .isSpeaking
-                                                            ? Icons.stop
-                                                            : Icons.play_arrow,
-                                                        isGlowing: viewModel
-                                                            .isSpeaking,
-                                                        bgColor: const Color
-                                                            .fromARGB(
-                                                            255, 211, 84, 0),
-                                                        iconColor: const Color
-                                                            .fromARGB(
-                                                            255, 245, 183, 70)),
-                                                  ],
-                                                ),
                                               );
                                             },
                                           ),
+                                        ),
+
+                                        // Butonlar kısmı
+                                        AnimatedBuilder(
+                                          animation: _buttonsAnimation,
+                                          builder: (context, child) {
+                                            return Transform.translate(
+                                              offset: Offset(
+                                                  0, _buttonsAnimation.value),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  BuildCircularButton(
+                                                    icon: Icons.add,
+                                                    onTap: () {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (_) =>
+                                                            ChangeNotifierProvider
+                                                                .value(
+                                                          value: Provider.of<
+                                                                  DetailsPageViewModel>(
+                                                              context,
+                                                              listen: false),
+                                                          child:
+                                                              const AddToRouteDialog(),
+                                                        ),
+                                                      );
+                                                    },
+                                                    bgColor: themeProvider
+                                                        .buttonColor,
+                                                    iconColor: Colors.white,
+                                                  ),
+                                                  BuildCircularButton(
+                                                    icon: Icons.location_on,
+                                                    onTap: () {
+                                                      viewModel.openMapApp(
+                                                          context,
+                                                          themeProvider);
+                                                    },
+                                                    bgColor:
+                                                        const Color.fromARGB(
+                                                            255, 211, 84, 0),
+                                                    iconColor:
+                                                        const Color.fromARGB(
+                                                            255, 245, 183, 70),
+                                                  ),
+                                                  BuildCircularButton(
+                                                    onTap: () async {
+                                                      await viewModel
+                                                          .toggleSpeaking();
+                                                    },
+                                                    icon: viewModel.isSpeaking
+                                                        ? Icons.stop
+                                                        : Icons.play_arrow,
+                                                    isGlowing:
+                                                        viewModel.isSpeaking,
+                                                    bgColor:
+                                                        const Color.fromARGB(
+                                                            255, 211, 84, 0),
+                                                    iconColor:
+                                                        const Color.fromARGB(
+                                                            255, 245, 183, 70),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ],
                                     ),

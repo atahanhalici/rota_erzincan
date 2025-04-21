@@ -31,16 +31,16 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
     notifyListeners();
   }
 
-  void navigateToDetails(BuildContext context) {
+  void navigateToDetails(BuildContext context, {String? imageUrl,String? title}) {
     navigationService.navigateToDetailsPage(
       CategoryContentItem(
         id: 'content_0',
-        title: 'Terzibaba Camii ve Külliyesi 1',
+        title: title??'Terzibaba Camii ve Külliyesi 1',
         description:
             'Bu Terzibaba Camii ve Külliyesi 1 kategorisi için içerik 1 açıklamasıdır.',
-        imageUrl:
+        imageUrl: imageUrl ??
             'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.6152, // Ergan Dağı civarı
+        latitude: 39.6152,
         longitude: 39.5558,
       ),
     );
