@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/services/version_service.dart';
@@ -10,7 +11,7 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
   late AnimationController controller;
   late Animation<double> scaleAnimation;
 
-  void init(TickerProvider vsync) {
+  void init(TickerProvider vsync, BuildContext context) async {
     controller = AnimationController(
       vsync: vsync,
       duration: const Duration(seconds: 15),
@@ -19,6 +20,12 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
     scaleAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(
       CurvedAnimation(parent: controller, curve: Curves.easeOut),
     );
+
+    while (!await ensureLocationPermission(context)) {
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
+    // Konum izni alındıysa uygulamayı başlat
+    handleStartUpLogic();
   }
 
   void disposeAnimation() {
@@ -31,10 +38,6 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
   bool splashFinished = false;
 
   bool get isRequiredUpdate => _isRequiredUpdate;
-
-  SplashPageViewModel() {
-    handleStartUpLogic();
-  }
 
   void handleStartUpLogic() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -98,5 +101,70 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
 
     _isRequiredUpdate = false;
     notifyListeners();
+  }
+
+  Future<bool> ensureLocationPermission(BuildContext context) async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      await _showBlockingDialog(
+        context,
+        "Konum Servisi Kapalı",
+        "Rota özelliklerimizi kullanabilmek için konum servisini açmalısınız.",
+      );
+      return false;
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        await _showBlockingDialog(
+          context,
+          "Konum İzni Reddedildi",
+          "Bu uygulama konum izni olmadan çalışamaz.",
+        );
+        return false;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      await _showBlockingDialog(
+        context,
+        "Konum İzni Kalıcı Olarak Reddedildi",
+        "Konum iznini ayarlardan manuel olarak açmalısınız.",
+        showSettings: true,
+      );
+      return false;
+    }
+
+    return true;
+  }
+
+  Future<void> _showBlockingDialog(
+    BuildContext context,
+    String title,
+    String message, {
+    bool showSettings = false,
+  }) async {
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          if (showSettings)
+            TextButton(
+              onPressed: () => Geolocator.openAppSettings(),
+              child: const Text("Ayarları Aç"),
+            ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("Tamam"),
+          ),
+        ],
+      ),
+    );
   }
 }

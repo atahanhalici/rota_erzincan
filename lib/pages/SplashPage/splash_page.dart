@@ -17,7 +17,7 @@ class _SplashPageState extends State<SplashPage>
   void initState() {
     super.initState();
     viewModel = SplashPageViewModel();
-    viewModel.init(this);
+    viewModel.init(this, context);
   }
 
   @override

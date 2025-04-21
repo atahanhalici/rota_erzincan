@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/string_constants.dart';
@@ -24,7 +23,6 @@ import 'package:rota_erzincan/theme_provider.dart';
 void main() async {
   final splashViewModel = SplashPageViewModel();
   ApplicationStart.init(splashViewModel);
-  await _handleLocationPermission();
   runApp(
     MultiProvider(
       providers: [
@@ -46,28 +44,6 @@ void main() async {
       child: const MyApp(),
     ),
   );
-}
-
-Future<void> _handleLocationPermission() async {
-  bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    // Lokasyon servisi açık değilse hata fırlat
-    throw Exception('Konum servisi etkin değil.');
-  }
-
-  LocationPermission permission = await Geolocator.checkPermission();
-
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      throw Exception('Konum izni reddedildi.');
-    }
-  }
-
-  if (permission == LocationPermission.deniedForever) {
-    throw Exception(
-        'Konum izni kalıcı olarak reddedildi, ayarlardan açmanız gerekiyor.');
-  }
 }
 
 class MyApp extends StatelessWidget {

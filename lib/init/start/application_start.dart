@@ -47,11 +47,8 @@ class ApplicationStart {
         print("Was previously disconnected: $wasDisconnected");
         if (wasDisconnected) {
           print("Navigating to /welcome after reconnection");
-         
 
-       
-            NavigationService.instance.navigateToPageClear("/home", null);
-          
+          NavigationService.instance.navigateToPageClear("/home", null);
 
           // Bağlantı yeniden sağlandığında durumu sıfırla
           ConnectivityService.instance.resetWasDisconnected();
