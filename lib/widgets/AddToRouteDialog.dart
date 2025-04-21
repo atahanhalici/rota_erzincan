@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
+import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/services/database_helper.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
@@ -49,6 +50,9 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
     final db = await DatabaseHelper.instance.database;
     final routeData = await db.query('routes');
     final viewModel = Provider.of<DetailsPageViewModel>(context, listen: false);
+    final stopId = viewModel.contentItem.id;
+
+    print("🔍 contentItem.id: $stopId");
 
     List<RouteItem> loadedRoutes = routeData.map((map) {
       return RouteItem(
@@ -64,22 +68,34 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
       );
     }).toList();
 
-    final stopId = viewModel.contentItem.id;
+    Set<String> newlySelected = {};
 
-    // Her route için bu içerik daha önce eklenmiş mi kontrol et
     for (var route in loadedRoutes) {
       final existing = await db.query(
         'route_stops',
-        where: 'routeId = ? AND id = ?',
-        whereArgs: [route.id, stopId],
+        where: 'routeId = ?',
+        whereArgs: [route.id],
       );
-      if (existing.isNotEmpty) {
-        _selectedRouteIds.add(route.id);
+
+      print("📦 route '${route.title}' (id: ${route.id}) içerikleri:");
+      for (var stop in existing) {
+        print(" → stop.id: ${stop['id']} (tip: ${stop['id'].runtimeType})");
+      }
+
+      final matched =
+          existing.any((e) => e['id'].toString() == stopId.toString());
+
+      if (matched) {
+        newlySelected.add(route.id);
+        print("✅ EŞLEŞME: '${route.title}' rotasında contentItem var.");
+      } else {
+        print("❌ EŞLEŞME YOK: '${route.title}' rotasında contentItem YOK.");
       }
     }
 
     setState(() {
       _routes = loadedRoutes;
+      _selectedRouteIds = newlySelected;
       _isLoading = false;
     });
 
@@ -87,44 +103,29 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
   }
 
   Future<void> _toggleContentInRoute(RouteItem route) async {
-    final viewModel = Provider.of<DetailsPageViewModel>(context, listen: false);
-    final db = await DatabaseHelper.instance.database;
-    final content = viewModel.contentItem;
-
     final isSelected = _selectedRouteIds.contains(route.id);
-
-    if (isSelected) {
-      // çıkar
-      await db.delete(
-        'route_stops',
-        where: 'routeId = ? AND id = ?',
-        whereArgs: [route.id, content.id],
-      );
-      setState(() {
+    setState(() {
+      if (isSelected) {
         _selectedRouteIds.remove(route.id);
-      });
-    } else {
-      // ekle
-      await db.insert('route_stops', {
-        'id': content.id,
-        'routeId': route.id,
-        'latitude': content.latitude,
-        'longitude': content.longitude,
-        'title': content.title,
-      });
-      setState(() {
+      } else {
         _selectedRouteIds.add(route.id);
-      });
-    }
+      }
+    });
   }
 
   void _showNewRouteModal() {
-    Navigator.pop(context); // dialogu kapat
+    Navigator.pop(context);
+
+    final viewModel = Provider.of<DetailsPageViewModel>(context, listen: false);
+    final contentItem = viewModel.contentItem;
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => const NewRouteModal(),
+      builder: (context) => ChangeNotifierProvider(
+        create: (_) => NewRouteModalViewModel(initialItem: contentItem),
+        child: const NewRouteModal(), // 👈 burası da güncellendi
+      ),
     );
   }
 
@@ -327,67 +328,75 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                             ),
                           ),
                   ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: ElevatedButton(
-                onPressed: _saveSelectedRoutes,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: themeProvider.buttonColor.withOpacity(0.9),
-                  foregroundColor: Colors.white,
-                  elevation: 2,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  minimumSize: const Size(double.infinity, 48),
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.save_alt_rounded, size: 20),
-                    SizedBox(width: 10),
-                    Text(
-                      "Kaydet",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Yeni rota oluştur butonu
+
+            // Butonlar yan yana düzenlendi
             Padding(
               padding: const EdgeInsets.all(20),
-              child: ElevatedButton(
-                onPressed: _showNewRouteModal,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: themeProvider.buttonColor,
-                  foregroundColor: Colors.white,
-                  elevation: 2,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  minimumSize: const Size(double.infinity, 48),
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.add_circle_outline, size: 20),
-                    SizedBox(width: 10),
-                    Text(
-                      "Yeni Rota Oluştur",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.5,
+              child: Row(
+                children: [
+                  // Kaydet butonu
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: _saveSelectedRoutes,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            themeProvider.buttonColor.withOpacity(0.9),
+                        foregroundColor: Colors.white,
+                        elevation: 2,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.save_alt_rounded, size: 18),
+                          SizedBox(width: 8),
+                          Text(
+                            "Kaydet",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+
+                  const SizedBox(width: 12),
+
+                  // Yeni rota oluştur butonu
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: _showNewRouteModal,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: themeProvider.buttonColor,
+                        foregroundColor: Colors.white,
+                        elevation: 2,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.add_circle_outline, size: 18),
+                          SizedBox(width: 8),
+                          Text(
+                            "Yeni Rota",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -400,78 +409,133 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
     final db = await DatabaseHelper.instance.database;
     final viewModel = Provider.of<DetailsPageViewModel>(context, listen: false);
     final content = viewModel.contentItem;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
 
-    for (var routeId in _selectedRouteIds) {
+    for (var route in _routes) {
+      final wasSelected = _selectedRouteIds.contains(route.id);
+
       final existing = await db.query(
         'route_stops',
         where: 'routeId = ? AND id = ?',
-        whereArgs: [routeId, content.id],
+        whereArgs: [route.id, content.id],
       );
 
-      if (existing.isEmpty) {
+      final isAlreadyInDb = existing.isNotEmpty;
+
+      if (wasSelected && !isAlreadyInDb) {
+        // ✅ EKLEME işlemi
         await db.insert('route_stops', {
           'id': content.id,
-          'routeId': routeId,
+          'routeId': route.id,
           'latitude': content.latitude,
           'longitude': content.longitude,
           'title': content.title,
           'description': content.description,
-          'stopOrder': 0, // varsayılan
+          'stopOrder': 0,
         });
-      } else {
+
+        await _updateRouteDistanceAndDuration(route.id);
+
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(
+                "Durak '${content.title}' '${route.title}' rotasına eklendi."),
+            action: SnackBarAction(
+              label: 'Geri Al',
+              onPressed: () async {
+                await db.delete(
+                  'route_stops',
+                  where: 'routeId = ? AND id = ?',
+                  whereArgs: [route.id, content.id],
+                );
+                await _updateRouteDistanceAndDuration(route.id);
+              },
+            ),
+          ),
+        );
+      } else if (!wasSelected && isAlreadyInDb) {
+        // ❌ SİLME işlemi
+        await db.delete(
+          'route_stops',
+          where: 'routeId = ? AND id = ?',
+          whereArgs: [route.id, content.id],
+        );
+
+        await _updateRouteDistanceAndDuration(route.id);
+
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(
+                "Durak '${content.title}' '${route.title}' rotasından çıkarıldı."),
+            action: SnackBarAction(
+              label: 'Geri Al',
+              onPressed: () async {
+                await db.insert('route_stops', {
+                  'id': content.id,
+                  'routeId': route.id,
+                  'latitude': content.latitude,
+                  'longitude': content.longitude,
+                  'title': content.title,
+                  'description': content.description,
+                  'stopOrder': 0,
+                });
+                await _updateRouteDistanceAndDuration(route.id);
+              },
+            ),
+          ),
+        );
+      } else if (wasSelected && isAlreadyInDb) {
+        // 🛠️ Zaten ekli olanı güncelle
         await db.update(
           'route_stops',
           {
             'latitude': content.latitude,
             'longitude': content.longitude,
             'title': content.title,
-            'description': content.description, // ✅ Burada da güncelle
+            'description': content.description,
           },
           where: 'routeId = ? AND id = ?',
-          whereArgs: [routeId, content.id],
+          whereArgs: [route.id, content.id],
         );
       }
+    }
 
-      // 🔁 Tüm durakları sırayla çek
-      final stops = await db.query(
-        'route_stops',
-        where: 'routeId = ?',
-        whereArgs: [routeId],
-      );
+    Navigator.pop(context); // modalı kapat
+  }
 
-      // 🔁 Toplam mesafeyi hesapla
-      double totalDistance = 0.0;
+  Future<void> _updateRouteDistanceAndDuration(String routeId) async {
+    final db = await DatabaseHelper.instance.database;
 
-      for (int i = 0; i < stops.length - 1; i++) {
-        final current = stops[i];
-        final next = stops[i + 1];
+    final stops = await db.query(
+      'route_stops',
+      where: 'routeId = ?',
+      whereArgs: [routeId],
+      orderBy: 'stopOrder ASC',
+    );
 
-        final distance = Geolocator.distanceBetween(
-          current['latitude'] as double,
-          current['longitude'] as double,
-          next['latitude'] as double,
-          next['longitude'] as double,
-        );
+    double totalDistance = 0.0;
 
-        totalDistance += distance;
-      }
-
-      final totalDistanceKm = totalDistance / 1000;
-      final estimatedDuration =
-          Duration(minutes: (totalDistanceKm / 50 * 60).round());
-
-      // 🔄 Rotayı güncelle
-      await db.update(
-        'routes',
-        {
-          'distanceKm': double.parse(totalDistanceKm.toStringAsFixed(2)),
-          'durationMinutes': estimatedDuration.inMinutes,
-        },
-        where: 'id = ?',
-        whereArgs: [routeId],
+    for (int i = 0; i < stops.length - 1; i++) {
+      totalDistance += Geolocator.distanceBetween(
+        stops[i]['latitude'] as double,
+        stops[i]['longitude'] as double,
+        stops[i + 1]['latitude'] as double,
+        stops[i + 1]['longitude'] as double,
       );
     }
 
-    Navigator.pop(context); // Dialogu kapat
+    final totalDistanceKm = totalDistance / 1000;
+    final estimatedDuration =
+        Duration(minutes: (totalDistanceKm / 50 * 60).round());
+
+    await db.update(
+      'routes',
+      {
+        'distanceKm': double.parse(totalDistanceKm.toStringAsFixed(2)),
+        'durationMinutes': estimatedDuration.inMinutes,
+      },
+      where: 'id = ?',
+      whereArgs: [routeId],
+    );
   }
 }

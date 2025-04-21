@@ -107,6 +107,7 @@ class RouteContentSliver extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () => viewModel.navigateToPage(item),
+        behavior: HitTestBehavior.opaque,
         child: Row(
           children: [
             Hero(

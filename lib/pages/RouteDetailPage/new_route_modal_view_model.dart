@@ -10,55 +10,70 @@ class NewRouteModalViewModel extends ChangeNotifier {
   final descController = TextEditingController();
   final uuid = Uuid();
 
-  final List<CategoryContentItem> allItems = [
-    CategoryContentItem(
-      id: 'item_0',
-      title: 'Ergan Dağı Kayak Merkezi',
-      description:
-          'Kış turizmiyle öne çıkan, doğayla iç içe bir kayak merkezi.',
-      imageUrl: 'https://picsum.photos/id/1011/600/400',
-      latitude: 39.6152,
-      longitude: 39.5558,
-    ),
-    CategoryContentItem(
-      id: 'item_1',
-      title: 'Girlevik Şelalesi',
-      description:
-          'Doğal güzelliğiyle ünlü, piknik ve fotoğrafçılık için harika bir şelale.',
-      imageUrl: 'https://picsum.photos/id/1025/600/400',
-      latitude: 39.6255,
-      longitude: 39.7813,
-    ),
-    CategoryContentItem(
-      id: 'item_2',
-      title: 'Kemaliye Karanlık Kanyon',
-      description:
-          'Dünyanın en dar geçitlerinden biri, muazzam manzaralı yürüyüş yollarıyla ünlü.',
-      imageUrl: 'https://picsum.photos/id/1043/600/400',
-      latitude: 39.2601,
-      longitude: 38.4968,
-    ),
-    CategoryContentItem(
-      id: 'item_3',
-      title: 'Ekşisu Mesire Alanı',
-      description: 'Doğal maden suyu kaynakları ve piknik alanları ile ünlü.',
-      imageUrl: 'https://picsum.photos/id/1062/600/400',
-      latitude: 39.6613,
-      longitude: 39.6907,
-    ),
-    CategoryContentItem(
-      id: 'item_4',
-      title: 'Erzincan Kalesi',
-      description:
-          'Tarihi dokusunu koruyan ve şehre hâkim bir noktada bulunan kale.',
-      imageUrl: 'https://picsum.photos/id/1050/600/400',
-      latitude: 39.7508,
-      longitude: 39.4977,
-    ),
-  ];
+  final List<CategoryContentItem> allItems;
   final Set<String> selectedIds = {};
 
-  NewRouteModalViewModel();
+  NewRouteModalViewModel({CategoryContentItem? initialItem})
+      : allItems = List<CategoryContentItem>.from([
+          // 👇 Varsayılan 5 yer
+          CategoryContentItem(
+            id: 'item_0',
+            title: 'Ergan Dağı Kayak Merkezi',
+            description:
+                'Kış turizmiyle öne çıkan, doğayla iç içe bir kayak merkezi.',
+            imageUrl: 'https://picsum.photos/id/1011/600/400',
+            latitude: 39.6152,
+            longitude: 39.5558,
+          ),
+          CategoryContentItem(
+            id: 'item_1',
+            title: 'Girlevik Şelalesi',
+            description:
+                'Doğal güzelliğiyle ünlü, piknik ve fotoğrafçılık için harika bir şelale.',
+            imageUrl: 'https://picsum.photos/id/1025/600/400',
+            latitude: 39.6255,
+            longitude: 39.7813,
+          ),
+          CategoryContentItem(
+            id: 'item_2',
+            title: 'Kemaliye Karanlık Kanyon',
+            description:
+                'Dünyanın en dar geçitlerinden biri, muazzam manzaralı yürüyüş yollarıyla ünlü.',
+            imageUrl: 'https://picsum.photos/id/1043/600/400',
+            latitude: 39.2601,
+            longitude: 38.4968,
+          ),
+          CategoryContentItem(
+            id: 'item_3',
+            title: 'Ekşisu Mesire Alanı',
+            description:
+                'Doğal maden suyu kaynakları ve piknik alanları ile ünlü.',
+            imageUrl: 'https://picsum.photos/id/1062/600/400',
+            latitude: 39.6613,
+            longitude: 39.6907,
+          ),
+          CategoryContentItem(
+            id: 'item_4',
+            title: 'Erzincan Kalesi',
+            description:
+                'Tarihi dokusunu koruyan ve şehre hâkim bir noktada bulunan kale.',
+            imageUrl: 'https://picsum.photos/id/1050/600/400',
+            latitude: 39.7508,
+            longitude: 39.4977,
+          ),
+          if (initialItem != null) initialItem,
+        ]) {
+    if (initialItem != null) {
+      selectedIds.add(initialItem.id);
+    }
+
+    // ✅ Seçili olanları en üste taşı
+    allItems.sort((a, b) {
+      final aSelected = selectedIds.contains(a.id) ? 0 : 1;
+      final bSelected = selectedIds.contains(b.id) ? 0 : 1;
+      return aSelected.compareTo(bSelected);
+    });
+  }
 
   void toggleSelection(String id) {
     if (selectedIds.contains(id)) {
@@ -132,7 +147,7 @@ class NewRouteModalViewModel extends ChangeNotifier {
     // ✅ Stop'ları kaydet
     for (final stop in stops) {
       await db.insert('route_stops', {
-        'id': uuid.v4(),
+        'id': stop.id,
         'routeId': route.id,
         'latitude': stop.latitude,
         'longitude': stop.longitude,

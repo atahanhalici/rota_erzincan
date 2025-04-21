@@ -23,6 +23,29 @@ class RouteItem {
     required this.isUserAdded,
     required this.stops,
   });
+  RouteItem copyWith({
+    String? id,
+    String? title,
+    String? subtitle,
+    String? imageUrl,
+    IconData? icon,
+    double? distanceKm,
+    Duration? duration,
+    bool? isUserAdded,
+    List<CategoryContentItem>? stops,
+  }) {
+    return RouteItem(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      subtitle: subtitle ?? this.subtitle,
+      imageUrl: imageUrl ?? this.imageUrl,
+      icon: icon ?? this.icon,
+      distanceKm: distanceKm ?? this.distanceKm,
+      duration: duration ?? this.duration,
+      isUserAdded: isUserAdded ?? this.isUserAdded,
+      stops: stops ?? this.stops,
+    );
+  }
 
   @override
   String toString() {

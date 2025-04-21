@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
@@ -280,7 +281,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                   msg: "Rota Başarıyla Kaydedildi",
                   toastLength: Toast.LENGTH_LONG,
                   gravity: ToastGravity.BOTTOM,
-                  backgroundColor: themeProvider.cardColor,
+                  backgroundColor: ColorConstants.cardColor,
                   textColor: Colors.white,
                   fontSize: 14,
                 );

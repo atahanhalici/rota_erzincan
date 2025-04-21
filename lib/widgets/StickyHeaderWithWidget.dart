@@ -9,13 +9,14 @@ class StickyHeaderWithWidget extends StatelessWidget {
   final String subtitle;
   final Widget subtitleWidget;
   final VoidCallback onStartRoutePressed;
-
+  final bool showButton;
   const StickyHeaderWithWidget({
     Key? key,
     required this.title,
     required this.subtitle,
     required this.subtitleWidget,
     required this.onStartRoutePressed,
+    this.showButton = true,
   }) : super(key: key);
 
   @override
@@ -72,32 +73,40 @@ class StickyHeaderWithWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 15),
                 child: subtitleWidget,
               ),
-              const SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: onStartRoutePressed,
-                    icon: const Icon(Icons.directions, color: Colors.white),
-                    label: Text(
-                      "Tüm Rotayı Haritada Başlat",
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
+              ...[
+                if (showButton)
+                  Column(
+                    children: [
+                      const SizedBox(height: 15),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            onPressed: onStartRoutePressed,
+                            icon: const Icon(Icons.directions,
+                                color: Colors.white),
+                            label: Text(
+                              "Tüm Rotayı Haritada Başlat",
+                              style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: themeProvider.buttonColor,
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12)),
+                              elevation: 4,
+                              shadowColor: Colors.black26,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: themeProvider.buttonColor,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                      elevation: 4,
-                      shadowColor: Colors.black26,
-                    ),
+                    ],
                   ),
-                ),
-              ),
+              ],
             ],
           ),
         ),

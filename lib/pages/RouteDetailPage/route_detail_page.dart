@@ -88,7 +88,7 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                         color: themeProvider.textColor.withOpacity(0.6)),
                     const SizedBox(width: 4),
                     Text(
-                      "${viewModel.route.distanceKm.toStringAsFixed(1)} km",
+                      "${viewModel.route.distanceKm} km",
                       style: GoogleFonts.poppins(
                         fontSize: 12,
                         color: themeProvider.textColor.withOpacity(0.6),
@@ -111,16 +111,47 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                 onStartRoutePressed: () {
                   viewModel.openMapApp(context, themeProvider);
                 },
+                showButton: viewModel.convertedStops.isNotEmpty,
               ),
-              viewModel.isLoading
-                  ? _buildLoadingSliver(themeProvider)
-                  : RouteContentSliver(
-                      themeProvider: themeProvider,
-                      controller: _controller,
-                      viewModel: viewModel,
-                      items: viewModel.convertedStops,
-                      scaffoldContext: context,
+              ...[
+                if (viewModel.isLoading)
+                  _buildLoadingSliver(themeProvider)
+                else if (viewModel.convertedStops.isEmpty)
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 48),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(Icons.info_outline_rounded,
+                              size: 48,
+                              color: themeProvider.textColor.withOpacity(0.4)),
+                          const SizedBox(height: 16),
+                          Text(
+                            "Rotada ekli durak bulunmuyor.",
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              color: themeProvider.textColor.withOpacity(0.7),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     ),
+                  )
+                else ...[
+                  // 🔥 RouteContentSliver zaten Sliver döndürüyorsa direkt çağır
+                  RouteContentSliver(
+                    themeProvider: themeProvider,
+                    controller: _controller,
+                    viewModel: viewModel,
+                    items: viewModel.convertedStops,
+                    scaffoldContext: context,
+                  ),
+                  const SliverToBoxAdapter(child: SizedBox(height: 130)),
+                ]
+              ]
             ],
           ),
           DetailTopBarShadow(themeProvider: themeProvider),

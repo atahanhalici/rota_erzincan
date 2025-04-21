@@ -12,7 +12,7 @@ import 'package:rota_erzincan/widgets/FancyMenuLogoItem.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
-  final RouteItem route;
+  RouteItem route;
   List<RouteStop> contentItems = [];
   bool isLoading = true;
   String? _mapErrorMessage;
@@ -65,7 +65,13 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       whereArgs: [route.id],
     );
 
-    await _loadContent();
+    // 👇 route modelini da güncelle ki UI'da yenilensin
+    route = route.copyWith(
+      distanceKm: double.parse(totalKm.toStringAsFixed(2)),
+      duration: estimatedDuration,
+    );
+
+    await _loadContent(); // contentItems güncellenmeye devam etsin
   }
 
   Future<void> _loadContent() async {
