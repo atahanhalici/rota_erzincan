@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:provider/provider.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/services/version_service.dart';
+import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/utilities/version_manager.dart';
 
 class SplashPageViewModel with ChangeNotifier, BaseViewModel {
@@ -147,23 +149,149 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
     String message, {
     bool showSettings = false,
   }) async {
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+
     await showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) => AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        actions: [
-          if (showSettings)
-            TextButton(
-              onPressed: () => Geolocator.openAppSettings(),
-              child: const Text("Ayarları Aç"),
-            ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text("Tamam"),
+      builder: (_) => Dialog(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        child: Container(
+          decoration: BoxDecoration(
+            color: themeProvider.cardColor,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ),
+            ],
           ),
-        ],
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Header with title
+              // Header with title
+              Container(
+                padding: const EdgeInsets.fromLTRB(24, 20, 24, 8),
+                decoration: BoxDecoration(
+                  color: themeProvider.buttonColor.withOpacity(0.1),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(24)),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.warning_amber_rounded,
+                      color: themeProvider.buttonColor,
+                      size: 28,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      // 👈 Bu satır eklendi
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          color: themeProvider.textColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                        maxLines: 2, // İsteğe bağlı: En fazla 2 satır olsun
+                        overflow: TextOverflow.ellipsis, // Uzunsa üç nokta koy
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Message content
+              Padding(
+                padding: const EdgeInsets.all(24),
+                child: Text(
+                  message,
+                  style: TextStyle(
+                    color: themeProvider.textColor,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+
+              // Action buttons
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                child: Row(
+                  mainAxisAlignment: showSettings
+                      ? MainAxisAlignment.spaceBetween
+                      : MainAxisAlignment.center,
+                  children: [
+                    if (showSettings)
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => Geolocator.openAppSettings(),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                themeProvider.buttonColor.withOpacity(0.9),
+                            foregroundColor: Colors.white,
+                            elevation: 2,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.settings, size: 18),
+                              SizedBox(width: 8),
+                              Text(
+                                "Ayarları Aç",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    if (showSettings) const SizedBox(width: 12),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: themeProvider.buttonColor,
+                          foregroundColor: Colors.white,
+                          elevation: 2,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.check_circle_outline, size: 18),
+                            SizedBox(width: 8),
+                            Text(
+                              "Tamam",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
