@@ -247,6 +247,31 @@ class ApiService {
     );
   }
 
+  Future<List<CategoryContentItem>> getEvents() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    return [
+      CategoryContentItem(
+        id: 'content_filmler_0',
+        title: 'Vizyondaki Filmler',
+        description:
+            'Erzincan sinemalarında izleyebileceğiniz filmleri keşfedin.',
+        imageUrl: 'https://picsum.photos/seed/movie_theater/600/400',
+        latitude: 0, // örnek koordinatlar
+        longitude: 0,
+      ),
+      CategoryContentItem(
+        id: 'content_tiyatrolar_1',
+        title: 'Tiyatrolar',
+        description:
+            'Kültürel etkinlikler ve sahne sanatları için eşsiz tiyatrolar.',
+        imageUrl: 'https://picsum.photos/seed/theater_stage/600/400',
+        latitude: 0, // örnek koordinatlar
+        longitude: 0,
+      ),
+    ];
+  }
+
   Future<List<FeatureModel>> fetchFeatures() async {
     await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
 

@@ -31,11 +31,12 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
     notifyListeners();
   }
 
-  void navigateToDetails(BuildContext context, {String? imageUrl,String? title}) {
+  void navigateToDetails(BuildContext context,
+      {String? imageUrl, String? title}) {
     navigationService.navigateToDetailsPage(
       CategoryContentItem(
         id: 'content_0',
-        title: title??'Terzibaba Camii ve Külliyesi 1',
+        title: title ?? 'Terzibaba Camii ve Külliyesi 1',
         description:
             'Bu Terzibaba Camii ve Külliyesi 1 kategorisi için içerik 1 açıklamasıdır.',
         imageUrl: imageUrl ??
@@ -54,10 +55,21 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
       String title, String subtitle, String imageUrl, IconData icon) {
     CategoryItem _categoryItem = CategoryItem(
         icon: icon, title: title, subtitle: subtitle, imageUrl: imageUrl);
-    navigationService.navigateToCategoryDetail(_categoryItem);
+    if (title == "Bu Ayın Etkinlikleri") {
+      navigationService.navigateToCategoryDetailClear(_categoryItem);
+    } else {
+      navigationService.navigateToCategoryDetail(_categoryItem);
+    }
   }
 
-  void navigateBottomBar(BuildContext context, int index) {
+  void navigateBottomBar(
+    BuildContext context,
+    int index, {
+    String? title,
+    String? subtitle,
+    String? imageUrl,
+    IconData? icon,
+  }) {
     if (index == 0) {
       navigationService.navigateToPageClear("/home", null);
     } else if (index == 1) {
@@ -66,6 +78,20 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
       navigationService.navigateToPageClear("/gallery", null);
     } else if (index == 3) {
       navigationService.navigateToPageClear("/routes", null);
+    } else if (index == 4) {
+      if (title != null &&
+          subtitle != null &&
+          imageUrl != null &&
+          icon != null) {
+        navigationService.navigateToCategoryDetailClear(
+          CategoryItem(
+            title: title,
+            subtitle: subtitle,
+            imageUrl: imageUrl,
+            icon: icon,
+          ),
+        );
+      }
     }
   }
 

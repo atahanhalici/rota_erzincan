@@ -241,9 +241,9 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
                               borderRadius: BorderRadius.circular(14),
                             ),
                           ),
-                          child: Row(
+                          child:const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children:  [
                               Icon(Icons.settings, size: 18),
                               SizedBox(width: 8),
                               Text(
@@ -270,9 +270,9 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
                             borderRadius: BorderRadius.circular(14),
                           ),
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children:  [
                             Icon(Icons.check_circle_outline, size: 18),
                             SizedBox(width: 8),
                             Text(

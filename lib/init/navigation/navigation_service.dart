@@ -79,6 +79,7 @@ class NavigationService implements INavigationService {
     'CategoryDetailPage': NavigatorConstants.CATEGORYDETAIL,
     'RoutesPage': NavigatorConstants.ROUTES,
     'RouteDetailPage': NavigatorConstants.ROUTEDETAIL,
+    'EventDetailPage':NavigatorConstants.EVENTDETAIL,
   };
 
   String _getPathFromPageName(String pageName) {
@@ -97,6 +98,23 @@ class NavigationService implements INavigationService {
             child: const CategoryDetailPage(),
           ),
         ),
+      );
+    }
+  }
+
+  @override
+  Future<void> navigateToCategoryDetailClear(CategoryItem item) async {
+    if (NavigatorConstants.CATEGORYDETAIL != page) {
+      page = NavigatorConstants.CATEGORYDETAIL;
+
+      await navigatorKey.currentState?.pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+            create: (_) => CategoryDetailViewModel(category: item),
+            child: const CategoryDetailPage(),
+          ),
+        ),
+        (route) => false, // 🔁 tüm sayfaları sil
       );
     }
   }

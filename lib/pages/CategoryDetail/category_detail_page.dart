@@ -4,6 +4,7 @@ import 'package:rota_erzincan/pages/CategoryDetail/category_detail_page_view_mod
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/ContentSliver.dart';
 import 'package:rota_erzincan/widgets/CustomBottomNavBar.dart';
+import 'package:rota_erzincan/widgets/CustomDrawer.dart';
 import 'package:rota_erzincan/widgets/DetailSliverAppBar.dart';
 import 'package:rota_erzincan/widgets/DetailTopBarShadow.dart';
 import 'package:rota_erzincan/widgets/ShimmerCard.dart';
@@ -62,6 +63,13 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
     final double appBarHeight = kToolbarHeight + statusBarHeight;
     final double expandedHeight = appBarHeight + 160;
     return Scaffold(
+      drawer: viewModel.category.title == "Bu Ayın Etkinlikleri"
+          ? CustomDrawer(
+              toggleTheme: themeProvider.toggleTheme,
+              isDarkMode: themeProvider.isDarkMode,
+              textColor: themeProvider.textColor,
+            )
+          : null,
       extendBodyBehindAppBar: false,
       backgroundColor: themeProvider.backgroundColor,
       body: Stack(
@@ -90,11 +98,13 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
           ),
           DetailTopBarShadow(themeProvider: themeProvider),
           StatusBarOverlay(themeProvider: themeProvider),
-          const Positioned(
+          Positioned(
             left: 16,
             right: 16,
             bottom: 0,
-            child: CustomBottomNavBar(currentIndex: 1),
+            child: CustomBottomNavBar(
+                currentIndex:
+                    viewModel.category.title == "Bu Ayın Etkinlikleri" ? 4 : 1),
           ),
         ],
       ),

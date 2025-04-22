@@ -80,7 +80,15 @@ class CustomBottomNavBar extends StatelessWidget {
                   return Expanded(
                     child: GestureDetector(
                       onTap: () {
-                         _homeModel.navigateBottomBar(context, idx);
+                        if (idx != 4) {
+                          _homeModel.navigateBottomBar(context, idx);
+                        } else {
+                          _homeModel.navigateBottomBar(context, idx,
+                              title: "Bu Ayın Etkinlikleri",
+                              subtitle: "Kaçırma!",
+                              icon: Icons.event,
+                              imageUrl: "https://picsum.photos/id/169/800/500");
+                        }
                       },
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 300),

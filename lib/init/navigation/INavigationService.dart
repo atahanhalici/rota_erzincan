@@ -12,7 +12,7 @@ abstract class INavigationService {
   void updatePageOnBack(Route<dynamic> route);
 
   Future<void> navigateToCategoryDetail(CategoryItem item);
-
+  Future<void> navigateToCategoryDetailClear(CategoryItem item);
   Future<void> navigateToDetailsPage(CategoryContentItem item);
   Future<void> navigateToRouteDetailsPage(RouteItem item);
 }

@@ -15,13 +15,21 @@ class StickyHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   final themeProvider = Provider.of<ThemeProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return SliverPersistentHeader(
       pinned: true,
       delegate: _StickyHeaderDelegate(
-        minHeight: 80,
-        maxHeight: 80,
+        minHeight: title == "Vizyondaki Filmler"
+            ? 100
+            : title == "Tiyatrolar"
+                ? 100
+                : 80,
+        maxHeight: title == "Vizyondaki Filmler"
+            ? 100
+            : title == "Tiyatrolar"
+                ? 100
+                : 80,
         child: Container(
           color: themeProvider.backgroundColor,
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
@@ -89,10 +97,12 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return child;
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => true;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      true;
 }

@@ -23,7 +23,11 @@ class CategoryDetailViewModel extends ChangeNotifier with BaseViewModel {
   }
 
   Future<void> _loadContents() async {
-    _contentItems = await _apiService.getContents(category);
+    if (category.title == "Bu Ayın Etkinlikleri") {
+      _contentItems = await _apiService.getEvents();
+    } else {
+      _contentItems = await _apiService.getContents(category);
+    }
 
     _isLoading = false;
 
@@ -33,6 +37,23 @@ class CategoryDetailViewModel extends ChangeNotifier with BaseViewModel {
 
   Future<void> navigateToPage(CategoryContentItem item) async {
     navigationService.navigateToDetailsPage(item);
+  }
+
+  Future<void> navigateToEvent(
+      CategoryContentItem item, BuildContext context) async {
+    // eventType belirleniyor
+    String eventType = item.title.contains('Film') ? 'movie' : 'theater';
+
+    await Navigator.of(context).pushNamed(
+      "/eventDetail",
+      arguments: {
+        'eventType': eventType,
+        'imageUrl': item.imageUrl,
+        'title': item.title,
+        'subtitle': item.description,
+        "id": item.id,
+      },
+    );
   }
 
   @override
