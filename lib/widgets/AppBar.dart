@@ -6,7 +6,14 @@ import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class Appbar extends StatelessWidget {
-  const Appbar({super.key});
+  final Icon actionIcon;
+  final VoidCallback onActionPressed;
+
+  const Appbar({
+    super.key,
+    required this.actionIcon,
+    required this.onActionPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,38 +22,33 @@ class Appbar extends StatelessWidget {
       surfaceTintColor: Colors.transparent,
       centerTitle: true,
       backgroundColor: themeProvider.cardColor,
-      iconTheme:
-          const IconThemeData(color: ColorConstants.buttonColor, size: 30),
+      iconTheme: const IconThemeData(
+        color: ColorConstants.buttonColor,
+        size: 30,
+      ),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
             width: 45,
-            child: Image.asset(
-              ImageConstants.logo,
-            ),
+            child: Image.asset(ImageConstants.logo),
           ),
-          const SizedBox(
-            width: 7,
-          ),
+          const SizedBox(width: 7),
           Text(
             StringConstants.appName,
             style: TextStyle(
-                color: themeProvider.textColor, fontWeight: FontWeight.w600),
+              color: themeProvider.textColor,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-          const SizedBox(
-            width: 15,
-          ),
+          const SizedBox(width: 15),
         ],
       ),
       actions: [
         IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search,
-              size: 30,
-              color: ColorConstants.buttonColor,
-            ))
+          onPressed: onActionPressed,
+          icon: actionIcon,
+        )
       ],
       shadowColor: ColorConstants.buttonColor,
       elevation: 6.0,

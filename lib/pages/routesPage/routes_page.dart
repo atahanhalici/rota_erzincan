@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
 import 'package:rota_erzincan/widgets/CustomBottomNavBar.dart';
@@ -99,7 +100,16 @@ class _RoutesPageState extends State<RoutesPage>
               ),
             ],
           ),
-          child: const Appbar(),
+          child: Appbar(
+            actionIcon: const Icon(
+              Icons.search,
+              size: 30,
+              color: ColorConstants.buttonColor,
+            ),
+            onActionPressed: () {
+              // Arama butonuna basıldığında yapılacaklar
+            },
+          ),
         ),
       ),
       body: Stack(

@@ -33,6 +33,9 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
 
   void navigateToDetails(BuildContext context,
       {String? imageUrl, String? title}) {
+    if (imageUrl != null) {
+      Navigator.pop(context);
+    }
     navigationService.navigateToDetailsPage(
       CategoryContentItem(
         id: 'content_0',
@@ -49,6 +52,11 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
 
   void navigateToErgan(BuildContext context) {
     navigationService.navigateToPage("/ergan", null);
+  }
+
+  void navigateToEmergencyAssemblyAreas(BuildContext context) {
+    Navigator.pop(context);
+    navigationService.navigateToPage("/emergencyAssemblyAreas", null);
   }
 
   void navigateToCategoryDetail(

@@ -79,7 +79,8 @@ class NavigationService implements INavigationService {
     'CategoryDetailPage': NavigatorConstants.CATEGORYDETAIL,
     'RoutesPage': NavigatorConstants.ROUTES,
     'RouteDetailPage': NavigatorConstants.ROUTEDETAIL,
-    'EventDetailPage':NavigatorConstants.EVENTDETAIL,
+    'EventDetailPage': NavigatorConstants.EVENTDETAIL,
+    'EmergencyAssemblyAreas': NavigatorConstants.EMERGENCYASSEMBLYAREAS,
   };
 
   String _getPathFromPageName(String pageName) {

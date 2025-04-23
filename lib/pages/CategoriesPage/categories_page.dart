@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
 import 'package:rota_erzincan/widgets/CategoriesView.dart';
@@ -55,25 +56,33 @@ class _CategoriesPageState extends State<CategoriesPage>
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          decoration: BoxDecoration(
-            color: themeProvider.cardColor.withOpacity(0.85),
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: themeProvider.isDarkMode
-                    ? Colors.black.withOpacity(0.4)
-                    : Colors.grey.withOpacity(0.2),
-                blurRadius: 15,
-                offset: const Offset(0, 4),
+            duration: const Duration(milliseconds: 200),
+            decoration: BoxDecoration(
+              color: themeProvider.cardColor.withOpacity(0.85),
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20),
               ),
-            ],
-          ),
-          child: const Appbar(),
-        ),
+              boxShadow: [
+                BoxShadow(
+                  color: themeProvider.isDarkMode
+                      ? Colors.black.withOpacity(0.4)
+                      : Colors.grey.withOpacity(0.2),
+                  blurRadius: 15,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Appbar(
+              actionIcon: const Icon(
+                Icons.search,
+                size: 30,
+                color: ColorConstants.buttonColor,
+              ),
+              onActionPressed: () {
+                // Arama butonuna basıldığında yapılacaklar
+              },
+            )),
       ),
       body: Stack(
         children: [

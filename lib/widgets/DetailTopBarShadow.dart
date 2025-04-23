@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
 
@@ -26,7 +27,16 @@ class DetailTopBarShadow extends StatelessWidget {
               ),
             ],
           ),
-          child: const Appbar(),
+          child: Appbar(
+            actionIcon: const Icon(
+              Icons.search,
+              size: 30,
+              color: ColorConstants.buttonColor,
+            ),
+            onActionPressed: () {
+              // Arama butonuna basıldığında yapılacaklar
+            },
+          ),
         ),
       ),
     );

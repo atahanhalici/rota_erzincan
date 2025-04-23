@@ -136,7 +136,9 @@ class CustomDrawer extends StatelessWidget {
       FancyMenuItem(
         icon: Icons.location_on,
         label: "Acil Toplanma Alanları",
-        onTap: () {},
+        onTap: () {
+          homeModel.navigateToEmergencyAssemblyAreas(context);
+        },
         color: ColorConstants.buttonColor,
       ),
       FancyMenuItem(

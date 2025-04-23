@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/constants/theme_data.dart';
 import 'package:rota_erzincan/init/navigation/custom_navigation_observer.dart';
@@ -57,9 +58,15 @@ class MyApp extends StatelessWidget {
       title: StringConstants.appName,
       debugShowCheckedModeBanner: false,
       theme: AppThemes.lightTheme.copyWith(
+        colorScheme: AppThemes.lightTheme.colorScheme.copyWith(
+          primary: ColorConstants.buttonColor,
+        ),
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       darkTheme: AppThemes.darkTheme.copyWith(
+        colorScheme: AppThemes.darkTheme.colorScheme.copyWith(
+          primary: ColorConstants.buttonColor,
+        ),
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       themeMode: themeProvider.themeMode,

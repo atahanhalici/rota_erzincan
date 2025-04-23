@@ -23,4 +23,5 @@ class NavigatorConstants {
   static const ROUTES = "/routes";
   static const ROUTEDETAIL = "/routeDetail";
   static const EVENTDETAIL = "/eventDetail";
+  static const EMERGENCYASSEMBLYAREAS = "/emergencyAssemblyAreas";
 }

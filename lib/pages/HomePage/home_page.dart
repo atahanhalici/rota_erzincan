@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
@@ -138,7 +139,15 @@ class _HomePageState extends State<HomePage>
               ),
             ],
           ),
-          child: const Appbar(),
+          child:Appbar(
+              actionIcon: const Icon(
+                Icons.search,
+                size: 30,
+                color: ColorConstants.buttonColor,
+              ),
+              onActionPressed: () {
+                // Arama butonuna basıldığında yapılacaklar
+              },),
         ),
       ),
       body: Stack(

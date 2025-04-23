@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/pages/ErganKayakMerkeziPage/ergan_kayak_merkezi_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AboutSectionWidget.dart';
@@ -64,7 +65,16 @@ class _ErganKayakMerkeziPageState extends State<ErganKayakMerkeziPage>
                     ),
                   ],
                 ),
-                child: const Appbar(),
+                child: Appbar(
+                  actionIcon: const Icon(
+                    Icons.search,
+                    size: 30,
+                    color: ColorConstants.buttonColor,
+                  ),
+                  onActionPressed: () {
+                    // Arama butonuna basıldığında yapılacaklar
+                  },
+                ),
               ),
             ),
             body: Stack(
