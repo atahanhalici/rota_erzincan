@@ -1,6 +1,7 @@
 // view_model/emergency_assembly_areas_view_model.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
@@ -107,7 +108,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
     },
   ];
 
-  Future<void> getUserLocation() async {
+  Future<void> getUserLocation(MapController mapController) async {
     try {
       final permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied ||
@@ -118,14 +119,31 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
       }
 
       Position? position = await Geolocator.getLastKnownPosition();
+
+      // Eğer cache yoksa yeni konum al
       position ??= await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.medium,
+        desiredAccuracy: LocationAccuracy.medium, // daha hızlı, daha az pil
       );
 
       userLocation = LatLng(position.latitude, position.longitude);
       isLoading = false;
-      updateNearestDistance();
       notifyListeners();
+      mapController.move(userLocation!, 16);
+
+      // Mesafe hesapla
+      final nearest = getNearestPoint();
+      if (nearest != null) {
+        final distanceInMeters = Geolocator.distanceBetween(
+          position.latitude,
+          position.longitude,
+          nearest['point'].latitude,
+          nearest['point'].longitude,
+        );
+
+        distanceToNearest = distanceInMeters < 1000
+            ? '${distanceInMeters.toStringAsFixed(0)} metre'
+            : '${(distanceInMeters / 1000).toStringAsFixed(1)} km';
+      }
     } catch (e) {
       isLoading = false;
       notifyListeners();
