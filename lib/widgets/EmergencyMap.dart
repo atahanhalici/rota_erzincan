@@ -58,26 +58,29 @@ class EmergencyMap extends StatelessWidget {
             if (userLocation != null)
               Marker(
                 point: userLocation,
+                width: 36,
+                height: 36,
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.blue,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        blurRadius: 8,
-                        spreadRadius: 2,
+                        color: Colors.black26,
+                        blurRadius: 6,
+                        spreadRadius: 1,
                       ),
                     ],
                   ),
-                  padding: const EdgeInsets.all(6),
+                  alignment: Alignment.center,
                   child: const Icon(
                     Icons.person_pin_circle,
                     color: Colors.white,
-                    size: 22,
+                    size: 20,
                   ),
                 ),
               ),
+
             // Diğer tüm markerlar (seçili olan hariç)
             ...viewModel.assemblyPoints.where((area) {
               final point = area['point'] as LatLng;
@@ -163,7 +166,7 @@ class EmergencyMap extends StatelessWidget {
             ),
             padding: const EdgeInsets.all(8),
             child: Icon(
-              Icons.emergency,
+              Icons.location_on,
               color: Colors.white,
               size: isSelected ? 28 : 24,
             ),
