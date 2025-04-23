@@ -178,9 +178,11 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
   void toggleFloatingPanel(Map<String, dynamic>? pointData) {
     if (pointData == null) {
       showFloatingPanel = false;
+      selectedPoint = null;
     } else {
       floatingPanelData = pointData;
       showFloatingPanel = true;
+      selectedPoint = pointData['point']; // ✅ Seçimi burada yap!
     }
     notifyListeners();
   }
