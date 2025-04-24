@@ -27,7 +27,10 @@ class _ErganKayakMerkeziPageState extends State<ErganKayakMerkeziPage>
     super.initState();
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     _viewModel = ErganViewModel(vsync: this, themeProvider: themeProvider);
-    _viewModel.init();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _viewModel.init(context);
+      // güvenli kullanım
+    });
   }
 
   @override

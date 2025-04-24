@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
@@ -16,16 +17,17 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
 
   bool isLoading = false;
 
-  HomePageViewModel() {
-    fetchCategoryData();
-  }
-
-  Future<void> fetchCategoryData() async {
+  Future<void> fetchCategoryData(BuildContext context) async {
     isLoading = true;
     notifyListeners();
 
-    _categories = await _apiService.fetchCategories();
-    _features = await _apiService.fetchFeatures();
+    final langCode = context.locale.languageCode;
+    _categories = langCode == 'tr'
+        ? await _apiService.fetchCategoriesTr()
+        : await _apiService.fetchCategoriesEn();
+    _features = langCode == 'tr'
+        ? await _apiService.fetchFeaturesTr()
+        : await _apiService.fetchFeaturesEn();
 
     isLoading = false;
     notifyListeners();

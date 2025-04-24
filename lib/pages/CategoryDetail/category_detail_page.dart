@@ -40,7 +40,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
     if (!_isInitialized) {
       viewModel = Provider.of<CategoryDetailViewModel>(context, listen: true);
 
-      viewModel.initialize();
+      viewModel.initialize(context);
       _controller = AnimationController(
         vsync: this,
         duration: const Duration(milliseconds: 900),
@@ -63,7 +63,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
     final double appBarHeight = kToolbarHeight + statusBarHeight;
     final double expandedHeight = appBarHeight + 160;
     return Scaffold(
-      drawer: viewModel.category.id==1
+      drawer: viewModel.category.id == 1
           ? CustomDrawer(
               toggleTheme: themeProvider.toggleTheme,
               isDarkMode: themeProvider.isDarkMode,
@@ -96,15 +96,16 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
                     ),
             ],
           ),
-          DetailTopBarShadow(themeProvider: themeProvider,onActionPressed: viewModel.navigateToSearch),
+          DetailTopBarShadow(
+              themeProvider: themeProvider,
+              onActionPressed: viewModel.navigateToSearch),
           StatusBarOverlay(themeProvider: themeProvider),
           Positioned(
             left: 16,
             right: 16,
             bottom: 0,
             child: CustomBottomNavBar(
-                currentIndex:
-                    viewModel.category.id==1 ? 4 : 1),
+                currentIndex: viewModel.category.id == 8 ? 4 : 1),
           ),
         ],
       ),

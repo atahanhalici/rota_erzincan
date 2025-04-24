@@ -34,7 +34,6 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    _homeModel = Provider.of<HomePageViewModel>(context, listen: false);
 
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
@@ -77,6 +76,12 @@ class _HomePageState extends State<HomePage>
     );
 
     _controller.forward();
+    // 💡 Asıl düzeltme burada:
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _homeModel = Provider.of<HomePageViewModel>(context, listen: false);
+      _homeModel.fetchCategoryData(context);
+      _controller.forward();
+    });
   }
 
   @override

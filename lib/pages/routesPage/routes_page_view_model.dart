@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
@@ -63,17 +64,19 @@ class RoutesPageViewModel extends ChangeNotifier with BaseViewModel {
     );
   }
 
-  RoutesPageViewModel() {
-    fetchAllCategories();
-  }
- void navigateToSearch() {
+
+  void navigateToSearch() {
     navigationService.navigateToSearchPage();
   }
-  Future<void> fetchAllCategories() async {
+
+  Future<void> fetchAllRoutes(BuildContext context) async {
     isLoading = true;
     notifyListeners(); // shimmer başlasın
+    final lang = context.locale.languageCode;
 
-    routeItems = await _apiService.fetchAllRoutes();
+    routeItems = lang == 'tr'
+        ? await _apiService.fetchAllRoutesTr()
+        : await _apiService.fetchAllRoutesEn();
 
     isLoading = false;
     notifyListeners(); // shimmer dursun, liste gözüksün
@@ -82,5 +85,4 @@ class RoutesPageViewModel extends ChangeNotifier with BaseViewModel {
   void navigateToRouteDetails(RouteItem item) {
     navigationService.navigateToRouteDetailsPage(item);
   }
-
 }

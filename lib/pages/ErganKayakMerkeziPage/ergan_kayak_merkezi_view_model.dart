@@ -26,16 +26,19 @@ class ErganViewModel extends ChangeNotifier with BaseViewModel {
     navigationService.navigateToSearchPage();
   }
 
-  Future<void> init() async {
+  Future<void> init(BuildContext context) async {
     if (isInitialized) return;
 
     isLoading = true;
     notifyListeners();
-
+    final locale = context.locale.languageCode;
     // 🔽 Buraya API çağrıları
-
-    infoCards = await _apiService.fetchInfoCards(); // örnek
-    facilityItems = await _apiService.fetchFacilityItems(); // örnek
+    infoCards = locale == 'tr'
+        ? await _apiService.fetchInfoCardsTr()
+        : await _apiService.fetchInfoCardsEn();
+    facilityItems = locale == 'tr'
+        ? await _apiService.fetchFacilityItemsTr()
+        : await _apiService.fetchFacilityItemsEn(); // örnek
 
     isLoading = false;
     isInitialized = true;

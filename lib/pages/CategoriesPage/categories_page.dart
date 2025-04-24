@@ -21,7 +21,7 @@ class _CategoriesPageState extends State<CategoriesPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _headerAnimation;
-
+  late CategoriesPageViewModel _viewModel;
   @override
   void initState() {
     super.initState();
@@ -36,6 +36,12 @@ class _CategoriesPageState extends State<CategoriesPage>
         curve: const Interval(0.0, 0.5, curve: Curves.easeOutCubic),
       ),
     );
+    // 💡 Asıl düzeltme burada:
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _viewModel = Provider.of<CategoriesPageViewModel>(context, listen: false);
+      _viewModel.fetchAllCategories(context);
+      _controller.forward();
+    });
   }
 
   @override

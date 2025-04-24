@@ -22,10 +22,11 @@ class _GalleryPageState extends State<GalleryPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _headerAnimation;
-
+  late GalleryPageViewModel _viewModel;
   @override
   void initState() {
     super.initState();
+
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
@@ -37,6 +38,12 @@ class _GalleryPageState extends State<GalleryPage>
         curve: const Interval(0.0, 0.5, curve: Curves.easeOutCubic),
       ),
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _viewModel = Provider.of<GalleryPageViewModel>(context, listen: false);
+      _viewModel.fetchGalleryPhotos(context);
+      _controller.forward();
+    });
   }
 
   @override

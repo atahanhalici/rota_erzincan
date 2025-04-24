@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
@@ -11,14 +12,14 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
   bool isLoading = false;
 
   List<CameraModel> cameras = [];
-  LiveCamsPageViewModel() {
-    loadCameras();
-  }
 
-  Future<void> loadCameras() async {
+  Future<void> loadCameras(BuildContext context) async {
     isLoading = false;
     _isDisposed = false;
-    cameras = await _apiService.fetchFakeCameras();
+    final lang = context.locale.languageCode;
+    cameras = lang == 'tr'
+        ? await _apiService.fetchFakeCamerasTr()
+        : await _apiService.fetchFakeCamerasEn();
     isLoading = true;
     notifyListeners();
   }

@@ -6,9 +6,6 @@ import 'package:rota_erzincan/services/api_service.dart';
 
 class GalleryPageViewModel extends ChangeNotifier with BaseViewModel {
   final ApiService _apiService = ApiService();
-  GalleryPageViewModel() {
-    fetchGalleryPhotos();
-  }
 
   final List<String> categories = [
     'galleryCategoryAll'.tr(),
@@ -34,10 +31,13 @@ class GalleryPageViewModel extends ChangeNotifier with BaseViewModel {
   List<String> get currentImageUrls =>
       currentImageList.map((e) => e.url).toList();
 
-  Future<void> fetchGalleryPhotos() async {
+  Future<void> fetchGalleryPhotos(BuildContext context) async {
     isLoading = true;
     notifyListeners();
-    categorizedImages = await _apiService.fetchGalleryPhotos();
+    final langCode = context.locale.languageCode;
+    categorizedImages = langCode == 'tr'
+        ? await _apiService.fetchGalleryPhotosTr()
+        : await _apiService.fetchGalleryPhotosEn();
     isLoading = false;
     notifyListeners();
   }

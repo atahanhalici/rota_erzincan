@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/CategoryItem.dart';
@@ -18,15 +19,20 @@ class CategoryDetailViewModel extends ChangeNotifier with BaseViewModel {
     required this.category,
   });
 
-  Future<void> initialize() async {
-    await _loadContents();
+  Future<void> initialize(BuildContext context) async {
+    await _loadContents(context);
   }
 
-  Future<void> _loadContents() async {
-    if (category.id == 1) {
-      _contentItems = await _apiService.getEvents();
+  Future<void> _loadContents(BuildContext context) async {
+    final locale = context.locale.languageCode;
+    if (category.id == 8) {
+      _contentItems = locale == 'tr'
+          ? await _apiService.getEventsTr()
+          : await _apiService.getEventsEn();
     } else {
-      _contentItems = await _apiService.getContents(category);
+      _contentItems = locale == 'tr'
+          ? await _apiService.getContentsTr(category)
+          : await _apiService.getContentsEn(category);
     }
 
     _isLoading = false;

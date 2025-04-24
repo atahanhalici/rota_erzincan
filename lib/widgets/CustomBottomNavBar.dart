@@ -89,7 +89,8 @@ class CustomBottomNavBar extends StatelessWidget {
                               title: 'eventHighlightTitle'.tr(),
                               subtitle: 'eventHighlightSubtitle'.tr(),
                               icon: Icons.event,
-                              imageUrl: "https://picsum.photos/id/169/800/500");
+                              imageUrl: "https://picsum.photos/id/169/800/500",
+                              id: 8);
                         }
                       },
                       child: AnimatedContainer(

@@ -51,7 +51,7 @@ class CategoryCircle extends StatelessWidget {
                             : Colors.black
                                 .withValues(alpha: 0.4), // Gölgenin rengi
                         blurRadius: 8, // Gölgenin bulanıklık derecesi
-                        offset:const Offset(0, 2), // Gölgenin yeri (x, y)
+                        offset: const Offset(0, 2), // Gölgenin yeri (x, y)
                       ),
                     ],
                   ),
@@ -78,11 +78,11 @@ class CategoryCircle extends StatelessWidget {
             Text(
               model.title,
               textAlign: TextAlign.center,
-              maxLines: 2,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.poppins(
                 textStyle: TextStyle(
-                  fontSize: 13,
+                  fontSize: 12,
                   fontWeight: FontWeight.w500,
                   color: themeProvider.textColor,
                 ),

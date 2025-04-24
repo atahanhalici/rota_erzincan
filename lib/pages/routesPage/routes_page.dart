@@ -26,7 +26,7 @@ class _RoutesPageState extends State<RoutesPage>
   late Animation<double> _headerAnimation;
   late Animation<Offset> _routesCardSlideAnimation;
   late final ScrollController _scrollController;
-
+  late RoutesPageViewModel _viewModel;
   @override
   void initState() {
     super.initState();
@@ -52,6 +52,12 @@ class _RoutesPageState extends State<RoutesPage>
         curve: const Interval(0.4, 0.8, curve: Curves.easeOut),
       ),
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _viewModel = Provider.of<RoutesPageViewModel>(context, listen: false);
+      _viewModel.fetchAllRoutes(context);
+      _controller.forward();
+    });
   }
 
   @override

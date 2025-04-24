@@ -30,7 +30,6 @@ class _LiveCamsPageState extends State<LiveCamsPage>
   @override
   void initState() {
     super.initState();
-
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
@@ -43,7 +42,11 @@ class _LiveCamsPageState extends State<LiveCamsPage>
       ),
     );
 
-    _controller.forward();
+   WidgetsBinding.instance.addPostFrameCallback((_) {
+      viewModel = Provider.of<LiveCamsPageViewModel>(context, listen: false);
+      viewModel.loadCameras(context);
+      _controller.forward();
+    });
   }
 
   @override
