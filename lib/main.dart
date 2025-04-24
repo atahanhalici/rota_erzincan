@@ -13,6 +13,7 @@ import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page_view_model.dart';
 import 'package:rota_erzincan/pages/EmergencyAssemblyAreas/emergency_assembly_areas_view_model.dart';
 import 'package:rota_erzincan/pages/GalleryPage/gallery_page_view_model.dart';
+import 'package:rota_erzincan/pages/GiveYourOpinion/give_your_opinion_view_model.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/pages/LiveCamsPage/live_cams_page_view_model.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
@@ -34,6 +35,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => StoryPageViewModel()),
         ChangeNotifierProvider(create: (_) => CategoriesPageViewModel()),
         ChangeNotifierProvider(create: (_) => RoutesPageViewModel()),
+        ChangeNotifierProvider(create: (_) => GiveYourOpinionViewModel()),
         ChangeNotifierProvider(
             create: (_) => EmergencyAssemblyAreasViewModel()),
         ChangeNotifierProvider(create: (_) => NewRouteModalViewModel()),
