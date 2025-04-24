@@ -72,7 +72,7 @@ class _ErganKayakMerkeziPageState extends State<ErganKayakMerkeziPage>
                     color: ColorConstants.buttonColor,
                   ),
                   onActionPressed: () {
-                    // Arama butonuna basıldığında yapılacaklar
+                   viewModel.navigateToSearch();
                   },
                 ),
               ),

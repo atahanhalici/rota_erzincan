@@ -15,4 +15,5 @@ abstract class INavigationService {
   Future<void> navigateToCategoryDetailClear(CategoryItem item);
   Future<void> navigateToDetailsPage(CategoryContentItem item);
   Future<void> navigateToRouteDetailsPage(RouteItem item);
+  Future<void> navigateToSearchPage();
 }

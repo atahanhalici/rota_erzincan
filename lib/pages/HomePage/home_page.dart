@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage>
                 color: ColorConstants.buttonColor,
               ),
               onActionPressed: () {
-                // Arama butonuna basıldığında yapılacaklar
+                _homeModel.navigateToSearch();
               },),
         ),
       ),

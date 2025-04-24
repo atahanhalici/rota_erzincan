@@ -99,7 +99,7 @@ class _LiveCamsPageState extends State<LiveCamsPage>
                 color: ColorConstants.buttonColor,
               ),
               onActionPressed: () {
-                // Arama butonuna basıldığında yapılacaklar
+               viewModel.navigateToSearch();
               },
             )),
       ),

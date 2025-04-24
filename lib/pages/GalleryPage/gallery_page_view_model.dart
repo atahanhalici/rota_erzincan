@@ -33,4 +33,8 @@ class GalleryPageViewModel extends ChangeNotifier with BaseViewModel {
     isLoading = false;
     notifyListeners();
   }
+
+   void navigateToSearch() {
+    navigationService.navigateToSearchPage();
+  }
 }

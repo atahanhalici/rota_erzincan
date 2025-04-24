@@ -41,4 +41,8 @@ class CategoriesPageViewModel extends ChangeNotifier with BaseViewModel {
       navigationService.navigateToCategoryDetail(item);
     }
   }
+
+   void navigateToSearch() {
+    navigationService.navigateToSearchPage();
+  }
 }

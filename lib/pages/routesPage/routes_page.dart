@@ -107,7 +107,7 @@ class _RoutesPageState extends State<RoutesPage>
               color: ColorConstants.buttonColor,
             ),
             onActionPressed: () {
-              // Arama butonuna basıldığında yapılacaklar
+              viewModel.navigateToSearch();
             },
           ),
         ),

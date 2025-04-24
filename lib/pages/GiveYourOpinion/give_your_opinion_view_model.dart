@@ -1,7 +1,8 @@
 // lib/pages/GiveYourOpinion/give_your_opinion_view_model.dart
 import 'package:flutter/material.dart';
+import 'package:rota_erzincan/core/base/base_view_model.dart';
 
-class GiveYourOpinionViewModel extends ChangeNotifier {
+class GiveYourOpinionViewModel extends ChangeNotifier with BaseViewModel {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController commentController = TextEditingController();
@@ -41,6 +42,10 @@ class GiveYourOpinionViewModel extends ChangeNotifier {
         ),
       );
     });
+  }
+
+  void navigateToSearch() {
+    navigationService.navigateToSearchPage();
   }
 
   String? validateName(String? value) {

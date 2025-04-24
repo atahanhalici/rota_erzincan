@@ -74,7 +74,9 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
       navigationService.navigateToCategoryDetail(_categoryItem);
     }
   }
-
+ void navigateToSearch() {
+    navigationService.navigateToSearchPage();
+  }
   void navigateBottomBar(
     BuildContext context,
     int index, {

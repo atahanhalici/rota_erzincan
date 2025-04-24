@@ -66,7 +66,9 @@ class RoutesPageViewModel extends ChangeNotifier with BaseViewModel {
   RoutesPageViewModel() {
     fetchAllCategories();
   }
-
+ void navigateToSearch() {
+    navigationService.navigateToSearchPage();
+  }
   Future<void> fetchAllCategories() async {
     isLoading = true;
     notifyListeners(); // shimmer başlasın

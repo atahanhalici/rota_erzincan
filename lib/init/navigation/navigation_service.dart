@@ -11,6 +11,7 @@ import 'package:rota_erzincan/pages/DetailsPage/details_page.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/route_Detail_page.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/route_detail_page_view_model.dart';
+import 'package:rota_erzincan/pages/SearchPage/search_page.dart';
 
 class NavigationService implements INavigationService {
   static final NavigationService _instance = NavigationService._();
@@ -155,6 +156,25 @@ class NavigationService implements INavigationService {
         transitionDuration: const Duration(milliseconds: 300),
         transitionsBuilder: (_, animation, __, child) {
           return FadeTransition(opacity: animation, child: child);
+        },
+      ),
+    );
+  }
+
+  @override
+  Future<void> navigateToSearchPage() async {
+    await navigatorKey.currentState?.push(
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 400),
+        reverseTransitionDuration: const Duration(milliseconds: 300),
+        pageBuilder: (_, __, ___) => const SearchPage(),
+        transitionsBuilder: (context, animation, _, child) {
+          final offsetTween = Tween(begin: const Offset(0, 1), end: Offset.zero)
+              .chain(CurveTween(curve: Curves.easeOutCubic));
+          return SlideTransition(
+            position: animation.drive(offsetTween),
+            child: child,
+          );
         },
       ),
     );

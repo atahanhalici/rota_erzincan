@@ -13,6 +13,7 @@ import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page_view_model.dart';
 import 'package:rota_erzincan/pages/EmergencyAssemblyAreas/emergency_assembly_areas_view_model.dart';
 import 'package:rota_erzincan/pages/GalleryPage/gallery_page_view_model.dart';
+import 'package:rota_erzincan/pages/GiveYourOpinion/give_your_opinion_page.dart';
 import 'package:rota_erzincan/pages/GiveYourOpinion/give_your_opinion_view_model.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/pages/LiveCamsPage/live_cams_page_view_model.dart';

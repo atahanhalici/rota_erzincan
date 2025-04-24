@@ -21,6 +21,10 @@ class ErganViewModel extends ChangeNotifier with BaseViewModel {
   List<InfoCardModel> infoCards = [];
   List<FacilityModel> facilityItems = [];
 
+  void navigateToSearch() {
+    navigationService.navigateToSearchPage();
+  }
+
   Future<void> init() async {
     if (isInitialized) return;
 

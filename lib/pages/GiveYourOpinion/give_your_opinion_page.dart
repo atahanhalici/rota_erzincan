@@ -91,7 +91,9 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                   size: 28,
                   color: ColorConstants.buttonColor,
                 ),
-                onActionPressed: () {},
+                onActionPressed: () {
+                  viewModel.navigateToSearch();
+                },
               ),
             ),
           ),

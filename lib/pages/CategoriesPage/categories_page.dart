@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
+import 'package:rota_erzincan/pages/CategoriesPage/categories_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
 import 'package:rota_erzincan/widgets/CategoriesView.dart';
@@ -45,7 +46,8 @@ class _CategoriesPageState extends State<CategoriesPage>
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-
+    final viewModel =
+        Provider.of<CategoriesPageViewModel>(context, listen: false);
     return Scaffold(
       backgroundColor: themeProvider.backgroundColor,
       drawer: CustomDrawer(
@@ -80,7 +82,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                 color: ColorConstants.buttonColor,
               ),
               onActionPressed: () {
-                // Arama butonuna basıldığında yapılacaklar
+                viewModel.navigateToSearch();
               },
             )),
       ),

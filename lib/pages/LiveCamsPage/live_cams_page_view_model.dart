@@ -33,7 +33,9 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
     }
     super.dispose();
   }
-
+ void navigateToSearch() {
+    navigationService.navigateToSearchPage();
+  }
   void showControlsTemporarily() {
     if (_isDisposed) return;
     showPlayPause = true;

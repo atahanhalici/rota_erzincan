@@ -82,7 +82,7 @@ class _GalleryPageState extends State<GalleryPage>
               color: ColorConstants.buttonColor,
             ),
             onActionPressed: () {
-              // Arama butonuna basıldığında yapılacaklar
+              _galleryModel.navigateToSearch();
             },
           ),
         ),
