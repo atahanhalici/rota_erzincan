@@ -104,8 +104,8 @@ class _FacilityListWidgetState extends State<FacilityListWidget> {
                                               BorderRadius.circular(20),
                                           boxShadow: [
                                             BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.1),
+                                              color: Colors.black
+                                                  .withValues(alpha: 0.1),
                                               blurRadius: 10,
                                               offset: const Offset(0, 4),
                                             )
@@ -125,11 +125,11 @@ class _FacilityListWidgetState extends State<FacilityListWidget> {
                                                       colors: [
                                                         item.active == true
                                                             ? Colors.green
-                                                                .withOpacity(
-                                                                    0.1)
+                                                                .withValues(
+                                                                    alpha: 0.1)
                                                             : Colors.red
-                                                                .withOpacity(
-                                                                    0.1),
+                                                                .withValues(
+                                                                    alpha: 0.1),
                                                         Colors.transparent,
                                                       ],
                                                       begin:
@@ -178,7 +178,8 @@ class _FacilityListWidgetState extends State<FacilityListWidget> {
                                                         color: widget
                                                             .themeProvider
                                                             .buttonColor
-                                                            .withOpacity(0.1),
+                                                            .withValues(
+                                                                alpha: 0.1),
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(12),
@@ -228,8 +229,9 @@ class _FacilityListWidgetState extends State<FacilityListWidget> {
                                                                   color: widget
                                                                       .themeProvider
                                                                       .textColor
-                                                                      .withOpacity(
-                                                                          0.7),
+                                                                      .withValues(
+                                                                          alpha:
+                                                                              0.7),
                                                                 ),
                                                               ),
                                                             ),
@@ -244,11 +246,11 @@ class _FacilityListWidgetState extends State<FacilityListWidget> {
                                                       decoration: BoxDecoration(
                                                         color: (item.active)
                                                             ? Colors.green
-                                                                .withOpacity(
-                                                                    0.2)
+                                                                .withValues(
+                                                                    alpha: 0.2)
                                                             : Colors.red
-                                                                .withOpacity(
-                                                                    0.2),
+                                                                .withValues(
+                                                                    alpha: 0.2),
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(20),

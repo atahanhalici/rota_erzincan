@@ -11,6 +11,8 @@ import 'package:rota_erzincan/widgets/CustomDrawer.dart';
 import 'package:shimmer/shimmer.dart';
 
 class GalleryPage extends StatefulWidget {
+  const GalleryPage({super.key});
+
   @override
   _GalleryPageState createState() => _GalleryPageState();
 }
@@ -31,7 +33,7 @@ class _GalleryPageState extends State<GalleryPage>
     _headerAnimation = Tween<double>(begin: -50, end: 0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(0.0, 0.5, curve: Curves.easeOutCubic),
+        curve:const Interval(0.0, 0.5, curve: Curves.easeOutCubic),
       ),
     );
   }
@@ -60,7 +62,7 @@ class _GalleryPageState extends State<GalleryPage>
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           decoration: BoxDecoration(
-            color: themeProvider.cardColor.withOpacity(0.85),
+            color: themeProvider.cardColor.withValues(alpha: 0.85),
             borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(20),
               bottomRight: Radius.circular(20),
@@ -68,8 +70,8 @@ class _GalleryPageState extends State<GalleryPage>
             boxShadow: [
               BoxShadow(
                 color: themeProvider.isDarkMode
-                    ? Colors.black.withOpacity(0.4)
-                    : Colors.grey.withOpacity(0.2),
+                    ? Colors.black.withValues(alpha: 0.4)
+                    : Colors.grey.withValues(alpha: 0.2),
                 blurRadius: 15,
                 offset: const Offset(0, 4),
               ),
@@ -112,7 +114,7 @@ class _GalleryPageState extends State<GalleryPage>
                               boxShadow: [
                                 BoxShadow(
                                   color: themeProvider.buttonColor
-                                      .withOpacity(0.4),
+                                      .withValues(alpha: 0.4),
                                   blurRadius: 8,
                                   offset: const Offset(0, 2),
                                 ),
@@ -126,11 +128,12 @@ class _GalleryPageState extends State<GalleryPage>
                                 colors: themeProvider.isDarkMode
                                     ? [
                                         Colors.white,
-                                        Colors.white.withOpacity(0.8)
+                                        Colors.white.withValues(alpha: 0.8)
                                       ]
                                     : [
                                         themeProvider.textColor,
-                                        themeProvider.textColor.withOpacity(0.8)
+                                        themeProvider.textColor
+                                            .withValues(alpha: 0.8)
                                       ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
@@ -166,7 +169,7 @@ class _GalleryPageState extends State<GalleryPage>
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: themeProvider.textColor.withOpacity(0.7),
+                          color: themeProvider.textColor.withValues(alpha: 0.7),
                           fontStyle: FontStyle.italic,
                         ),
                       ),
@@ -250,15 +253,15 @@ class _GalleryPageState extends State<GalleryPage>
                                         color: isSelected
                                             ? themeProvider.buttonColor
                                             : themeProvider.cardColor
-                                                .withOpacity(0.7),
+                                                .withValues(alpha: 0.7),
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
                                           BoxShadow(
                                             color: isSelected
                                                 ? themeProvider.buttonColor
-                                                    .withOpacity(0.4)
+                                                    .withValues(alpha: 0.4)
                                                 : Colors.black
-                                                    .withOpacity(0.05),
+                                                    .withValues(alpha: 0.05),
                                             blurRadius: isSelected ? 10 : 5,
                                             offset: const Offset(0, 3),
                                           ),
@@ -275,7 +278,7 @@ class _GalleryPageState extends State<GalleryPage>
                                             color: isSelected
                                                 ? Colors.white
                                                 : themeProvider.textColor
-                                                    .withOpacity(0.8),
+                                                    .withValues(alpha: 0.8),
                                           ),
                                         ),
                                       ),

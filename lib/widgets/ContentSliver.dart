@@ -63,8 +63,8 @@ class ContentSliver extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                           color: themeProvider.isDarkMode
-                              ? Colors.black.withOpacity(0.25)
-                              : Colors.grey.withOpacity(0.15),
+                              ? Colors.black.withValues(alpha: 0.25)
+                              : Colors.grey.withValues(alpha: 0.15),
                           blurRadius: 10,
                           offset: const Offset(0, 6),
                         ),
@@ -116,7 +116,7 @@ class ContentSliver extends StatelessWidget {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
                                     color: themeProvider.textColor
-                                        .withOpacity(0.7),
+                                        .withValues(alpha: 0.7),
                                   ),
                                   maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
@@ -131,7 +131,8 @@ class ContentSliver extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.all(6),
                             decoration: BoxDecoration(
-                              color: themeProvider.buttonColor.withOpacity(0.1),
+                              color: themeProvider.buttonColor
+                                  .withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Icon(

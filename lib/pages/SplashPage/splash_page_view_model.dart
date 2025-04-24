@@ -163,7 +163,7 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.2),
+                color: Colors.black.withValues(alpha: 0.2),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),
@@ -177,7 +177,7 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
               Container(
                 padding: const EdgeInsets.fromLTRB(24, 20, 24, 8),
                 decoration: BoxDecoration(
-                  color: themeProvider.buttonColor.withOpacity(0.1),
+                  color: themeProvider.buttonColor.withValues(alpha: 0.1),
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(24)),
                 ),
@@ -232,8 +232,8 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
                         child: ElevatedButton(
                           onPressed: () => Geolocator.openAppSettings(),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                themeProvider.buttonColor.withOpacity(0.9),
+                            backgroundColor: themeProvider.buttonColor
+                                .withValues(alpha: 0.9),
                             foregroundColor: Colors.white,
                             elevation: 2,
                             padding: const EdgeInsets.symmetric(vertical: 14),
@@ -241,9 +241,9 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
                               borderRadius: BorderRadius.circular(14),
                             ),
                           ),
-                          child:const Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children:  [
+                            children: [
                               Icon(Icons.settings, size: 18),
                               SizedBox(width: 8),
                               Text(
@@ -272,7 +272,7 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
                         ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children:  [
+                          children: [
                             Icon(Icons.check_circle_outline, size: 18),
                             SizedBox(width: 8),
                             Text(

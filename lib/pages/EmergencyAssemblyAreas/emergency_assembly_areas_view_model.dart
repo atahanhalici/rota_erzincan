@@ -22,7 +22,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
   final List<Map<String, dynamic>> assemblyPoints = [
     {
       'name': 'Fatih Mahallesi Parkı',
-      'point': LatLng(39.7500, 39.4900),
+      'point': const LatLng(39.7500, 39.4900),
       'capacity': 1200,
       'facilities': ['Su İkmal Noktası', 'İlk Yardım Çadırı'],
       'description':
@@ -31,7 +31,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
     },
     {
       'name': 'Erzincan Merkez Stadyumu',
-      'point': LatLng(39.7475, 39.4905),
+      'point': const LatLng(39.7475, 39.4905),
       'capacity': 5000,
       'facilities': [
         'Tuvalet',
@@ -44,7 +44,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
     },
     {
       'name': 'Cumhuriyet Meydanı',
-      'point': LatLng(39.7489, 39.4922),
+      'point': const LatLng(39.7489, 39.4922),
       'capacity': 3000,
       'facilities': ['Tuvalet', 'Su İkmal Noktası', 'İlk Yardım Merkezi'],
       'description': 'Şehir merkezindeki geniş meydan, ulaşımı kolay.',
@@ -52,7 +52,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
     },
     {
       'name': 'Atatürk Mahallesi Cami Önü',
-      'point': LatLng(39.7460, 39.4870),
+      'point': const LatLng(39.7460, 39.4870),
       'capacity': 800,
       'facilities': ['Su İkmal Noktası'],
       'description': 'Cami önündeki geniş avlu, merkezi konumda.',
@@ -60,7 +60,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
     },
     {
       'name': 'Halitpaşa İlkokulu Bahçesi',
-      'point': LatLng(39.7490, 39.4888),
+      'point': const LatLng(39.7490, 39.4888),
       'capacity': 1500,
       'facilities': ['Tuvalet', 'Su İkmal Noktası', 'Mobil Çadır'],
       'description':
@@ -69,7 +69,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
     },
     {
       'name': 'Üniversite Kavşağı Parkı',
-      'point': LatLng(39.7520, 39.4945),
+      'point': const LatLng(39.7520, 39.4945),
       'capacity': 1000,
       'facilities': ['Tuvalet', 'Su İkmal Noktası', 'İlk Yardım İstasyonu'],
       'description': 'Üniversite kampüsü yakınında, ulaşımı kolay.',
@@ -77,7 +77,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
     },
     {
       'name': 'Erzincan AVM Arkası',
-      'point': LatLng(39.7502, 39.4930),
+      'point': const LatLng(39.7502, 39.4930),
       'capacity': 2000,
       'facilities': ['Tuvalet', 'Su İkmal Noktası', 'Yemek Dağıtım Noktası'],
       'description':
@@ -86,7 +86,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
     },
     {
       'name': 'Yeni Mahalle Pazar Yeri',
-      'point': LatLng(39.7445, 39.4901),
+      'point': const LatLng(39.7445, 39.4901),
       'capacity': 2500,
       'facilities': ['Su İkmal Noktası', 'Çadır Alanı'],
       'description': 'Haftalık pazar kurulan geniş alan, üstü açık.',
@@ -94,7 +94,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
     },
     {
       'name': 'Belediye Önü Açık Alan',
-      'point': LatLng(39.7466, 39.4932),
+      'point': const LatLng(39.7466, 39.4932),
       'capacity': 1200,
       'facilities': ['Tuvalet', 'Su İkmal Noktası', 'İdari Merkez'],
       'description':
@@ -103,7 +103,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
     },
     {
       'name': 'Valilik Yanı Açık Alan',
-      'point': LatLng(39.7472, 39.4940),
+      'point': const LatLng(39.7472, 39.4940),
       'capacity': 1000,
       'facilities': ['Tuvalet', 'Su İkmal Noktası', 'AFAD Yönetim Merkezi'],
       'description':
@@ -126,7 +126,9 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
 
       // Eğer cache yoksa yeni konum al
       position ??= await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.medium, // daha hızlı, daha az pil
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.medium,
+        ),
       );
 
       userLocation = LatLng(position.latitude, position.longitude);
@@ -156,7 +158,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
 
   Map<String, dynamic>? getNearestPoint() {
     if (userLocation == null) return null;
-    final Distance distance = Distance();
+    const Distance distance = Distance();
     return assemblyPoints.reduce((a, b) => distance(userLocation!, a['point']) <
             distance(userLocation!, b['point'])
         ? a

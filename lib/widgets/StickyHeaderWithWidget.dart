@@ -14,7 +14,7 @@ class StickyHeaderWithWidget extends StatelessWidget {
   final VoidCallback? onAddPressed; // 👈 yeni parametre
 
   const StickyHeaderWithWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.subtitleWidget,
@@ -22,7 +22,7 @@ class StickyHeaderWithWidget extends StatelessWidget {
     this.showButton = true,
     this.onAddPressed, // 👈
     required this.isUserAdded,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,8 @@ class StickyHeaderWithWidget extends StatelessWidget {
                             style: GoogleFonts.poppins(
                               fontSize: 13,
                               fontWeight: FontWeight.w400,
-                              color: themeProvider.textColor.withOpacity(0.7),
+                              color: themeProvider.textColor
+                                  .withValues(alpha: 0.7),
                               fontStyle: FontStyle.italic,
                             ),
                             maxLines: 1,

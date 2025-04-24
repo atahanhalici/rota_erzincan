@@ -16,11 +16,11 @@ class LegendPanel extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: themeProvider.cardColor.withOpacity(0.9),
+          color: themeProvider.cardColor.withValues(alpha: 0.9),
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.15),
+              color: Colors.black.withValues(alpha: 0.15),
               blurRadius: 8,
               spreadRadius: 1,
             ),
@@ -41,7 +41,8 @@ class LegendPanel extends StatelessWidget {
             const SizedBox(height: 8),
             _buildLegendItem(Colors.blue, 'Konumunuz', themeProvider),
             const SizedBox(height: 6),
-            _buildLegendItem(ColorConstants.buttonColor, 'Toplanma Alanı', themeProvider),
+            _buildLegendItem(
+                ColorConstants.buttonColor, 'Toplanma Alanı', themeProvider),
             const SizedBox(height: 6),
             _buildLegendItem(Colors.green, 'En Yakın Alan', themeProvider),
           ],
@@ -50,7 +51,8 @@ class LegendPanel extends StatelessWidget {
     );
   }
 
-  Widget _buildLegendItem(Color color, String label, ThemeProvider themeProvider) {
+  Widget _buildLegendItem(
+      Color color, String label, ThemeProvider themeProvider) {
     return Row(
       children: [
         Container(

@@ -83,8 +83,4 @@ class RoutesPageViewModel extends ChangeNotifier with BaseViewModel {
     navigationService.navigateToRouteDetailsPage(item);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

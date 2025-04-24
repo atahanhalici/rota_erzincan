@@ -8,10 +8,10 @@ class StickyHeader extends StatelessWidget {
   final String subtitle;
 
   const StickyHeader({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class StickyHeader extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
-                    color: themeProvider.textColor.withOpacity(0.7),
+                    color: themeProvider.textColor.withValues(alpha: 0.7),
                     fontStyle: FontStyle.italic,
                   ),
                 ),

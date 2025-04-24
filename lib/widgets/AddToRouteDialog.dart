@@ -52,7 +52,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
     final viewModel = Provider.of<DetailsPageViewModel>(context, listen: false);
     final stopId = viewModel.contentItem.id;
 
-    print("🔍 contentItem.id: $stopId");
+  
 
     List<RouteItem> loadedRoutes = routeData.map((map) {
       return RouteItem(
@@ -77,19 +77,16 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
         whereArgs: [route.id],
       );
 
-      print("📦 route '${route.title}' (id: ${route.id}) içerikleri:");
-      for (var stop in existing) {
-        print(" → stop.id: ${stop['id']} (tip: ${stop['id'].runtimeType})");
-      }
+   
 
       final matched =
           existing.any((e) => e['id'].toString() == stopId.toString());
 
       if (matched) {
         newlySelected.add(route.id);
-        print("✅ EŞLEŞME: '${route.title}' rotasında contentItem var.");
+    
       } else {
-        print("❌ EŞLEŞME YOK: '${route.title}' rotasında contentItem YOK.");
+       
       }
     }
 
@@ -142,7 +139,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black.withValues(alpha: 0.2),
               blurRadius: 20,
               offset: const Offset(0, 10),
             ),
@@ -155,7 +152,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
             Container(
               padding: const EdgeInsets.fromLTRB(24, 20, 24, 8),
               decoration: BoxDecoration(
-                color: themeProvider.buttonColor.withOpacity(0.1),
+                color: themeProvider.buttonColor.withValues(alpha: 0.1),
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(24)),
               ),
@@ -179,7 +176,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                   IconButton(
                     icon: Icon(
                       Icons.close,
-                      color: themeProvider.textColor.withOpacity(0.7),
+                      color: themeProvider.textColor.withValues(alpha: 0.7),
                       size: 22,
                     ),
                     onPressed: () => Navigator.pop(context),
@@ -206,8 +203,8 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                                 Icon(
                                   Icons.route_outlined,
                                   size: 48,
-                                  color:
-                                      themeProvider.textColor.withOpacity(0.5),
+                                  color: themeProvider.textColor
+                                      .withValues(alpha: 0.5),
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
@@ -254,7 +251,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                                         decoration: BoxDecoration(
                                           color: isSelected
                                               ? themeProvider.buttonColor
-                                                  .withOpacity(0.1)
+                                                  .withValues(alpha: 0.1)
                                               : Colors.transparent,
                                           borderRadius:
                                               BorderRadius.circular(12),
@@ -267,7 +264,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                                               padding: const EdgeInsets.all(8),
                                               decoration: BoxDecoration(
                                                 color: themeProvider.buttonColor
-                                                    .withOpacity(0.15),
+                                                    .withValues(alpha: 0.15),
                                                 shape: BoxShape.circle,
                                               ),
                                               child: Icon(
@@ -340,7 +337,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                       onPressed: _saveSelectedRoutes,
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
-                            themeProvider.buttonColor.withOpacity(0.9),
+                            themeProvider.buttonColor.withValues(alpha: 0.9),
                         foregroundColor: Colors.white,
                         elevation: 2,
                         padding: const EdgeInsets.symmetric(vertical: 14),
@@ -348,9 +345,9 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      child: Row(
+                      child:const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children:  [
                           Icon(Icons.save_alt_rounded, size: 18),
                           SizedBox(width: 8),
                           Text(
@@ -380,9 +377,9 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      child: Row(
+                      child:const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children:  [
                           Icon(Icons.add_circle_outline, size: 18),
                           SizedBox(width: 8),
                           Text(

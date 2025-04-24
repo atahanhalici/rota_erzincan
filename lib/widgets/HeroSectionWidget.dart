@@ -48,7 +48,7 @@ class HeroSectionWidget extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.transparent,
-                          Colors.black.withOpacity(0.7),
+                          Colors.black.withValues(alpha: 0.7),
                         ],
                       ),
                     ),
@@ -70,7 +70,7 @@ class HeroSectionWidget extends StatelessWidget {
                                     boxShadow: [
                                       BoxShadow(
                                         color: themeProvider.buttonColor
-                                            .withOpacity(0.4),
+                                            .withValues(alpha: 0.4),
                                         blurRadius: 10,
                                         offset: const Offset(0, 4),
                                       ),
@@ -117,7 +117,7 @@ class HeroSectionWidget extends StatelessWidget {
                                   style: GoogleFonts.poppins(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white.withValues(alpha: 0.9),
                                   ),
                                   child: _erganModel
                                       .animatedTextKit, // ✅ ViewModel’den geliyor!
@@ -128,7 +128,7 @@ class HeroSectionWidget extends StatelessWidget {
                             Row(
                               children: [
                                 Icon(Icons.location_on,
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white.withValues(alpha: 0.9),
                                     size: 16),
                                 const SizedBox(width: 4),
                                 Text(
@@ -136,12 +136,12 @@ class HeroSectionWidget extends StatelessWidget {
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white.withValues(alpha: 0.9),
                                   ),
                                 ),
                                 const SizedBox(width: 16),
                                 Icon(Icons.height,
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white.withValues(alpha: 0.9),
                                     size: 16),
                                 const SizedBox(width: 4),
                                 Text(
@@ -149,7 +149,7 @@ class HeroSectionWidget extends StatelessWidget {
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white.withValues(alpha: 0.9),
                                   ),
                                 ),
                               ],

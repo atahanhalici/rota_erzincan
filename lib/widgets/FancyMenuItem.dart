@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -25,10 +24,10 @@ class FancyMenuItem extends StatelessWidget {
 
     // Tema uyumlu renkler
     final backgroundColor = isDark
-        ? Colors.white.withOpacity(0.05)
-        : Colors.grey.shade100.withOpacity(0.95);
+        ? Colors.white.withValues(alpha: 0.05)
+        : Colors.grey.shade100.withValues(alpha: 0.95);
     final borderColor =
-        isDark ? Colors.white.withOpacity(0.2) : Colors.grey.shade300;
+        isDark ? Colors.white.withValues(alpha: 0.2) : Colors.grey.shade300;
     final textColor = isDark ? Colors.white : Colors.black87;
     final iconArrowColor = isDark ? Colors.white60 : Colors.black45;
 
@@ -43,7 +42,7 @@ class FancyMenuItem extends StatelessWidget {
           boxShadow: [
             if (!isDark)
               BoxShadow(
-                color: Colors.black.withOpacity(0.04),
+                color: Colors.black.withValues(alpha: 0.04),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -58,8 +57,8 @@ class FancyMenuItem extends StatelessWidget {
                 shape: BoxShape.circle,
                 gradient: LinearGradient(
                   colors: [
-                    color.withOpacity(0.9),
-                    color.withOpacity(0.7),
+                    color.withValues(alpha: 0.9),
+                    color.withValues(alpha: 0.7),
                   ],
                 ),
               ),

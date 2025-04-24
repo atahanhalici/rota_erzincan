@@ -17,14 +17,14 @@ class ShowPhotoDetails extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: cardColor.withOpacity(0.95),
+            color: cardColor.withValues(alpha: 0.95),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(30),
               topRight: Radius.circular(30),
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.2),
+                color: Colors.black.withValues(alpha: 0.2),
                 blurRadius: 15,
                 offset: const Offset(0, -3),
               ),
@@ -39,7 +39,7 @@ class ShowPhotoDetails extends StatelessWidget {
                   width: 40,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: textColor.withOpacity(0.3),
+                    color: textColor.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
@@ -82,7 +82,7 @@ class ShowPhotoDetails extends StatelessWidget {
                       "Bu fotoğraf, Erzincan'ın eşsiz doğal güzelliklerini göstermektedir. Bölgenin karakteristik coğrafi özellikleri ve kültürel zenginliği gözler önüne serilmektedir.",
                       style: TextStyle(
                         fontSize: 14,
-                        color: textColor.withOpacity(0.8),
+                        color: textColor.withValues(alpha: 0.8),
                         height: 1.5,
                       ),
                     ),

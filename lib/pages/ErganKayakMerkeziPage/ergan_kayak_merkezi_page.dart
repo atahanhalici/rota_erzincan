@@ -50,7 +50,7 @@ class _ErganKayakMerkeziPageState extends State<ErganKayakMerkeziPage>
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
                 decoration: BoxDecoration(
-                  color: themeProvider.cardColor.withOpacity(0.85),
+                  color: themeProvider.cardColor.withValues(alpha: 0.85),
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20),
@@ -58,8 +58,8 @@ class _ErganKayakMerkeziPageState extends State<ErganKayakMerkeziPage>
                   boxShadow: [
                     BoxShadow(
                       color: themeProvider.isDarkMode
-                          ? Colors.black.withOpacity(0.4)
-                          : Colors.grey.withOpacity(0.2),
+                          ? Colors.black.withValues(alpha: 0.4)
+                          : Colors.grey.withValues(alpha: 0.2),
                       blurRadius: 15,
                       offset: const Offset(0, 4),
                     ),
@@ -72,7 +72,7 @@ class _ErganKayakMerkeziPageState extends State<ErganKayakMerkeziPage>
                     color: ColorConstants.buttonColor,
                   ),
                   onActionPressed: () {
-                   viewModel.navigateToSearch();
+                    viewModel.navigateToSearch();
                   },
                 ),
               ),

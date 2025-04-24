@@ -48,7 +48,7 @@ class NavigationRoute {
       case NavigatorConstants.DETAILS:
         return slideAnimatedRoute(const DetailsPage(), args.arguments);
       case NavigatorConstants.GALLERY:
-        return slideAnimatedRoute(GalleryPage(), args.arguments);
+        return slideAnimatedRoute(const GalleryPage(), args.arguments);
       case NavigatorConstants.ERGAN:
         return slideAnimatedRoute(
             const ErganKayakMerkeziPage(), args.arguments);

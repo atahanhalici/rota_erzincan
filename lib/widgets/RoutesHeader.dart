@@ -39,7 +39,8 @@ class RoutesHeader extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4),
                         boxShadow: [
                           BoxShadow(
-                            color: themeProvider.buttonColor.withOpacity(0.4),
+                            color: themeProvider.buttonColor
+                                .withValues(alpha: 0.4),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
                           ),
@@ -51,10 +52,13 @@ class RoutesHeader extends StatelessWidget {
                       shaderCallback: (bounds) {
                         return LinearGradient(
                           colors: themeProvider.isDarkMode
-                              ? [Colors.white, Colors.white.withOpacity(0.8)]
+                              ? [
+                                  Colors.white,
+                                  Colors.white.withValues(alpha: 0.8)
+                                ]
                               : [
                                   themeProvider.textColor,
-                                  themeProvider.textColor.withOpacity(0.8)
+                                  themeProvider.textColor.withValues(alpha: 0.8)
                                 ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -88,7 +92,7 @@ class RoutesHeader extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
-                    color: themeProvider.textColor.withOpacity(0.7),
+                    color: themeProvider.textColor.withValues(alpha: 0.7),
                     fontStyle: FontStyle.italic,
                   ),
                 ),

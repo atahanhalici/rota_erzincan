@@ -39,7 +39,7 @@ class FloatingInfoPanel extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withValues(alpha: 0.2),
                       blurRadius: 10,
                       spreadRadius: 1,
                     ),
@@ -66,30 +66,32 @@ class FloatingInfoPanel extends StatelessWidget {
                               Icon(
                                 Icons.people,
                                 size: 16,
-                                color: themeProvider.textColor.withOpacity(0.7),
+                                color: themeProvider.textColor
+                                    .withValues(alpha: 0.7),
                               ),
                               const SizedBox(width: 4),
                               Text(
                                 '${point['capacity']} Kişi',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color:
-                                      themeProvider.textColor.withOpacity(0.7),
+                                  color: themeProvider.textColor
+                                      .withValues(alpha: 0.7),
                                 ),
                               ),
                               const SizedBox(width: 12),
                               Icon(
                                 Icons.local_hospital,
                                 size: 16,
-                                color: themeProvider.textColor.withOpacity(0.7),
+                                color: themeProvider.textColor
+                                    .withValues(alpha: 0.7),
                               ),
                               const SizedBox(width: 4),
                               Text(
                                 '${point['facilities'].length} İmkan',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color:
-                                      themeProvider.textColor.withOpacity(0.7),
+                                  color: themeProvider.textColor
+                                      .withValues(alpha: 0.7),
                                 ),
                               ),
                             ],
@@ -106,7 +108,7 @@ class FloatingInfoPanel extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 8),
                         backgroundColor:
-                            ColorConstants.buttonColor.withOpacity(0.1),
+                            ColorConstants.buttonColor.withValues(alpha: 0.1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),

@@ -20,12 +20,10 @@ class ApplicationStart {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!hasConnection) {
-        print("Initial connection failed, navigating to /noNetwork");
         if (splashViewModel.splashFinished) {
           NavigationService.instance.navigateToPageClear("/noNetwork", null);
         }
       } else {
-        print("Initial connection successful, navigating to /welcome");
         if (splashViewModel.splashFinished) {
           NavigationService.instance.navigateToPageClear("/home", null);
         }
@@ -35,7 +33,6 @@ class ApplicationStart {
     // Bağlantıyı sürekli dinlemeye başla
     ConnectivityService.instance.startMonitoring(
       onDisconnected: () {
-        print("Navigating to /noNetwork");
         if (splashViewModel.splashFinished) {
           NavigationService.instance.navigateToPageClear("/noNetwork", null);
         }
@@ -44,9 +41,7 @@ class ApplicationStart {
         // Eğer bağlantı kesilip geri geldiyse yönlendir
         bool wasDisconnected =
             ConnectivityService.instance.wasPreviouslyDisconnected();
-        print("Was previously disconnected: $wasDisconnected");
         if (wasDisconnected) {
-          print("Navigating to /welcome after reconnection");
 
           NavigationService.instance.navigateToPageClear("/home", null);
 

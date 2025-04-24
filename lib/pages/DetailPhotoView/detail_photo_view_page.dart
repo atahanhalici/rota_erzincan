@@ -16,13 +16,13 @@ class DetailPhotoView extends StatelessWidget {
   final String title;
 
   const DetailPhotoView({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.heroTag,
     required this.galleryImages,
     required this.initialIndex,
     required this.title,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,8 @@ class DetailPhotoView extends StatelessWidget {
                   fontSize: 20, // maksimum fontSize, dar alanda küçülür
                   shadows: [
                     Shadow(
-                      color: themeProvider.backgroundColor.withOpacity(0.5),
+                      color:
+                          themeProvider.backgroundColor.withValues(alpha: 0.5),
                       offset: const Offset(0, 2),
                       blurRadius: 4,
                     ),
@@ -94,11 +95,11 @@ class DetailPhotoView extends StatelessWidget {
                 margin: const EdgeInsets.only(right: 16),
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: themeProvider.buttonColor.withOpacity(0.7),
+                  color: themeProvider.buttonColor.withValues(alpha: 0.7),
                   borderRadius: BorderRadius.circular(30),
                   boxShadow: [
                     BoxShadow(
-                      color: themeProvider.buttonColor.withOpacity(0.3),
+                      color: themeProvider.buttonColor.withValues(alpha: 0.3),
                       blurRadius: 10,
                       offset: const Offset(0, 3),
                     ),
@@ -133,14 +134,16 @@ class DetailPhotoView extends StatelessWidget {
                             boxShadow: [
                               BoxShadow(
                                 color: themeProvider.isDarkMode
-                                    ? themeProvider.textColor.withOpacity(0.2)
-                                    : themeProvider.textColor.withOpacity(0.5),
+                                    ? themeProvider.textColor
+                                        .withValues(alpha: 0.2)
+                                    : themeProvider.textColor
+                                        .withValues(alpha: 0.5),
                                 blurRadius: 25,
                                 offset: const Offset(0, 12),
                               ),
                               BoxShadow(
-                                color:
-                                    themeProvider.buttonColor.withOpacity(0.3),
+                                color: themeProvider.buttonColor
+                                    .withValues(alpha: 0.3),
                                 blurRadius: 30,
                                 offset: const Offset(0, 0),
                               ),

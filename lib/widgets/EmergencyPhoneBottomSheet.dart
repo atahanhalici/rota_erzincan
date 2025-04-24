@@ -26,7 +26,7 @@ class EmergencyPhoneBottomSheet extends StatelessWidget {
             height: 5,
             margin: const EdgeInsets.only(bottom: 12),
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.4),
+              color: Colors.grey.withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(10),
             ),
           ),
@@ -39,7 +39,8 @@ class EmergencyPhoneBottomSheet extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          _buildEmergencyCallButton("112 - Acil Çağrı Merkezi", "112", Colors.red),
+          _buildEmergencyCallButton(
+              "112 - Acil Çağrı Merkezi", "112", Colors.red),
           const SizedBox(height: 10),
           _buildEmergencyCallButton("122 - AFAD", "122", Colors.orange),
         ],
@@ -51,10 +52,10 @@ class EmergencyPhoneBottomSheet extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: color.withOpacity(0.5),
+          color: color.withValues(alpha: 0.5),
           width: 1,
         ),
       ),

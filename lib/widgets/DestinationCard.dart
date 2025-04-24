@@ -93,10 +93,10 @@ class _DestinationCardState extends State<DestinationCard>
                   boxShadow: [
                     BoxShadow(
                       color: _isHovered
-                          ? themeProvider.buttonColor.withOpacity(0.2)
+                          ? themeProvider.buttonColor.withValues(alpha: 0.2)
                           : themeProvider.isDarkMode
-                              ? Colors.black.withOpacity(0.2)
-                              : Colors.grey.withOpacity(0.2),
+                              ? Colors.black.withValues(alpha: 0.2)
+                              : Colors.grey.withValues(alpha: 0.2),
                       blurRadius: _isHovered ? 15 : 8,
                       offset:
                           _isHovered ? const Offset(0, 8) : const Offset(0, 4),
@@ -105,7 +105,8 @@ class _DestinationCardState extends State<DestinationCard>
                   ],
                   border: _isHovered
                       ? Border.all(
-                          color: themeProvider.buttonColor.withOpacity(0.3),
+                          color:
+                              themeProvider.buttonColor.withValues(alpha: 0.3),
                           width: 2,
                         )
                       : null,
@@ -135,8 +136,8 @@ class _DestinationCardState extends State<DestinationCard>
                                 end: Alignment.bottomCenter,
                                 colors: [
                                   Colors.transparent,
-                                  Colors.black.withOpacity(0.3),
-                                  Colors.black.withOpacity(0.7),
+                                  Colors.black.withValues(alpha: 0.3),
+                                  Colors.black.withValues(alpha: 0.7),
                                 ],
                               ),
                             ),
@@ -160,7 +161,7 @@ class _DestinationCardState extends State<DestinationCard>
                                   boxShadow: [
                                     BoxShadow(
                                       color: themeProvider.buttonColor
-                                          .withOpacity(0.3),
+                                          .withValues(alpha: 0.3),
                                       blurRadius: 8,
                                       offset: const Offset(0, 4),
                                     ),
@@ -206,8 +207,8 @@ class _DestinationCardState extends State<DestinationCard>
                                           child: Text(
                                             widget.subtitle,
                                             style: GoogleFonts.poppins(
-                                              color:
-                                                  Colors.white.withOpacity(0.9),
+                                              color: Colors.white
+                                                  .withValues(alpha: 0.9),
                                               fontSize: 13,
                                               fontWeight: FontWeight.w500,
                                               shadows: const [

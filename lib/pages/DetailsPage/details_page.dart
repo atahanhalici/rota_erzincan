@@ -146,7 +146,7 @@ class _DetailsPageState extends State<DetailsPage>
               ),
             ],
           ),
-          backgroundColor: themeProvider.textColor.withOpacity(0.8),
+          backgroundColor: themeProvider.textColor.withValues(alpha: 0.8),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -216,9 +216,9 @@ class _DetailsPageState extends State<DetailsPage>
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            Colors.black.withOpacity(0.8),
-                            Colors.black.withOpacity(0.4),
-                            Colors.black.withOpacity(0.1),
+                            Colors.black.withValues(alpha: 0.8),
+                            Colors.black.withValues(alpha: 0.4),
+                            Colors.black.withValues(alpha: 0.1),
                           ],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -246,7 +246,8 @@ class _DetailsPageState extends State<DetailsPage>
                                     fontSize: 20,
                                     shadows: [
                                       Shadow(
-                                        color: Colors.black.withOpacity(0.5),
+                                        color:
+                                            Colors.black.withValues(alpha: 0.5),
                                         offset: const Offset(0, 2),
                                         blurRadius: 4,
                                       ),
@@ -276,12 +277,12 @@ class _DetailsPageState extends State<DetailsPage>
                                 margin:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 decoration: BoxDecoration(
-                                  color:
-                                      themeProvider.textColor.withOpacity(0.1),
+                                  color: themeProvider.textColor
+                                      .withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
                                     color: themeProvider.textColor
-                                        .withOpacity(0.2),
+                                        .withValues(alpha: 0.2),
                                     width: 1,
                                   ),
                                 ),
@@ -333,13 +334,14 @@ class _DetailsPageState extends State<DetailsPage>
                                   borderRadius: BorderRadius.circular(25),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black.withOpacity(0.3),
+                                      color:
+                                          Colors.black.withValues(alpha: 0.3),
                                       blurRadius: 15,
                                       offset: const Offset(0, 8),
                                     ),
                                     BoxShadow(
                                       color: themeProvider.buttonColor
-                                          .withOpacity(0.1),
+                                          .withValues(alpha: 0.1),
                                       blurRadius: 20,
                                       offset: const Offset(0, 0),
                                     ),
@@ -375,7 +377,8 @@ class _DetailsPageState extends State<DetailsPage>
                                                       shadows: [
                                                         Shadow(
                                                           color: Colors.black
-                                                              .withOpacity(0.3),
+                                                              .withValues(
+                                                                  alpha: 0.3),
                                                           offset: const Offset(
                                                               0, 2),
                                                           blurRadius: 4,
@@ -481,7 +484,7 @@ class _DetailsPageState extends State<DetailsPage>
                                       style: GoogleFonts.poppins(
                                         fontSize: 17,
                                         color: themeProvider.textColor
-                                            .withOpacity(0.9),
+                                            .withValues(alpha: 0.9),
                                         height: 1.6,
                                         letterSpacing: 0.3,
                                       ),
@@ -499,9 +502,9 @@ class _DetailsPageState extends State<DetailsPage>
                                                 gradient: LinearGradient(
                                                   colors: [
                                                     themeProvider.buttonColor
-                                                        .withOpacity(0.8),
+                                                        .withValues(alpha: 0.8),
                                                     themeProvider.buttonColor
-                                                        .withOpacity(0.4),
+                                                        .withValues(alpha: 0.4),
                                                   ],
                                                 ),
                                                 borderRadius:
@@ -509,14 +512,14 @@ class _DetailsPageState extends State<DetailsPage>
                                                 border: Border.all(
                                                   color: themeProvider
                                                       .buttonColor
-                                                      .withOpacity(0.3),
+                                                      .withValues(alpha: 0.3),
                                                   width: 1,
                                                 ),
                                                 boxShadow: [
                                                   BoxShadow(
                                                     color: themeProvider
                                                         .buttonColor
-                                                        .withOpacity(0.2),
+                                                        .withValues(alpha: 0.2),
                                                     blurRadius: 10,
                                                     offset: const Offset(0, 4),
                                                   ),
@@ -580,13 +583,14 @@ class _DetailsPageState extends State<DetailsPage>
                                     borderRadius: BorderRadius.circular(25),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.3),
+                                        color:
+                                            Colors.black.withValues(alpha: 0.3),
                                         blurRadius: 15,
                                         offset: const Offset(0, 8),
                                       ),
                                       BoxShadow(
                                         color: themeProvider.buttonColor
-                                            .withOpacity(0.1),
+                                            .withValues(alpha: 0.1),
                                         blurRadius: 20,
                                         offset: const Offset(0, 0),
                                       ),
@@ -602,7 +606,7 @@ class _DetailsPageState extends State<DetailsPage>
                                             padding: const EdgeInsets.all(8),
                                             decoration: BoxDecoration(
                                               color: themeProvider.buttonColor
-                                                  .withOpacity(0.1),
+                                                  .withValues(alpha: 0.1),
                                               borderRadius:
                                                   BorderRadius.circular(12),
                                             ),
@@ -708,8 +712,8 @@ class _DetailsPageState extends State<DetailsPage>
                                                         boxShadow: [
                                                           BoxShadow(
                                                             color: Colors.black
-                                                                .withOpacity(
-                                                                    0.3),
+                                                                .withValues(
+                                                                    alpha: 0.3),
                                                             blurRadius: 12,
                                                             offset:
                                                                 const Offset(
@@ -718,8 +722,8 @@ class _DetailsPageState extends State<DetailsPage>
                                                           BoxShadow(
                                                             color: themeProvider
                                                                 .buttonColor
-                                                                .withOpacity(
-                                                                    0.1),
+                                                                .withValues(
+                                                                    alpha: 0.1),
                                                             blurRadius: 15,
                                                             offset:
                                                                 const Offset(
@@ -753,8 +757,9 @@ class _DetailsPageState extends State<DetailsPage>
                                                                     themeProvider
                                                                         .transparentColor,
                                                                     Colors.black
-                                                                        .withOpacity(
-                                                                            0.7),
+                                                                        .withValues(
+                                                                            alpha:
+                                                                                0.7),
                                                                   ],
                                                                   begin: Alignment
                                                                       .topCenter,

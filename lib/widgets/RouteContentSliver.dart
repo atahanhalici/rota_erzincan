@@ -98,8 +98,8 @@ class RouteContentSliver extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: themeProvider.isDarkMode
-                ? Colors.black.withOpacity(0.25)
-                : Colors.grey.withOpacity(0.15),
+                ? Colors.black.withValues(alpha: 0.25)
+                : Colors.grey.withValues(alpha: 0.15),
             blurRadius: 10,
             offset: const Offset(0, 6),
           ),
@@ -155,7 +155,8 @@ class RouteContentSliver extends StatelessWidget {
                           style: GoogleFonts.poppins(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: themeProvider.textColor.withOpacity(0.7),
+                            color:
+                                themeProvider.textColor.withValues(alpha: 0.7),
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -169,7 +170,8 @@ class RouteContentSliver extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                 fontSize: 11,
                                 fontWeight: FontWeight.w400,
-                                color: themeProvider.textColor.withOpacity(0.6),
+                                color: themeProvider.textColor
+                                    .withValues(alpha: 0.6),
                               ),
                             ),
                           ),

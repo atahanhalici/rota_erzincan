@@ -33,9 +33,11 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
     }
     super.dispose();
   }
- void navigateToSearch() {
+
+  void navigateToSearch() {
     navigationService.navigateToSearchPage();
   }
+
   void showControlsTemporarily() {
     if (_isDisposed) return;
     showPlayPause = true;
@@ -61,7 +63,7 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
   bool showPlayPause = false;
 
   void initVideoController(String url, VoidCallback onReady) {
-    videoController = VideoPlayerController.network(url)
+    videoController = VideoPlayerController.networkUrl(Uri.parse(url))
       ..initialize().then((_) {
         isVideoReady = true;
         videoController.play();

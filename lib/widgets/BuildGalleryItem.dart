@@ -29,7 +29,7 @@ class BuildGalleryItem extends StatelessWidget {
       child: Material(
         borderRadius: BorderRadius.circular(18),
         elevation: 6,
-        shadowColor: Colors.black.withOpacity(0.3),
+        shadowColor: Colors.black.withValues(alpha: 0.3),
         child: InkWell(
           borderRadius: BorderRadius.circular(18),
           onTap: () {
@@ -69,7 +69,7 @@ class BuildGalleryItem extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.transparent,
-                          Colors.black.withOpacity(0.6),
+                          Colors.black.withValues(alpha: 0.6),
                         ],
                         stops: const [0.7, 1.0],
                       ),
@@ -83,13 +83,14 @@ class BuildGalleryItem extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            begin: Alignment(-0.8, -0.8),
-                            end: Alignment(0.8, 0.8),
+                            begin: const Alignment(-0.8, -0.8),
+                            end: const Alignment(0.8, 0.8),
                             colors: [
-                              Colors.white.withOpacity(0.0),
-                              Colors.white.withOpacity(
-                                  0.2 * math.sin(controller.value * math.pi)),
-                              Colors.white.withOpacity(0.0),
+                              Colors.white.withValues(alpha: 0.0),
+                              Colors.white.withValues(
+                                  alpha: 0.2 *
+                                      math.sin(controller.value * math.pi)),
+                              Colors.white.withValues(alpha: 0.0),
                             ],
                             stops: const [0.0, 0.5, 1.0],
                           ),
@@ -116,7 +117,7 @@ class BuildGalleryItem extends StatelessWidget {
                               Shadow(
                                 offset: const Offset(0, 1),
                                 blurRadius: 3,
-                                color: Colors.black.withOpacity(0.5),
+                                color: Colors.black.withValues(alpha: 0.5),
                               ),
                             ],
                           ),
@@ -127,7 +128,7 @@ class BuildGalleryItem extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.3),
+                          color: Colors.black.withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: const Icon(

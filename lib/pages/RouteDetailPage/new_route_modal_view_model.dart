@@ -8,7 +8,7 @@ import 'package:uuid/uuid.dart';
 class NewRouteModalViewModel extends ChangeNotifier {
   final nameController = TextEditingController();
   final descController = TextEditingController();
-  final uuid = Uuid();
+  final uuid = const Uuid();
 
   late List<CategoryContentItem> allItems;
   final Set<String> selectedIds = {};
@@ -95,21 +95,6 @@ class NewRouteModalViewModel extends ChangeNotifier {
       return aSelected.compareTo(bSelected);
     });
 
-    // ✅ Debug logları
-    print("➡️ editingRoute varsa gelen başlık: ${editingRoute?.title}");
-    print("➡️ editingRoute varsa gelen açıklama: ${editingRoute?.subtitle}");
-    print(
-        "➡️ editingRoute.stops: ${editingRoute?.stops.map((e) => e.id).toList()}");
-
-    print("✅ selectedIds ilk hali: $selectedIds");
-
-    print("📦 allItems (toplam: ${allItems.length}):");
-    for (var item in allItems) {
-      print("  - ${item.id} | ${item.title}");
-    }
-
-    print(
-        "🎯 Seçili olanlar: ${allItems.where((e) => selectedIds.contains(e.id)).map((e) => e.title).toList()}");
   }
 
   void toggleSelection(String id) {
@@ -194,7 +179,6 @@ class NewRouteModalViewModel extends ChangeNotifier {
       });
     }
 
-    print('Route ve duraklar kaydedildi: ${route.title}');
   }
 
   void disposeControllers() {
@@ -246,6 +230,5 @@ class NewRouteModalViewModel extends ChangeNotifier {
       });
     }
 
-    print('Rota güncellendi: $routeId');
   }
 }

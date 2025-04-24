@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage>
         style: GoogleFonts.poppins(
           fontSize: 17,
           fontWeight: FontWeight.w500,
-          color: Colors.white.withOpacity(0.95),
+          color: Colors.white.withValues(alpha: 0.95),
         ),
         child: AnimatedTextKit(
           animatedTexts: [
@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage>
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           decoration: BoxDecoration(
-            color: themeProvider.cardColor.withOpacity(0.8),
+            color: themeProvider.cardColor.withValues(alpha: 0.8),
             borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(20),
               bottomRight: Radius.circular(20),
@@ -132,22 +132,23 @@ class _HomePageState extends State<HomePage>
             boxShadow: [
               BoxShadow(
                 color: themeProvider.isDarkMode
-                    ? Colors.black.withOpacity(0.2)
-                    : Colors.grey.withOpacity(0.1),
+                    ? Colors.black.withValues(alpha: 0.2)
+                    : Colors.grey.withValues(alpha: 0.1),
                 blurRadius: 10,
                 offset: const Offset(0, 2),
               ),
             ],
           ),
-          child:Appbar(
-              actionIcon: const Icon(
-                Icons.search,
-                size: 30,
-                color: ColorConstants.buttonColor,
-              ),
-              onActionPressed: () {
-                _homeModel.navigateToSearch();
-              },),
+          child: Appbar(
+            actionIcon: const Icon(
+              Icons.search,
+              size: 30,
+              color: ColorConstants.buttonColor,
+            ),
+            onActionPressed: () {
+              _homeModel.navigateToSearch();
+            },
+          ),
         ),
       ),
       body: Stack(
@@ -167,10 +168,11 @@ class _HomePageState extends State<HomePage>
                       begin: Alignment.topRight,
                       end: Alignment.bottomLeft,
                       colors: [
-                        themeProvider.buttonColor.withOpacity(0.8),
+                        themeProvider.buttonColor.withValues(alpha: 0.8),
                         themeProvider.isDarkMode
-                            ? themeProvider.backgroundColor.withOpacity(0.9)
-                            : Colors.black.withOpacity(0.9),
+                            ? themeProvider.backgroundColor
+                                .withValues(alpha: 0.9)
+                            : Colors.black.withValues(alpha: 0.9),
                       ],
                     ),
                     borderRadius: const BorderRadius.only(
@@ -179,7 +181,7 @@ class _HomePageState extends State<HomePage>
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: themeProvider.buttonColor.withOpacity(0.2),
+                        color: themeProvider.buttonColor.withValues(alpha: 0.2),
                         blurRadius: 20,
                         offset: const Offset(0, 10),
                       ),
@@ -264,8 +266,8 @@ class _HomePageState extends State<HomePage>
                                           style: GoogleFonts.poppins(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w500,
-                                            color:
-                                                Colors.white.withOpacity(0.95),
+                                            color: Colors.white
+                                                .withValues(alpha: 0.95),
                                           ),
                                         ),
                                       ],
@@ -304,7 +306,7 @@ class _HomePageState extends State<HomePage>
                                     boxShadow: [
                                       BoxShadow(
                                         color: themeProvider.buttonColor
-                                            .withOpacity(0.4),
+                                            .withValues(alpha: 0.4),
                                         blurRadius: 8,
                                         offset: const Offset(0, 2),
                                       ),
@@ -318,12 +320,13 @@ class _HomePageState extends State<HomePage>
                                       colors: themeProvider.isDarkMode
                                           ? [
                                               Colors.white,
-                                              Colors.white.withOpacity(0.8)
+                                              Colors.white
+                                                  .withValues(alpha: 0.8)
                                             ]
                                           : [
                                               themeProvider.textColor,
                                               themeProvider.textColor
-                                                  .withOpacity(0.8)
+                                                  .withValues(alpha: 0.8)
                                             ],
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomRight,
@@ -409,9 +412,10 @@ class _HomePageState extends State<HomePage>
                               boxShadow: [
                                 BoxShadow(
                                   color: themeProvider.isDarkMode
-                                      ? themeProvider.textColor.withOpacity(0.3)
+                                      ? themeProvider.textColor
+                                          .withValues(alpha: 0.3)
                                       : themeProvider.buttonColor
-                                          .withOpacity(0.3),
+                                          .withValues(alpha: 0.3),
                                   blurRadius: 15,
                                   offset: const Offset(0, 0),
                                 ),
@@ -426,7 +430,7 @@ class _HomePageState extends State<HomePage>
                                       padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         color: themeProvider.buttonColor
-                                            .withOpacity(0.1),
+                                            .withValues(alpha: 0.1),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Icon(
@@ -453,7 +457,7 @@ class _HomePageState extends State<HomePage>
                                     fontSize: 14,
                                     height: 1.5,
                                     color: themeProvider.textColor
-                                        .withOpacity(0.8),
+                                        .withValues(alpha: 0.8),
                                   ),
                                 ),
                                 const SizedBox(height: 16),

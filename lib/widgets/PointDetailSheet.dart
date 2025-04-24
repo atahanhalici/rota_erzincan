@@ -30,7 +30,7 @@ class PointDetailSheet extends StatelessWidget {
             width: 50,
             height: 5,
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.5),
+              color: Colors.grey.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(10),
             ),
           ),
@@ -41,7 +41,7 @@ class PointDetailSheet extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: ColorConstants.buttonColor.withOpacity(0.2),
+                    color: ColorConstants.buttonColor.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(Icons.location_on,
@@ -64,7 +64,7 @@ class PointDetailSheet extends StatelessWidget {
                       Text(
                         'Toplanma Alanı',
                         style: TextStyle(
-                          color: themeProvider.textColor.withOpacity(0.7),
+                          color: themeProvider.textColor.withValues(alpha: 0.7),
                           fontSize: 14,
                         ),
                       ),
@@ -130,7 +130,7 @@ class PointDetailSheet extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                  color: themeProvider.textColor.withOpacity(0.7),
+                  color: themeProvider.textColor.withValues(alpha: 0.7),
                   fontSize: 14,
                 ),
               ),
@@ -154,7 +154,7 @@ class PointDetailSheet extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(Icons.local_hospital, color: ColorConstants.buttonColor, size: 22),
+       const Icon(Icons.local_hospital, color: ColorConstants.buttonColor, size: 22),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
@@ -163,7 +163,7 @@ class PointDetailSheet extends StatelessWidget {
               Text(
                 'Mevcut İmkanlar',
                 style: TextStyle(
-                  color: themeProvider.textColor.withOpacity(0.7),
+                  color: themeProvider.textColor.withValues(alpha: 0.7),
                   fontSize: 14,
                 ),
               ),
@@ -176,11 +176,12 @@ class PointDetailSheet extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
-                            color: ColorConstants.buttonColor.withOpacity(0.1),
+                            color: ColorConstants.buttonColor
+                                .withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color:
-                                  ColorConstants.buttonColor.withOpacity(0.3),
+                              color: ColorConstants.buttonColor
+                                  .withValues(alpha: 0.3),
                               width: 1,
                             ),
                           ),

@@ -55,13 +55,13 @@ class LiveCamsCameraList extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.only(bottom: 24),
               decoration: BoxDecoration(
-                color: themeProvider.cardColor.withOpacity(0.85),
+                color: themeProvider.cardColor.withValues(alpha: 0.85),
                 borderRadius: BorderRadius.circular(18),
                 boxShadow: [
                   BoxShadow(
                     color: themeProvider.isDarkMode
-                        ? Colors.black.withOpacity(0.2)
-                        : Colors.grey.withOpacity(0.1),
+                        ? Colors.black.withValues(alpha: 0.2)
+                        : Colors.grey.withValues(alpha: 0.1),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -110,7 +110,7 @@ class LiveCamsCameraList extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 6),
                             decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.7),
+                              color: Colors.black.withValues(alpha: 0.7),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(
@@ -167,7 +167,8 @@ class LiveCamsCameraList extends StatelessWidget {
                           cam.description,
                           style: GoogleFonts.poppins(
                             fontSize: 14,
-                            color: themeProvider.textColor.withOpacity(0.7),
+                            color:
+                                themeProvider.textColor.withValues(alpha: 0.7),
                           ),
                         ),
                       ],

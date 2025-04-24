@@ -32,8 +32,8 @@ class EmergencyMap extends StatelessWidget {
     return FlutterMap(
       mapController: mapController,
       options: MapOptions(
-        center: userLocation,
-        zoom: 15,
+        initialCenter: userLocation!,
+        initialZoom: 15,
         onTap: (_, __) => viewModel.clearSelectedPoint(),
       ),
       children: [
@@ -47,8 +47,8 @@ class EmergencyMap extends StatelessWidget {
               CircleMarker(
                 point: userLocation,
                 radius: 500,
-                color: Colors.blue.withOpacity(0.1),
-                borderColor: Colors.blue.withOpacity(0.7),
+                color: Colors.blue.withValues(alpha: 0.1),
+                borderColor: Colors.blue.withValues(alpha: 0.7),
                 borderStrokeWidth: 2,
               ),
             ],
@@ -158,7 +158,7 @@ class EmergencyMap extends StatelessWidget {
                           : (isNearest
                               ? Colors.green
                               : ColorConstants.buttonColor))
-                      .withOpacity(0.5),
+                      .withValues(alpha: 0.5),
                   blurRadius: isSelected ? 12 : 8,
                   spreadRadius: isSelected ? 4 : 2,
                 ),
@@ -177,7 +177,7 @@ class EmergencyMap extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               constraints: const BoxConstraints(maxWidth: 500),
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.8),
+                color: Colors.black.withValues(alpha: 0.8),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(

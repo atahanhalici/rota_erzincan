@@ -13,7 +13,7 @@ import 'package:rota_erzincan/widgets/StickyHeader.dart';
 import 'package:provider/provider.dart';
 
 class CategoryDetailPage extends StatefulWidget {
-  const CategoryDetailPage({Key? key}) : super(key: key);
+  const CategoryDetailPage({super.key});
 
   @override
   State<CategoryDetailPage> createState() => _CategoryDetailPageState();

@@ -30,7 +30,7 @@ class BuildCircularButton extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             customBorder: const CircleBorder(),
-            splashColor: Colors.white.withOpacity(0.2), // Hafif bir efekt
+            splashColor: Colors.white.withValues(alpha: 0.2), // Hafif bir efekt
             child: Ink(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,

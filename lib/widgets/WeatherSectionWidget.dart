@@ -45,7 +45,7 @@ class WeatherSectionWidget extends StatelessWidget {
                                 boxShadow: [
                                   BoxShadow(
                                     color: themeProvider.buttonColor
-                                        .withOpacity(0.4),
+                                        .withValues(alpha: 0.4),
                                     blurRadius: 8,
                                     offset: const Offset(0, 2),
                                   ),
@@ -58,7 +58,8 @@ class WeatherSectionWidget extends StatelessWidget {
                                 return LinearGradient(
                                   colors: [
                                     themeProvider.textColor,
-                                    themeProvider.textColor.withOpacity(0.8),
+                                    themeProvider.textColor
+                                        .withValues(alpha: 0.8),
                                   ],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
@@ -109,7 +110,7 @@ class WeatherSectionWidget extends StatelessWidget {
                             ? 4
                             : _erganModel.infoCards.length,
                         itemBuilder: (context, index) {
-                          if ( _erganModel.isLoading) {
+                          if (_erganModel.isLoading) {
                             // 🔄 SHIMMER göster
                             return AnimatedContainer(
                               duration: const Duration(milliseconds: 400),
@@ -143,8 +144,10 @@ class WeatherSectionWidget extends StatelessWidget {
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   colors: [
-                                    themeProvider.buttonColor.withOpacity(0.9),
-                                    themeProvider.buttonColor.withOpacity(0.6),
+                                    themeProvider.buttonColor
+                                        .withValues(alpha: 0.9),
+                                    themeProvider.buttonColor
+                                        .withValues(alpha: 0.6),
                                   ],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
@@ -153,7 +156,7 @@ class WeatherSectionWidget extends StatelessWidget {
                                 boxShadow: [
                                   BoxShadow(
                                     color: themeProvider.buttonColor
-                                        .withOpacity(0.3),
+                                        .withValues(alpha: 0.3),
                                     blurRadius: 12,
                                     offset: const Offset(0, 6),
                                   ),

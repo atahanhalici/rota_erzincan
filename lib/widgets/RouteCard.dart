@@ -10,10 +10,10 @@ class RouteCard extends StatefulWidget {
   final Function onTap;
 
   const RouteCard({
-    Key? key,
+    super.key,
     required this.item,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   State<RouteCard> createState() => _RouteCardState();
@@ -39,7 +39,7 @@ class _RouteCardState extends State<RouteCard>
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: themeProvider.buttonColor.withOpacity(0.2),
+                  color: themeProvider.buttonColor.withValues(alpha: 0.2),
                   blurRadius: 8,
                   offset: const Offset(0, 4),
                 ),
@@ -67,8 +67,8 @@ class _RouteCardState extends State<RouteCard>
                           end: Alignment.bottomCenter,
                           colors: [
                             Colors.transparent,
-                            Colors.black.withOpacity(0.3),
-                            Colors.black.withOpacity(0.7),
+                            Colors.black.withValues(alpha: 0.3),
+                            Colors.black.withValues(alpha: 0.7),
                           ],
                         ),
                       ),
@@ -91,8 +91,8 @@ class _RouteCardState extends State<RouteCard>
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color:
-                                    themeProvider.buttonColor.withOpacity(0.3),
+                                color: themeProvider.buttonColor
+                                    .withValues(alpha: 0.3),
                                 blurRadius: 8,
                                 offset: const Offset(0, 4),
                               ),
@@ -141,7 +141,8 @@ class _RouteCardState extends State<RouteCard>
                                     child: Text(
                                       widget.item.subtitle,
                                       style: GoogleFonts.poppins(
-                                        color: Colors.white.withOpacity(0.9),
+                                        color:
+                                            Colors.white.withValues(alpha: 0.9),
                                         fontSize: 13,
                                         fontWeight: FontWeight.w500,
                                         shadows: const [

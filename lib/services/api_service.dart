@@ -207,7 +207,7 @@ class ApiService {
         "durationMinutes": 55,
       },
     ];
-    final uuid = Uuid();
+    const uuid = Uuid();
     return responseData.map((data) {
       return RouteItem(
           id: uuid.v4(),

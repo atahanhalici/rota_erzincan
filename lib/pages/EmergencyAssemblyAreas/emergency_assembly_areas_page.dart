@@ -54,7 +54,7 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           decoration: BoxDecoration(
-            color: themeProvider.cardColor.withOpacity(0.85),
+            color: themeProvider.cardColor.withValues(alpha: 0.85),
             borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(20),
               bottomRight: Radius.circular(20),
@@ -62,8 +62,8 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
             boxShadow: [
               BoxShadow(
                 color: themeProvider.isDarkMode
-                    ? Colors.black.withOpacity(0.3)
-                    : Colors.grey.withOpacity(0.2),
+                    ? Colors.black.withValues(alpha: 0.3)
+                    : Colors.grey.withValues(alpha: 0.2),
                 blurRadius: 10,
                 offset: const Offset(0, 2),
               ),
@@ -160,7 +160,7 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 10,
                   spreadRadius: 2,
                 ),
@@ -188,7 +188,7 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
                   "En yakın acil toplanma alanını bulabilmek için konum erişimine izin vermeniz gerekiyor.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: themeProvider.textColor.withOpacity(0.7),
+                    color: themeProvider.textColor.withValues(alpha: 0.7),
                   ),
                 ),
                 const SizedBox(height: 16),

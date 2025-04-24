@@ -20,8 +20,8 @@ class DetailTopBarShadow extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: themeProvider.isDarkMode
-                    ? Colors.black.withOpacity(0.4)
-                    : Colors.grey.withOpacity(0.2),
+                    ? Colors.black.withValues(alpha: 0.4)
+                    : Colors.grey.withValues(alpha: 0.2),
                 blurRadius: 15,
                 offset: const Offset(0, 4),
               ),

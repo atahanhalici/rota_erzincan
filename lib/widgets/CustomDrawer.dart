@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -84,7 +82,7 @@ class CustomDrawer extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: textColor.withOpacity(0.1),
+                    color: textColor.withValues(alpha: 0.1),
                   ),
                 ),
               ),
@@ -96,7 +94,7 @@ class CustomDrawer extends StatelessWidget {
                     'Erzincan Valiliği © ${DateTime.now().year}',
                     style: GoogleFonts.poppins(
                       fontSize: 12,
-                      color: textColor.withOpacity(0.6),
+                      color: textColor.withValues(alpha: 0.6),
                     ),
                   ),
                 ],
@@ -120,7 +118,7 @@ class CustomDrawer extends StatelessWidget {
                   "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/makam-foto-2.jpeg?alt=media&token=b9eb519f-17de-44c8-aee6-b03fa0bb8c35",
               title: "Valimizden Mesaj");
         },
-        color: ColorConstants.buttonColor.withOpacity(0.1),
+        color: ColorConstants.buttonColor.withValues(alpha: 0.1),
       ),
       FancyMenuItem(
         icon: Icons.info_outline,
@@ -131,7 +129,7 @@ class CustomDrawer extends StatelessWidget {
                   "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/erzincana-kar-yeniden-geliyor.jpg?alt=media&token=0b910000-dd18-4edc-8724-66268562adb4",
               title: "Erzincan Hakkında");
         },
-        color: ColorConstants.buttonColor.withOpacity(0.3),
+        color: ColorConstants.buttonColor.withValues(alpha: 0.3),
       ),
       FancyMenuItem(
         icon: Icons.location_on,
@@ -150,7 +148,7 @@ class CustomDrawer extends StatelessWidget {
                   "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/loading.jpg?alt=media&token=1e8517f0-5a7d-4d96-891b-3adb85d850c2",
               title: "Uygulama Hakkında");
         },
-        color: ColorConstants.buttonColor.withOpacity(0.7),
+        color: ColorConstants.buttonColor.withValues(alpha: 0.7),
       ),
       FancyMenuItem(
         icon: Icons.feedback_outlined,
@@ -158,7 +156,7 @@ class CustomDrawer extends StatelessWidget {
         onTap: () {
           homeModel.navigateToGiveYourOpinion(context);
         },
-        color: ColorConstants.buttonColor.withOpacity(0.9),
+        color: ColorConstants.buttonColor.withValues(alpha: 0.9),
       ),
     ];
   }
@@ -172,10 +170,10 @@ class CustomDrawer extends StatelessWidget {
           margin: const EdgeInsets.only(top: 10),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
-            color: themeProvider.textColor.withOpacity(0.2),
+            color: themeProvider.textColor.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(30),
             border: Border.all(
-              color: themeProvider.textColor.withOpacity(0.3),
+              color: themeProvider.textColor.withValues(alpha: 0.3),
               width: 1,
             ),
           ),

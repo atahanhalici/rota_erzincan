@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SwipeUpHint extends StatefulWidget {
+  const SwipeUpHint({super.key});
+
   @override
   State<SwipeUpHint> createState() => SwipeUpHintState();
 }
@@ -43,7 +45,7 @@ class SwipeUpHintState extends State<SwipeUpHint>
       position: _animation,
       child: const Column(
         mainAxisSize: MainAxisSize.min,
-        children: const [
+        children: [
           Icon(
             Icons.keyboard_arrow_up,
             color: Colors.white,

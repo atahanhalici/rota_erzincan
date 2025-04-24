@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );
@@ -63,8 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            Colors.black.withOpacity(0.6),
-                            Colors.black.withOpacity(0.1),
+                            Colors.black.withValues(alpha: 0.6),
+                            Colors.black.withValues(alpha: 0.1),
                           ],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       right: 0,
                       top: MediaQuery.of(context).padding.top + 10,
                       child: AnimatedOpacity(
-                        duration: Duration(milliseconds: 300),
+                        duration: const Duration(milliseconds: 300),
                         opacity: opacity,
                         child: Center(
                           child: Text(
@@ -104,10 +104,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Expanded(
+                     const Expanded(
                         child: Text(
                           "Terzibaba Mezarlığı ve Türbesi",
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const Divider(color: Color.fromARGB(255, 34, 34, 34)),
                   const SizedBox(height: 10),
                   Text(
-                    isExpanded ? fullText : fullText.substring(0, 300) + '...',
+                    isExpanded ? fullText : '${fullText.substring(0, 300)}...',
                     textAlign: TextAlign.justify,
                     style: GoogleFonts.poppins(
                       fontSize: 18,

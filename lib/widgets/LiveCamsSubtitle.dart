@@ -27,7 +27,7 @@ class LiveCamsSubtitle extends StatelessWidget {
               style: GoogleFonts.poppins(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: themeProvider.textColor.withOpacity(0.7),
+                color: themeProvider.textColor.withValues(alpha: 0.7),
                 fontStyle: FontStyle.italic,
               ),
             ),

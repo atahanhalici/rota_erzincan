@@ -28,7 +28,7 @@ class FacilityHeaderWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(4),
                     boxShadow: [
                       BoxShadow(
-                        color: themeProvider.buttonColor.withOpacity(0.4),
+                        color: themeProvider.buttonColor.withValues(alpha: 0.4),
                         blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),
@@ -41,7 +41,7 @@ class FacilityHeaderWidget extends StatelessWidget {
                     return LinearGradient(
                       colors: [
                         themeProvider.textColor,
-                        themeProvider.textColor.withOpacity(0.8),
+                        themeProvider.textColor.withValues(alpha: 0.8),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -65,7 +65,7 @@ class FacilityHeaderWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withValues(alpha: 0.1),
                         blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),

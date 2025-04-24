@@ -21,7 +21,7 @@ class _BackButtonOverlayState extends State<BackButtonOverlay> {
         onTap: _handleBack,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withValues(alpha: 0.5),
             shape: BoxShape.circle,
           ),
           padding: const EdgeInsets.all(8),

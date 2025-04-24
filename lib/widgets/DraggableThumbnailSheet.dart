@@ -49,7 +49,7 @@ class DraggableThumbnailSheet extends StatelessWidget {
                           width: 40,
                           height: 4,
                           decoration: BoxDecoration(
-                            color: textColor.withOpacity(0.2),
+                            color: textColor.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
@@ -58,10 +58,10 @@ class DraggableThumbnailSheet extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 6),
                           decoration: BoxDecoration(
-                            color: textColor.withOpacity(0.1),
+                            color: textColor.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: textColor.withOpacity(0.2),
+                              color: textColor.withValues(alpha: 0.2),
                               width: 1,
                             ),
                           ),
@@ -69,7 +69,7 @@ class DraggableThumbnailSheet extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(Icons.photo_library,
-                                  color: Colors.white.withOpacity(0.8),
+                                  color: Colors.white.withValues(alpha: 0.8),
                                   size: 16),
                               const SizedBox(width: 8),
                               Text(
@@ -105,13 +105,13 @@ class DraggableThumbnailSheet extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
                                 color: currentIndex == index
-                                    ? buttonColor.withOpacity(0.8)
+                                    ? buttonColor.withValues(alpha: 0.8)
                                     : Colors.transparent,
                                 width: 2,
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: buttonColor.withOpacity(0.3),
+                                  color: buttonColor.withValues(alpha: 0.3),
                                   blurRadius: 8,
                                   offset: const Offset(1, 1),
                                 ),

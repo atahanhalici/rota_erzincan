@@ -26,7 +26,7 @@ class GiveYourOpinionViewModel extends ChangeNotifier with BaseViewModel {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Row(
-            children: const [
+            children: [
               Icon(Icons.check_circle, color: Colors.white),
               SizedBox(width: 10),
               Text("Görüşünüz alındı, teşekkür ederiz!"),

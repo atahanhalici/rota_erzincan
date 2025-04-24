@@ -198,7 +198,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
 
       if (availableMaps.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Yüklü bir harita uygulaması bulunamadı.')),
+          const SnackBar(content: Text('Yüklü bir harita uygulaması bulunamadı.')),
         );
         return;
       }
@@ -221,7 +221,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
           await launchUrl(stopUrl, mode: LaunchMode.externalApplication);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Google Maps açılamadı.')),
+           const SnackBar(content: Text('Google Maps açılamadı.')),
           );
         }
       } else {
@@ -282,7 +282,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
     } catch (e) {
       debugPrint('📍 Harita hatası: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Harita uygulaması açılırken bir hata oluştu.')),
+      const  SnackBar(content: Text('Harita uygulaması açılırken bir hata oluştu.')),
       );
     }
   }

@@ -70,7 +70,7 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               decoration: BoxDecoration(
-                color: themeProvider.cardColor.withOpacity(0.75),
+                color: themeProvider.cardColor.withValues(alpha: 0.75),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(25),
                   bottomRight: Radius.circular(25),
@@ -78,8 +78,8 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                 boxShadow: [
                   BoxShadow(
                     color: themeProvider.isDarkMode
-                        ? Colors.black.withOpacity(0.4)
-                        : Colors.grey.withOpacity(0.2),
+                        ? Colors.black.withValues(alpha: 0.4)
+                        : Colors.grey.withValues(alpha: 0.2),
                     blurRadius: 15,
                     offset: const Offset(0, 4),
                   ),
@@ -161,7 +161,7 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                                     colors: [
                                       themeProvider.buttonColor,
                                       themeProvider.buttonColor
-                                          .withOpacity(0.6),
+                                          .withValues(alpha: 0.6),
                                     ],
                                   ),
                                   borderRadius: BorderRadius.circular(8),
@@ -174,12 +174,12 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                                     colors: themeProvider.isDarkMode
                                         ? [
                                             Colors.white,
-                                            Colors.white.withOpacity(0.85)
+                                            Colors.white.withValues(alpha: 0.85)
                                           ]
                                         : [
                                             themeProvider.textColor,
                                             themeProvider.textColor
-                                                .withOpacity(0.85)
+                                                .withValues(alpha: 0.85)
                                           ],
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
@@ -212,7 +212,8 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                               style: GoogleFonts.poppins(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
-                                color: themeProvider.textColor.withOpacity(0.7),
+                                color: themeProvider.textColor
+                                    .withValues(alpha: 0.7),
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
@@ -230,19 +231,20 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                             child: Container(
                               padding: const EdgeInsets.all(20),
                               decoration: BoxDecoration(
-                                color: themeProvider.cardColor.withOpacity(
-                                    themeProvider.isDarkMode ? 0.2 : 0.06),
+                                color: themeProvider.cardColor.withValues(
+                                    alpha:
+                                        themeProvider.isDarkMode ? 0.2 : 0.06),
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(
-                                  color:
-                                      themeProvider.textColor.withOpacity(0.1),
+                                  color: themeProvider.textColor
+                                      .withValues(alpha: 0.1),
                                   width: 1,
                                 ),
                                 boxShadow: [
                                   BoxShadow(
                                     color: themeProvider.isDarkMode
-                                        ? Colors.black.withOpacity(0.2)
-                                        : Colors.grey.withOpacity(0.1),
+                                        ? Colors.black.withValues(alpha: 0.2)
+                                        : Colors.grey.withValues(alpha: 0.1),
                                     blurRadius: 8,
                                     offset: const Offset(0, 4),
                                   ),
@@ -308,7 +310,7 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                                               elevation: 8,
                                               shadowColor: themeProvider
                                                   .buttonColor
-                                                  .withOpacity(0.4),
+                                                  .withValues(alpha: 0.4),
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(16),
@@ -387,7 +389,7 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                 child: Container(
-                  color: themeProvider.backgroundColor.withOpacity(0.7),
+                  color: themeProvider.backgroundColor.withValues(alpha: 0.7),
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -403,7 +405,7 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                         style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: themeProvider.textColor.withOpacity(0.6),
+                          color: themeProvider.textColor.withValues(alpha: 0.6),
                         ),
                       ),
                     ],
@@ -453,14 +455,15 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                     children: [
                       Icon(icon,
                           size: 18,
-                          color: themeProvider.buttonColor.withOpacity(0.8)),
+                          color:
+                              themeProvider.buttonColor.withValues(alpha: 0.8)),
                       const SizedBox(width: 8),
                       Text(
                         label,
                         style: GoogleFonts.poppins(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
-                          color: themeProvider.textColor.withOpacity(0.9),
+                          color: themeProvider.textColor.withValues(alpha: 0.9),
                         ),
                       ),
                     ],
@@ -478,13 +481,13 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                   decoration: InputDecoration(
                     hintText: hint,
                     hintStyle: GoogleFonts.poppins(
-                      color: themeProvider.textColor.withOpacity(0.4),
+                      color: themeProvider.textColor.withValues(alpha: 0.4),
                       fontSize: 14,
                     ),
                     filled: true,
                     fillColor: themeProvider.isDarkMode
-                        ? Colors.black.withOpacity(0.15)
-                        : Colors.white.withOpacity(0.6),
+                        ? Colors.black.withValues(alpha: 0.15)
+                        : Colors.white.withValues(alpha: 0.6),
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: maxLines > 1 ? 16 : 12,
@@ -492,14 +495,14 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14),
                       borderSide: BorderSide(
-                        color: themeProvider.textColor.withOpacity(0.1),
+                        color: themeProvider.textColor.withValues(alpha: 0.1),
                         width: 1,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14),
                       borderSide: BorderSide(
-                        color: themeProvider.textColor.withOpacity(0.1),
+                        color: themeProvider.textColor.withValues(alpha: 0.1),
                         width: 1,
                       ),
                     ),

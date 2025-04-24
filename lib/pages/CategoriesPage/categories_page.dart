@@ -32,7 +32,7 @@ class _CategoriesPageState extends State<CategoriesPage>
     _headerAnimation = Tween<double>(begin: -50, end: 0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(0.0, 0.5, curve: Curves.easeOutCubic),
+        curve: const Interval(0.0, 0.5, curve: Curves.easeOutCubic),
       ),
     );
   }
@@ -60,7 +60,7 @@ class _CategoriesPageState extends State<CategoriesPage>
         child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
-              color: themeProvider.cardColor.withOpacity(0.85),
+              color: themeProvider.cardColor.withValues(alpha: 0.85),
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
@@ -68,8 +68,8 @@ class _CategoriesPageState extends State<CategoriesPage>
               boxShadow: [
                 BoxShadow(
                   color: themeProvider.isDarkMode
-                      ? Colors.black.withOpacity(0.4)
-                      : Colors.grey.withOpacity(0.2),
+                      ? Colors.black.withValues(alpha: 0.4)
+                      : Colors.grey.withValues(alpha: 0.2),
                   blurRadius: 15,
                   offset: const Offset(0, 4),
                 ),
@@ -111,7 +111,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                               boxShadow: [
                                 BoxShadow(
                                   color: themeProvider.buttonColor
-                                      .withOpacity(0.4),
+                                      .withValues(alpha: 0.4),
                                   blurRadius: 8,
                                   offset: const Offset(0, 2),
                                 ),
@@ -125,11 +125,12 @@ class _CategoriesPageState extends State<CategoriesPage>
                                 colors: themeProvider.isDarkMode
                                     ? [
                                         Colors.white,
-                                        Colors.white.withOpacity(0.8)
+                                        Colors.white.withValues(alpha: 0.8)
                                       ]
                                     : [
                                         themeProvider.textColor,
-                                        themeProvider.textColor.withOpacity(0.8)
+                                        themeProvider.textColor
+                                            .withValues(alpha: 0.8)
                                       ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
@@ -165,7 +166,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: themeProvider.textColor.withOpacity(0.7),
+                          color: themeProvider.textColor.withValues(alpha: 0.7),
                           fontStyle: FontStyle.italic,
                         ),
                       ),

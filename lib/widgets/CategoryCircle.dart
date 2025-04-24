@@ -19,7 +19,7 @@ class CategoryCircle extends StatelessWidget {
         Provider.of<HomePageViewModel>(context, listen: true);
     return GestureDetector(
       onTap: () {
-        _homeModel.openStory(context,model);
+        _homeModel.openStory(context, model);
       },
       child: SizedBox(
         width: 110,
@@ -38,7 +38,7 @@ class CategoryCircle extends StatelessWidget {
                       colors: [
                         Colors.redAccent,
                         ColorConstants.buttonColor,
-                        ColorConstants.buttonColor.withOpacity(0.8),
+                        ColorConstants.buttonColor.withValues(alpha: 0.8),
                         Colors.red,
                       ],
                       begin: Alignment.topLeft,
@@ -47,10 +47,11 @@ class CategoryCircle extends StatelessWidget {
                     boxShadow: [
                       BoxShadow(
                         color: themeProvider.isDarkMode
-                            ? themeProvider.infoItemColor.withOpacity(0.4)
-                            : Colors.black.withOpacity(0.4), // Gölgenin rengi
+                            ? themeProvider.infoItemColor.withValues(alpha: 0.4)
+                            : Colors.black
+                                .withValues(alpha: 0.4), // Gölgenin rengi
                         blurRadius: 8, // Gölgenin bulanıklık derecesi
-                        offset: Offset(0, 2), // Gölgenin yeri (x, y)
+                        offset:const Offset(0, 2), // Gölgenin yeri (x, y)
                       ),
                     ],
                   ),

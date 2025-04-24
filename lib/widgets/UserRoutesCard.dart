@@ -35,7 +35,7 @@ class UserRoutesCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: themeProvider.buttonColor.withOpacity(0.2),
+                color: themeProvider.buttonColor.withValues(alpha: 0.2),
                 blurRadius: 12,
                 offset: const Offset(0, 5),
               ),
@@ -86,7 +86,7 @@ class UserRoutesCard extends StatelessWidget {
                                         fontSize: 11,
                                         fontWeight: FontWeight.w400,
                                         color: themeProvider.textColor
-                                            .withOpacity(0.7),
+                                            .withValues(alpha: 0.7),
                                         fontStyle: FontStyle.italic,
                                       ),
                                     ),
@@ -136,7 +136,7 @@ class UserRoutesCard extends StatelessWidget {
                                       style: GoogleFonts.poppins(
                                         fontSize: 13,
                                         color: themeProvider.textColor
-                                            .withOpacity(0.7),
+                                            .withValues(alpha: 0.7),
                                         fontStyle: FontStyle.italic,
                                       ),
                                     ),
@@ -255,8 +255,8 @@ class UserRoutesCard extends StatelessWidget {
                                                                   size: 16,
                                                                   color: themeProvider
                                                                       .textColor
-                                                                      .withOpacity(
-                                                                          0.6)),
+                                                                    .withValues(alpha: 
+                                                                            0.6),),
                                                               const SizedBox(
                                                                   width: 4),
                                                               Text(
@@ -267,7 +267,7 @@ class UserRoutesCard extends StatelessWidget {
                                                                         12,
                                                                     color: themeProvider
                                                                         .textColor
-                                                                        .withOpacity(
+                                                                        .withValues(alpha: 
                                                                             0.6),
                                                                   )),
                                                               const SizedBox(
@@ -278,8 +278,8 @@ class UserRoutesCard extends StatelessWidget {
                                                                   size: 16,
                                                                   color: themeProvider
                                                                       .textColor
-                                                                      .withOpacity(
-                                                                          0.6)),
+                                                                    .withValues(alpha: 
+                                                                            0.6),),
                                                               const SizedBox(
                                                                   width: 4),
                                                               Text(
@@ -292,7 +292,7 @@ class UserRoutesCard extends StatelessWidget {
                                                                         12,
                                                                     color: themeProvider
                                                                         .textColor
-                                                                        .withOpacity(
+                                                                        .withValues(alpha: 
                                                                             0.6),
                                                                   )),
                                                             ],
@@ -340,7 +340,7 @@ class UserRoutesCard extends StatelessWidget {
                                           colors: [
                                             themeProvider.buttonColor,
                                             themeProvider.buttonColor
-                                                .withOpacity(0.8),
+                                                .withValues(alpha: 0.8),
                                           ],
                                           begin: Alignment.topLeft,
                                           end: Alignment.bottomRight,
@@ -349,7 +349,7 @@ class UserRoutesCard extends StatelessWidget {
                                         boxShadow: [
                                           BoxShadow(
                                             color: themeProvider.buttonColor
-                                                .withOpacity(0.3),
+                                                .withValues(alpha: 0.3),
                                             blurRadius: 8,
                                             offset: const Offset(0, 3),
                                           ),
@@ -397,7 +397,7 @@ class UserRoutesCard extends StatelessWidget {
     final minutes = duration.inMinutes % 60;
 
     if (hours > 0) {
-      return '${hours} sa ${minutes} dk';
+      return '$hours sa $minutes dk';
     } else {
       return '$minutes dk';
     }

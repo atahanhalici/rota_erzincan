@@ -54,7 +54,7 @@ class RouteDetailSliverAppBar extends StatelessWidget {
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  color: themeProvider.textColor.withOpacity(0.7),
+                  color: themeProvider.textColor.withValues(alpha: 0.7),
                   fontStyle: FontStyle.italic,
                 ),
               ),
@@ -93,7 +93,7 @@ class RouteDetailSliverAppBar extends StatelessWidget {
                           end: Alignment.bottomCenter,
                           colors: [
                             Colors.transparent,
-                            Colors.black.withOpacity(0.7),
+                            Colors.black.withValues(alpha: 0.7),
                           ],
                         ),
                       ),

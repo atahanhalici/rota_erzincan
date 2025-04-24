@@ -62,5 +62,6 @@ class ThemeProvider extends ChangeNotifier {
   Color get transparentColor => isDarkMode
       ? ColorConstants.transparentColor
       : ColorConstantsLight.transparentColor;
-  Color get shimmerColor => isDarkMode ? cardColor.withOpacity(0.3) : cardColor;
+  Color get shimmerColor =>
+      isDarkMode ? cardColor.withValues(alpha: 0.3) : cardColor;
 }

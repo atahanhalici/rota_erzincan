@@ -55,9 +55,4 @@ class CategoryDetailViewModel extends ChangeNotifier with BaseViewModel {
       },
     );
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

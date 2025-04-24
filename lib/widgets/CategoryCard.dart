@@ -10,10 +10,10 @@ class CategoryCard extends StatefulWidget {
   final Function onTap;
 
   const CategoryCard({
-    Key? key,
+    super.key,
     required this.item,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   State<CategoryCard> createState() => _CategoryCardState();
@@ -39,7 +39,7 @@ class _CategoryCardState extends State<CategoryCard>
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: themeProvider.buttonColor.withOpacity(0.2),
+                  color: themeProvider.buttonColor.withValues(alpha: 0.2),
                   blurRadius: 8,
                   offset: const Offset(0, 4),
                 ),
@@ -67,8 +67,8 @@ class _CategoryCardState extends State<CategoryCard>
                           end: Alignment.bottomCenter,
                           colors: [
                             Colors.transparent,
-                            Colors.black.withOpacity(0.3),
-                            Colors.black.withOpacity(0.7),
+                            Colors.black.withValues(alpha: 0.3),
+                            Colors.black.withValues(alpha: 0.7),
                           ],
                         ),
                       ),
@@ -96,8 +96,8 @@ class _CategoryCardState extends State<CategoryCard>
                               end: Alignment.bottomCenter,
                               colors: [
                                 Colors.transparent,
-                                Colors.black.withOpacity(0.3),
-                                Colors.black.withOpacity(0.7),
+                                Colors.black.withValues(alpha: 0.3),
+                                Colors.black.withValues(alpha: 0.7),
                               ],
                             ),
                           ),
@@ -121,7 +121,7 @@ class _CategoryCardState extends State<CategoryCard>
                                 boxShadow: [
                                   BoxShadow(
                                     color: themeProvider.buttonColor
-                                        .withOpacity(0.3),
+                                        .withValues(alpha: 0.3),
                                     blurRadius: 8,
                                     offset: const Offset(0, 4),
                                   ),
@@ -169,8 +169,8 @@ class _CategoryCardState extends State<CategoryCard>
                                         child: Text(
                                           widget.item.subtitle,
                                           style: GoogleFonts.poppins(
-                                            color:
-                                                Colors.white.withOpacity(0.9),
+                                            color: Colors.white
+                                                .withValues(alpha: 0.9),
                                             fontSize: 13,
                                             fontWeight: FontWeight.w500,
                                             shadows: const [

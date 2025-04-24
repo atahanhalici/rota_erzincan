@@ -87,25 +87,25 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                   children: [
                     Icon(Icons.route,
                         size: 16,
-                        color: themeProvider.textColor.withOpacity(0.6)),
+                        color: themeProvider.textColor.withValues(alpha: 0.6)),
                     const SizedBox(width: 4),
                     Text(
                       "${viewModel.route.distanceKm} km",
                       style: GoogleFonts.poppins(
                         fontSize: 12,
-                        color: themeProvider.textColor.withOpacity(0.6),
+                        color: themeProvider.textColor.withValues(alpha: 0.6),
                       ),
                     ),
                     const SizedBox(width: 12),
                     Icon(Icons.access_time_rounded,
                         size: 16,
-                        color: themeProvider.textColor.withOpacity(0.6)),
+                        color: themeProvider.textColor.withValues(alpha: 0.6)),
                     const SizedBox(width: 4),
                     Text(
                       _formatDuration(viewModel.route.duration),
                       style: GoogleFonts.poppins(
                         fontSize: 12,
-                        color: themeProvider.textColor.withOpacity(0.6),
+                        color: themeProvider.textColor.withValues(alpha: 0.6),
                       ),
                     ),
                   ],
@@ -120,7 +120,7 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                     return;
                   }
                   if (viewModel.route.stops.isEmpty) {
-                    print("⛔ Rota durakları henüz yüklenmedi!");
+                  
                     return;
                   }
 
@@ -151,13 +151,13 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                         children: [
                           Icon(Icons.info_outline_rounded,
                               size: 48,
-                              color: themeProvider.textColor.withOpacity(0.4)),
+                              color: themeProvider.textColor.withValues(alpha: 0.4)),
                           const SizedBox(height: 16),
                           Text(
                             "Rotada ekli durak bulunmuyor.",
                             style: GoogleFonts.poppins(
                               fontSize: 16,
-                              color: themeProvider.textColor.withOpacity(0.7),
+                              color: themeProvider.textColor.withValues(alpha: 0.7),
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -214,7 +214,7 @@ class _RouteDetailPageState extends State<RouteDetailPage>
     final minutes = duration.inMinutes % 60;
 
     if (hours > 0) {
-      return '${hours} sa ${minutes} dk';
+      return '$hours sa $minutes dk';
     } else {
       return '$minutes dk';
     }

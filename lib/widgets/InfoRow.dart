@@ -23,7 +23,7 @@ class InfoRow extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: themeProvider.buttonColor.withOpacity(0.1),
+            color: themeProvider.buttonColor.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Icon(
@@ -41,7 +41,7 @@ class InfoRow extends StatelessWidget {
               style: GoogleFonts.poppins(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
-                color: themeProvider.textColor.withOpacity(0.6),
+                color: themeProvider.textColor.withValues(alpha: 0.6),
               ),
             ),
             Text(

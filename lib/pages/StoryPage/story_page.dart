@@ -244,10 +244,10 @@ class _StoryPageState extends State<StoryPage> with TickerProviderStateMixin {
                 AnimatedOpacity(
                   opacity: viewModel.showUI && viewModel.showHint ? 1.0 : 0.0,
                   duration: const Duration(milliseconds: 300),
-                  child: Align(
+                  child: const Align(
                     alignment: Alignment.bottomCenter, // Ortaya yerleştir
                     child: Padding(
-                        padding: const EdgeInsets.only(bottom: 40),
+                        padding: EdgeInsets.only(bottom: 40),
                         child: SwipeUpHint()),
                   ),
                 ),

@@ -77,7 +77,7 @@ class _LiveCamsPageState extends State<LiveCamsPage>
         child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
-              color: themeProvider.cardColor.withOpacity(0.85),
+              color: themeProvider.cardColor.withValues(alpha: 0.85),
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
@@ -85,8 +85,8 @@ class _LiveCamsPageState extends State<LiveCamsPage>
               boxShadow: [
                 BoxShadow(
                   color: themeProvider.isDarkMode
-                      ? Colors.black.withOpacity(0.4)
-                      : Colors.grey.withOpacity(0.2),
+                      ? Colors.black.withValues(alpha: 0.4)
+                      : Colors.grey.withValues(alpha: 0.2),
                   blurRadius: 15,
                   offset: const Offset(0, 4),
                 ),
@@ -99,7 +99,7 @@ class _LiveCamsPageState extends State<LiveCamsPage>
                 color: ColorConstants.buttonColor,
               ),
               onActionPressed: () {
-               viewModel.navigateToSearch();
+                viewModel.navigateToSearch();
               },
             )),
       ),
@@ -149,7 +149,7 @@ class FastLiveStream extends StatefulWidget {
   final String url;
   final String title;
 
-  const FastLiveStream({required this.url, required this.title});
+  const FastLiveStream({super.key, required this.url, required this.title});
 
   @override
   State<FastLiveStream> createState() => _FastLiveStreamState();
@@ -188,8 +188,9 @@ class _FastLiveStreamState extends State<FastLiveStream> {
 
     return GestureDetector(
       onTap: vm.showControlsTemporarily,
-      child: WillPopScope(
-        onWillPop: () async {
+      child: PopScope(
+        canPop: false, // Bu önemli! Default true
+        onPopInvokedWithResult: (bool didPop, dynamic result) async {
           await SystemChrome.setPreferredOrientations([
             DeviceOrientation.portraitUp,
           ]);
@@ -197,7 +198,6 @@ class _FastLiveStreamState extends State<FastLiveStream> {
           if (mounted) {
             NavigationService.instance.navigatorKey.currentState?.pop();
           }
-          return false;
         },
         child: Scaffold(
           backgroundColor: Colors.black,

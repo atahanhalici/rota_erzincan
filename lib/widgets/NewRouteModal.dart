@@ -51,7 +51,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
               height: 4,
               margin: const EdgeInsets.only(bottom: 20),
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.3),
+                color: Colors.grey.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(4),
               ),
             ),
@@ -73,7 +73,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                         "Kendi özel rotanızı oluşturun ve keşfedin",
                         style: GoogleFonts.poppins(
                           fontSize: 13,
-                          color: themeProvider.textColor.withOpacity(0.7),
+                          color: themeProvider.textColor.withValues(alpha: 0.7),
                         ),
                       ),
                     ],
@@ -91,7 +91,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                 labelStyle: TextStyle(color: themeProvider.buttonColor),
                 hintText: 'Ör: Erzincan Keşfi',
                 hintStyle: TextStyle(
-                  color: themeProvider.textColor.withOpacity(0.5),
+                  color: themeProvider.textColor.withValues(alpha: 0.5),
                 ),
                 filled: true,
                 fillColor: themeProvider.isDarkMode
@@ -106,7 +106,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide(
-                      color: themeProvider.buttonColor.withOpacity(0.5)),
+                      color: themeProvider.buttonColor.withValues(alpha: 0.5)),
                 ),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -122,8 +122,8 @@ class _NewRouteModalState extends State<NewRouteModal> {
                 labelText: 'Rota Açıklaması',
                 labelStyle: TextStyle(color: themeProvider.buttonColor),
                 hintText: 'Rotanızı kısaca tanımlayın...',
-                hintStyle:
-                    TextStyle(color: themeProvider.textColor.withOpacity(0.5)),
+                hintStyle: TextStyle(
+                    color: themeProvider.textColor.withValues(alpha: 0.5)),
                 filled: true,
                 fillColor: themeProvider.isDarkMode
                     ? const Color(0xFF2A2A2A)
@@ -136,7 +136,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide(
-                      color: themeProvider.buttonColor.withOpacity(0.5)),
+                      color: themeProvider.buttonColor.withValues(alpha: 0.5)),
                 ),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -193,7 +193,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? themeProvider.buttonColor.withOpacity(0.1)
+                            ? themeProvider.buttonColor.withValues(alpha: 0.1)
                             : themeProvider.isDarkMode
                                 ? const Color(0xFF333333)
                                 : Colors.white,
@@ -230,7 +230,8 @@ class _NewRouteModalState extends State<NewRouteModal> {
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.poppins(
                             fontSize: 12,
-                            color: themeProvider.textColor.withOpacity(0.7),
+                            color:
+                                themeProvider.textColor.withValues(alpha: 0.7),
                           ),
                         ),
                         trailing: Container(
@@ -248,7 +249,8 @@ class _NewRouteModalState extends State<NewRouteModal> {
                             isSelected ? Icons.check : Icons.add,
                             color: isSelected
                                 ? Colors.white
-                                : themeProvider.textColor.withOpacity(0.7),
+                                : themeProvider.textColor
+                                    .withValues(alpha: 0.7),
                             size: 16,
                           ),
                         ),
@@ -305,7 +307,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: themeProvider.buttonColor,
                 disabledBackgroundColor:
-                    themeProvider.buttonColor.withOpacity(0.3),
+                    themeProvider.buttonColor.withValues(alpha: 0.3),
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16)),

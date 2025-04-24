@@ -125,7 +125,7 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
     if (sifirla) {
       listener = ImageStreamListener(
         (ImageInfo image, bool synchronousCall) {
-          print("✅ Resim cache’deydi veya yüklendi");
+       
           resetProgress();
           showHint = true;
           notifyListeners();
@@ -133,7 +133,7 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
           stream.removeListener(listener);
         },
         onError: (dynamic error, StackTrace? stackTrace) {
-          print("❌ Resim yüklenemedi: $error");
+      
           resetProgress();
           pauseProgress();
           stream.removeListener(listener);
@@ -142,14 +142,14 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
     } else {
       listener = ImageStreamListener(
         (ImageInfo image, bool synchronousCall) {
-          print("✅ Resim cache’deydi veya yüklendi");
+       
           showHint = true;
           notifyListeners();
           startProgress();
           stream.removeListener(listener);
         },
         onError: (dynamic error, StackTrace? stackTrace) {
-          print("❌ Resim yüklenemedi: $error");
+         
           pauseProgress();
           stream.removeListener(listener);
         },
