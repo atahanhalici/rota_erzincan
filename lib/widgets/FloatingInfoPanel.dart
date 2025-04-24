@@ -111,7 +111,7 @@ class FloatingInfoPanel extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Detaylar',
                         style: TextStyle(
                           color: ColorConstants.buttonColor,
@@ -174,8 +174,19 @@ class FloatingInfoPanel extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () {
                   if (nearestPoint != null) {
+                    // 1. Seçili alanı güncelle
                     viewModel.selectPoint(nearestPoint['point']);
+
+                    // 2. Floating paneli en yakın alanla birlikte göster
                     viewModel.toggleFloatingPanel(nearestPoint);
+                    mapController.move(nearestPoint['point'], 16);
+                    viewModel.openMapApp(
+                      context,
+                      themeProvider,
+                      nearestPoint['point'].latitude,
+                      nearestPoint['point'].longitude,
+                      nearestPoint['name'],
+                    );
                   }
                 },
                 style: ElevatedButton.styleFrom(

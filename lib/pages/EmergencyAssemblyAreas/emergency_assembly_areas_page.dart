@@ -110,8 +110,8 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
                   themeProvider: themeProvider,
                 ),
                 FloatingInfoPanel(
-                  onDetailTap: (point) =>
-                      _showAssemblyPointDetails(context, point),
+                  onDetailTap: (point) => _showAssemblyPointDetails(
+                      context, point, themeProvider, viewModel),
                   mapController: _mapController,
                 ),
                 const LegendPanel(),
@@ -123,7 +123,10 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
   }
 
   void _showAssemblyPointDetails(
-      BuildContext context, Map<String, dynamic> point) {
+      BuildContext context,
+      Map<String, dynamic> point,
+      ThemeProvider themeProvider,
+      EmergencyAssemblyAreasViewModel viewModel) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -131,8 +134,13 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
       builder: (_) => PointDetailSheet(
         point: point,
         onNavigatePressed: () {
-          Navigator.pop(context);
-          _mapController.move(point['point'], 17);
+          viewModel.openMapApp(
+            context,
+            themeProvider,
+            point['point'].latitude,
+            point['point'].longitude,
+            point['name'],
+          );
         },
       ),
     );

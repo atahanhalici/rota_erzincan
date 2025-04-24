@@ -412,8 +412,9 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
         );
       }
     } catch (e) {
-      debugPrint('Harita uygulaması açılamadı: $e');
-      _mapErrorMessage = 'Harita uygulaması açılırken bir hata oluştu.';
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(mapErrorMessage!)),
+      );
       safeNotifyListeners();
     }
   }
