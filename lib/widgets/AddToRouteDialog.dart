@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
@@ -158,7 +159,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    "Rotalarım",
+                    StringConstants.addToRouteTitle,
                     style: TextStyle(
                       color: themeProvider.textColor,
                       fontWeight: FontWeight.bold,
@@ -201,7 +202,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
-                                  "Henüz rota oluşturmadınız.",
+                                  StringConstants.addToRouteEmptyMessage,
                                   style: TextStyle(
                                     color: themeProvider.textColor,
                                     fontSize: 16,
@@ -344,7 +345,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                           Icon(Icons.save_alt_rounded, size: 18),
                           SizedBox(width: 8),
                           Text(
-                            "Kaydet",
+                            StringConstants.addToRouteSaveButton,
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
@@ -376,7 +377,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                           Icon(Icons.add_circle_outline, size: 18),
                           SizedBox(width: 8),
                           Text(
-                            "Yeni Rota",
+                            StringConstants.addToRouteNewRouteButton,
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
@@ -434,7 +435,8 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    "Durak '${content.title}' '${route.title}' rotasına eklendi.",
+                    StringConstants.routeStopAddedMessage(
+                        content.title, route.title),
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
@@ -449,7 +451,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
             margin: const EdgeInsets.all(12),
             duration: const Duration(seconds: 4),
             action: SnackBarAction(
-              label: 'Geri Al',
+              label: StringConstants.undoButtonLabel,
               textColor: Colors.white,
               onPressed: () async {
                 await db.delete(
@@ -480,7 +482,8 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    "Durak '${content.title}' '${route.title}' rotasından çıkarıldı.",
+                    StringConstants.routeStopRemovedMessage(
+                        content.title, route.title),
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
@@ -494,7 +497,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
             margin: const EdgeInsets.all(12),
             duration: const Duration(seconds: 4),
             action: SnackBarAction(
-              label: 'Geri Al',
+              label: StringConstants.undoButtonLabel,
               textColor: Colors.white,
               onPressed: () async {
                 await db.insert('route_stops', {

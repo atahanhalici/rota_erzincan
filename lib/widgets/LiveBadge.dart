@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 
 class LiveBadge extends StatelessWidget {
   const LiveBadge({super.key});
@@ -27,7 +28,8 @@ class LiveBadge extends StatelessWidget {
           children: [
             Icon(Icons.circle, size: 10, color: Colors.white),
             SizedBox(width: 6),
-            Text("CANLI", style: TextStyle(color: Colors.white)),
+            Text(StringConstants.liveBadge,
+                style: TextStyle(color: Colors.white)),
           ],
         ),
       ),

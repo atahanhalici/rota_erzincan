@@ -125,7 +125,6 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
     if (sifirla) {
       listener = ImageStreamListener(
         (ImageInfo image, bool synchronousCall) {
-       
           resetProgress();
           showHint = true;
           notifyListeners();
@@ -133,7 +132,6 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
           stream.removeListener(listener);
         },
         onError: (dynamic error, StackTrace? stackTrace) {
-      
           resetProgress();
           pauseProgress();
           stream.removeListener(listener);
@@ -142,14 +140,12 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
     } else {
       listener = ImageStreamListener(
         (ImageInfo image, bool synchronousCall) {
-       
           showHint = true;
           notifyListeners();
           startProgress();
           stream.removeListener(listener);
         },
         onError: (dynamic error, StackTrace? stackTrace) {
-         
           pauseProgress();
           stream.removeListener(listener);
         },
@@ -164,9 +160,8 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
   void disposeController() {
     try {
       animationController.dispose();
-    } catch (e) {
-      debugPrint("⚠️ animationController zaten dispose edilmiş: $e");
-    }
+    // ignore: empty_catches
+    } catch (e) {}
     timer?.cancel();
     pageController.dispose();
   }

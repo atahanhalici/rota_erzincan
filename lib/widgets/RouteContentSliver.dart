@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/route_detail_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
@@ -165,8 +166,8 @@ class RouteContentSliver extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 4),
                             child: Text(
                               item.distanceFromUser! < 1000
-                                  ? "Bana uzaklık: < 1 km"
-                                  : "Bana uzaklık: ${(item.distanceFromUser! / 1000).toStringAsFixed(1)} km",
+                                  ? '${StringConstants.distancePrefix} ${StringConstants.distanceLessThanOne}'
+                                  : '${StringConstants.distancePrefix} ${(item.distanceFromUser! / 1000).toStringAsFixed(1)}${StringConstants.distanceUnitKm}',
                               style: GoogleFonts.poppins(
                                 fontSize: 11,
                                 fontWeight: FontWeight.w400,
@@ -198,7 +199,7 @@ class RouteContentSliver extends StatelessWidget {
                                   size: 16, color: Colors.white),
                               const SizedBox(width: 6),
                               Text(
-                                "Haritada Git",
+                                StringConstants.goToMapButton,
                                 style: GoogleFonts.poppins(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
@@ -293,7 +294,7 @@ class RouteContentSliver extends StatelessWidget {
             const SizedBox(width: 10),
             Expanded(
               child: Text(
-                'Durak silindi: ${removed.title}',
+                '${StringConstants.stopDeletedPrefix} ${removed.title}',
                 style: const TextStyle(color: Colors.white),
               ),
             ),
@@ -307,7 +308,7 @@ class RouteContentSliver extends StatelessWidget {
         margin: const EdgeInsets.all(12),
         duration: const Duration(seconds: 4),
         action: SnackBarAction(
-          label: 'Geri Al',
+          label: StringConstants.undoButtonLabel,
           textColor: Colors.white,
           onPressed: () async {
             await db.insert('route_stops', {

@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_launcher/map_launcher.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuLogoItem.dart';
@@ -176,8 +177,8 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
       );
 
       distanceToNearest = distanceInMeters < 1000
-          ? '${distanceInMeters.toStringAsFixed(0)} metre'
-          : '${(distanceInMeters / 1000).toStringAsFixed(1)} km';
+          ? '${distanceInMeters.toStringAsFixed(0)} ${StringConstants.unitMeter}'
+          : '${(distanceInMeters / 1000).toStringAsFixed(1)} ${StringConstants.unitKilometer}';
     }
   }
 
@@ -220,8 +221,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
       final availableMaps = await MapLauncher.installedMaps;
 
       if (availableMaps.isEmpty) {
-        _mapErrorMessage =
-            'Cihazınızda yüklü bir harita uygulaması bulunamadı.';
+        _mapErrorMessage = StringConstants.mapErrorNoAppInstalled;
         notifyListeners();
         return;
       }
@@ -243,7 +243,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Konuma Gitmek İstediğiniz Harita Uygulamasını Seçin",
+                  StringConstants.mapAppSelectionTitle,
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/widgets/InfoRow.dart';
 
 class ShowPhotoDetails extends StatelessWidget {
@@ -47,7 +48,7 @@ class ShowPhotoDetails extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(24, 12, 24, 16),
                 child: Text(
-                  "Fotoğraf Detayları",
+                  StringConstants.photoDetailsTitle,
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
@@ -62,24 +63,24 @@ class ShowPhotoDetails extends StatelessWidget {
                   children: [
                     const InfoRow(
                       icon: Icons.location_on_outlined,
-                      title: "Konum",
-                      value: "Erzincan, Türkiye",
+                      title: StringConstants.locationLabel,
+                      value: StringConstants.locationValue,
                     ),
                     const SizedBox(height: 16),
                     const InfoRow(
                       icon: Icons.calendar_today_outlined,
-                      title: "Tarih",
-                      value: "2023",
+                      title: StringConstants.dateLabel,
+                      value: StringConstants.dateValue,
                     ),
                     const SizedBox(height: 16),
                     const InfoRow(
                       icon: Icons.camera_alt_outlined,
-                      title: "Fotoğrafçı",
-                      value: "Rota Erzincan",
+                      title: StringConstants.photographerLabel,
+                      value: StringConstants.photographerValue,
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      "Bu fotoğraf, Erzincan'ın eşsiz doğal güzelliklerini göstermektedir. Bölgenin karakteristik coğrafi özellikleri ve kültürel zenginliği gözler önüne serilmektedir.",
+                      StringConstants.photoDescription,
                       style: TextStyle(
                         fontSize: 14,
                         color: textColor.withValues(alpha: 0.8),

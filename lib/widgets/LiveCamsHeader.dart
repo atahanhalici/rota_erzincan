@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class LiveCamsHeaderTitle extends StatelessWidget {
@@ -52,7 +53,7 @@ class LiveCamsHeaderTitle extends StatelessWidget {
                     end: Alignment.bottomRight,
                   ).createShader(bounds),
                   child: Text(
-                    "Canlı Kameralar",
+                    StringConstants.liveCamsTitle,
                     style: GoogleFonts.poppins(
                       fontSize: 24,
                       fontWeight: FontWeight.w700,

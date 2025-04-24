@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class AboutSectionWidget extends StatelessWidget {
@@ -52,7 +53,7 @@ class AboutSectionWidget extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       Text(
-                        "Merkez Hakkında",
+                        StringConstants.aboutSectionTitle,
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -63,7 +64,7 @@ class AboutSectionWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    "Ergan Kayak Merkezi, Erzincan'ın en gözde kış turizm noktasıdır. 3278 metre rakıma sahip Ergan Dağı'nda bulunan merkez, farklı zorluk seviyelerinde pistleri, modern telesiyej sistemleri ve panoramik manzarası ile kış sporları tutkunlarına benzersiz bir deneyim sunmaktadır.",
+                    StringConstants.aboutSectionDescription,
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       height: 1.5,
@@ -87,7 +88,7 @@ class AboutSectionWidget extends StatelessWidget {
                         shadowColor:
                             themeProvider.buttonColor.withValues(alpha: 0.3),
                       ),
-                      child: const Text("Detaylı Bilgi İçin Tıklayın"),
+                      child: const Text(StringConstants.aboutSectionMoreInfo),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -119,7 +120,7 @@ class AboutSectionWidget extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  "Yol Tarifi",
+                                  StringConstants.aboutSectionDirections,
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -159,7 +160,7 @@ class AboutSectionWidget extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  "Ara",
+                                  StringConstants.aboutSectionCall,
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,

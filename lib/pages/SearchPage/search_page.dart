@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/SearchPage/search_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/PlaceCardWidget.dart';
@@ -88,9 +89,9 @@ class _SearchPageState extends State<SearchPage>
                       ),
                       cursorColor: themeProvider.buttonColor,
                       decoration: InputDecoration(
-                        hintText: 'Ne arıyorsunuz?',
+                        hintText: StringConstants.searchHintText,
                         hintStyle: GoogleFonts.poppins(
-                          color: themeProvider.textColor.withOpacity(0.5),
+                          color: themeProvider.textColor.withValues(alpha: 0.5),
                           fontSize: 15,
                         ),
                         prefixIcon: Icon(
@@ -102,8 +103,8 @@ class _SearchPageState extends State<SearchPage>
                                 onTap: () => _searchController.clear(),
                                 child: Icon(
                                   Icons.close,
-                                  color:
-                                      themeProvider.textColor.withOpacity(0.5),
+                                  color: themeProvider.textColor
+                                      .withValues(alpha: 0.5),
                                   size: 20,
                                 ),
                               )
@@ -148,7 +149,7 @@ class _SearchPageState extends State<SearchPage>
                       padding: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 16),
                       child: Text(
-                        'Popüler Aramalar',
+                        StringConstants.popularSearchesTitle,
                         style: GoogleFonts.poppins(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -163,14 +164,7 @@ class _SearchPageState extends State<SearchPage>
                       child: Row(
                         children: [
                           const SizedBox(width: 6), // Listenin başında boşluk
-                          ...[
-                            'Terzi Baba',
-                            'Girlevik Şelalesi',
-                            'Ergan Dağı',
-                            'Kemaliye',
-                            'Refahiye',
-                            'Kemah Kalesi'
-                          ]
+                          ...StringConstants.popularSearchTerms
                               .map((label) => Padding(
                                   padding: const EdgeInsets.only(right: 10),
                                   child: SearchChipWidget(
@@ -200,7 +194,7 @@ class _SearchPageState extends State<SearchPage>
                         children: [
                           if (!_hasSearchQuery) ...[
                             Text(
-                              'Tüm İçerikler',
+                              StringConstants.allContentTitle,
                               style: GoogleFonts.poppins(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,

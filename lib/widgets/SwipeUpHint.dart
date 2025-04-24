@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 
 class SwipeUpHint extends StatefulWidget {
   const SwipeUpHint({super.key});
@@ -53,7 +54,7 @@ class SwipeUpHintState extends State<SwipeUpHint>
           ),
           SizedBox(height: 4),
           Text(
-            'Daha fazlası için yukarı kaydır',
+             StringConstants.scrollUpForMore,
             style: TextStyle(
               color: Colors.white,
               fontSize: 14,

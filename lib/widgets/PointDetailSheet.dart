@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -62,7 +63,7 @@ class PointDetailSheet extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Toplanma Alanı',
+                        StringConstants.assemblyAreaLabel,
                         style: TextStyle(
                           color: themeProvider.textColor.withValues(alpha: 0.7),
                           fontSize: 14,
@@ -80,16 +81,23 @@ class PointDetailSheet extends StatelessWidget {
               shrinkWrap: true,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               children: [
-                _buildInfoRow(Icons.people, 'Kapasite',
-                    '${point['capacity']} Kişi', themeProvider),
+                _buildInfoRow(
+                    Icons.people,
+                    StringConstants.capacityLabel,
+                    '${point['capacity']} ${StringConstants.capacityUnit}',
+                    themeProvider),
                 const SizedBox(height: 16),
-                _buildInfoRow(Icons.description, 'Açıklama',
-                    point['description'], themeProvider),
+                _buildInfoRow(
+                  Icons.description,
+                  StringConstants.descriptionLabel,
+                  point['description'],
+                  themeProvider,
+                ),
                 const SizedBox(height: 16),
                 _buildFacilitiesSection(point['facilities'], themeProvider),
                 const SizedBox(height: 16),
-                _buildInfoRow(
-                    Icons.phone, 'İletişim', point['contact'], themeProvider),
+                _buildInfoRow(Icons.phone, StringConstants.contactLabel,
+                    point['contact'], themeProvider),
                 const SizedBox(height: 24),
                 ElevatedButton.icon(
                   onPressed: onNavigatePressed,
@@ -103,7 +111,7 @@ class PointDetailSheet extends StatelessWidget {
                   ),
                   icon: const Icon(Icons.navigation),
                   label: const Text(
-                    'Bu Alana Yönlendir',
+                    StringConstants.navigateButtonLabel,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -154,14 +162,15 @@ class PointDetailSheet extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-       const Icon(Icons.local_hospital, color: ColorConstants.buttonColor, size: 22),
+        const Icon(Icons.local_hospital,
+            color: ColorConstants.buttonColor, size: 22),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Mevcut İmkanlar',
+                StringConstants.facilitiesLabel,
                 style: TextStyle(
                   color: themeProvider.textColor.withValues(alpha: 0.7),
                   fontSize: 14,

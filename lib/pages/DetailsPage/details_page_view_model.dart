@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:map_launcher/map_launcher.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/theme_provider.dart';
@@ -70,7 +71,7 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
 
   final double targetLatitude = 39.71662446276216;
   final double targetLongitude = 39.4981052503663;
-  final String targetTitle = "Terzibaba Camii";
+  final String targetTitle = StringConstants.targetTitleTerzibaba;
   String? _mapErrorMessage;
   String? get mapErrorMessage => _mapErrorMessage;
 
@@ -88,8 +89,7 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
       final availableMaps = await MapLauncher.installedMaps;
 
       if (availableMaps.isEmpty) {
-        _mapErrorMessage =
-            'Cihazınızda yüklü bir harita uygulaması bulunamadı.';
+        _mapErrorMessage = StringConstants.mapErrorNoAppInstalled;
         notifyListeners();
         return;
       }
@@ -111,7 +111,7 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Konuma Gitmek İstediğiniz Harita Uygulamasını Seçin",
+                  StringConstants.mapAppSelectionTitle,
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

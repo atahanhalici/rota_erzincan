@@ -22,10 +22,10 @@ class SearchChipWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: themeProvider.buttonColor.withOpacity(0.1),
+          color: themeProvider.buttonColor.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: themeProvider.buttonColor.withOpacity(0.3),
+            color: themeProvider.buttonColor.withValues(alpha: 0.3),
             width: 1,
           ),
         ),

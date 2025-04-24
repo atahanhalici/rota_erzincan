@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/pages/SearchPage/search_page_view_model.dart';
@@ -31,8 +32,8 @@ class PlaceCardWidget extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: themeProvider.isDarkMode
-                  ? Colors.black.withOpacity(0.2)
-                  : Colors.grey.withOpacity(0.1),
+                  ? Colors.black.withValues(alpha: 0.2)
+                  : Colors.grey.withValues(alpha: 0.1),
               blurRadius: 10,
               offset: const Offset(0, 5),
             ),
@@ -71,7 +72,7 @@ class PlaceCardWidget extends StatelessWidget {
                     place.description,
                     style: GoogleFonts.poppins(
                       fontSize: 14,
-                      color: themeProvider.textColor.withOpacity(0.7),
+                      color: themeProvider.textColor.withValues(alpha: 0.7),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -86,7 +87,8 @@ class PlaceCardWidget extends StatelessWidget {
                           child: Container(
                             height: 44,
                             decoration: BoxDecoration(
-                              color: themeProvider.buttonColor.withOpacity(0.1),
+                              color: themeProvider.buttonColor
+                                  .withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Center(
@@ -97,7 +99,7 @@ class PlaceCardWidget extends StatelessWidget {
                                       color: themeProvider.buttonColor,
                                       size: 20),
                                   const SizedBox(width: 8),
-                                  Text('Haritada Gör',
+                                  Text(StringConstants.viewOnMapButton,
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w500,
                                           color: themeProvider.buttonColor)),

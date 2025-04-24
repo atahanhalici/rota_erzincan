@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
@@ -293,12 +294,13 @@ class _DetailsPageState extends State<DetailsPage>
                                   children: [
                                     BuildInfoItem(
                                         icon: Icons.access_time,
-                                        text: '09:00 - 18:00'),
+                                        text: StringConstants.openingHoursText),
                                     BuildInfoItem(
                                         icon: Icons.location_on,
-                                        text: 'Erzincan'),
+                                        text: StringConstants.locationErzincan),
                                     BuildInfoItem(
-                                        icon: Icons.star, text: '4.8'),
+                                        icon: Icons.star,
+                                        text: StringConstants.ratingDefault),
                                   ],
                                 ),
                               ),
@@ -547,8 +549,10 @@ class _DetailsPageState extends State<DetailsPage>
                                                 },
                                                 child: Text(
                                                   viewModel.isExpanded
-                                                      ? 'Daha Az Göster'
-                                                      : 'Devamını Oku',
+                                                      ? StringConstants
+                                                          .showLessText
+                                                      : StringConstants
+                                                          .readMoreText,
                                                   style: GoogleFonts.poppins(
                                                     color: Colors.white,
                                                     fontSize: 16,
@@ -620,7 +624,7 @@ class _DetailsPageState extends State<DetailsPage>
                                           ),
                                           const SizedBox(width: 12),
                                           Text(
-                                            'Galeri',
+                                            StringConstants.galleryTitle,
                                             style: GoogleFonts.poppins(
                                               fontSize: 24,
                                               fontWeight: FontWeight.bold,
@@ -694,8 +698,8 @@ class _DetailsPageState extends State<DetailsPage>
                                                                 viewModel
                                                                     .imageUrls,
                                                             initialIndex: index,
-                                                            title:
-                                                                'Terzibaba Mezarlığı ve Türbesi',
+                                                            title: StringConstants
+                                                                .detailGalleryTitle,
                                                           ),
                                                         ),
                                                       ),
@@ -774,7 +778,7 @@ class _DetailsPageState extends State<DetailsPage>
                                                               right: 12,
                                                               bottom: 12,
                                                               child: Text(
-                                                                'Fotoğraf ${index + 1}',
+                                                                '${StringConstants.photoPrefix} ${index + 1}',
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(

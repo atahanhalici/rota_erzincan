@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
@@ -92,13 +93,13 @@ class _HomePageState extends State<HomePage>
         ),
         child: AnimatedTextKit(
           animatedTexts: [
-            TypewriterAnimatedText('Keşfetmeye',
+            TypewriterAnimatedText(StringConstants.homeAnimatedExplore,
                 speed: const Duration(milliseconds: 100), cursor: ''),
-            TypewriterAnimatedText('Öğrenmeye',
+            TypewriterAnimatedText(StringConstants.homeAnimatedLearn,
                 speed: const Duration(milliseconds: 100), cursor: ''),
-            TypewriterAnimatedText('Tatmaya',
+            TypewriterAnimatedText(StringConstants.homeAnimatedTaste,
                 speed: const Duration(milliseconds: 100), cursor: ''),
-            TypewriterAnimatedText('Maceraya',
+            TypewriterAnimatedText(StringConstants.homeAnimatedAdventure,
                 speed: const Duration(milliseconds: 100), cursor: ''),
           ],
           repeatForever: true,
@@ -232,7 +233,7 @@ class _HomePageState extends State<HomePage>
                                   return Transform.translate(
                                     offset: Offset(0, _headerAnimation.value),
                                     child: Text(
-                                      "Erzincan'da",
+                                      StringConstants.homeHeaderErzincan,
                                       style: GoogleFonts.poppins(
                                         fontSize: 32,
                                         fontWeight: FontWeight.bold,
@@ -262,7 +263,7 @@ class _HomePageState extends State<HomePage>
                                         animatedTextKit,
                                         const SizedBox(width: 4),
                                         Text(
-                                          "hazır mısın? ",
+                                          StringConstants.homeHeaderSuffix,
                                           style: GoogleFonts.poppins(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w500,
@@ -333,7 +334,7 @@ class _HomePageState extends State<HomePage>
                                     ).createShader(bounds);
                                   },
                                   child: Text(
-                                    "Ana Başlıklar",
+                                    StringConstants.homeSectionTitle,
                                     style: GoogleFonts.poppins(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600,
@@ -348,7 +349,7 @@ class _HomePageState extends State<HomePage>
                                 _homeModel.navigateBottomBar(context, 1);
                               },
                               child: Text(
-                                "Tümünü Gör",
+                                StringConstants.homeSeeAllText,
                                 style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -441,7 +442,7 @@ class _HomePageState extends State<HomePage>
                                     ),
                                     const SizedBox(width: 12),
                                     Text(
-                                      "Erzincan Hakkında",
+                                      StringConstants.homeAboutTitle,
                                       style: GoogleFonts.poppins(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -452,7 +453,7 @@ class _HomePageState extends State<HomePage>
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
-                                  "Doğu Anadolu Bölgesi'nin Yukarı Fırat bölümünde yer alan Erzincan, doğal güzellikleri, tarihi yapıları ve kültürel zenginlikleri ile öne çıkar. Ergan Dağı Kayak Merkezi, Girlevik Şelalesi ve daha pek çok turistik noktası ile keşfedilmeyi bekliyor.",
+                                  StringConstants.homeAboutDescription,
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     height: 1.5,
@@ -480,7 +481,7 @@ class _HomePageState extends State<HomePage>
                                     child: const Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Text("Detaylı Bilgi"),
+                                        Text(StringConstants.homeMoreInfoText),
                                         SizedBox(width: 8),
                                         Icon(Icons.arrow_forward, size: 16),
                                       ],

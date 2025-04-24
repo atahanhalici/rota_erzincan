@@ -1,10 +1,11 @@
 // lib/viewmodels/event_detail_view_model.dart
 
 import 'package:flutter/material.dart';
+import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/MovieItem.dart';
 import 'package:rota_erzincan/models/TheaterPlayItem.dart';
 
-class EventDetailViewModel extends ChangeNotifier {
+class EventDetailViewModel extends ChangeNotifier with BaseViewModel {
   bool isLoading = false;
   List<dynamic> items = [];
 
@@ -21,7 +22,9 @@ class EventDetailViewModel extends ChangeNotifier {
     subtitle = args['subtitle'];
     id = args['id'];
   }
-
+ void navigateToSearch() {
+    navigationService.navigateToSearchPage();
+  }
   Future<void> fetchData() async {
     isLoading = true;
     notifyListeners();

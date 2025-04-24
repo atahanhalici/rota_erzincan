@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
 import 'dart:ui';
@@ -191,7 +192,7 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                                     ).createShader(bounds);
                                   },
                                   child: Text(
-                                    "Görüş Bildir",
+                                    StringConstants.opinionPageTitle,
                                     style: GoogleFonts.poppins(
                                       fontSize: 26,
                                       fontWeight: FontWeight.w700,
@@ -213,7 +214,7 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                               padding: const EdgeInsets.only(
                                   left: 18, top: 8, bottom: 24),
                               child: Text(
-                                "Sizin değerli geri bildirimlerinizle büyüyor, daha iyiye doğru ilerliyoruz!",
+                                StringConstants.opinionPageSubtitle,
                                 style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
@@ -264,8 +265,8 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                                     children: [
                                       _buildAnimatedTextField(
                                         controller: viewModel.nameController,
-                                        label: "Adınız Soyadınız",
-                                        hint: "Adınızı ve soyadınızı giriniz",
+                                        label: StringConstants.nameLabel,
+                                        hint: StringConstants.nameHint,
                                         icon: Icons.person_outline,
                                         themeProvider: themeProvider,
                                         validator: viewModel.validateName,
@@ -275,8 +276,8 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                                       const SizedBox(height: 18),
                                       _buildAnimatedTextField(
                                         controller: viewModel.emailController,
-                                        label: "E-posta Adresiniz",
-                                        hint: "ornek@mail.com",
+                                        label: StringConstants.emailLabel,
+                                        hint: StringConstants.emailHint,
                                         icon: Icons.email_outlined,
                                         themeProvider: themeProvider,
                                         keyboardType:
@@ -288,9 +289,8 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                                       const SizedBox(height: 18),
                                       _buildAnimatedTextField(
                                         controller: viewModel.commentController,
-                                        label: "Görüşleriniz",
-                                        hint:
-                                            "Görüşlerinizi bizimle paylaşın...",
+                                        label: StringConstants.commentLabel,
+                                        hint: StringConstants.commentHint,
                                         icon: Icons.comment_outlined,
                                         themeProvider: themeProvider,
                                         maxLines: 4,
@@ -343,7 +343,9 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                                                             color: Colors.white,
                                                             size: 20),
                                                         SizedBox(width: 12),
-                                                        Text("Gönder",
+                                                        Text(
+                                                            StringConstants
+                                                                .submitButtonText,
                                                             style: TextStyle(
                                                                 fontSize: 16,
                                                                 fontWeight:
@@ -410,7 +412,7 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          'Erzincan Valiliği © ${DateTime.now().year}',
+                          StringConstants.footerCopyright,
                           style: GoogleFonts.poppins(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/EmergencyAssemblyAreas/emergency_assembly_areas_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'dart:math' as math;
@@ -71,7 +72,7 @@ class FloatingInfoPanel extends StatelessWidget {
                               ),
                               const SizedBox(width: 4),
                               Text(
-                                '${point['capacity']} Kişi',
+                                '${point['capacity']} ${StringConstants.floatingPanelPersonSuffix}',
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: themeProvider.textColor
@@ -87,7 +88,7 @@ class FloatingInfoPanel extends StatelessWidget {
                               ),
                               const SizedBox(width: 4),
                               Text(
-                                '${point['facilities'].length} İmkan',
+                                '${point['facilities'].length} ${StringConstants.floatingPanelFacilitySuffix}',
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: themeProvider.textColor
@@ -114,7 +115,7 @@ class FloatingInfoPanel extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                        'Detaylar',
+                        StringConstants.floatingPanelDetailsButton,
                         style: TextStyle(
                           color: ColorConstants.buttonColor,
                           fontWeight: FontWeight.bold,
@@ -205,7 +206,7 @@ class FloatingInfoPanel extends StatelessWidget {
                   child: const Icon(Icons.navigation, color: Colors.white),
                 ),
                 label: const Text(
-                  "En Yakın Alana Git",
+                  StringConstants.floatingPanelNearestButton,
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

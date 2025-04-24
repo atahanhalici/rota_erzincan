@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/ErganKayakMerkeziPage/ergan_kayak_merkezi_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -69,7 +70,7 @@ class WeatherSectionWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Hava ve Kar Durumu",
+                                    StringConstants.weatherAndSnowTitle,
                                     style: GoogleFonts.poppins(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600,
@@ -83,7 +84,7 @@ class WeatherSectionWidget extends StatelessWidget {
                                           size: 14),
                                       const SizedBox(width: 6),
                                       Text(
-                                        "Tüm bilgileri görmek için kaydır",
+                                        StringConstants.swipeForAllInfo,
                                         style: GoogleFonts.poppins(
                                           color: themeProvider.textColor,
                                           fontSize: 11.5,

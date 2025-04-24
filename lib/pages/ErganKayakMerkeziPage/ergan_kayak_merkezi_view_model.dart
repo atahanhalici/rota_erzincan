@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/FacilityModel.dart';
 import 'package:rota_erzincan/models/InfoCardModel.dart';
@@ -98,11 +99,11 @@ class ErganViewModel extends ChangeNotifier with BaseViewModel {
 
   Widget get animatedTextKit => AnimatedTextKit(
         animatedTexts: [
-          TypewriterAnimatedText('Heyecan dolu kayak deneyimi',
+          TypewriterAnimatedText(StringConstants.skiExcitementText,
               speed: const Duration(milliseconds: 100), cursor: ''),
-          TypewriterAnimatedText('Kış sporları cenneti',
+          TypewriterAnimatedText(StringConstants.winterSportsParadiseText,
               speed: const Duration(milliseconds: 100), cursor: ''),
-          TypewriterAnimatedText('Kar keyfi sizi bekliyor',
+          TypewriterAnimatedText(StringConstants.snowFunWaitingText,
               speed: const Duration(milliseconds: 100), cursor: ''),
         ],
         repeatForever: true,

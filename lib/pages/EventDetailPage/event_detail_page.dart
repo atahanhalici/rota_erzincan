@@ -59,7 +59,7 @@ class EventDetailPage extends StatelessWidget {
                         : _buildContentSliver(viewModel, themeProvider),
                   ],
                 ),
-                DetailTopBarShadow(themeProvider: themeProvider),
+                DetailTopBarShadow(themeProvider: themeProvider,onActionPressed: viewModel.navigateToSearch,),
                 StatusBarOverlay(themeProvider: themeProvider),
                 const Positioned(
                   left: 16,

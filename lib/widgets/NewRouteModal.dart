@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
@@ -66,7 +67,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Yeni Rota Oluştur",
+                          StringConstants.newRouteTitle,
                           style: GoogleFonts.poppins(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -74,7 +75,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                           ),
                         ),
                         Text(
-                          "Kendi özel rotanızı oluşturun ve keşfedin",
+                          StringConstants.newRouteSubtitle,
                           style: GoogleFonts.poppins(
                             fontSize: 13,
                             color:
@@ -92,9 +93,9 @@ class _NewRouteModalState extends State<NewRouteModal> {
                 cursorColor: themeProvider.buttonColor,
                 style: TextStyle(color: themeProvider.textColor),
                 decoration: InputDecoration(
-                  labelText: 'Rota Adı',
+                  labelText: StringConstants.routeNameLabel,
+                  hintText: StringConstants.routeNameHint,
                   labelStyle: TextStyle(color: themeProvider.buttonColor),
-                  hintText: 'Ör: Erzincan Keşfi',
                   hintStyle: TextStyle(
                     color: themeProvider.textColor.withValues(alpha: 0.5),
                   ),
@@ -126,9 +127,9 @@ class _NewRouteModalState extends State<NewRouteModal> {
                 style: TextStyle(color: themeProvider.textColor),
                 maxLines: 1,
                 decoration: InputDecoration(
-                  labelText: 'Rota Açıklaması',
                   labelStyle: TextStyle(color: themeProvider.buttonColor),
-                  hintText: 'Rotanızı kısaca tanımlayın...',
+                  labelText: StringConstants.routeDescLabel,
+                  hintText: StringConstants.routeDescHint,
                   hintStyle: TextStyle(
                       color: themeProvider.textColor.withValues(alpha: 0.5)),
                   filled: true,
@@ -156,7 +157,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                   Icon(Icons.place, color: themeProvider.buttonColor, size: 20),
                   const SizedBox(width: 8),
                   Text(
-                    "Duraklar",
+                    StringConstants.stopsLabel,
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -165,7 +166,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                   ),
                   const Spacer(),
                   Text(
-                    "${vm.selectedIds.length} seçildi",
+                    '${vm.selectedIds.length} ${StringConstants.selectedCount}',
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       color: themeProvider.buttonColor,
@@ -275,8 +276,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                   if (!vm.isFormValid) {
                     Fluttertoast.cancel();
                     Fluttertoast.showToast(
-                      msg:
-                          "Lütfen rota adı, açıklama girin ve en az 1 durak seçin.",
+                      msg: StringConstants.formIncompleteToast,
                       toastLength: Toast.LENGTH_LONG,
                       gravity: ToastGravity.BOTTOM,
                       backgroundColor: Colors.redAccent,
@@ -290,7 +290,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                     await vm.updateRoute(widget.editingRoute!.id);
                     Fluttertoast.cancel();
                     Fluttertoast.showToast(
-                      msg: "Rota Başarıyla Kaydedildi",
+                      msg: StringConstants.routeSavedToast,
                       toastLength: Toast.LENGTH_LONG,
                       gravity: ToastGravity.BOTTOM,
                       backgroundColor: ColorConstants.cardColor,
@@ -301,7 +301,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                     await vm.createRoute();
                     Fluttertoast.cancel();
                     Fluttertoast.showToast(
-                      msg: "Rota Başarıyla Kaydedildi",
+                      msg: StringConstants.routeSavedToast,
                       toastLength: Toast.LENGTH_LONG,
                       gravity: ToastGravity.BOTTOM,
                       backgroundColor: ColorConstants.cardColor,
@@ -329,8 +329,8 @@ class _NewRouteModalState extends State<NewRouteModal> {
                     const SizedBox(width: 8),
                     Text(
                       widget.editingRoute != null
-                          ? "Rotayı Güncelle"
-                          : "Rotayı Kaydet",
+                          ? StringConstants.updateRouteButton
+                          : StringConstants.saveRouteButton,
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

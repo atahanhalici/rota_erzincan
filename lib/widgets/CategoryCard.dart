@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/models/CategoryItem.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
@@ -199,7 +200,8 @@ class _CategoryCardState extends State<CategoryCard>
                                             ),
                                             const SizedBox(width: 4),
                                             Text(
-                                              "Keşfet",
+                                              StringConstants
+                                                  .categoryCardExploreButton,
                                               style: GoogleFonts.poppins(
                                                 color: Colors.white,
                                                 fontSize: 13,

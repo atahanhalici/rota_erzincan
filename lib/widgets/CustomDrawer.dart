@@ -91,7 +91,7 @@ class CustomDrawer extends StatelessWidget {
                   _buildSocialIcons(themeProvider),
                   const SizedBox(height: 14),
                   Text(
-                    'Erzincan Valiliği © ${DateTime.now().year}',
+                    StringConstants.drawerCopyright,
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       color: textColor.withValues(alpha: 0.6),
@@ -111,7 +111,7 @@ class CustomDrawer extends StatelessWidget {
     return [
       FancyMenuItem(
         icon: Icons.person,
-        label: "Valimizden Mesaj",
+        label: StringConstants.drawerMessageFromGovernor,
         onTap: () {
           homeModel.navigateToDetails(context,
               imageUrl:
@@ -122,7 +122,7 @@ class CustomDrawer extends StatelessWidget {
       ),
       FancyMenuItem(
         icon: Icons.info_outline,
-        label: "Erzincan Hakkında",
+        label: StringConstants.drawerAboutErzincan,
         onTap: () {
           homeModel.navigateToDetails(context,
               imageUrl:
@@ -133,7 +133,7 @@ class CustomDrawer extends StatelessWidget {
       ),
       FancyMenuItem(
         icon: Icons.location_on,
-        label: "Acil Toplanma Alanları",
+        label: StringConstants.drawerEmergencyAreas,
         onTap: () {
           homeModel.navigateToEmergencyAssemblyAreas(context);
         },
@@ -141,7 +141,7 @@ class CustomDrawer extends StatelessWidget {
       ),
       FancyMenuItem(
         icon: Icons.app_settings_alt,
-        label: "Uygulama Hakkında",
+        label: StringConstants.drawerAboutApp,
         onTap: () {
           homeModel.navigateToDetails(context,
               imageUrl:
@@ -152,7 +152,7 @@ class CustomDrawer extends StatelessWidget {
       ),
       FancyMenuItem(
         icon: Icons.feedback_outlined,
-        label: "Görüş Bildir",
+        label: StringConstants.drawerFeedback,
         onTap: () {
           homeModel.navigateToGiveYourOpinion(context);
         },
@@ -186,7 +186,9 @@ class CustomDrawer extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                isDarkMode ? "Aydınlık Mod" : "Karanlık Mod",
+                isDarkMode
+                    ? StringConstants.drawerLightMode
+                    : StringConstants.drawerDarkMode,
                 style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:map_launcher/map_launcher.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuLogoItem.dart';
@@ -111,8 +112,7 @@ class SearchPageViewModel extends ChangeNotifier with BaseViewModel {
       final availableMaps = await MapLauncher.installedMaps;
 
       if (availableMaps.isEmpty) {
-        _mapErrorMessage =
-            'Cihazınızda yüklü bir harita uygulaması bulunamadı.';
+        _mapErrorMessage = StringConstants.mapErrorNoAppInstalled;
         notifyListeners();
         return;
       }
@@ -134,7 +134,7 @@ class SearchPageViewModel extends ChangeNotifier with BaseViewModel {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Konuma Gitmek İstediğiniz Harita Uygulamasını Seçin",
+                  StringConstants.mapAppSelectionTitle,
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

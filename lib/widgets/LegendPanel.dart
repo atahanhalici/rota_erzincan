@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class LegendPanel extends StatelessWidget {
@@ -31,7 +32,7 @@ class LegendPanel extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Gösterge',
+              StringConstants.legendTitle,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: themeProvider.textColor,
@@ -39,12 +40,14 @@ class LegendPanel extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            _buildLegendItem(Colors.blue, 'Konumunuz', themeProvider),
+            _buildLegendItem(
+                Colors.blue, StringConstants.legendYourLocation, themeProvider),
+            const SizedBox(height: 6),
+            _buildLegendItem(ColorConstants.buttonColor,
+                StringConstants.legendAssemblyArea, themeProvider),
             const SizedBox(height: 6),
             _buildLegendItem(
-                ColorConstants.buttonColor, 'Toplanma Alanı', themeProvider),
-            const SizedBox(height: 6),
-            _buildLegendItem(Colors.green, 'En Yakın Alan', themeProvider),
+                Colors.green, StringConstants.legendNearestArea, themeProvider),
           ],
         ),
       ),

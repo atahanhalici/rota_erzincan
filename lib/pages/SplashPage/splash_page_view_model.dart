@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/services/version_service.dart';
 import 'package:rota_erzincan/theme_provider.dart';
@@ -110,8 +111,8 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
     if (!serviceEnabled) {
       await _showBlockingDialog(
         context,
-        "Konum Servisi Kapalı",
-        "Rota özelliklerimizi kullanabilmek için konum servisini açmalısınız.",
+        StringConstants.locationServiceOffTitle,
+        StringConstants.locationServiceOffMessage,
       );
       return false;
     }
@@ -123,8 +124,8 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
       if (permission == LocationPermission.denied) {
         await _showBlockingDialog(
           context,
-          "Konum İzni Reddedildi",
-          "Bu uygulama konum izni olmadan çalışamaz.",
+          StringConstants.locationPermissionDeniedTitle,
+          StringConstants.locationPermissionDeniedMessage,
         );
         return false;
       }
@@ -133,8 +134,8 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
     if (permission == LocationPermission.deniedForever) {
       await _showBlockingDialog(
         context,
-        "Konum İzni Kalıcı Olarak Reddedildi",
-        "Konum iznini ayarlardan manuel olarak açmalısınız.",
+        StringConstants.locationPermissionPermanentlyDeniedTitle,
+        StringConstants.locationPermissionPermanentlyDeniedMessage,
         showSettings: true,
       );
       return false;
@@ -247,7 +248,7 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
                               Icon(Icons.settings, size: 18),
                               SizedBox(width: 8),
                               Text(
-                                "Ayarları Aç",
+                                StringConstants.openSettingsButton,
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
@@ -276,7 +277,7 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
                             Icon(Icons.check_circle_outline, size: 18),
                             SizedBox(width: 8),
                             Text(
-                              "Tamam",
+                              StringConstants.okButtonText,
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,

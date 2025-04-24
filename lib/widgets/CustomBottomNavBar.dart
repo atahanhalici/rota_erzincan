@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
@@ -16,11 +17,17 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = [
-      _NavItem(icon: Icons.home_outlined, label: "Ana Sayfa"),
-      _NavItem(icon: Icons.category_outlined, label: "Kategoriler"),
-      _NavItem(icon: Icons.photo_library_outlined, label: "Galeri"),
-      _NavItem(icon: Icons.map_outlined, label: "Rotalar"),
-      _NavItem(icon: Icons.event_outlined, label: "Etkinlikler"),
+      _NavItem(icon: Icons.home_outlined, label: StringConstants.bottomNavHome),
+      _NavItem(
+          icon: Icons.category_outlined,
+          label: StringConstants.bottomNavCategories),
+      _NavItem(
+          icon: Icons.photo_library_outlined,
+          label: StringConstants.bottomNavGallery),
+      _NavItem(
+          icon: Icons.map_outlined, label: StringConstants.bottomNavRoutes),
+      _NavItem(
+          icon: Icons.event_outlined, label: StringConstants.bottomNavEvents),
     ];
 
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -84,8 +91,8 @@ class CustomBottomNavBar extends StatelessWidget {
                           _homeModel.navigateBottomBar(context, idx);
                         } else {
                           _homeModel.navigateBottomBar(context, idx,
-                              title: "Bu Ayın Etkinlikleri",
-                              subtitle: "Kaçırma!",
+                              title: StringConstants.eventHighlightTitle,
+                              subtitle: StringConstants.eventHighlightSubtitle,
                               icon: Icons.event,
                               imageUrl: "https://picsum.photos/id/169/800/500");
                         }
@@ -112,15 +119,8 @@ class CustomBottomNavBar extends StatelessWidget {
                             : const BoxDecoration(
                                 color: Colors.transparent,
                               ),
-                        child: /*isSelected
-                            ? AnimatedGlow(
-                                glowColor: themeProvider.buttonColor,
-                                child: _buildNavItemContent(
-                                    item, isSelected, isDark, context),
-                              )
-                            :*/
-                            _buildNavItemContent(
-                                item, isSelected, isDark, context),
+                        child: _buildNavItemContent(
+                            item, isSelected, isDark, context),
                       ),
                     ),
                   );
@@ -169,57 +169,3 @@ class _NavItem {
 
   _NavItem({required this.icon, required this.label});
 }
-
-/*class AnimatedGlow extends StatefulWidget {
-  final Widget child;
-  final Color glowColor;
-
-  const AnimatedGlow({required this.child, required this.glowColor, super.key});
-
-  @override
-  State<AnimatedGlow> createState() => _AnimatedGlowState();
-}
-
-class _AnimatedGlowState extends State<AnimatedGlow>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 2),
-      vsync: this,
-    )..repeat(reverse: true);
-
-    _animation = Tween<double>(begin: 0.4, end: 0.8).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) => Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: widget.glowColor.withValues(alpha: _animation.value),
-              blurRadius: 20,
-              spreadRadius: 1,
-            ),
-          ],
-        ),
-        child: widget.child,
-      ),
-    );
-  }
-}*/

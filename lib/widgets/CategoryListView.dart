@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/DestinationCard.dart';
@@ -37,7 +38,7 @@ class _CategoryListViewState extends State<CategoryListView> {
               ),
               const SizedBox(width: 8),
               Text(
-                "Erzincan'ı Keşfet",
+                StringConstants.discoverErzincanTitle,
                 style: GoogleFonts.poppins(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,

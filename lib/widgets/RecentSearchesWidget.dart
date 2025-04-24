@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/pages/SearchPage/search_page_view_model.dart';
 import 'package:rota_erzincan/widgets/RecentSearchItem.dart';
@@ -21,10 +22,10 @@ class RecentSearchesWidget extends StatelessWidget {
     if (recentWidgets.isEmpty) {
       return Center(
         child: Text(
-          'Henüz arama yapılmadı.',
+          StringConstants.noSearchesText,
           style: GoogleFonts.poppins(
             fontSize: 14,
-            color: themeProvider.textColor.withOpacity(0.5),
+            color: themeProvider.textColor.withValues(alpha: 0.5),
           ),
         ),
       );
@@ -41,7 +42,7 @@ class RecentSearchesWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Son Aramalar',
+                  StringConstants.recentSearchesTitle,
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -51,7 +52,7 @@ class RecentSearchesWidget extends StatelessWidget {
                 TextButton(
                   onPressed: () => viewModel.clearRecentSearches(),
                   child: Text(
-                    'Temizle',
+                    StringConstants.clearButtonLabel,
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,

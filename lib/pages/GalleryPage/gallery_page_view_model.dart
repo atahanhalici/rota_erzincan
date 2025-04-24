@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/PhotoModel.dart';
 import 'package:rota_erzincan/services/api_service.dart';
@@ -9,7 +10,14 @@ class GalleryPageViewModel extends ChangeNotifier with BaseViewModel {
     fetchGalleryPhotos();
   }
 
-  final List<String> categories = ["Tümü", "Doğa", "Mimari", "Kültür", "Yemek"];
+  final List<String> categories = [
+    StringConstants.galleryCategoryAll,
+    StringConstants.galleryCategoryNature,
+    StringConstants.galleryCategoryArchitecture,
+    StringConstants.galleryCategoryCulture,
+    StringConstants.galleryCategoryFood,
+  ];
+
   int selectedCategoryIndex = 0;
 
   Map<String, List<PhotoModel>> categorizedImages = {};
@@ -34,7 +42,7 @@ class GalleryPageViewModel extends ChangeNotifier with BaseViewModel {
     notifyListeners();
   }
 
-   void navigateToSearch() {
+  void navigateToSearch() {
     navigationService.navigateToSearchPage();
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/route_detail_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
@@ -90,7 +91,7 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                         color: themeProvider.textColor.withValues(alpha: 0.6)),
                     const SizedBox(width: 4),
                     Text(
-                      "${viewModel.route.distanceKm} km",
+                      "${viewModel.route.distanceKm} ${StringConstants.unitKilometer}",
                       style: GoogleFonts.poppins(
                         fontSize: 12,
                         color: themeProvider.textColor.withValues(alpha: 0.6),
@@ -120,7 +121,6 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                     return;
                   }
                   if (viewModel.route.stops.isEmpty) {
-                  
                     return;
                   }
 
@@ -151,13 +151,15 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                         children: [
                           Icon(Icons.info_outline_rounded,
                               size: 48,
-                              color: themeProvider.textColor.withValues(alpha: 0.4)),
+                              color: themeProvider.textColor
+                                  .withValues(alpha: 0.4)),
                           const SizedBox(height: 16),
                           Text(
-                            "Rotada ekli durak bulunmuyor.",
+                            StringConstants.routeNoStopsText,
                             style: GoogleFonts.poppins(
                               fontSize: 16,
-                              color: themeProvider.textColor.withValues(alpha: 0.7),
+                              color: themeProvider.textColor
+                                  .withValues(alpha: 0.7),
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -179,7 +181,9 @@ class _RouteDetailPageState extends State<RouteDetailPage>
               ]
             ],
           ),
-          DetailTopBarShadow(themeProvider: themeProvider),
+          DetailTopBarShadow(
+              themeProvider: themeProvider,
+              onActionPressed: viewModel.navigateToSearch),
           StatusBarOverlay(themeProvider: themeProvider),
           const Positioned(
             left: 16,
@@ -210,13 +214,6 @@ class _RouteDetailPageState extends State<RouteDetailPage>
   }
 
   String _formatDuration(Duration duration) {
-    final hours = duration.inHours;
-    final minutes = duration.inMinutes % 60;
-
-    if (hours > 0) {
-      return '$hours sa $minutes dk';
-    } else {
-      return '$minutes dk';
-    }
+    return StringConstants.formatDuration(duration);
   }
 }

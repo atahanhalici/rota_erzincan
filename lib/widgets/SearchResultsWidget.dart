@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -22,10 +23,10 @@ class SearchResultsWidget extends StatelessWidget {
     if (filteredItems.isEmpty) {
       return Center(
         child: Text(
-          'Sonuç bulunamadı.',
+          StringConstants.noResultsFound,
           style: GoogleFonts.poppins(
             fontSize: 16,
-            color: themeProvider.textColor.withOpacity(0.6),
+            color: themeProvider.textColor.withValues(alpha: 0.6),
           ),
         ),
       );

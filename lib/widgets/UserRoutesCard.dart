@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/pages/routesPage/routes_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
@@ -71,7 +72,7 @@ class UserRoutesCard extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Rotalarım",
+                                    StringConstants.addToRouteTitle,
                                     style: GoogleFonts.poppins(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600,
@@ -81,7 +82,7 @@ class UserRoutesCard extends StatelessWidget {
                                   if (viewModel.showUserRoutes &&
                                       viewModel.userRoutes.isNotEmpty)
                                     Text(
-                                      "Rotaları silmek için sola kaydırabilirsiniz.",
+                                      StringConstants.swipeToDeleteRoutes,
                                       style: GoogleFonts.poppins(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w400,
@@ -132,7 +133,7 @@ class UserRoutesCard extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 16.0, vertical: 8),
                                     child: Text(
-                                      "Henüz oluşturduğunuz bir rota bulunmuyor.",
+                                      StringConstants.noUserRoutesText,
                                       style: GoogleFonts.poppins(
                                         fontSize: 13,
                                         color: themeProvider.textColor
@@ -219,7 +220,7 @@ class UserRoutesCard extends StatelessWidget {
                                                                     width: 10),
                                                                 Expanded(
                                                                   child: Text(
-                                                                    '${route.title} adlı rota silindi',
+                                                                    '${route.title}${StringConstants.routeDeletedSuffix}',
                                                                     style: const TextStyle(
                                                                         color: Colors
                                                                             .white),
@@ -289,7 +290,7 @@ class UserRoutesCard extends StatelessWidget {
                                                               const SizedBox(
                                                                   width: 4),
                                                               Text(
-                                                                  "${route.distanceKm} km",
+                                                                  "${route.distanceKm} ${StringConstants.unitKilometer}",
                                                                   style: GoogleFonts
                                                                       .poppins(
                                                                     fontSize:
@@ -398,7 +399,7 @@ class UserRoutesCard extends StatelessWidget {
                                                 size: 20),
                                             const SizedBox(width: 8),
                                             Text(
-                                              "Yeni Rota Oluştur",
+                                              StringConstants.newRouteTitle,
                                               style: GoogleFonts.poppins(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.w500,
@@ -426,13 +427,6 @@ class UserRoutesCard extends StatelessWidget {
   }
 
   String _formatDuration(Duration duration) {
-    final hours = duration.inHours;
-    final minutes = duration.inMinutes % 60;
-
-    if (hours > 0) {
-      return '$hours sa $minutes dk';
-    } else {
-      return '$minutes dk';
-    }
+    return StringConstants.formatDuration(duration);
   }
 }

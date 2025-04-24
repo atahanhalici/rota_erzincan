@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
@@ -191,8 +192,6 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
 
   void navigateToStop(BuildContext context, ThemeProvider themeProvider,
       CategoryContentItem stop) async {
-    debugPrint('📍 Durak detayına gidiliyor: ${stop.title}');
-
     try {
       final availableMaps = await MapLauncher.installedMaps;
 
@@ -205,7 +204,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    'Yüklü bir harita uygulaması bulunamadı',
+                    StringConstants.mapErrorNoAppInstalledSimple,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -249,7 +248,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
                   SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      'Google Maps Açılamadı',
+                      StringConstants.mapErrorGoogleMapsFailed,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -278,7 +277,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Bu durağı açmak istediğiniz harita uygulamasını seçin",
+                  StringConstants.mapAppSelectionStopTitle,
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -321,7 +320,6 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
         );
       }
     } catch (e) {
-      debugPrint('📍 Harita hatası: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Row(
@@ -330,7 +328,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
               SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  'Harita uygulaması açılırken bir hata oluştu.',
+                  StringConstants.mapErrorGeneric,
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -373,8 +371,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       final availableMaps = await MapLauncher.installedMaps;
 
       if (availableMaps.isEmpty) {
-        _mapErrorMessage =
-            'Cihazınızda yüklü bir harita uygulaması bulunamadı.';
+        _mapErrorMessage = StringConstants.mapErrorNoAppInstalledSimple;
         safeNotifyListeners();
         return;
       }
@@ -412,7 +409,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
         if (await canLaunchUrl(googleUrl)) {
           await launchUrl(googleUrl, mode: LaunchMode.externalApplication);
         } else {
-          _mapErrorMessage = 'Google Maps açılamadı.';
+          _mapErrorMessage = StringConstants.mapErrorGoogleMapsFailed;
           safeNotifyListeners();
         }
       } else {
@@ -428,7 +425,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Konuma Gitmek İstediğiniz Harita Uygulamasını Seçin",
+                  StringConstants.mapAppSelectionRouteTitle,
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -499,5 +496,9 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
 
       safeNotifyListeners();
     }
+  }
+
+  void navigateToSearch() {
+    navigationService.navigateToSearchPage();
   }
 }

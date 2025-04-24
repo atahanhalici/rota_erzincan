@@ -35,6 +35,10 @@ class CategoryDetailViewModel extends ChangeNotifier with BaseViewModel {
     notifyListeners();
   }
 
+  void navigateToSearch() {
+    navigationService.navigateToSearchPage();
+  }
+
   Future<void> navigateToPage(CategoryContentItem item) async {
     navigationService.navigateToDetailsPage(item);
   }

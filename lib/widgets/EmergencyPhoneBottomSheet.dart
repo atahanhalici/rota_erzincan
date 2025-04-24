@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +32,7 @@ class EmergencyPhoneBottomSheet extends StatelessWidget {
             ),
           ),
           Text(
-            "Acil Durum Telefonları",
+            StringConstants.emergencyPhoneTitle,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -40,9 +41,10 @@ class EmergencyPhoneBottomSheet extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _buildEmergencyCallButton(
-              "112 - Acil Çağrı Merkezi", "112", Colors.red),
+              StringConstants.emergencyPhone112, "112", Colors.red),
           const SizedBox(height: 10),
-          _buildEmergencyCallButton("122 - AFAD", "122", Colors.orange),
+          _buildEmergencyCallButton(
+              StringConstants.emergencyPhone122, "122", Colors.orange),
         ],
       ),
     );

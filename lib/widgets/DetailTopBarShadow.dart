@@ -5,7 +5,12 @@ import 'package:rota_erzincan/widgets/AppBar.dart';
 
 class DetailTopBarShadow extends StatelessWidget {
   final ThemeProvider themeProvider;
-  const DetailTopBarShadow({super.key, required this.themeProvider});
+  final VoidCallback onActionPressed;
+  const DetailTopBarShadow({
+    super.key,
+    required this.themeProvider,
+    required this.onActionPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +38,7 @@ class DetailTopBarShadow extends StatelessWidget {
               size: 30,
               color: ColorConstants.buttonColor,
             ),
-            onActionPressed: () {
-              // Arama butonuna basıldığında yapılacaklar
-            },
+            onActionPressed: onActionPressed, // Burada çağırılıyor
           ),
         ),
       ),

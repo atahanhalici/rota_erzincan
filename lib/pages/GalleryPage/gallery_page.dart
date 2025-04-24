@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/GalleryPage/gallery_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
@@ -33,7 +34,7 @@ class _GalleryPageState extends State<GalleryPage>
     _headerAnimation = Tween<double>(begin: -50, end: 0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve:const Interval(0.0, 0.5, curve: Curves.easeOutCubic),
+        curve: const Interval(0.0, 0.5, curve: Curves.easeOutCubic),
       ),
     );
   }
@@ -140,7 +141,7 @@ class _GalleryPageState extends State<GalleryPage>
                               ).createShader(bounds);
                             },
                             child: Text(
-                              "Fotoğraf Galerisi",
+                              StringConstants.galleryPageTitle,
                               style: GoogleFonts.poppins(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w700,
@@ -165,7 +166,7 @@ class _GalleryPageState extends State<GalleryPage>
                     child: Padding(
                       padding: const EdgeInsets.only(left: 35, bottom: 15),
                       child: Text(
-                        "Erzincan'ın benzersiz manzaralarını keşfedin",
+                        StringConstants.galleryPageSubtitle,
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,

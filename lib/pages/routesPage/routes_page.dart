@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:rota_erzincan/pages/routesPage/routes_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
 import 'package:rota_erzincan/widgets/CustomBottomNavBar.dart';
@@ -10,7 +12,6 @@ import 'package:rota_erzincan/widgets/CustomDrawer.dart';
 import 'package:rota_erzincan/widgets/RoutesHeader.dart';
 import 'package:rota_erzincan/widgets/RoutesView.dart';
 import 'package:rota_erzincan/widgets/UserRoutesCard.dart';
-import 'routes_page_view_model.dart';
 
 class RoutesPage extends StatefulWidget {
   const RoutesPage({super.key});
@@ -145,7 +146,7 @@ class _RoutesPageState extends State<RoutesPage>
                           ),
                           const SizedBox(width: 10),
                           Text(
-                            "Hazır Rotalar",
+                            StringConstants.routesReadyTitle,
                             style: GoogleFonts.poppins(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,

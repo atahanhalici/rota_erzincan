@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/ErganKayakMerkeziPage/ergan_kayak_merkezi_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
@@ -82,7 +83,7 @@ class HeroSectionWidget extends StatelessWidget {
                                           color: Colors.white, size: 16),
                                       const SizedBox(width: 4),
                                       Text(
-                                        "En Popüler",
+                                        StringConstants.heroSectionBadgeText,
                                         style: GoogleFonts.poppins(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,
@@ -96,7 +97,7 @@ class HeroSectionWidget extends StatelessWidget {
                             ),
                             const SizedBox(height: 12),
                             Text(
-                              "Ergan Dağı Kayak Merkezi",
+                              StringConstants.heroSectionTitle,
                               style: GoogleFonts.poppins(
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
@@ -132,7 +133,7 @@ class HeroSectionWidget extends StatelessWidget {
                                     size: 16),
                                 const SizedBox(width: 4),
                                 Text(
-                                  "Erzincan, Türkiye",
+                                  StringConstants.heroSectionLocation,
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -145,7 +146,7 @@ class HeroSectionWidget extends StatelessWidget {
                                     size: 16),
                                 const SizedBox(width: 4),
                                 Text(
-                                  "3278m Rakım",
+                                  StringConstants.heroSectionAltitude,
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,

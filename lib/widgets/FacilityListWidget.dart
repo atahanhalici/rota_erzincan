@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/ErganKayakMerkeziPage/ergan_kayak_merkezi_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -271,8 +272,10 @@ class _FacilityListWidgetState extends State<FacilityListWidget> {
                                                               width: 4),
                                                           Text(
                                                             (item.active)
-                                                                ? "  Açık  "
-                                                                : "Kapalı",
+                                                                ? StringConstants
+                                                                    .facilityOpenLabel
+                                                                : StringConstants
+                                                                    .facilityClosedLabel,
                                                             style: GoogleFonts
                                                                 .poppins(
                                                               fontWeight:

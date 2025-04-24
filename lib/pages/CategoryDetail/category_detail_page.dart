@@ -96,7 +96,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
                     ),
             ],
           ),
-          DetailTopBarShadow(themeProvider: themeProvider),
+          DetailTopBarShadow(themeProvider: themeProvider,onActionPressed: viewModel.navigateToSearch),
           StatusBarOverlay(themeProvider: themeProvider),
           Positioned(
             left: 16,

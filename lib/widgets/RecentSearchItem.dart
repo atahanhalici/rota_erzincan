@@ -25,7 +25,7 @@ class RecentSearchItemWidget extends StatelessWidget {
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-          color: Colors.red.withOpacity(0.9),
+          color: Colors.red.withValues(alpha: 0.9),
           borderRadius: BorderRadius.circular(12),
         ),
         child: const Icon(Icons.delete_outline, color: Colors.white),
@@ -40,7 +40,8 @@ class RecentSearchItemWidget extends StatelessWidget {
           child: Row(
             children: [
               Icon(Icons.history,
-                  color: themeProvider.textColor.withOpacity(0.6), size: 22),
+                  color: themeProvider.textColor.withValues(alpha: 0.6),
+                  size: 22),
               const SizedBox(width: 16),
               Text(
                 text,
@@ -51,7 +52,8 @@ class RecentSearchItemWidget extends StatelessWidget {
               ),
               const Spacer(),
               Icon(Icons.north_west,
-                  color: themeProvider.textColor.withOpacity(0.4), size: 18),
+                  color: themeProvider.textColor.withValues(alpha: 0.4),
+                  size: 18),
             ],
           ),
         ),
