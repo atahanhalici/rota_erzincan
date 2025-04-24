@@ -155,7 +155,9 @@ class CustomDrawer extends StatelessWidget {
       FancyMenuItem(
         icon: Icons.feedback_outlined,
         label: "Görüş Bildir",
-        onTap: () {},
+        onTap: () {
+          homeModel.navigateToGiveYourOpinion(context);
+        },
         color: ColorConstants.buttonColor.withOpacity(0.9),
       ),
     ];

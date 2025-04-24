@@ -59,6 +59,11 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
     navigationService.navigateToPage("/emergencyAssemblyAreas", null);
   }
 
+  void navigateToGiveYourOpinion(BuildContext context) {
+    Navigator.pop(context);
+    navigationService.navigateToPage("/giveYourOpinion", null);
+  }
+
   void navigateToCategoryDetail(
       String title, String subtitle, String imageUrl, IconData icon) {
     CategoryItem _categoryItem = CategoryItem(

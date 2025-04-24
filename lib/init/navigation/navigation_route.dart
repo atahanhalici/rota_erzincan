@@ -8,6 +8,7 @@ import 'package:rota_erzincan/pages/EmergencyAssemblyAreas/emergency_assembly_ar
 import 'package:rota_erzincan/pages/ErganKayakMerkeziPage/ergan_kayak_merkezi_page.dart';
 import 'package:rota_erzincan/pages/EventDetailPage/event_detail_page.dart';
 import 'package:rota_erzincan/pages/GalleryPage/gallery_page.dart';
+import 'package:rota_erzincan/pages/GiveYourOpinion/give_your_opinion_page.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.dart';
 import 'package:rota_erzincan/pages/LiveCamsPage/live_cams_page.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/route_Detail_page.dart';
@@ -64,7 +65,10 @@ class NavigationRoute {
       case NavigatorConstants.EVENTDETAIL:
         return slideAnimatedRoute(const EventDetailPage(), args.arguments);
       case NavigatorConstants.EMERGENCYASSEMBLYAREAS:
-        return slideAnimatedRoute(const EmergencyAssemblyAreasPage(), args.arguments);
+        return slideAnimatedRoute(
+            const EmergencyAssemblyAreasPage(), args.arguments);
+      case NavigatorConstants.GIVEYOUROPINION:
+        return slideAnimatedRoute(const GiveYourOpinionPage(), args.arguments);
       default:
         return slideAnimatedRoute(const NotFound(), args.arguments);
     }

@@ -11,7 +11,6 @@ import 'package:rota_erzincan/init/start/application_start.dart';
 import 'package:rota_erzincan/pages/CategoriesPage/categories_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page_view_model.dart';
-import 'package:rota_erzincan/pages/EmergencyAssemblyAreas/emergency_assembly_areas_page.dart';
 import 'package:rota_erzincan/pages/EmergencyAssemblyAreas/emergency_assembly_areas_view_model.dart';
 import 'package:rota_erzincan/pages/GalleryPage/gallery_page_view_model.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
@@ -59,25 +58,25 @@ class MyApp extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return MaterialApp(
-        title: StringConstants.appName,
-        debugShowCheckedModeBanner: false,
-        theme: AppThemes.lightTheme.copyWith(
-          colorScheme: AppThemes.lightTheme.colorScheme.copyWith(
-            primary: ColorConstants.buttonColor,
-          ),
-          textTheme: GoogleFonts.poppinsTextTheme(),
+      title: StringConstants.appName,
+      debugShowCheckedModeBanner: false,
+      theme: AppThemes.lightTheme.copyWith(
+        colorScheme: AppThemes.lightTheme.colorScheme.copyWith(
+          primary: ColorConstants.buttonColor,
         ),
-        darkTheme: AppThemes.darkTheme.copyWith(
-          colorScheme: AppThemes.darkTheme.colorScheme.copyWith(
-            primary: ColorConstants.buttonColor,
-          ),
-          textTheme: GoogleFonts.poppinsTextTheme(),
+        textTheme: GoogleFonts.poppinsTextTheme(),
+      ),
+      darkTheme: AppThemes.darkTheme.copyWith(
+        colorScheme: AppThemes.darkTheme.colorScheme.copyWith(
+          primary: ColorConstants.buttonColor,
         ),
-        themeMode: themeProvider.themeMode,
-        onGenerateRoute: NavigationRoute.instance.generateRoute,
-        navigatorKey: NavigationService.instance.navigatorKey,
-        navigatorObservers: [CustomNavigatorObserver()],
-        home: const EmergencyAssemblyAreasPage() //SplashPage(),
-        );
+        textTheme: GoogleFonts.poppinsTextTheme(),
+      ),
+      themeMode: themeProvider.themeMode,
+      onGenerateRoute: NavigationRoute.instance.generateRoute,
+      navigatorKey: NavigationService.instance.navigatorKey,
+      navigatorObservers: [CustomNavigatorObserver()],
+      home: const SplashPage(),
+    );
   }
 }
