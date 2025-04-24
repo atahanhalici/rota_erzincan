@@ -44,7 +44,6 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
     });
   }
 
-
   toggleExpanded() {
     isExpanded = !isExpanded;
     notifyListeners();
@@ -156,8 +155,29 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(mapErrorMessage!)),
+        SnackBar(
+          content: Row(
+            children: [
+              const Icon(Icons.error, color: Colors.white),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  mapErrorMessage!,
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+          backgroundColor: Colors.red.shade700, // veya Colors.red.shade700
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          margin: const EdgeInsets.all(12),
+          duration: const Duration(seconds: 3),
+        ),
       );
+
       notifyListeners();
     }
   }

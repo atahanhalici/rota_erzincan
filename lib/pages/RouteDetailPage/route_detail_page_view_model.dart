@@ -198,8 +198,29 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
 
       if (availableMaps.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Yüklü bir harita uygulaması bulunamadı.')),
+          SnackBar(
+            content: const Row(
+              children: [
+                Icon(Icons.error, color: Colors.white),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    'Yüklü bir harita uygulaması bulunamadı',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+            backgroundColor: Colors.red.shade700,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            margin: const EdgeInsets.all(12),
+            duration: const Duration(seconds: 3),
+          ),
         );
+
         return;
       }
 
@@ -221,7 +242,27 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
           await launchUrl(stopUrl, mode: LaunchMode.externalApplication);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-           const SnackBar(content: Text('Google Maps açılamadı.')),
+            SnackBar(
+              content: const Row(
+                children: [
+                  Icon(Icons.error, color: Colors.white),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      'Google Maps Açılamadı',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+              backgroundColor: Colors.red.shade700,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              margin: const EdgeInsets.all(12),
+              duration: const Duration(seconds: 3),
+            ),
           );
         }
       } else {
@@ -282,7 +323,27 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
     } catch (e) {
       debugPrint('📍 Harita hatası: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-      const  SnackBar(content: Text('Harita uygulaması açılırken bir hata oluştu.')),
+        SnackBar(
+          content: const Row(
+            children: [
+              Icon(Icons.error, color: Colors.white),
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  'Harita uygulaması açılırken bir hata oluştu.',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+          backgroundColor: Colors.red.shade700,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          margin: const EdgeInsets.all(12),
+          duration: const Duration(seconds: 3),
+        ),
       );
     }
   }
@@ -413,8 +474,29 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(mapErrorMessage!)),
+        SnackBar(
+          content: Row(
+            children: [
+              const Icon(Icons.error, color: Colors.white),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  mapErrorMessage!,
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+          backgroundColor: Colors.red.shade700,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          margin: const EdgeInsets.all(12),
+          duration: const Duration(seconds: 3),
+        ),
       );
+
       safeNotifyListeners();
     }
   }

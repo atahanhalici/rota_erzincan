@@ -287,9 +287,28 @@ class RouteContentSliver extends StatelessWidget {
     await viewModel.recalculateDistanceAndDuration();
     ScaffoldMessenger.of(scaffoldContext).showSnackBar(
       SnackBar(
-        content: Text('Durak silindi: ${removed.title}'),
+        content: Row(
+          children: [
+            const Icon(Icons.check_circle, color: Colors.white),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                'Durak silindi: ${removed.title}',
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: Colors.green.shade700,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        margin: const EdgeInsets.all(12),
+        duration: const Duration(seconds: 4),
         action: SnackBarAction(
           label: 'Geri Al',
+          textColor: Colors.white,
           onPressed: () async {
             await db.insert('route_stops', {
               'id': removed.id,

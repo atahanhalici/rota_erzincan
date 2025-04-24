@@ -52,8 +52,6 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
     final viewModel = Provider.of<DetailsPageViewModel>(context, listen: false);
     final stopId = viewModel.contentItem.id;
 
-  
-
     List<RouteItem> loadedRoutes = routeData.map((map) {
       return RouteItem(
         id: map['id'] as String,
@@ -77,17 +75,12 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
         whereArgs: [route.id],
       );
 
-   
-
       final matched =
           existing.any((e) => e['id'].toString() == stopId.toString());
 
       if (matched) {
         newlySelected.add(route.id);
-    
-      } else {
-       
-      }
+      } else {}
     }
 
     setState(() {
@@ -345,9 +338,9 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      child:const Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children:  [
+                        children: [
                           Icon(Icons.save_alt_rounded, size: 18),
                           SizedBox(width: 8),
                           Text(
@@ -377,9 +370,9 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      child:const Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children:  [
+                        children: [
                           Icon(Icons.add_circle_outline, size: 18),
                           SizedBox(width: 8),
                           Text(
@@ -435,10 +428,29 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
 
         scaffoldMessenger.showSnackBar(
           SnackBar(
-            content: Text(
-                "Durak '${content.title}' '${route.title}' rotasına eklendi."),
+            content: Row(
+              children: [
+                const Icon(Icons.check_circle, color: Colors.white),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "Durak '${content.title}' '${route.title}' rotasına eklendi.",
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+            backgroundColor:
+                Colors.green.shade700, // ya da Colors.green.shade700
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            margin: const EdgeInsets.all(12),
+            duration: const Duration(seconds: 4),
             action: SnackBarAction(
               label: 'Geri Al',
+              textColor: Colors.white,
               onPressed: () async {
                 await db.delete(
                   'route_stops',
@@ -462,10 +474,28 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
 
         scaffoldMessenger.showSnackBar(
           SnackBar(
-            content: Text(
-                "Durak '${content.title}' '${route.title}' rotasından çıkarıldı."),
+            content: Row(
+              children: [
+                const Icon(Icons.check_circle, color: Colors.white),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "Durak '${content.title}' '${route.title}' rotasından çıkarıldı.",
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+            backgroundColor: Colors.green.shade700,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            margin: const EdgeInsets.all(12),
+            duration: const Duration(seconds: 4),
             action: SnackBarAction(
               label: 'Geri Al',
+              textColor: Colors.white,
               onPressed: () async {
                 await db.insert('route_stops', {
                   'id': content.id,

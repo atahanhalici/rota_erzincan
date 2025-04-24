@@ -208,15 +208,41 @@ class UserRoutesCard extends StatelessWidget {
                                                                 context)
                                                             .showSnackBar(
                                                           SnackBar(
-                                                            backgroundColor:
-                                                                themeProvider
-                                                                    .cardColor,
-                                                            content: Text(
-                                                              '${route.title} adlı rota silindi',
-                                                              style: TextStyle(
-                                                                  color: themeProvider
-                                                                      .textColor),
+                                                            content: Row(
+                                                              children: [
+                                                                const Icon(
+                                                                    Icons
+                                                                        .check_circle,
+                                                                    color: Colors
+                                                                        .white),
+                                                                const SizedBox(
+                                                                    width: 10),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    '${route.title} adlı rota silindi',
+                                                                    style: const TextStyle(
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
+                                                            backgroundColor:
+                                                                Colors.green
+                                                                    .shade700,
+                                                            behavior:
+                                                                SnackBarBehavior
+                                                                    .floating,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                            ),
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(12),
                                                             duration:
                                                                 const Duration(
                                                                     seconds: 2),
@@ -251,12 +277,15 @@ class UserRoutesCard extends StatelessWidget {
                                                           ),
                                                           subtitle: Row(
                                                             children: [
-                                                              Icon(Icons.route,
-                                                                  size: 16,
-                                                                  color: themeProvider
-                                                                      .textColor
-                                                                    .withValues(alpha: 
-                                                                            0.6),),
+                                                              Icon(
+                                                                Icons.route,
+                                                                size: 16,
+                                                                color: themeProvider
+                                                                    .textColor
+                                                                    .withValues(
+                                                                        alpha:
+                                                                            0.6),
+                                                              ),
                                                               const SizedBox(
                                                                   width: 4),
                                                               Text(
@@ -267,19 +296,22 @@ class UserRoutesCard extends StatelessWidget {
                                                                         12,
                                                                     color: themeProvider
                                                                         .textColor
-                                                                        .withValues(alpha: 
-                                                                            0.6),
+                                                                        .withValues(
+                                                                            alpha:
+                                                                                0.6),
                                                                   )),
                                                               const SizedBox(
                                                                   width: 12),
                                                               Icon(
-                                                                  Icons
-                                                                      .access_time_rounded,
-                                                                  size: 16,
-                                                                  color: themeProvider
-                                                                      .textColor
-                                                                    .withValues(alpha: 
-                                                                            0.6),),
+                                                                Icons
+                                                                    .access_time_rounded,
+                                                                size: 16,
+                                                                color: themeProvider
+                                                                    .textColor
+                                                                    .withValues(
+                                                                        alpha:
+                                                                            0.6),
+                                                              ),
                                                               const SizedBox(
                                                                   width: 4),
                                                               Text(
@@ -292,8 +324,9 @@ class UserRoutesCard extends StatelessWidget {
                                                                         12,
                                                                     color: themeProvider
                                                                         .textColor
-                                                                        .withValues(alpha: 
-                                                                            0.6),
+                                                                        .withValues(
+                                                                            alpha:
+                                                                                0.6),
                                                                   )),
                                                             ],
                                                           ),

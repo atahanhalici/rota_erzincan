@@ -124,9 +124,10 @@ class _DetailsPageState extends State<DetailsPage>
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          // İçeriği dinamik hale getiriyoruz
           content: Row(
             children: [
-              Icon(Icons.error_outline, color: themeProvider.backgroundColor),
+              const Icon(Icons.error_outline, color: Colors.white),
               const SizedBox(width: 12),
               Expanded(
                 child: FittedBox(
@@ -136,8 +137,8 @@ class _DetailsPageState extends State<DetailsPage>
                     message,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: themeProvider.backgroundColor,
+                    style: const TextStyle(
+                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -146,7 +147,7 @@ class _DetailsPageState extends State<DetailsPage>
               ),
             ],
           ),
-          backgroundColor: themeProvider.textColor.withValues(alpha: 0.8),
+          backgroundColor: Colors.red.shade700,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
