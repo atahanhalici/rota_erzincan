@@ -8,6 +8,8 @@ import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuItem.dart';
+import 'package:rota_erzincan/widgets/LanguageSwitcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class CustomDrawer extends StatelessWidget {
   final Function toggleTheme;
@@ -73,9 +75,9 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
             _buildThemeSwitcher(themeProvider),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 15),
+            LanguageSwitcher(isDarkMode: isDarkMode),
+            const SizedBox(height: 20),
             // Sabit alt kısım
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -203,18 +205,43 @@ class CustomDrawer extends StatelessWidget {
   }
 
   Widget _buildSocialIcons(ThemeProvider themeProvider) {
+    // Buraya kendi sayfanın URL’lerini koy
+    final socialLinks = <IconData, String>{
+      FontAwesomeIcons.facebook: 'https://www.facebook.com/erzincan.valiligi',
+      FontAwesomeIcons.instagram: 'https://www.instagram.com/erzincanvaliligi',
+      FontAwesomeIcons.xTwitter: 'https://x.com/ervalilik',
+      FontAwesomeIcons.youtube:
+          'https://www.youtube.com/channel/UCEvKITSEAzNA342u4XEaQTw',
+    };
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        FaIcon(FontAwesomeIcons.facebook,
-            size: 20, color: themeProvider.textColor),
-        FaIcon(FontAwesomeIcons.instagram,
-            size: 20, color: themeProvider.textColor),
-        FaIcon(FontAwesomeIcons.xTwitter,
-            size: 20, color: themeProvider.textColor),
-        FaIcon(FontAwesomeIcons.youtube,
-            size: 20, color: themeProvider.textColor),
-      ],
+      children: socialLinks.entries.map((entry) {
+        return InkWell(
+          borderRadius: BorderRadius.circular(24),
+          onTap: () async {
+            final url = entry.value;
+            if (await canLaunchUrlString(url)) {
+              // in-app webview olarak açmak için:
+              await launchUrlString(
+                url,
+                mode: LaunchMode.inAppWebView,
+                webViewConfiguration: const WebViewConfiguration(
+                  enableJavaScript: true,
+                ),
+              );
+            } else {
+              // cihaz tarayıcısında açmayı dene
+              await launchUrlString(url, mode: LaunchMode.externalApplication);
+            }
+          },
+          child: FaIcon(
+            entry.key,
+            size: 20,
+            color: themeProvider.textColor,
+          ),
+        );
+      }).toList(),
     );
   }
 }

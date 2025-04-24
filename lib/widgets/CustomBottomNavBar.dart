@@ -19,7 +19,7 @@ class CustomBottomNavBar extends StatelessWidget {
     final items = [
       _NavItem(icon: Icons.home_outlined, label: StringConstants.bottomNavHome),
       _NavItem(
-          icon: Icons.category_outlined,
+          icon: Icons.dehaze_outlined,
           label: StringConstants.bottomNavCategories),
       _NavItem(
           icon: Icons.photo_library_outlined,

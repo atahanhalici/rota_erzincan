@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -27,8 +28,12 @@ import 'package:rota_erzincan/theme_provider.dart';
 void main() async {
   final splashViewModel = SplashPageViewModel();
   ApplicationStart.init(splashViewModel);
-  runApp(
-    MultiProvider(
+  await EasyLocalization.ensureInitialized();
+  runApp(EasyLocalization(
+    supportedLocales: const [Locale('tr'), Locale('en')],
+    path: 'assets/translations',
+    fallbackLocale: const Locale('tr'),
+    child: MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => HomePageViewModel()),
         ChangeNotifierProvider(create: (_) => GalleryPageViewModel()),
@@ -51,7 +56,7 @@ void main() async {
       ],
       child: const MyApp(),
     ),
-  );
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -62,6 +67,9 @@ class MyApp extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return MaterialApp(
+      locale: context.locale,
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
       title: StringConstants.appName,
       debugShowCheckedModeBanner: false,
       theme: AppThemes.lightTheme.copyWith(

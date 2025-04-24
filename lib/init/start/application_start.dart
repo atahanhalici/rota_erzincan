@@ -10,6 +10,7 @@ class ApplicationStart {
 
   static Future<void> init(SplashPageViewModel splashViewModel) async {
     WidgetsFlutterBinding.ensureInitialized();
+
     // Sadece dikey modda kullanılabilir
     await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp],
@@ -42,7 +43,6 @@ class ApplicationStart {
         bool wasDisconnected =
             ConnectivityService.instance.wasPreviouslyDisconnected();
         if (wasDisconnected) {
-
           NavigationService.instance.navigateToPageClear("/home", null);
 
           // Bağlantı yeniden sağlandığında durumu sıfırla
