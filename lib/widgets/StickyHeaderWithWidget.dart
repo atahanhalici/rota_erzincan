@@ -102,7 +102,7 @@ class StickyHeaderWithWidget extends StatelessWidget {
                   ),
 
                   // Sağ üst köşeye yuvarlak buton
-                  if (onAddPressed != null && isUserAdded)
+                  if (onAddPressed != null && isUserAdded && showButton)
                     Positioned(
                       right: 0,
                       top: 0,
