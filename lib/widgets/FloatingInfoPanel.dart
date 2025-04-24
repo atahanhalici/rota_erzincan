@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/pages/EmergencyAssemblyAreas/emergency_assembly_areas_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'dart:math' as math;
@@ -72,7 +72,7 @@ class FloatingInfoPanel extends StatelessWidget {
                               ),
                               const SizedBox(width: 4),
                               Text(
-                                '${point['capacity']} ${StringConstants.floatingPanelPersonSuffix}',
+                                '${point['capacity']} ${'floatingPanelPersonSuffix'.tr()}',
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: themeProvider.textColor
@@ -88,7 +88,7 @@ class FloatingInfoPanel extends StatelessWidget {
                               ),
                               const SizedBox(width: 4),
                               Text(
-                                '${point['facilities'].length} ${StringConstants.floatingPanelFacilitySuffix}',
+                                '${point['facilities'].length} ${'floatingPanelFacilitySuffix'.tr()}',
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: themeProvider.textColor
@@ -114,9 +114,9 @@ class FloatingInfoPanel extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: const Text(
-                        StringConstants.floatingPanelDetailsButton,
-                        style: TextStyle(
+                      child:  Text(
+                        'floatingPanelDetailsButton'.tr(),
+                        style:const TextStyle(
                           color: ColorConstants.buttonColor,
                           fontWeight: FontWeight.bold,
                         ),
@@ -205,9 +205,9 @@ class FloatingInfoPanel extends StatelessWidget {
                   angle: -45 * math.pi / 180,
                   child: const Icon(Icons.navigation, color: Colors.white),
                 ),
-                label: const Text(
-                  StringConstants.floatingPanelNearestButton,
-                  style: TextStyle(
+                label:  Text(
+                  'floatingPanelNearestButton'.tr(),
+                  style:const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),

@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 import '../../../constants/image_constants.dart';
-import '../../../constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ServerErrorPage extends StatelessWidget {
   const ServerErrorPage({super.key});
@@ -41,7 +41,7 @@ class ServerErrorPage extends StatelessWidget {
                     Image.asset(ImageConstants.serverError),
                     const SizedBox(height: 24),
                     Text(
-                      StringConstants.serverError,
+                      'serverError'.tr(),
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
                         textStyle:
@@ -53,7 +53,7 @@ class ServerErrorPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      StringConstants.serverErrorSub,
+                      'serverErrorSub'.tr(),
                       textAlign: TextAlign.center,
                       style: context.general.textTheme.titleMedium!.copyWith(
                         color: themeProvider.textColor.withValues(alpha: 0.85),

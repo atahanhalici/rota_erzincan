@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:rota_erzincan/pages/HomePage/home_page.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class LanguageSwitcher extends StatefulWidget {
@@ -16,7 +18,39 @@ class LanguageSwitcher extends StatefulWidget {
 }
 
 class _LanguageSwitcherState extends State<LanguageSwitcher> {
-  String _selectedLang = 'tr';
+  late String _selectedLang;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Uygulama açıldığında geçerli dili oku
+    _selectedLang = context.locale.languageCode;
+  }
+
+  void _changeLanguage(BuildContext context, String languageCode) async {
+    // Desteklenen diller listesi
+    final supportedLocales = context.supportedLocales;
+
+    // Seçilen locale
+    final newLocale = supportedLocales.firstWhere(
+      (locale) => locale.languageCode == languageCode,
+      orElse: () => context.fallbackLocale ?? const Locale('tr'),
+    );
+
+    // Locale değiştir
+    await context.setLocale(newLocale);
+
+    // Sayfayı yeniden başlat
+    Navigator.pushReplacement(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (_, __, ___) =>
+            const HomePage(), // Ana sayfan neyse onu yaz
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +111,10 @@ class _LanguageSwitcherState extends State<LanguageSwitcher> {
               ),
             ],
             onChanged: (value) {
-              setState(() {
-                _selectedLang = value!;
-              });
-
-              // context.read<LanguageProvider>().changeLanguage(value);
+              if (value != null) {
+                _changeLanguage(context, value);
+                setState(() => _selectedLang = value);
+              }
             },
           ),
         ),

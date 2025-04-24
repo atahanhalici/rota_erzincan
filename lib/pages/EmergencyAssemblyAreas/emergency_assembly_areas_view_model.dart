@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:map_launcher/map_launcher.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuLogoItem.dart';
@@ -177,8 +177,8 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
       );
 
       distanceToNearest = distanceInMeters < 1000
-          ? '${distanceInMeters.toStringAsFixed(0)} ${StringConstants.unitMeter}'
-          : '${(distanceInMeters / 1000).toStringAsFixed(1)} ${StringConstants.unitKilometer}';
+          ? '${distanceInMeters.toStringAsFixed(0)} ${'unitMeter'.tr()}'
+          : '${(distanceInMeters / 1000).toStringAsFixed(1)} ${'unitKilometer'.tr()}';
     }
   }
 
@@ -221,7 +221,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
       final availableMaps = await MapLauncher.installedMaps;
 
       if (availableMaps.isEmpty) {
-        _mapErrorMessage = StringConstants.mapErrorNoAppInstalled;
+        _mapErrorMessage = 'mapErrorNoAppInstalled'.tr();
         notifyListeners();
         return;
       }
@@ -243,7 +243,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  StringConstants.mapAppSelectionTitle,
+                  'mapAppSelectionTitle'.tr(),
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class FacilityHeaderWidget extends StatelessWidget {
@@ -49,7 +49,7 @@ class FacilityHeaderWidget extends StatelessWidget {
                     ).createShader(bounds);
                   },
                   child: Text(
-                    StringConstants.facilityStatusTitle,
+                    'facilityStatusTitle'.tr(),
                     style: GoogleFonts.poppins(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -81,7 +81,7 @@ class FacilityHeaderWidget extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        StringConstants.facilityStatusBadge,
+                        'facilityStatusBadge'.tr(),
                         style: GoogleFonts.poppins(
                           fontSize: 12,
                           color: themeProvider.textColor,

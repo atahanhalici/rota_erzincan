@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,10 +31,14 @@ void main() async {
   final splashViewModel = SplashPageViewModel();
   ApplicationStart.init(splashViewModel);
   await EasyLocalization.ensureInitialized();
+  final deviceLangCode = PlatformDispatcher.instance.locale.languageCode;
+  final Locale initialLocale =
+      deviceLangCode == 'tr' ? const Locale('tr') : const Locale('en');
   runApp(EasyLocalization(
     supportedLocales: const [Locale('tr'), Locale('en')],
     path: 'assets/translations',
     fallbackLocale: const Locale('tr'),
+    startLocale: initialLocale, // 🎯 Cihaz diline göre belirliyoruz
     child: MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => HomePageViewModel()),

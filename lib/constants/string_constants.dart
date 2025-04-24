@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -120,11 +121,18 @@ class StringConstants {
 
   static const routeNoStopsText = "Rotada ekli durak bulunmuyor.";
 
-// Fonksiyonel kullanım için öneri:
   static String formatDuration(Duration duration) {
     final hours = duration.inHours;
     final minutes = duration.inMinutes % 60;
-    return hours > 0 ? '$hours sa $minutes dk' : '$minutes dk';
+
+    return hours > 0
+        ? 'hourMinuteFormat'.tr(namedArgs: {
+            'hours': hours.toString(),
+            'minutes': minutes.toString(),
+          })
+        : 'minuteOnlyFormat'.tr(namedArgs: {
+            'minutes': minutes.toString(),
+          });
   }
 
   static const routesReadyTitle = "Hazır Rotalar";

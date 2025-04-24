@@ -8,6 +8,7 @@ import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
 import 'dart:ui';
 import 'give_your_opinion_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class GiveYourOpinionPage extends StatefulWidget {
   const GiveYourOpinionPage({super.key});
@@ -192,7 +193,7 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                                     ).createShader(bounds);
                                   },
                                   child: Text(
-                                    StringConstants.opinionPageTitle,
+                                    'opinionPageTitle'.tr(),
                                     style: GoogleFonts.poppins(
                                       fontSize: 26,
                                       fontWeight: FontWeight.w700,
@@ -214,7 +215,7 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                               padding: const EdgeInsets.only(
                                   left: 18, top: 8, bottom: 24),
                               child: Text(
-                                StringConstants.opinionPageSubtitle,
+                                'opinionPageSubtitle'.tr(),
                                 style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
@@ -265,8 +266,8 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                                     children: [
                                       _buildAnimatedTextField(
                                         controller: viewModel.nameController,
-                                        label: StringConstants.nameLabel,
-                                        hint: StringConstants.nameHint,
+                                        label: 'nameLabel'.tr(),
+                                        hint: 'nameHint'.tr(),
                                         icon: Icons.person_outline,
                                         themeProvider: themeProvider,
                                         validator: viewModel.validateName,
@@ -276,8 +277,8 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                                       const SizedBox(height: 18),
                                       _buildAnimatedTextField(
                                         controller: viewModel.emailController,
-                                        label: StringConstants.emailLabel,
-                                        hint: StringConstants.emailHint,
+                                        label: 'emailLabel'.tr(),
+                                        hint: 'emailHint'.tr(),
                                         icon: Icons.email_outlined,
                                         themeProvider: themeProvider,
                                         keyboardType:
@@ -289,8 +290,8 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                                       const SizedBox(height: 18),
                                       _buildAnimatedTextField(
                                         controller: viewModel.commentController,
-                                        label: StringConstants.commentLabel,
-                                        hint: StringConstants.commentHint,
+                                        label: 'commentLabel'.tr(),
+                                        hint: 'commentHint'.tr(),
                                         icon: Icons.comment_outlined,
                                         themeProvider: themeProvider,
                                         maxLines: 4,
@@ -412,7 +413,9 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          StringConstants.footerCopyright,
+                          'footerCopyright'.tr(namedArgs: {
+                            'year': DateTime.now().year.toString()
+                          }),
                           style: GoogleFonts.poppins(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,

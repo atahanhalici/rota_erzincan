@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page.dart';
 import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page_view_model.dart';
 
@@ -46,7 +46,7 @@ class BuildGalleryItem extends StatelessWidget {
                     heroTag: 'gallery_image_$imageUrl',
                     galleryImages: galleryUrls,
                     initialIndex: galleryUrls.indexOf(imageUrl),
-                    title: StringConstants.galleryItemTitle,
+                    title: 'galleryItemTitle'.tr(),
                   ),
                 ),
               ),

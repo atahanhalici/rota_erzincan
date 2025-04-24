@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class Appbar extends StatelessWidget {
@@ -35,7 +35,7 @@ class Appbar extends StatelessWidget {
           ),
           const SizedBox(width: 7),
           Text(
-            StringConstants.appName,
+            'appName'.tr(),
             style: TextStyle(
               color: themeProvider.textColor,
               fontWeight: FontWeight.w600,

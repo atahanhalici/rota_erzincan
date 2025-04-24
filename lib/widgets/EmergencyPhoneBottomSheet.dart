@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +32,7 @@ class EmergencyPhoneBottomSheet extends StatelessWidget {
             ),
           ),
           Text(
-            StringConstants.emergencyPhoneTitle,
+            'emergencyPhoneTitle'.tr(),
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -41,10 +41,10 @@ class EmergencyPhoneBottomSheet extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _buildEmergencyCallButton(
-              StringConstants.emergencyPhone112, "112", Colors.red),
+              'emergencyPhone112'.tr(), "112", Colors.red),
           const SizedBox(height: 10),
           _buildEmergencyCallButton(
-              StringConstants.emergencyPhone122, "122", Colors.orange),
+              'emergencyPhone122'.tr(), "122", Colors.orange),
         ],
       ),
     );

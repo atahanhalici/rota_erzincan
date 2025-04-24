@@ -20,14 +20,14 @@ class StickyHeader extends StatelessWidget {
     return SliverPersistentHeader(
       pinned: true,
       delegate: _StickyHeaderDelegate(
-        minHeight: title == "Vizyondaki Filmler"
+        minHeight: title == "Vizyondaki Filmler" || title == "Now Showing"
             ? 100
-            : title == "Tiyatrolar"
+            : title == "Tiyatrolar" || title == "Theaters"
                 ? 100
                 : 80,
-        maxHeight: title == "Vizyondaki Filmler"
+        maxHeight: title == "Vizyondaki Filmler" || title == "Now Showing"
             ? 100
-            : title == "Tiyatrolar"
+            : title == "Tiyatrolar" || title == "Theaters"
                 ? 100
                 : 80,
         child: Container(

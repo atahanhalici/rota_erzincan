@@ -1,6 +1,6 @@
 // lib/pages/GiveYourOpinion/give_your_opinion_view_model.dart
 import 'package:flutter/material.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 
 class GiveYourOpinionViewModel extends ChangeNotifier with BaseViewModel {
@@ -26,11 +26,11 @@ class GiveYourOpinionViewModel extends ChangeNotifier with BaseViewModel {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Row(
+          content: Row(
             children: [
-              Icon(Icons.check_circle, color: Colors.white),
-              SizedBox(width: 10),
-              Text(StringConstants.opinionSuccessMessage),
+              const Icon(Icons.check_circle, color: Colors.white),
+              const SizedBox(width: 10),
+              Text('opinionSuccessMessage'.tr()),
             ],
           ),
           backgroundColor: Colors.green.shade700,
@@ -51,28 +51,28 @@ class GiveYourOpinionViewModel extends ChangeNotifier with BaseViewModel {
 
   String? validateName(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return StringConstants.nameValidationEmpty;
+      return 'nameValidationEmpty'.tr();
     }
     return null;
   }
 
   String? validateEmail(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return StringConstants.emailValidationEmpty;
+      return 'emailValidationEmpty'.tr();
     }
     bool emailValid = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(value);
     if (!emailValid) {
-      return StringConstants.emailValidationInvalid;
+      return 'emailValidationInvalid'.tr();
     }
     return null;
   }
 
   String? validateComment(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return StringConstants.commentValidationEmpty;
+      return 'commentValidationEmpty'.tr();
     }
     if (value.length < 10) {
-      return StringConstants.commentValidationTooShort;
+      return 'commentValidationTooShort'.tr();
     }
     return null;
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/widgets/InfoRow.dart';
 
 class ShowPhotoDetails extends StatelessWidget {
@@ -48,7 +48,7 @@ class ShowPhotoDetails extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(24, 12, 24, 16),
                 child: Text(
-                  StringConstants.photoDetailsTitle,
+                  'photoDetailsTitle'.tr(),
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
@@ -61,26 +61,26 @@ class ShowPhotoDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const InfoRow(
+                    InfoRow(
                       icon: Icons.location_on_outlined,
-                      title: StringConstants.locationLabel,
-                      value: StringConstants.locationValue,
+                      title: 'locationLabel'.tr(),
+                      value: 'locationValue'.tr(),
                     ),
                     const SizedBox(height: 16),
-                    const InfoRow(
+                    InfoRow(
                       icon: Icons.calendar_today_outlined,
-                      title: StringConstants.dateLabel,
-                      value: StringConstants.dateValue,
+                      title: 'dateLabel'.tr(),
+                      value: 'dateValue'.tr(),
                     ),
                     const SizedBox(height: 16),
-                    const InfoRow(
+                    InfoRow(
                       icon: Icons.camera_alt_outlined,
-                      title: StringConstants.photographerLabel,
-                      value: StringConstants.photographerValue,
+                      title: 'photographerLabel'.tr(),
+                      value: 'photographerValue'.tr(),
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      StringConstants.photoDescription,
+                      'photoDescription'.tr(),
                       style: TextStyle(
                         fontSize: 14,
                         color: textColor.withValues(alpha: 0.8),

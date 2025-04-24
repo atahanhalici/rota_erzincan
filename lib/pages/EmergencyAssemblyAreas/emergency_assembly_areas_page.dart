@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/pages/EmergencyAssemblyAreas/emergency_assembly_areas_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
@@ -94,7 +94,7 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
                   const CircularProgressIndicator(),
                   const SizedBox(height: 20),
                   Text(
-                    StringConstants.locationLoadingText,
+                    'locationLoadingText'.tr(),
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
@@ -177,7 +177,7 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  StringConstants.locationPermissionTitle,
+                  'locationPermissionTitle'.tr(),
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -186,7 +186,7 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  StringConstants.locationPermissionDescription,
+                  'locationPermissionDescription'.tr(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: themeProvider.textColor.withValues(alpha: 0.7),
@@ -209,7 +209,7 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
                     ),
                   ),
                   icon: const Icon(Icons.location_on),
-                  label: const Text(StringConstants.locationPermissionButton),
+                  label:  Text('locationPermissionButton'.tr()),
                 ),
               ],
             ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
@@ -198,14 +198,14 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       if (availableMaps.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Row(
+            content: Row(
               children: [
-                Icon(Icons.error, color: Colors.white),
-                SizedBox(width: 10),
+                const Icon(Icons.error, color: Colors.white),
+                const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    StringConstants.mapErrorNoAppInstalledSimple,
-                    style: TextStyle(color: Colors.white),
+                    'mapErrorNoAppInstalledSimple'.tr(),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
               ],
@@ -242,14 +242,14 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: const Row(
+              content: Row(
                 children: [
-                  Icon(Icons.error, color: Colors.white),
-                  SizedBox(width: 10),
+                  const Icon(Icons.error, color: Colors.white),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      StringConstants.mapErrorGoogleMapsFailed,
-                      style: TextStyle(color: Colors.white),
+                      'mapErrorGoogleMapsFailed'.tr(),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 ],
@@ -277,7 +277,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  StringConstants.mapAppSelectionStopTitle,
+                  'mapAppSelectionStopTitle'.tr(),
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -322,14 +322,14 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Row(
+          content: Row(
             children: [
-              Icon(Icons.error, color: Colors.white),
-              SizedBox(width: 10),
+              const Icon(Icons.error, color: Colors.white),
+              const SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  StringConstants.mapErrorGeneric,
-                  style: TextStyle(color: Colors.white),
+                  'mapErrorGeneric'.tr(),
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ],
@@ -371,7 +371,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       final availableMaps = await MapLauncher.installedMaps;
 
       if (availableMaps.isEmpty) {
-        _mapErrorMessage = StringConstants.mapErrorNoAppInstalledSimple;
+        _mapErrorMessage = 'mapErrorNoAppInstalledSimple'.tr();
         safeNotifyListeners();
         return;
       }
@@ -409,7 +409,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
         if (await canLaunchUrl(googleUrl)) {
           await launchUrl(googleUrl, mode: LaunchMode.externalApplication);
         } else {
-          _mapErrorMessage = StringConstants.mapErrorGoogleMapsFailed;
+          _mapErrorMessage = 'mapErrorGoogleMapsFailed'.tr();
           safeNotifyListeners();
         }
       } else {
@@ -425,7 +425,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  StringConstants.mapAppSelectionRouteTitle,
+                  'mapAppSelectionRouteTitle'.tr(),
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

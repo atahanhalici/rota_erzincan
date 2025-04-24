@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
@@ -17,17 +17,12 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = [
-      _NavItem(icon: Icons.home_outlined, label: StringConstants.bottomNavHome),
+      _NavItem(icon: Icons.home_outlined, label: 'bottomNavHome'.tr()),
+      _NavItem(icon: Icons.dehaze_outlined, label: 'bottomNavCategories'.tr()),
       _NavItem(
-          icon: Icons.dehaze_outlined,
-          label: StringConstants.bottomNavCategories),
-      _NavItem(
-          icon: Icons.photo_library_outlined,
-          label: StringConstants.bottomNavGallery),
-      _NavItem(
-          icon: Icons.map_outlined, label: StringConstants.bottomNavRoutes),
-      _NavItem(
-          icon: Icons.event_outlined, label: StringConstants.bottomNavEvents),
+          icon: Icons.photo_library_outlined, label: 'bottomNavGallery'.tr()),
+      _NavItem(icon: Icons.map_outlined, label: 'bottomNavRoutes'.tr()),
+      _NavItem(icon: Icons.event_outlined, label: 'bottomNavEvents'.tr()),
     ];
 
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -91,8 +86,8 @@ class CustomBottomNavBar extends StatelessWidget {
                           _homeModel.navigateBottomBar(context, idx);
                         } else {
                           _homeModel.navigateBottomBar(context, idx,
-                              title: StringConstants.eventHighlightTitle,
-                              subtitle: StringConstants.eventHighlightSubtitle,
+                              title: 'eventHighlightTitle'.tr(),
+                              subtitle: 'eventHighlightSubtitle'.tr(),
                               icon: Icons.event,
                               imageUrl: "https://picsum.photos/id/169/800/500");
                         }

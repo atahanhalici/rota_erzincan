@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SwipeUpHint extends StatefulWidget {
   const SwipeUpHint({super.key});
@@ -44,18 +44,18 @@ class SwipeUpHintState extends State<SwipeUpHint>
   Widget build(BuildContext context) {
     return SlideTransition(
       position: _animation,
-      child: const Column(
+      child:  Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+        const  Icon(
             Icons.keyboard_arrow_up,
             color: Colors.white,
             size: 32,
           ),
-          SizedBox(height: 4),
+        const  SizedBox(height: 4),
           Text(
-             StringConstants.scrollUpForMore,
-            style: TextStyle(
+            'scrollUpForMore'.tr(),
+            style:const TextStyle(
               color: Colors.white,
               fontSize: 14,
               fontWeight: FontWeight.w400,

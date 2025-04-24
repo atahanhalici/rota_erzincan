@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class RoutesHeader extends StatelessWidget {
@@ -66,7 +66,7 @@ class RoutesHeader extends StatelessWidget {
                         ).createShader(bounds);
                       },
                       child: Text(
-                        StringConstants.routesHeader,
+                        'routesHeader'.tr(),
                         style: GoogleFonts.poppins(
                           fontSize: 24,
                           fontWeight: FontWeight.w700,
@@ -89,7 +89,7 @@ class RoutesHeader extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 35, right: 35, bottom: 15),
                 child: Text(
-                  StringConstants.routesSubheader,
+                  'routesSubheader'.tr(),
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,

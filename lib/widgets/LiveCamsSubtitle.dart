@@ -1,7 +1,7 @@
 // Subtitle Widget
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class LiveCamsSubtitle extends StatelessWidget {
@@ -24,7 +24,7 @@ class LiveCamsSubtitle extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 35, bottom: 15),
             child: Text(
-              StringConstants.liveCamsSubtitle,
+              'liveCamsSubtitle'.tr(),
               style: GoogleFonts.poppins(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,

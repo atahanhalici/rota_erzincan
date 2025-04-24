@@ -24,7 +24,7 @@ class CategoriesPageViewModel extends ChangeNotifier with BaseViewModel {
   }
 
   Future<void> navigateToPage(CategoryItem item) async {
-    if (item.title.contains("Ulaşım") || item.title.contains("Gelirim")) {
+    if (item.id == 14 || item.id == 15) {
       navigationService.navigateToPage(
         "/details",
         CategoryContentItem(
@@ -42,7 +42,7 @@ class CategoriesPageViewModel extends ChangeNotifier with BaseViewModel {
     }
   }
 
-   void navigateToSearch() {
+  void navigateToSearch() {
     navigationService.navigateToSearchPage();
   }
 }

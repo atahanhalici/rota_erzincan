@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/enums/platform_enum.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/OutlinedButtonWithImage.dart';
@@ -46,7 +46,7 @@ class NeedUpdatePage extends StatelessWidget {
                   Image.asset(ImageConstants.updateRequiredVector),
                   const SizedBox(height: 24),
                   Text(
-                    StringConstants.needUpdate,
+                    'needUpdate'.tr(),
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       textStyle:
@@ -58,7 +58,7 @@ class NeedUpdatePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    StringConstants.needUpdateSub,
+                    'needUpdateSub'.tr(),
                     textAlign: TextAlign.center,
                     style: context.general.textTheme.titleMedium!.copyWith(
                       color: themeProvider.textColor.withValues(alpha: 0.85),
@@ -72,7 +72,7 @@ class NeedUpdatePage extends StatelessWidget {
                 onPressed: () {},
                 backgroundColor: themeProvider.buttonColor,
                 textColor: Colors.white,
-                text: StringConstants.update,
+                text: 'update'.tr(),
                 imagePath: imagePath),
             const Spacer(),
             Image.asset(

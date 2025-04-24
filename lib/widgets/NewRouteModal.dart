@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
@@ -67,7 +67,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          StringConstants.newRouteTitle,
+                          'newRouteTitle'.tr(),
                           style: GoogleFonts.poppins(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -75,7 +75,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                           ),
                         ),
                         Text(
-                          StringConstants.newRouteSubtitle,
+                          'newRouteSubtitle'.tr(),
                           style: GoogleFonts.poppins(
                             fontSize: 13,
                             color:
@@ -93,8 +93,8 @@ class _NewRouteModalState extends State<NewRouteModal> {
                 cursorColor: themeProvider.buttonColor,
                 style: TextStyle(color: themeProvider.textColor),
                 decoration: InputDecoration(
-                  labelText: StringConstants.routeNameLabel,
-                  hintText: StringConstants.routeNameHint,
+                  labelText: 'routeNameLabel'.tr(),
+                  hintText: 'routeNameHint'.tr(),
                   labelStyle: TextStyle(color: themeProvider.buttonColor),
                   hintStyle: TextStyle(
                     color: themeProvider.textColor.withValues(alpha: 0.5),
@@ -128,8 +128,8 @@ class _NewRouteModalState extends State<NewRouteModal> {
                 maxLines: 1,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(color: themeProvider.buttonColor),
-                  labelText: StringConstants.routeDescLabel,
-                  hintText: StringConstants.routeDescHint,
+                  labelText: 'routeDescLabel'.tr(),
+                  hintText: 'routeDescHint'.tr(),
                   hintStyle: TextStyle(
                       color: themeProvider.textColor.withValues(alpha: 0.5)),
                   filled: true,
@@ -157,7 +157,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                   Icon(Icons.place, color: themeProvider.buttonColor, size: 20),
                   const SizedBox(width: 8),
                   Text(
-                    StringConstants.stopsLabel,
+                    'stopsLabel'.tr(),
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -166,7 +166,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                   ),
                   const Spacer(),
                   Text(
-                    '${vm.selectedIds.length} ${StringConstants.selectedCount}',
+                    '${vm.selectedIds.length} ${'selectedCount'.tr()}',
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       color: themeProvider.buttonColor,
@@ -276,7 +276,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                   if (!vm.isFormValid) {
                     Fluttertoast.cancel();
                     Fluttertoast.showToast(
-                      msg: StringConstants.formIncompleteToast,
+                      msg: 'formIncompleteToast'.tr(),
                       toastLength: Toast.LENGTH_LONG,
                       gravity: ToastGravity.BOTTOM,
                       backgroundColor: Colors.redAccent,
@@ -290,7 +290,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                     await vm.updateRoute(widget.editingRoute!.id);
                     Fluttertoast.cancel();
                     Fluttertoast.showToast(
-                      msg: StringConstants.routeSavedToast,
+                      msg: 'routeSavedToast'.tr(),
                       toastLength: Toast.LENGTH_LONG,
                       gravity: ToastGravity.BOTTOM,
                       backgroundColor: ColorConstants.cardColor,
@@ -301,7 +301,7 @@ class _NewRouteModalState extends State<NewRouteModal> {
                     await vm.createRoute();
                     Fluttertoast.cancel();
                     Fluttertoast.showToast(
-                      msg: StringConstants.routeSavedToast,
+                      msg: 'routeSavedToast'.tr(),
                       toastLength: Toast.LENGTH_LONG,
                       gravity: ToastGravity.BOTTOM,
                       backgroundColor: ColorConstants.cardColor,
@@ -329,8 +329,8 @@ class _NewRouteModalState extends State<NewRouteModal> {
                     const SizedBox(width: 8),
                     Text(
                       widget.editingRoute != null
-                          ? StringConstants.updateRouteButton
-                          : StringConstants.saveRouteButton,
+                          ? 'updateRouteButton'.tr()
+                          : 'saveRouteButton'.tr(),
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

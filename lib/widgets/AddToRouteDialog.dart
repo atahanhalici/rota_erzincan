@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
@@ -159,7 +159,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    StringConstants.addToRouteTitle,
+                    'addToRouteTitle'.tr(),
                     style: TextStyle(
                       color: themeProvider.textColor,
                       fontWeight: FontWeight.bold,
@@ -202,7 +202,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
-                                  StringConstants.addToRouteEmptyMessage,
+                                  'addToRouteEmptyMessage'.tr(),
                                   style: TextStyle(
                                     color: themeProvider.textColor,
                                     fontSize: 16,
@@ -339,14 +339,14 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.save_alt_rounded, size: 18),
-                          SizedBox(width: 8),
+                          const Icon(Icons.save_alt_rounded, size: 18),
+                          const SizedBox(width: 8),
                           Text(
-                            StringConstants.addToRouteSaveButton,
-                            style: TextStyle(
+                            'addToRouteSaveButton'.tr(),
+                            style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
                             ),
@@ -371,14 +371,14 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.add_circle_outline, size: 18),
-                          SizedBox(width: 8),
+                          const Icon(Icons.add_circle_outline, size: 18),
+                          const SizedBox(width: 8),
                           Text(
-                            StringConstants.addToRouteNewRouteButton,
-                            style: TextStyle(
+                            'addToRouteNewRouteButton'.tr(),
+                            style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
                             ),
@@ -435,8 +435,12 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    StringConstants.routeStopAddedMessage(
-                        content.title, route.title),
+                    'routeStopAddedMessage'.tr(
+                      namedArgs: {
+                        'stopTitle': content.title,
+                        'routeTitle': route.title,
+                      },
+                    ),
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
@@ -451,7 +455,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
             margin: const EdgeInsets.all(12),
             duration: const Duration(seconds: 4),
             action: SnackBarAction(
-              label: StringConstants.undoButtonLabel,
+              label: 'undoButtonLabel'.tr(),
               textColor: Colors.white,
               onPressed: () async {
                 await db.delete(
@@ -482,8 +486,12 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    StringConstants.routeStopRemovedMessage(
-                        content.title, route.title),
+                    'routeStopRemovedMessage'.tr(
+                      namedArgs: {
+                        'stopTitle': content.title,
+                        'routeTitle': route.title
+                      },
+                    ),
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
@@ -497,7 +505,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
             margin: const EdgeInsets.all(12),
             duration: const Duration(seconds: 4),
             action: SnackBarAction(
-              label: StringConstants.undoButtonLabel,
+              label: 'undoButtonLabel'.tr(),
               textColor: Colors.white,
               onPressed: () async {
                 await db.insert('route_stops', {

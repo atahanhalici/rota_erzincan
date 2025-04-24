@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
@@ -69,7 +69,7 @@ class _DestinationCardState extends State<DestinationCard>
             _homeModel.navigateToErgan(context);
           } else {
             _homeModel.navigateToCategoryDetail(
-                widget.title, widget.subtitle, widget.imageUrl, widget.icon);
+                widget.title, widget.subtitle, widget.imageUrl, widget.icon,widget.id);
           }
         },
         onTapDown: (_) {
@@ -238,7 +238,8 @@ class _DestinationCardState extends State<DestinationCard>
                                               ),
                                               const SizedBox(width: 4),
                                               Text(
-                                                StringConstants.categoryCardExploreButton,
+                                                'categoryCardExploreButton'
+                                                    .tr(),
                                                 style: GoogleFonts.poppins(
                                                   color: Colors.white,
                                                   fontSize: 13,

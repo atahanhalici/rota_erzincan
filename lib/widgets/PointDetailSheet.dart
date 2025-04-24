@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -63,7 +63,7 @@ class PointDetailSheet extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        StringConstants.assemblyAreaLabel,
+                        'assemblyAreaLabel'.tr(),
                         style: TextStyle(
                           color: themeProvider.textColor.withValues(alpha: 0.7),
                           fontSize: 14,
@@ -83,20 +83,20 @@ class PointDetailSheet extends StatelessWidget {
               children: [
                 _buildInfoRow(
                     Icons.people,
-                    StringConstants.capacityLabel,
-                    '${point['capacity']} ${StringConstants.capacityUnit}',
+                    'capacityLabel'.tr(),
+                    '${point['capacity']} ${'capacityUnit'.tr()}',
                     themeProvider),
                 const SizedBox(height: 16),
                 _buildInfoRow(
                   Icons.description,
-                  StringConstants.descriptionLabel,
+                  'descriptionLabel'.tr(),
                   point['description'],
                   themeProvider,
                 ),
                 const SizedBox(height: 16),
                 _buildFacilitiesSection(point['facilities'], themeProvider),
                 const SizedBox(height: 16),
-                _buildInfoRow(Icons.phone, StringConstants.contactLabel,
+                _buildInfoRow(Icons.phone, 'contactLabel'.tr(),
                     point['contact'], themeProvider),
                 const SizedBox(height: 24),
                 ElevatedButton.icon(
@@ -110,9 +110,10 @@ class PointDetailSheet extends StatelessWidget {
                     ),
                   ),
                   icon: const Icon(Icons.navigation),
-                  label: const Text(
-                    StringConstants.navigateButtonLabel,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  label: Text(
+                    'navigateButtonLabel'.tr(),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -170,7 +171,7 @@ class PointDetailSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                StringConstants.facilitiesLabel,
+                'facilitiesLabel'.tr(),
                 style: TextStyle(
                   color: themeProvider.textColor.withValues(alpha: 0.7),
                   fontSize: 14,

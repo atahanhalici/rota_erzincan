@@ -63,7 +63,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
     final double appBarHeight = kToolbarHeight + statusBarHeight;
     final double expandedHeight = appBarHeight + 160;
     return Scaffold(
-      drawer: viewModel.category.title == "Bu Ayın Etkinlikleri"
+      drawer: viewModel.category.id==1
           ? CustomDrawer(
               toggleTheme: themeProvider.toggleTheme,
               isDarkMode: themeProvider.isDarkMode,
@@ -104,7 +104,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
             bottom: 0,
             child: CustomBottomNavBar(
                 currentIndex:
-                    viewModel.category.title == "Bu Ayın Etkinlikleri" ? 4 : 1),
+                    viewModel.category.id==1 ? 4 : 1),
           ),
         ],
       ),

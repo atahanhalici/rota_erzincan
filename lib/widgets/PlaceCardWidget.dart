@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/pages/SearchPage/search_page_view_model.dart';
@@ -99,7 +99,7 @@ class PlaceCardWidget extends StatelessWidget {
                                       color: themeProvider.buttonColor,
                                       size: 20),
                                   const SizedBox(width: 8),
-                                  Text(StringConstants.viewOnMapButton,
+                                  Text('viewOnMapButton'.tr(),
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w500,
                                           color: themeProvider.buttonColor)),

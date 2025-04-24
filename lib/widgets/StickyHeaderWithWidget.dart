@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class StickyHeaderWithWidget extends StatelessWidget {
@@ -140,7 +140,7 @@ class StickyHeaderWithWidget extends StatelessWidget {
                             icon: const Icon(Icons.directions,
                                 color: Colors.white),
                             label: Text(
-                                StringConstants.startFullRouteOnMapButton,
+                              'startFullRouteOnMapButton'.tr(),
                               style: GoogleFonts.poppins(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,

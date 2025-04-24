@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/pages/SearchPage/search_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/PlaceCardWidget.dart';
@@ -54,6 +54,7 @@ class _SearchPageState extends State<SearchPage>
     final themeProvider = Provider.of<ThemeProvider>(context);
     _viewModel = Provider.of<SearchPageViewModel>(context,
         listen: true); // dinamik güncellemeler için
+
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus(); // Farkı burada!
@@ -89,7 +90,7 @@ class _SearchPageState extends State<SearchPage>
                       ),
                       cursorColor: themeProvider.buttonColor,
                       decoration: InputDecoration(
-                        hintText: StringConstants.searchHintText,
+                        hintText: 'searchHintText'.tr(),
                         hintStyle: GoogleFonts.poppins(
                           color: themeProvider.textColor.withValues(alpha: 0.5),
                           fontSize: 15,
@@ -149,7 +150,7 @@ class _SearchPageState extends State<SearchPage>
                       padding: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 16),
                       child: Text(
-                        StringConstants.popularSearchesTitle,
+                        'popularSearchesTitle'.tr(),
                         style: GoogleFonts.poppins(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -164,13 +165,15 @@ class _SearchPageState extends State<SearchPage>
                       child: Row(
                         children: [
                           const SizedBox(width: 6), // Listenin başında boşluk
-                          ...StringConstants.popularSearchTerms
-                              .map((label) => Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: SearchChipWidget(
-                                      label: label,
-                                      controller: _searchController)))
-                              .toList(),
+                          ..._viewModel.keys.map(
+                            (key) => Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: SearchChipWidget(
+                                label: key.tr(),
+                                controller: _searchController,
+                              ),
+                            ),
+                          ),
                           const SizedBox(width: 6), // Listenin sonunda boşluk
                         ],
                       ),
@@ -194,7 +197,7 @@ class _SearchPageState extends State<SearchPage>
                         children: [
                           if (!_hasSearchQuery) ...[
                             Text(
-                              StringConstants.allContentTitle,
+                              'allContentTitle'.tr(),
                               style: GoogleFonts.poppins(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,

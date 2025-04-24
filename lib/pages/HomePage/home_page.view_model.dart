@@ -65,26 +65,30 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
   }
 
   void navigateToCategoryDetail(
-      String title, String subtitle, String imageUrl, IconData icon) {
+      String title, String subtitle, String imageUrl, IconData icon, int id) {
     CategoryItem _categoryItem = CategoryItem(
-        icon: icon, title: title, subtitle: subtitle, imageUrl: imageUrl);
-    if (title == "Bu Ayın Etkinlikleri") {
+        icon: icon,
+        title: title,
+        subtitle: subtitle,
+        imageUrl: imageUrl,
+        id: id);
+    if (id == 1) {
       navigationService.navigateToCategoryDetailClear(_categoryItem);
     } else {
       navigationService.navigateToCategoryDetail(_categoryItem);
     }
   }
- void navigateToSearch() {
+
+  void navigateToSearch() {
     navigationService.navigateToSearchPage();
   }
-  void navigateBottomBar(
-    BuildContext context,
-    int index, {
-    String? title,
-    String? subtitle,
-    String? imageUrl,
-    IconData? icon,
-  }) {
+
+  void navigateBottomBar(BuildContext context, int index,
+      {String? title,
+      String? subtitle,
+      String? imageUrl,
+      IconData? icon,
+      int? id}) {
     if (index == 0) {
       navigationService.navigateToPageClear("/home", null);
     } else if (index == 1) {
@@ -97,14 +101,15 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
       if (title != null &&
           subtitle != null &&
           imageUrl != null &&
-          icon != null) {
+          icon != null &&
+          id != null) {
         navigationService.navigateToCategoryDetailClear(
           CategoryItem(
-            title: title,
-            subtitle: subtitle,
-            imageUrl: imageUrl,
-            icon: icon,
-          ),
+              title: title,
+              subtitle: subtitle,
+              imageUrl: imageUrl,
+              icon: icon,
+              id: id),
         );
       }
     }

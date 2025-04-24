@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/route_detail_page_view_model.dart';
@@ -91,7 +92,7 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                         color: themeProvider.textColor.withValues(alpha: 0.6)),
                     const SizedBox(width: 4),
                     Text(
-                      "${viewModel.route.distanceKm} ${StringConstants.unitKilometer}",
+                      "${viewModel.route.distanceKm} ${'unitKilometer'.tr()}",
                       style: GoogleFonts.poppins(
                         fontSize: 12,
                         color: themeProvider.textColor.withValues(alpha: 0.6),
@@ -155,7 +156,7 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                                   .withValues(alpha: 0.4)),
                           const SizedBox(height: 16),
                           Text(
-                            StringConstants.routeNoStopsText,
+                            'routeNoStopsText'.tr(),
                             style: GoogleFonts.poppins(
                               fontSize: 16,
                               color: themeProvider.textColor

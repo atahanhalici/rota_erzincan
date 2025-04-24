@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/pages/SearchPage/search_page_view_model.dart';
 import 'package:rota_erzincan/widgets/RecentSearchItem.dart';
@@ -20,15 +20,7 @@ class RecentSearchesWidget extends StatelessWidget {
         .toList();
 
     if (recentWidgets.isEmpty) {
-      return Center(
-        child: Text(
-          StringConstants.noSearchesText,
-          style: GoogleFonts.poppins(
-            fontSize: 14,
-            color: themeProvider.textColor.withValues(alpha: 0.5),
-          ),
-        ),
-      );
+      return const SizedBox();
     }
 
     return Padding(
@@ -42,7 +34,7 @@ class RecentSearchesWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  StringConstants.recentSearchesTitle,
+                  'recentSearchesTitle'.tr(),
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -52,7 +44,7 @@ class RecentSearchesWidget extends StatelessWidget {
                 TextButton(
                   onPressed: () => viewModel.clearRecentSearches(),
                   child: Text(
-                    StringConstants.clearButtonLabel,
+                    'clearButtonLabel'.tr(),
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,

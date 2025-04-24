@@ -42,108 +42,126 @@ class ApiService {
 
     final List<Map<String, dynamic>> responseData = [
       {
+        "id": 0,
         "title": "Müzeler",
         "subtitle": "Erzincan'ın tarihi müzeleri",
         "imageUrl": "https://picsum.photos/id/1003/600/900",
         "icon": Icons.museum,
       },
       {
+        "id": 1,
         "title": "Lezzet Durakları",
         "subtitle": "Yöresel tatları keşfedin",
         "imageUrl": "https://picsum.photos/id/1080/600/900",
         "icon": Icons.restaurant,
       },
       {
+        "id": 2,
         "title": "Kış Sporları",
         "subtitle": "Kayak ve diğer kış aktiviteleri",
         "imageUrl": "https://picsum.photos/id/1011/600/900",
         "icon": Icons.snowboarding,
       },
       {
+        "id": 3,
         "title": "Şehrin Simgesel Eserleri",
         "subtitle": "Erzincan'ın sembol yapıları",
         "imageUrl": "https://picsum.photos/id/1015/600/900",
         "icon": Icons.location_city,
       },
       {
+        "id": 4,
         "title": "Camiler",
         "subtitle": "Tarihi ve modern camiler",
         "imageUrl": "https://picsum.photos/id/1016/600/900",
         "icon": Icons.mosque,
       },
       {
+        "id": 5,
         "title": "Türbeler",
         "subtitle": "Dini ve tarihi türbeler",
         "imageUrl": "https://picsum.photos/id/1019/600/900",
         "icon": Icons.account_balance,
       },
       {
+        "id": 6,
         "title": "Oteller",
         "subtitle": "Konaklama seçenekleri",
         "imageUrl": "https://picsum.photos/id/1020/600/900",
         "icon": Icons.hotel,
       },
       {
+        "id": 7,
         "title": "Kale ve Köprüler",
         "subtitle": "Tarihi yapılar ve manzaralar",
         "imageUrl": "https://picsum.photos/id/1024/600/900",
         "icon": Icons.fort,
       },
       {
+        "id": 8,
         "title": "Sinemalar",
         "subtitle": "Film ve eğlence mekanları",
         "imageUrl": "https://picsum.photos/id/1025/600/900",
         "icon": Icons.movie,
       },
       {
+        "id": 9,
         "title": "Arkeolojik Alanlar",
         "subtitle": "Antik yerleşimler ve kazı alanları",
         "imageUrl": "https://picsum.photos/id/1026/600/900",
         "icon": Icons.architecture,
       },
       {
+        "id": 10,
         "title": "Kiliseler",
         "subtitle": "Tarihi kiliseler ve manastırlar",
         "imageUrl": "https://picsum.photos/id/1027/600/900",
         "icon": Icons.church,
       },
       {
+        "id": 11,
         "title": "Zanaat ve Halk Sanatları",
         "subtitle": "Yerel el sanatları ve atölyeler",
         "imageUrl": "https://picsum.photos/id/1031/600/900",
         "icon": Icons.brush,
       },
       {
+        "id": 12,
         "title": "Parklar ve Piknik Alanları",
         "subtitle": "Doğayla iç içe alanlar",
         "imageUrl": "https://picsum.photos/id/1033/600/900",
         "icon": Icons.park,
       },
       {
+        "id": 13,
         "title": "Kütüphaneler",
         "subtitle": "Kitap ve kültür merkezleri",
         "imageUrl": "https://picsum.photos/id/1035/600/900",
         "icon": Icons.book,
       },
       {
+        "id": 14,
         "title": "Nasıl Gelirim",
         "subtitle": "Ulaşım rehberi",
         "imageUrl": "https://picsum.photos/id/1036/600/900",
         "icon": Icons.directions_bus,
       },
       {
+        "id": 15,
         "title": "Şehir İçi Ulaşım İmkanları",
         "subtitle": "Toplu taşıma ve araç kiralama",
         "imageUrl": "https://picsum.photos/id/1037/600/900",
         "icon": Icons.emoji_transportation,
       },
       {
+        "id": 16,
         "title": "Erzincan Lezzetleri",
         "subtitle": "Yöresel mutfak ve tarifler",
         "imageUrl": "https://picsum.photos/id/1038/600/900",
         "icon": Icons.restaurant_menu,
       },
       {
+        "id": 17,
         "title": "Spor Alanları",
         "subtitle": "Spor tesisleri ve aktiviteleri",
         "imageUrl": "https://picsum.photos/id/1039/600/900",
@@ -154,11 +172,11 @@ class ApiService {
     // Map'ten CategoryItem listesine dönüştür
     return responseData.map((data) {
       return CategoryItem(
-        title: data['title'],
-        subtitle: data['subtitle'],
-        imageUrl: data['imageUrl'],
-        icon: data['icon'],
-      );
+          title: data['title'],
+          subtitle: data['subtitle'],
+          imageUrl: data['imageUrl'],
+          icon: data['icon'],
+          id: data["id"]);
     }).toList();
   }
 
@@ -357,32 +375,18 @@ class ApiService {
         "active": true,
         "extraText": "İzlemek için tıklayın",
         "onTap": () {},
+        "id": 0
       },
-      {
-        "label": "Gondol",
-        "icon": Icons.cable,
-        "active": true,
-      },
+      {"label": "Gondol", "icon": Icons.cable, "active": true, "id": 1},
       {
         "label": "Kızak Pisti",
         "icon": Icons.snowboarding,
         "active": false,
+        "id": 2
       },
-      {
-        "label": "T-Bar",
-        "icon": Icons.arrow_upward,
-        "active": true,
-      },
-      {
-        "label": "1. Etap",
-        "icon": Icons.landscape,
-        "active": true,
-      },
-      {
-        "label": "2. Etap",
-        "icon": Icons.terrain,
-        "active": false,
-      },
+      {"label": "T-Bar", "icon": Icons.arrow_upward, "active": true, "id": 3},
+      {"label": "1. Etap", "icon": Icons.landscape, "active": true, "id": 4},
+      {"label": "2. Etap", "icon": Icons.terrain, "active": false, "id": 5},
     ];
 
     List<FacilityModel> facilityItems =

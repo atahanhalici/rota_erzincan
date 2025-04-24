@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 class AboutSectionWidget extends StatelessWidget {
@@ -53,7 +53,7 @@ class AboutSectionWidget extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       Text(
-                        StringConstants.aboutSectionTitle,
+                        'aboutSectionTitle'.tr(),
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -64,7 +64,7 @@ class AboutSectionWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    StringConstants.aboutSectionDescription,
+                    'aboutSectionDescription'.tr(),
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       height: 1.5,
@@ -88,7 +88,7 @@ class AboutSectionWidget extends StatelessWidget {
                         shadowColor:
                             themeProvider.buttonColor.withValues(alpha: 0.3),
                       ),
-                      child: const Text(StringConstants.aboutSectionMoreInfo),
+                      child:  Text('aboutSectionMoreInfo'.tr()),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -120,7 +120,7 @@ class AboutSectionWidget extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  StringConstants.aboutSectionDirections,
+                                  'aboutSectionDirections'.tr(),
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -160,7 +160,7 @@ class AboutSectionWidget extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  StringConstants.aboutSectionCall,
+                                  'aboutSectionCall'.tr(),
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,

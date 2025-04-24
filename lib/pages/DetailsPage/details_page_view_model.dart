@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:map_launcher/map_launcher.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/theme_provider.dart';
@@ -71,7 +71,7 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
 
   final double targetLatitude = 39.71662446276216;
   final double targetLongitude = 39.4981052503663;
-  final String targetTitle = StringConstants.targetTitleTerzibaba;
+  final String targetTitle = 'targetTitleTerzibaba'.tr();
   String? _mapErrorMessage;
   String? get mapErrorMessage => _mapErrorMessage;
 
@@ -89,7 +89,7 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
       final availableMaps = await MapLauncher.installedMaps;
 
       if (availableMaps.isEmpty) {
-        _mapErrorMessage = StringConstants.mapErrorNoAppInstalled;
+        _mapErrorMessage = 'mapErrorNoAppInstalled'.tr();
         notifyListeners();
         return;
       }
@@ -111,7 +111,7 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  StringConstants.mapAppSelectionTitle,
+                  'mapAppSelectionTitle'.tr(),
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

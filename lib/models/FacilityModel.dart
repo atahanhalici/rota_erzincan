@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FacilityModel {
+  final int id;
   final String label;
   final IconData icon;
   final bool active;
@@ -9,6 +10,7 @@ class FacilityModel {
 
   FacilityModel({
     required this.label,
+    required this.id,
     required this.icon,
     required this.active,
     this.extraText,
@@ -17,6 +19,7 @@ class FacilityModel {
 
   factory FacilityModel.fromJson(Map<String, dynamic> json) {
     return FacilityModel(
+      id: json['id'],
       label: json['label'],
       icon: json['icon'] is String
           ? _mapIcon(json['icon'])

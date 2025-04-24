@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
@@ -93,13 +93,13 @@ class _HomePageState extends State<HomePage>
         ),
         child: AnimatedTextKit(
           animatedTexts: [
-            TypewriterAnimatedText(StringConstants.homeAnimatedExplore,
+            TypewriterAnimatedText('homeAnimatedExplore'.tr(),
                 speed: const Duration(milliseconds: 100), cursor: ''),
-            TypewriterAnimatedText(StringConstants.homeAnimatedLearn,
+            TypewriterAnimatedText('homeAnimatedLearn'.tr(),
                 speed: const Duration(milliseconds: 100), cursor: ''),
-            TypewriterAnimatedText(StringConstants.homeAnimatedTaste,
+            TypewriterAnimatedText('homeAnimatedTaste'.tr(),
                 speed: const Duration(milliseconds: 100), cursor: ''),
-            TypewriterAnimatedText(StringConstants.homeAnimatedAdventure,
+            TypewriterAnimatedText('homeAnimatedAdventure'.tr(),
                 speed: const Duration(milliseconds: 100), cursor: ''),
           ],
           repeatForever: true,
@@ -233,7 +233,7 @@ class _HomePageState extends State<HomePage>
                                   return Transform.translate(
                                     offset: Offset(0, _headerAnimation.value),
                                     child: Text(
-                                      StringConstants.homeHeaderErzincan,
+                                      'homeHeaderErzincan'.tr(),
                                       style: GoogleFonts.poppins(
                                         fontSize: 32,
                                         fontWeight: FontWeight.bold,
@@ -263,7 +263,7 @@ class _HomePageState extends State<HomePage>
                                         animatedTextKit,
                                         const SizedBox(width: 4),
                                         Text(
-                                          StringConstants.homeHeaderSuffix,
+                                          'homeHeaderSuffix'.tr(),
                                           style: GoogleFonts.poppins(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w500,
@@ -334,7 +334,7 @@ class _HomePageState extends State<HomePage>
                                     ).createShader(bounds);
                                   },
                                   child: Text(
-                                    StringConstants.homeSectionTitle,
+                                    'homeSectionTitle'.tr(),
                                     style: GoogleFonts.poppins(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600,
@@ -349,7 +349,7 @@ class _HomePageState extends State<HomePage>
                                 _homeModel.navigateBottomBar(context, 1);
                               },
                               child: Text(
-                                StringConstants.homeSeeAllText,
+                                'homeSeeAllText'.tr(),
                                 style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -442,7 +442,7 @@ class _HomePageState extends State<HomePage>
                                     ),
                                     const SizedBox(width: 12),
                                     Text(
-                                      StringConstants.homeAboutTitle,
+                                      'homeAboutTitle'.tr(),
                                       style: GoogleFonts.poppins(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -453,7 +453,7 @@ class _HomePageState extends State<HomePage>
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
-                                  StringConstants.homeAboutDescription,
+                                  'homeAboutDescription'.tr(),
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     height: 1.5,
@@ -478,12 +478,13 @@ class _HomePageState extends State<HomePage>
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                     ),
-                                    child: const Row(
+                                    child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Text(StringConstants.homeMoreInfoText),
-                                        SizedBox(width: 8),
-                                        Icon(Icons.arrow_forward, size: 16),
+                                        Text('homeMoreInfoText'.tr()),
+                                        const SizedBox(width: 8),
+                                        const Icon(Icons.arrow_forward,
+                                            size: 16),
                                       ],
                                     ),
                                   ),

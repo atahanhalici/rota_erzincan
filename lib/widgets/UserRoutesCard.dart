@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
 import 'package:rota_erzincan/pages/routesPage/routes_page_view_model.dart';
@@ -72,7 +73,7 @@ class UserRoutesCard extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    StringConstants.addToRouteTitle,
+                                    'addToRouteTitle'.tr(),
                                     style: GoogleFonts.poppins(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600,
@@ -82,7 +83,7 @@ class UserRoutesCard extends StatelessWidget {
                                   if (viewModel.showUserRoutes &&
                                       viewModel.userRoutes.isNotEmpty)
                                     Text(
-                                      StringConstants.swipeToDeleteRoutes,
+                                      'swipeToDeleteRoutes'.tr(),
                                       style: GoogleFonts.poppins(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w400,
@@ -133,7 +134,7 @@ class UserRoutesCard extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 16.0, vertical: 8),
                                     child: Text(
-                                      StringConstants.noUserRoutesText,
+                                      'noUserRoutesText'.tr(),
                                       style: GoogleFonts.poppins(
                                         fontSize: 13,
                                         color: themeProvider.textColor
@@ -220,7 +221,7 @@ class UserRoutesCard extends StatelessWidget {
                                                                     width: 10),
                                                                 Expanded(
                                                                   child: Text(
-                                                                    '${route.title}${StringConstants.routeDeletedSuffix}',
+                                                                    '${route.title}${'routeDeletedSuffix'.tr()}',
                                                                     style: const TextStyle(
                                                                         color: Colors
                                                                             .white),
@@ -290,7 +291,7 @@ class UserRoutesCard extends StatelessWidget {
                                                               const SizedBox(
                                                                   width: 4),
                                                               Text(
-                                                                  "${route.distanceKm} ${StringConstants.unitKilometer}",
+                                                                  "${route.distanceKm} ${'unitKilometer'.tr()}",
                                                                   style: GoogleFonts
                                                                       .poppins(
                                                                     fontSize:
@@ -399,7 +400,7 @@ class UserRoutesCard extends StatelessWidget {
                                                 size: 20),
                                             const SizedBox(width: 8),
                                             Text(
-                                              StringConstants.newRouteTitle,
+                                              'newRouteTitle'.tr(),
                                               style: GoogleFonts.poppins(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.w500,

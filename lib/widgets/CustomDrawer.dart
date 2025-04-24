@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuItem.dart';
@@ -52,7 +52,7 @@ class CustomDrawer extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      StringConstants.appName,
+                      'appName'.tr(),
                       style: TextStyle(
                         color: textColor,
                         fontWeight: FontWeight.bold,
@@ -93,7 +93,8 @@ class CustomDrawer extends StatelessWidget {
                   _buildSocialIcons(themeProvider),
                   const SizedBox(height: 14),
                   Text(
-                    StringConstants.drawerCopyright,
+                    'drawerCopyright'.tr(
+                        namedArgs: {'year': DateTime.now().year.toString()}),
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       color: textColor.withValues(alpha: 0.6),
@@ -113,7 +114,7 @@ class CustomDrawer extends StatelessWidget {
     return [
       FancyMenuItem(
         icon: Icons.person,
-        label: StringConstants.drawerMessageFromGovernor,
+        label: 'drawerMessageFromGovernor'.tr(),
         onTap: () {
           homeModel.navigateToDetails(context,
               imageUrl:
@@ -124,7 +125,7 @@ class CustomDrawer extends StatelessWidget {
       ),
       FancyMenuItem(
         icon: Icons.info_outline,
-        label: StringConstants.drawerAboutErzincan,
+        label: 'drawerAboutErzincan'.tr(),
         onTap: () {
           homeModel.navigateToDetails(context,
               imageUrl:
@@ -135,7 +136,7 @@ class CustomDrawer extends StatelessWidget {
       ),
       FancyMenuItem(
         icon: Icons.location_on,
-        label: StringConstants.drawerEmergencyAreas,
+        label: 'drawerEmergencyAreas'.tr(),
         onTap: () {
           homeModel.navigateToEmergencyAssemblyAreas(context);
         },
@@ -143,7 +144,7 @@ class CustomDrawer extends StatelessWidget {
       ),
       FancyMenuItem(
         icon: Icons.app_settings_alt,
-        label: StringConstants.drawerAboutApp,
+        label: 'drawerAboutApp'.tr(),
         onTap: () {
           homeModel.navigateToDetails(context,
               imageUrl:
@@ -154,7 +155,7 @@ class CustomDrawer extends StatelessWidget {
       ),
       FancyMenuItem(
         icon: Icons.feedback_outlined,
-        label: StringConstants.drawerFeedback,
+        label: 'drawerFeedback'.tr(),
         onTap: () {
           homeModel.navigateToGiveYourOpinion(context);
         },
@@ -188,9 +189,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                isDarkMode
-                    ? StringConstants.drawerLightMode
-                    : StringConstants.drawerDarkMode,
+                isDarkMode ? 'drawerLightMode'.tr() : 'drawerDarkMode'.tr(),
                 style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,

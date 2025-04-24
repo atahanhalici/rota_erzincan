@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 import '../../../constants/image_constants.dart';
-import '../../../constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class NoNetworkPage extends StatelessWidget {
   const NoNetworkPage({super.key});
@@ -41,7 +41,7 @@ class NoNetworkPage extends StatelessWidget {
                     Image.asset(ImageConstants.noNetworkVector),
                     const SizedBox(height: 24),
                     Text(
-                      StringConstants.noNetwork,
+                      'noNetwork'.tr(),
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
                         textStyle:
@@ -53,7 +53,7 @@ class NoNetworkPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      StringConstants.noNetworkSub,
+                      'noNetworkSub'.tr(),
                       textAlign: TextAlign.center,
                       style: context.general.textTheme.titleMedium!.copyWith(
                         color: themeProvider.textColor.withValues(alpha: 0.85),

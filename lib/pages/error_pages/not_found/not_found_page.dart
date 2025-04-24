@@ -6,8 +6,7 @@ import 'package:rota_erzincan/constants/image_constants.dart';
 import 'package:rota_erzincan/init/navigation/navigation_service.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/StadiumSideButton.dart';
-
-import '../../../constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class NotFound extends StatelessWidget {
   const NotFound({super.key});
@@ -45,7 +44,7 @@ class NotFound extends StatelessWidget {
                   Image.asset(ImageConstants.notFound),
                   const SizedBox(height: 24),
                   Text(
-                    StringConstants.notFound,
+                    'notFound'.tr(),
                     style: GoogleFonts.poppins(
                       textStyle:
                           context.general.textTheme.headlineMedium!.copyWith(
@@ -57,7 +56,7 @@ class NotFound extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    StringConstants.notFoundSub,
+                    'notFoundSub'.tr(),
                     style: context.general.textTheme.titleMedium!.copyWith(
                       color: themeProvider.textColor.withValues(alpha: 0.85),
                     ),
@@ -75,7 +74,7 @@ class NotFound extends StatelessWidget {
             ),
             const Spacer(),
             StadiumSideButton(
-              text: StringConstants.back,
+              text: 'back'.tr(),
               onPressed: () => navigationService.navigateToBack(),
               color: themeProvider.buttonColor,
               textColor: Colors.white,

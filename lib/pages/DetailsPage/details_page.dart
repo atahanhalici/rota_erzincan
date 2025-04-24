@@ -11,7 +11,7 @@ import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AddToRouteDialog.dart';
 import 'package:rota_erzincan/widgets/BuildCircularButton.dart';
 import 'package:rota_erzincan/widgets/BuildInfoItem.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key});
 
@@ -288,19 +288,19 @@ class _DetailsPageState extends State<DetailsPage>
                                     width: 1,
                                   ),
                                 ),
-                                child: const Row(
+                                child:  Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     BuildInfoItem(
                                         icon: Icons.access_time,
-                                        text: StringConstants.openingHoursText),
+                                        text: 'openingHoursText'.tr()),
                                     BuildInfoItem(
                                         icon: Icons.location_on,
-                                        text: StringConstants.locationErzincan),
+                                        text: 'locationErzincan'.tr()),
                                     BuildInfoItem(
                                         icon: Icons.star,
-                                        text: StringConstants.ratingDefault),
+                                        text: 'ratingDefault'.tr()),
                                   ],
                                 ),
                               ),
@@ -624,7 +624,7 @@ class _DetailsPageState extends State<DetailsPage>
                                           ),
                                           const SizedBox(width: 12),
                                           Text(
-                                            StringConstants.galleryTitle,
+                                            'galleryTitle'.tr(),
                                             style: GoogleFonts.poppins(
                                               fontSize: 24,
                                               fontWeight: FontWeight.bold,
@@ -778,7 +778,7 @@ class _DetailsPageState extends State<DetailsPage>
                                                               right: 12,
                                                               bottom: 12,
                                                               child: Text(
-                                                                '${StringConstants.photoPrefix} ${index + 1}',
+                                                                '${'photoPrefix'.tr()} ${index + 1}',
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(

@@ -23,7 +23,7 @@ class CategoryDetailViewModel extends ChangeNotifier with BaseViewModel {
   }
 
   Future<void> _loadContents() async {
-    if (category.title == "Bu Ayın Etkinlikleri") {
+    if (category.id == 1) {
       _contentItems = await _apiService.getEvents();
     } else {
       _contentItems = await _apiService.getContents(category);

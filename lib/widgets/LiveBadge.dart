@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LiveBadge extends StatelessWidget {
   const LiveBadge({super.key});
@@ -24,12 +24,11 @@ class LiveBadge extends StatelessWidget {
             ),
           ],
         ),
-        child: const Row(
+        child: Row(
           children: [
-            Icon(Icons.circle, size: 10, color: Colors.white),
-            SizedBox(width: 6),
-            Text(StringConstants.liveBadge,
-                style: TextStyle(color: Colors.white)),
+            const Icon(Icons.circle, size: 10, color: Colors.white),
+            const SizedBox(width: 6),
+            Text('liveBadge'.tr(), style: TextStyle(color: Colors.white)),
           ],
         ),
       ),

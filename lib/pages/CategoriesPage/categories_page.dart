@@ -1,8 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/CategoriesPage/categories_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
@@ -138,7 +138,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                               ).createShader(bounds);
                             },
                             child: Text(
-                              StringConstants.categoriesTitle,
+                              'categoriesTitle'.tr(),
                               style: GoogleFonts.poppins(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w700,
@@ -163,7 +163,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                     child: Padding(
                       padding: const EdgeInsets.only(left: 35, bottom: 15),
                       child: Text(
-                        StringConstants.categoriesSubtitle,
+                        'categoriesSubtitle'.tr(),
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,

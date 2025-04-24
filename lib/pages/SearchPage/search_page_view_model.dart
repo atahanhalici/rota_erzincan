@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:map_launcher/map_launcher.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuLogoItem.dart';
@@ -11,7 +11,14 @@ import 'package:rota_erzincan/models/CategoryContentItem.dart';
 class SearchPageViewModel extends ChangeNotifier with BaseViewModel {
   final List<String> _recentSearches = [];
   List<String> get recentSearches => _recentSearches;
-
+  final List<String> keys = [
+    'popularSearchTerm_1',
+    'popularSearchTerm_2',
+    'popularSearchTerm_3',
+    'popularSearchTerm_4',
+    'popularSearchTerm_5',
+    'popularSearchTerm_6',
+  ];
   final List<CategoryContentItem> _allItems = [
     CategoryContentItem(
       id: '1',
@@ -112,7 +119,7 @@ class SearchPageViewModel extends ChangeNotifier with BaseViewModel {
       final availableMaps = await MapLauncher.installedMaps;
 
       if (availableMaps.isEmpty) {
-        _mapErrorMessage = StringConstants.mapErrorNoAppInstalled;
+        _mapErrorMessage = 'mapErrorNoAppInstalled'.tr();
         notifyListeners();
         return;
       }
@@ -134,7 +141,7 @@ class SearchPageViewModel extends ChangeNotifier with BaseViewModel {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  StringConstants.mapAppSelectionTitle,
+                  'mapAppSelectionTitle'.tr(),
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

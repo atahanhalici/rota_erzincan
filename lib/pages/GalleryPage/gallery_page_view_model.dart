@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/PhotoModel.dart';
 import 'package:rota_erzincan/services/api_service.dart';
@@ -11,11 +11,11 @@ class GalleryPageViewModel extends ChangeNotifier with BaseViewModel {
   }
 
   final List<String> categories = [
-    StringConstants.galleryCategoryAll,
-    StringConstants.galleryCategoryNature,
-    StringConstants.galleryCategoryArchitecture,
-    StringConstants.galleryCategoryCulture,
-    StringConstants.galleryCategoryFood,
+    'galleryCategoryAll'.tr(),
+    'galleryCategoryNature'.tr(),
+    'galleryCategoryArchitecture'.tr(),
+    'galleryCategoryCulture'.tr(),
+    'galleryCategoryFood'.tr(),
   ];
 
   int selectedCategoryIndex = 0;

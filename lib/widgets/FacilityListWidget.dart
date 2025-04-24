@@ -92,7 +92,7 @@ class _FacilityListWidgetState extends State<FacilityListWidget> {
                                         0, 20 * (1 - itemAnimation.value)),
                                     child: GestureDetector(
                                       onTap: () {
-                                        if (item.label == "Kameralar") {
+                                        if (item.id==0) {
                                           _erganModel.navigateToCameras();
                                         }
                                       },

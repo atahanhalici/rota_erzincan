@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/services/version_service.dart';
 import 'package:rota_erzincan/theme_provider.dart';
@@ -111,8 +111,8 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
     if (!serviceEnabled) {
       await _showBlockingDialog(
         context,
-        StringConstants.locationServiceOffTitle,
-        StringConstants.locationServiceOffMessage,
+        'locationServiceOffTitle'.tr(),
+        'locationServiceOffMessage'.tr(),
       );
       return false;
     }
@@ -124,8 +124,8 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
       if (permission == LocationPermission.denied) {
         await _showBlockingDialog(
           context,
-          StringConstants.locationPermissionDeniedTitle,
-          StringConstants.locationPermissionDeniedMessage,
+          'locationPermissionDeniedTitle'.tr(),
+          'locationPermissionDeniedMessage'.tr(),
         );
         return false;
       }
@@ -134,8 +134,8 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
     if (permission == LocationPermission.deniedForever) {
       await _showBlockingDialog(
         context,
-        StringConstants.locationPermissionPermanentlyDeniedTitle,
-        StringConstants.locationPermissionPermanentlyDeniedMessage,
+        'locationPermissionPermanentlyDeniedTitle'.tr(),
+        'locationPermissionPermanentlyDeniedMessage'.tr(),
         showSettings: true,
       );
       return false;
@@ -242,14 +242,14 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
                               borderRadius: BorderRadius.circular(14),
                             ),
                           ),
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.settings, size: 18),
-                              SizedBox(width: 8),
+                              const Icon(Icons.settings, size: 18),
+                              const SizedBox(width: 8),
                               Text(
-                                StringConstants.openSettingsButton,
-                                style: TextStyle(
+                                'openSettingsButton'.tr(),
+                                style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -271,14 +271,14 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
                             borderRadius: BorderRadius.circular(14),
                           ),
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.check_circle_outline, size: 18),
-                            SizedBox(width: 8),
+                            const Icon(Icons.check_circle_outline, size: 18),
+                            const SizedBox(width: 8),
                             Text(
-                              StringConstants.okButtonText,
-                              style: TextStyle(
+                              'okButtonText'.tr(),
+                              style: const TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
                               ),

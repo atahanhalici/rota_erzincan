@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +23,7 @@ class SearchResultsWidget extends StatelessWidget {
     if (filteredItems.isEmpty) {
       return Center(
         child: Text(
-          StringConstants.noResultsFound,
+          'noResultsFound'.tr(),
           style: GoogleFonts.poppins(
             fontSize: 16,
             color: themeProvider.textColor.withValues(alpha: 0.6),
