@@ -116,7 +116,7 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                   viewModel.openMapApp(context, themeProvider);
                 },
                 showButton: viewModel.convertedStops.isNotEmpty,
-                onAddPressed: () {
+                onAddPressed: () async {
                   if (!viewModel.route.isUserAdded) {
                     // ❌ Sabit rota, düzenlenemez → fonksiyon çalışmaz
                     return;
@@ -125,7 +125,7 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                     return;
                   }
 
-                  showModalBottomSheet(
+                  await showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
                     builder: (_) {
@@ -136,6 +136,9 @@ class _RouteDetailPageState extends State<RouteDetailPage>
                       );
                     },
                   );
+
+// ✅ Modal kapandıktan sonra veriyi yeniden yükle
+                  await viewModel.loadContent();
                 },
                 isUserAdded: viewModel.route.isUserAdded,
               ),

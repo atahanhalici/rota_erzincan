@@ -32,7 +32,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       }).toList();
 
   RouteDetailPageViewModel({required this.route}) {
-    _loadContent();
+    loadContent();
   }
   @override
   void dispose() {
@@ -82,10 +82,10 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       duration: estimatedDuration,
     );
 
-    await _loadContent(); // contentItems güncellenmeye devam etsin
+    await loadContent(); // contentItems güncellenmeye devam etsin
   }
 
-  Future<void> _loadContent() async {
+  Future<void> loadContent() async {
     isLoading = true;
     safeNotifyListeners();
 
@@ -129,6 +129,27 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
                 imageUrl: e.imageUrl,
               ))
           .toList();
+
+      double totalDistance = 0.0;
+      for (int i = 0; i < contentItems.length - 1; i++) {
+        final start = contentItems[i];
+        final end = contentItems[i + 1];
+        totalDistance += Geolocator.distanceBetween(
+          start.latitude,
+          start.longitude,
+          end.latitude,
+          end.longitude,
+        );
+      }
+
+      final double totalDistanceKm = totalDistance / 1000;
+      final Duration estimatedDuration =
+          Duration(minutes: (totalDistanceKm / 50 * 60).round());
+
+      route = route.copyWith(
+        distanceKm: double.parse(totalDistanceKm.toStringAsFixed(2)),
+        duration: estimatedDuration,
+      );
     } else {
       // 🔹 Hazır (sabit) rota → manuel sabit liste
       final String lang =
@@ -227,7 +248,6 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       }
       this.contentItems = contentItems;
     }
-
     isLoading = false;
     safeNotifyListeners();
   }

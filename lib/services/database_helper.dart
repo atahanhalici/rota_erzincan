@@ -33,7 +33,7 @@ class DatabaseHelper {
         title TEXT,
         subtitle TEXT, -- ✅ burada olmalı
         imageUrl TEXT,
-        icon INTEGER,
+        icon TEXT,
         distanceKm REAL,
         durationMinutes INTEGER,
         isUserAdded INTEGER

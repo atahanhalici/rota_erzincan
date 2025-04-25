@@ -200,7 +200,7 @@ class NewRouteModalViewModel extends ChangeNotifier with BaseViewModel {
       subtitle: descController.text.trim(),
       imageUrl:
           'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/erzincana-kar-yeniden-geliyor.jpg?alt=media&token=0b910000-dd18-4edc-8724-66268562adb4',
-      icon: Icons.map_rounded,
+      iconName: "map_rounded",
       distanceKm: double.parse(totalDistanceKm.toStringAsFixed(2)),
       duration: estimatedDuration,
       isUserAdded: true,
@@ -215,7 +215,7 @@ class NewRouteModalViewModel extends ChangeNotifier with BaseViewModel {
       'title': route.title,
       'subtitle': route.subtitle,
       'imageUrl': route.imageUrl,
-      'icon': route.icon.codePoint, // int olarak sakla
+      'icon': route.iconName, // int olarak sakla
       'distanceKm': route.distanceKm,
       'durationMinutes': route.duration.inMinutes,
       'isUserAdded': route.isUserAdded ? 1 : 0,

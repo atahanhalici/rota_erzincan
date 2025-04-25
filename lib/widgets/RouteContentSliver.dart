@@ -92,7 +92,7 @@ class RouteContentSliver extends StatelessWidget {
   }) {
     final isUserAdded = viewModel.route.isUserAdded;
     final card = Container(
-      height: 130,
+      height: 145,
       decoration: BoxDecoration(
         color: themeProvider.cardColor,
         borderRadius: BorderRadius.circular(20),

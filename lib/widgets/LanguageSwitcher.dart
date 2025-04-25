@@ -9,9 +9,9 @@ class LanguageSwitcher extends StatefulWidget {
   final bool isDarkMode;
 
   const LanguageSwitcher({
-    Key? key,
+    super.key,
     required this.isDarkMode,
-  }) : super(key: key);
+  });
 
   @override
   State<LanguageSwitcher> createState() => _LanguageSwitcherState();
@@ -62,10 +62,10 @@ class _LanguageSwitcherState extends State<LanguageSwitcher> {
         margin: const EdgeInsets.only(top: 10),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: themeProvider.textColor.withOpacity(0.2),
+          color: themeProvider.textColor.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(30),
           border: Border.all(
-            color: themeProvider.textColor.withOpacity(0.3),
+            color: themeProvider.textColor.withValues(alpha: 0.3),
             width: 1,
           ),
         ),

@@ -310,7 +310,8 @@ class _NewRouteModalState extends State<NewRouteModal> {
                     );
                   }
 
-                  Navigator.pop(context);
+                  Navigator.pop(
+                      context); // <-- başarıyla tamamlandı bilgisini dön
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: themeProvider.buttonColor,

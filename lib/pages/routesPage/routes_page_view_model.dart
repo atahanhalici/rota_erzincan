@@ -27,7 +27,7 @@ class RoutesPageViewModel extends ChangeNotifier with BaseViewModel {
         title: routeMap['title'] as String,
         subtitle: routeMap['subtitle'] as String,
         imageUrl: routeMap['imageUrl'] as String,
-        icon: IconData(routeMap['icon'] as int, fontFamily: 'MaterialIcons'),
+        iconName: (routeMap['icon'] ?? 'map') as String,
         distanceKm: routeMap['distanceKm'] as double,
         duration: Duration(minutes: routeMap['durationMinutes'] as int),
         isUserAdded: (routeMap['isUserAdded'] as int) == 1,
@@ -63,7 +63,6 @@ class RoutesPageViewModel extends ChangeNotifier with BaseViewModel {
       whereArgs: [routeToRemove.id],
     );
   }
-
 
   void navigateToSearch() {
     navigationService.navigateToSearchPage();

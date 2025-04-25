@@ -5,7 +5,7 @@ class CameraModel {
   final String url;
   final String description;
   final String status;
-  final IconData icon;
+  final String iconName; // ✅ IconData yerine string ikon adı
   final String thumbnail;
 
   CameraModel({
@@ -13,7 +13,7 @@ class CameraModel {
     required this.url,
     required this.description,
     required this.status,
-    required this.icon,
+    required this.iconName,
     required this.thumbnail,
   });
 
@@ -23,7 +23,7 @@ class CameraModel {
       url: json['url'],
       description: json['description'],
       status: json['status'],
-      icon: _iconFromCodePoint(json['icon']),
+      iconName: json['icon'], // ✅ string ikon adı
       thumbnail: json['thumbnail'],
     );
   }
@@ -34,12 +34,23 @@ class CameraModel {
       'url': url,
       'description': description,
       'status': status,
-      'icon': icon.codePoint,
+      'icon': iconName, // ✅ string olarak kaydediliyor
       'thumbnail': thumbnail,
     };
   }
 
-  static IconData _iconFromCodePoint(int codePoint) {
-    return IconData(codePoint, fontFamily: 'MaterialIcons');
+  IconData get icon => _iconFromString(iconName);
+
+  static IconData _iconFromString(String iconName) {
+    switch (iconName) {
+      case 'terrain':
+        return Icons.terrain;
+      case 'landscape':
+        return Icons.landscape;
+      case 'downhill_skiing':
+        return Icons.downhill_skiing;
+      default:
+        return Icons.camera_alt; // fallback
+    }
   }
 }

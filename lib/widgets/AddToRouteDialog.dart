@@ -59,7 +59,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
         title: map['title'] as String,
         subtitle: map['subtitle'] as String,
         imageUrl: map['imageUrl'] as String,
-        icon: IconData(map['icon'] as int, fontFamily: 'MaterialIcons'),
+        iconName: map['icon'] as String,
         distanceKm: map['distanceKm'] as double,
         duration: Duration(minutes: map['durationMinutes'] as int),
         isUserAdded: (map['isUserAdded'] as int) == 1,

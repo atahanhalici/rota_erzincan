@@ -28,7 +28,7 @@ class LiveBadge extends StatelessWidget {
           children: [
             const Icon(Icons.circle, size: 10, color: Colors.white),
             const SizedBox(width: 6),
-            Text('liveBadge'.tr(), style: TextStyle(color: Colors.white)),
+            Text('liveBadge'.tr(), style: const TextStyle(color: Colors.white)),
           ],
         ),
       ),
