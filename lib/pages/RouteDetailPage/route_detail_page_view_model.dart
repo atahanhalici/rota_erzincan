@@ -131,7 +131,12 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
           .toList();
     } else {
       // 🔹 Hazır (sabit) rota → manuel sabit liste
-      contentItems = [
+      final String lang =
+          EasyLocalization.of(navigationService.navigatorKey.currentContext!)!
+              .locale
+              .languageCode;
+
+      final List<RouteStop> contentItemsTr = [
         RouteStop(
           id: '1',
           title: 'Saat Kulesi',
@@ -170,6 +175,46 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
         ),
       ];
 
+      final List<RouteStop> contentItemsEn = [
+        RouteStop(
+          id: '1',
+          title: 'Clock Tower',
+          description: 'Historic Erzincan clock tower.',
+          imageUrl:
+              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+          latitude: 39.7524,
+          longitude: 39.4921,
+        ),
+        RouteStop(
+          id: '2',
+          title: 'Erzincan Museum',
+          description: 'Rich in local history and culture.',
+          imageUrl:
+              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+          latitude: 39.7508,
+          longitude: 39.4935,
+        ),
+        RouteStop(
+          id: '3',
+          title: 'Erzincan Museum 2',
+          description: 'Rich in local history and culture.',
+          imageUrl:
+              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+          latitude: 39.7497,
+          longitude: 39.4912,
+        ),
+        RouteStop(
+          id: '4',
+          title: 'Erzincan Museum 3',
+          description: 'Rich in local history and culture.',
+          imageUrl:
+              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+          latitude: 39.7511,
+          longitude: 39.4899,
+        ),
+      ];
+      List<RouteStop> contentItems =
+          lang == 'tr' ? contentItemsTr : contentItemsEn;
       // 🔄 Mesafeleri hesapla
       for (var stop in contentItems) {
         final distance = Geolocator.distanceBetween(
@@ -180,6 +225,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
         );
         stop.distanceFromUser = distance;
       }
+      this.contentItems = contentItems;
     }
 
     isLoading = false;

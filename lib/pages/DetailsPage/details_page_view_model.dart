@@ -14,11 +14,14 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
 
   bool isExpanded = false;
   bool isSpeaking = false;
-  final String fullText =
+  final String fullTextTr =
       "Terzibaba Camii ve Külliyesi, Erzincan'da bulunan ve şehrin en önemli dini ve kültürel yapılarından biridir. Caminin adı, halk arasında büyük bir manevi şahsiyet olarak kabul edilen Terzibaba'ya ithafen verilmiştir. 1980'li yıllarda inşa edilen cami, mimarisiyle hem modern hem de geleneksel unsurları bir araya getirir. Büyük ve gösterişli kubbesi, geniş iç hacmi ve dikkat çekici süslemeleriyle bölgenin en büyük ibadet merkezlerinden biri olarak kabul edilir. Caminin iç mekânında kalem işi süslemeler ve hat sanatı örnekleri yer alırken, avlusu da geniş bir kullanım alanına sahiptir."
       "Külliye, sadece bir ibadet alanı olmanın ötesinde, eğitim ve sosyal faaliyetlerin de gerçekleştirildiği bir merkez olarak tasarlanmıştır. Burada Kur'an kursları, dini sohbetler ve çeşitli kültürel etkinlikler düzenlenmektedir. Caminin yanında yer alan yapılar, ziyaretçilerin ve ibadet edenlerin ihtiyaçlarını karşılamak için çeşitli hizmetler sunmaktadır. Aynı zamanda, Terzibaba Camii, özellikle Cuma ve bayram namazlarında yoğun bir ziyaretçi akınına uğrar. Erzincan halkı için manevi bir merkez olmasının yanı sıra, şehir dışından gelen ziyaretçiler için de önemli bir cazibe noktasıdır."
       "Cami, Erzincan'ın şehir siluetinde önemli bir yer tutarken, özellikle akşam saatlerinde aydınlatmasıyla da ayrı bir görsel şölen sunar. İslam sanatının zarif detaylarını barındıran mimarisiyle, ziyaret edenlere huzurlu bir atmosfer sunar. Erzincan'ın kültürel ve dini mirasının bir parçası olan Terzibaba Camii ve Külliyesi, geçmişten günümüze kadar bölge halkının manevi hayatında büyük bir yer edinmiştir.";
-
+  final String fullTextEn =
+      "Terzibaba Mosque and Complex is one of the most important religious and cultural structures in Erzincan. The mosque is named in honor of Terzibaba, a figure widely regarded as a great spiritual personality by the local people. Built in the 1980s, the mosque blends both modern and traditional architectural elements. With its large and magnificent dome, spacious interior, and striking decorations, it is considered one of the region's largest centers of worship. Inside the mosque, you can find examples of ornamental painting and Islamic calligraphy, while its courtyard offers a broad and functional space."
+      "The complex is designed not only as a place of worship but also as a center for education and social activities. Quran courses, religious talks, and various cultural events are held here. The surrounding buildings next to the mosque provide various services to meet the needs of both visitors and worshippers. Terzibaba Mosque also attracts a large number of visitors, especially during Friday and Eid prayers. In addition to being a spiritual center for the people of Erzincan, it also serves as a significant attraction for visitors from outside the city."
+      "The mosque holds a prominent place in Erzincan’s cityscape and offers a unique visual spectacle with its lighting, especially in the evening hours. With its architecture reflecting the elegant details of Islamic art, it provides a peaceful atmosphere for visitors. As a part of Erzincan’s cultural and religious heritage, Terzibaba Mosque and Complex has held a significant place in the spiritual life of the local community from past to present.";
   final List<String> imageUrls = List.generate(
       3, (index) => 'https://picsum.photos/800/500?random=$index');
   final FlutterTts _flutterTts = FlutterTts();
@@ -50,22 +53,29 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
     notifyListeners();
   }
 
-  Future<void> speakText() async {
-    await _flutterTts.setLanguage("tr-TR"); // Türkçe konuşması için
-    await _flutterTts.setPitch(1.0);
-    await _flutterTts.setSpeechRate(0.55); // Hızlıysa 0.4 falan yap
-    await _flutterTts.speak(fullText);
+  Future<void> speakText(String localeCode) async {
+    if (localeCode == "tr") {
+      await _flutterTts.setLanguage("tr-TR"); // Türkçe konuşması için
+      await _flutterTts.setPitch(1.0);
+      await _flutterTts.setSpeechRate(0.55); // Hızlıysa 0.4 falan yap
+      await _flutterTts.speak(fullTextTr);
+    } else {
+      await _flutterTts.setLanguage("en-US");
+      await _flutterTts.setPitch(1.0);
+      await _flutterTts.setSpeechRate(0.5); // İngilizce için ideal oran
+      await _flutterTts.speak(fullTextEn);
+    }
   }
 
   Future<void> stopSpeaking() async {
     await _flutterTts.stop();
   }
 
-  Future<void> toggleSpeaking() async {
+  Future<void> toggleSpeaking(String localeCode) async {
     if (isSpeaking) {
       await stopSpeaking();
     } else {
-      await speakText();
+      await speakText(localeCode);
     }
   }
 

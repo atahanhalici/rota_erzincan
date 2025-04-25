@@ -20,7 +20,7 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
   Map<String, dynamic>? floatingPanelData;
   String? distanceToNearest;
 
-  final List<Map<String, dynamic>> assemblyPoints = [
+  final List<Map<String, dynamic>> assemblyPointsTr = [
     {
       'name': 'Fatih Mahallesi Parkı',
       'point': const LatLng(39.7500, 39.4900),
@@ -112,6 +112,114 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
       'contact': 'Valilik AFAD Birimi: 0446 XXX XX XX'
     },
   ];
+  final List<Map<String, dynamic>> assemblyPointsEn = [
+    {
+      'name': 'Fatih Neighborhood Park',
+      'point': const LatLng(39.7500, 39.4900),
+      'capacity': 1200,
+      'facilities': ['Water Supply Station', 'First Aid Tent'],
+      'description':
+          'Large open area with children’s playground and tree-lined sections.',
+      'contact': 'Neighborhood Head Office: 0446 XXX XX XX'
+    },
+    {
+      'name': 'Erzincan City Stadium',
+      'point': const LatLng(39.7475, 39.4905),
+      'capacity': 5000,
+      'facilities': [
+        'Toilets',
+        'Water Supply Station',
+        'Mobile Health Unit',
+        'Tent Area'
+      ],
+      'description': 'High-capacity area with stands and large parking lot.',
+      'contact': 'Stadium Management: 0446 XXX XX XX'
+    },
+    {
+      'name': 'Republic Square',
+      'point': const LatLng(39.7489, 39.4922),
+      'capacity': 3000,
+      'facilities': ['Toilets', 'Water Supply Station', 'First Aid Center'],
+      'description': 'Wide city square with easy access.',
+      'contact': 'Municipality: 0446 XXX XX XX'
+    },
+    {
+      'name': 'Atatürk Neighborhood Mosque Front',
+      'point': const LatLng(39.7460, 39.4870),
+      'capacity': 800,
+      'facilities': ['Water Supply Station'],
+      'description': 'Spacious mosque courtyard in a central location.',
+      'contact': 'Mosque Imam: 0446 XXX XX XX'
+    },
+    {
+      'name': 'Halitpaşa Primary School Yard',
+      'point': const LatLng(39.7490, 39.4888),
+      'capacity': 1500,
+      'facilities': ['Toilets', 'Water Supply Station', 'Mobile Tent'],
+      'description': 'Large schoolyard area, fenced and secure environment.',
+      'contact': 'School Directorate: 0446 XXX XX XX'
+    },
+    {
+      'name': 'University Junction Park',
+      'point': const LatLng(39.7520, 39.4945),
+      'capacity': 1000,
+      'facilities': ['Toilets', 'Water Supply Station', 'First Aid Station'],
+      'description': 'Near university campus, easily accessible.',
+      'contact': 'University Security: 0446 XXX XX XX'
+    },
+    {
+      'name': 'Behind Erzincan Mall',
+      'point': const LatLng(39.7502, 39.4930),
+      'capacity': 2000,
+      'facilities': [
+        'Toilets',
+        'Water Supply Station',
+        'Food Distribution Point'
+      ],
+      'description':
+          'Spacious mall parking lot with both open and closed areas.',
+      'contact': 'Mall Management: 0446 XXX XX XX'
+    },
+    {
+      'name': 'Yeni Neighborhood Market Area',
+      'point': const LatLng(39.7445, 39.4901),
+      'capacity': 2500,
+      'facilities': ['Water Supply Station', 'Tent Area'],
+      'description': 'Large open-air area where the weekly market is held.',
+      'contact': 'Neighborhood Head Office: 0446 XXX XX XX'
+    },
+    {
+      'name': 'Open Area in Front of Municipality',
+      'point': const LatLng(39.7466, 39.4932),
+      'capacity': 1200,
+      'facilities': [
+        'Toilets',
+        'Water Supply Station',
+        'Administrative Center'
+      ],
+      'description':
+          'Municipal square, used as coordination center during emergencies.',
+      'contact': 'Municipality Disaster Coordination: 0446 XXX XX XX'
+    },
+    {
+      'name': 'Open Area Next to Governorship',
+      'point': const LatLng(39.7472, 39.4940),
+      'capacity': 1000,
+      'facilities': [
+        'Toilets',
+        'Water Supply Station',
+        'AFAD Management Center'
+      ],
+      'description':
+          'Area next to the governorship, easy coordination with authorities.',
+      'contact': 'Governorship AFAD Unit: 0446 XXX XX XX'
+    },
+  ];
+  late String langCode;
+  void initializeWithContext(BuildContext context) {
+    langCode = context.locale.languageCode;
+    // Dil kontrolü, tema, medya query vs. gibi şeyleri burada alabilirsin
+  }
 
   Future<void> getUserLocation(MapController mapController) async {
     try {
@@ -160,10 +268,19 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
   Map<String, dynamic>? getNearestPoint() {
     if (userLocation == null) return null;
     const Distance distance = Distance();
-    return assemblyPoints.reduce((a, b) => distance(userLocation!, a['point']) <
-            distance(userLocation!, b['point'])
-        ? a
-        : b);
+    if (langCode == "tr") {
+      return assemblyPointsTr.reduce((a, b) =>
+          distance(userLocation!, a['point']) <
+                  distance(userLocation!, b['point'])
+              ? a
+              : b);
+    } else {
+      return assemblyPointsEn.reduce((a, b) =>
+          distance(userLocation!, a['point']) <
+                  distance(userLocation!, b['point'])
+              ? a
+              : b);
+    }
   }
 
   void updateNearestDistance() {

@@ -7,13 +7,13 @@ import 'package:rota_erzincan/services/api_service.dart';
 class GalleryPageViewModel extends ChangeNotifier with BaseViewModel {
   final ApiService _apiService = ApiService();
 
-  final List<String> categories = [
-    'galleryCategoryAll'.tr(),
-    'galleryCategoryNature'.tr(),
-    'galleryCategoryArchitecture'.tr(),
-    'galleryCategoryCulture'.tr(),
-    'galleryCategoryFood'.tr(),
-  ];
+  List<String> get categories => [
+        'galleryCategoryAll'.tr(),
+        'galleryCategoryNature'.tr(),
+        'galleryCategoryArchitecture'.tr(),
+        'galleryCategoryCulture'.tr(),
+        'galleryCategoryFood'.tr(),
+      ];
 
   int selectedCategoryIndex = 0;
 

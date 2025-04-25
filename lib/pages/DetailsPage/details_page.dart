@@ -12,6 +12,7 @@ import 'package:rota_erzincan/widgets/AddToRouteDialog.dart';
 import 'package:rota_erzincan/widgets/BuildCircularButton.dart';
 import 'package:rota_erzincan/widgets/BuildInfoItem.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key});
 
@@ -164,7 +165,9 @@ class _DetailsPageState extends State<DetailsPage>
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final viewModel = Provider.of<DetailsPageViewModel>(context);
-
+    final localeCode = context.locale.languageCode;
+    final selectedText =
+        localeCode == 'tr' ? viewModel.fullTextTr : viewModel.fullTextEn;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -237,23 +240,27 @@ class _DetailsPageState extends State<DetailsPage>
                           return AnimatedOpacity(
                             duration: const Duration(milliseconds: 300),
                             opacity: opacity * _fadeAnimation.value,
-                            child: Center(
-                              child: Transform.translate(
-                                offset: Offset(0, _headerAnimation.value),
-                                child: Text(
-                                  viewModel.contentItem.title,
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    shadows: [
-                                      Shadow(
-                                        color:
-                                            Colors.black.withValues(alpha: 0.5),
-                                        offset: const Offset(0, 2),
-                                        blurRadius: 4,
-                                      ),
-                                    ],
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 50, right: 20),
+                              child: Center(
+                                child: Transform.translate(
+                                  offset: Offset(0, _headerAnimation.value),
+                                  child: Text(
+                                    viewModel.contentItem.title,
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      shadows: [
+                                        Shadow(
+                                          color: Colors.black
+                                              .withValues(alpha: 0.5),
+                                          offset: const Offset(0, 2),
+                                          blurRadius: 4,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -288,7 +295,7 @@ class _DetailsPageState extends State<DetailsPage>
                                     width: 1,
                                   ),
                                 ),
-                                child:  Row(
+                                child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
@@ -444,7 +451,8 @@ class _DetailsPageState extends State<DetailsPage>
                                                   BuildCircularButton(
                                                     onTap: () async {
                                                       await viewModel
-                                                          .toggleSpeaking();
+                                                          .toggleSpeaking(
+                                                              localeCode);
                                                     },
                                                     icon: viewModel.isSpeaking
                                                         ? Icons.stop
@@ -481,8 +489,8 @@ class _DetailsPageState extends State<DetailsPage>
                                     const SizedBox(height: 20),
                                     Text(
                                       viewModel.isExpanded
-                                          ? viewModel.fullText
-                                          : '${viewModel.fullText.substring(0, 300)}...',
+                                          ? selectedText
+                                          : '${selectedText.substring(0, 300)}...',
                                       textAlign: TextAlign.justify,
                                       style: GoogleFonts.poppins(
                                         fontSize: 17,
@@ -549,10 +557,8 @@ class _DetailsPageState extends State<DetailsPage>
                                                 },
                                                 child: Text(
                                                   viewModel.isExpanded
-                                                      ? StringConstants
-                                                          .showLessText
-                                                      : StringConstants
-                                                          .readMoreText,
+                                                      ? 'showLessText'.tr()
+                                                      : 'readMoreText'.tr(),
                                                   style: GoogleFonts.poppins(
                                                     color: Colors.white,
                                                     fontSize: 16,

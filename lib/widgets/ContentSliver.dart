@@ -38,7 +38,7 @@ class ContentSliver extends StatelessWidget {
 
             return GestureDetector(
               onTap: () {
-                if (viewModel.category.id==1) {
+                if (viewModel.category.id == 8) {
                   viewModel.navigateToEvent(item, context);
                 } else {
                   viewModel.navigateToPage(item);
@@ -73,10 +73,9 @@ class ContentSliver extends StatelessWidget {
                     child: Row(
                       children: [
                         Hero(
-                          tag:
-                              viewModel.category.id==1
-                                  ? "event_${item.id}"
-                                  : 'content_${item.id}',
+                          tag: viewModel.category.id == 1
+                              ? "event_${item.id}"
+                              : 'content_${item.id}',
                           child: ClipRRect(
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(20),

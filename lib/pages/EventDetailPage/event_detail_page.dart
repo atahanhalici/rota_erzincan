@@ -29,7 +29,7 @@ class EventDetailPage extends StatelessWidget {
       create: (_) {
         final viewModel = EventDetailViewModel();
         viewModel.initialize(args);
-        viewModel.fetchData();
+        viewModel.fetchData(context);
         return viewModel;
       },
       child: Consumer<EventDetailViewModel>(

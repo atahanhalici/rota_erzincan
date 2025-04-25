@@ -17,12 +17,12 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = [
-      _NavItem(icon: Icons.home_outlined, label: 'bottomNavHome'.tr()),
-      _NavItem(icon: Icons.dehaze_outlined, label: 'bottomNavCategories'.tr()),
+      _NavItem(icon: Icons.home_outlined, labelKey: 'bottomNavHome'),
+      _NavItem(icon: Icons.dehaze_outlined, labelKey: 'bottomNavCategories'),
       _NavItem(
-          icon: Icons.photo_library_outlined, label: 'bottomNavGallery'.tr()),
-      _NavItem(icon: Icons.map_outlined, label: 'bottomNavRoutes'.tr()),
-      _NavItem(icon: Icons.event_outlined, label: 'bottomNavEvents'.tr()),
+          icon: Icons.photo_library_outlined, labelKey: 'bottomNavGallery'),
+      _NavItem(icon: Icons.map_outlined, labelKey: 'bottomNavRoutes'),
+      _NavItem(icon: Icons.event_outlined, labelKey: 'bottomNavEvents'),
     ];
 
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -143,7 +143,7 @@ class CustomBottomNavBar extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
-          item.label,
+          item.labelKey.tr(),
           style: TextStyle(
             color: isSelected
                 ? (isDark ? Colors.white : Colors.black87)
@@ -153,7 +153,7 @@ class CustomBottomNavBar extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,
-        ),
+        )
       ],
     );
   }
@@ -161,7 +161,7 @@ class CustomBottomNavBar extends StatelessWidget {
 
 class _NavItem {
   final IconData icon;
-  final String label;
+  final String labelKey;
 
-  _NavItem({required this.icon, required this.label});
+  _NavItem({required this.icon, required this.labelKey});
 }

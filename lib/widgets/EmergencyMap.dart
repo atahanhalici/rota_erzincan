@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,9 @@ class EmergencyMap extends StatelessWidget {
     final userLocation = viewModel.userLocation;
     final selectedPoint = viewModel.selectedPoint;
     final nearest = viewModel.getNearestPoint();
-
+    final lang = context.locale.languageCode;
+    final assemblyPoints =
+        lang == 'tr' ? viewModel.assemblyPointsTr : viewModel.assemblyPointsEn;
     return FlutterMap(
       mapController: mapController,
       options: MapOptions(
@@ -82,7 +85,7 @@ class EmergencyMap extends StatelessWidget {
               ),
 
             // Diğer tüm markerlar (seçili olan hariç)
-            ...viewModel.assemblyPoints.where((area) {
+            ...assemblyPoints.where((area) {
               final point = area['point'] as LatLng;
               return selectedPoint == null ||
                   !_isSamePoint(point, selectedPoint);
@@ -109,7 +112,7 @@ class EmergencyMap extends StatelessWidget {
         // Seçili marker en üste ekleniyor
         if (selectedPoint != null)
           MarkerLayer(
-            markers: viewModel.assemblyPoints
+            markers: assemblyPoints
                 .where((area) => _isSamePoint(area['point'], selectedPoint))
                 .map((area) {
               final point = area['point'] as LatLng;

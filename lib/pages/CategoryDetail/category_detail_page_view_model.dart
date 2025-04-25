@@ -52,7 +52,10 @@ class CategoryDetailViewModel extends ChangeNotifier with BaseViewModel {
   Future<void> navigateToEvent(
       CategoryContentItem item, BuildContext context) async {
     // eventType belirleniyor
-    String eventType = item.title.contains('Film') ? 'movie' : 'theater';
+    String eventType =
+        item.title.contains('Film') || item.title.contains("Showing")
+            ? 'movie'
+            : 'theater';
 
     await Navigator.of(context).pushNamed(
       "/eventDetail",

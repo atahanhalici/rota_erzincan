@@ -34,6 +34,19 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
     Future.microtask(() =>
         Provider.of<EmergencyAssemblyAreasViewModel>(context, listen: false)
             .getUserLocation(_mapController));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final viewModel =
+          Provider.of<EmergencyAssemblyAreasViewModel>(context, listen: false);
+      viewModel.initializeWithContext(context);
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final viewModel =
+        Provider.of<EmergencyAssemblyAreasViewModel>(context, listen: false);
+    viewModel.initializeWithContext(context);
   }
 
   @override
@@ -209,7 +222,7 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
                     ),
                   ),
                   icon: const Icon(Icons.location_on),
-                  label:  Text('locationPermissionButton'.tr()),
+                  label: Text('locationPermissionButton'.tr()),
                 ),
               ],
             ),

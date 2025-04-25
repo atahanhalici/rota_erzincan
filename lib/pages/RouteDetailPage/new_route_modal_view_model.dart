@@ -1,11 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
 import 'package:rota_erzincan/services/database_helper.dart';
 import 'package:uuid/uuid.dart';
 
-class NewRouteModalViewModel extends ChangeNotifier {
+class NewRouteModalViewModel extends ChangeNotifier with BaseViewModel {
   final nameController = TextEditingController();
   final descController = TextEditingController();
   final uuid = const Uuid();
@@ -17,12 +19,12 @@ class NewRouteModalViewModel extends ChangeNotifier {
     CategoryContentItem? initialItem,
     RouteItem? editingRoute,
   }) {
-    // ✅ 1. ID bazlı benzersiz item'lar için geçici map
-    final Map<String, CategoryContentItem> uniqueMap = {};
+    final lang =
+        EasyLocalization.of(navigationService.navigatorKey.currentContext!)!
+            .locale
+            .languageCode;
 
-    // ✅ 2. Hepsini ekleyelim (ID aynıysa üzerine yazar, böylece duplicate'lar gider)
-    for (final item in [
-      // 👇 Varsayılan 5 yer
+    final List<CategoryContentItem> itemTr = [
       CategoryContentItem(
         id: 'item_0',
         title: 'Ergan Dağı Kayak Merkezi',
@@ -45,7 +47,7 @@ class NewRouteModalViewModel extends ChangeNotifier {
         id: 'item_2',
         title: 'Kemaliye Karanlık Kanyon',
         description:
-            'Dünyanın en dar geçitlerinden biri, muazzam manzaralı yürüyüş yollarıyla ünlü.',
+            'Dünyanın en dar geçitlerinden biri, manzaralı yürüyüş yollarıyla ünlü.',
         imageUrl: 'https://picsum.photos/id/1043/600/400',
         latitude: 39.2601,
         longitude: 38.4968,
@@ -67,17 +69,71 @@ class NewRouteModalViewModel extends ChangeNotifier {
         latitude: 39.7508,
         longitude: 39.4977,
       ),
+    ];
+
+    final List<CategoryContentItem> itemEn = [
+      CategoryContentItem(
+        id: 'item_0',
+        title: 'Ergan Mountain Ski Center',
+        description:
+            'A ski resort integrated with nature, famous for winter tourism.',
+        imageUrl: 'https://picsum.photos/id/1011/600/400',
+        latitude: 39.6152,
+        longitude: 39.5558,
+      ),
+      CategoryContentItem(
+        id: 'item_1',
+        title: 'Girlevik Waterfall',
+        description: 'A beautiful waterfall ideal for picnics and photography.',
+        imageUrl: 'https://picsum.photos/id/1025/600/400',
+        latitude: 39.6255,
+        longitude: 39.7813,
+      ),
+      CategoryContentItem(
+        id: 'item_2',
+        title: 'Kemaliye Dark Canyon',
+        description:
+            'One of the narrowest canyons in the world, famous for its scenic trails.',
+        imageUrl: 'https://picsum.photos/id/1043/600/400',
+        latitude: 39.2601,
+        longitude: 38.4968,
+      ),
+      CategoryContentItem(
+        id: 'item_3',
+        title: 'Ekşisu Recreation Area',
+        description: 'Famous for its natural mineral springs and picnic areas.',
+        imageUrl: 'https://picsum.photos/id/1062/600/400',
+        latitude: 39.6613,
+        longitude: 39.6907,
+      ),
+      CategoryContentItem(
+        id: 'item_4',
+        title: 'Erzincan Castle',
+        description: 'A historical castle overlooking the city.',
+        imageUrl: 'https://picsum.photos/id/1050/600/400',
+        latitude: 39.7508,
+        longitude: 39.4977,
+      ),
+    ];
+
+    // ✅ Dil kontrolü ile doğru listeyi al
+    final selectedLangItems = lang == 'tr' ? itemTr : itemEn;
+
+    // ✅ 1. Benzersiz ID map’i oluştur
+    final Map<String, CategoryContentItem> uniqueMap = {};
+
+    for (final item in [
+      ...selectedLangItems,
       if (initialItem != null) initialItem,
       if (editingRoute != null) ...editingRoute.stops,
     ]) {
-      uniqueMap[item.id] =
-          item; // 🔁 Aynı ID varsa üzerine yazar → duplicate çözülür
+      uniqueMap[item.id] = item;
     }
 
-    // ✅ 3. Benzersiz öğeleri al
+    // ✅ 2. Listeyi oluştur
     allItems = uniqueMap.values.toList();
 
-    // ✅ 4. Seçili durakları işaretle
+    // ✅ 3. Seçili olanları işaretle
     if (initialItem != null) {
       selectedIds.add(initialItem.id);
     }
@@ -88,13 +144,12 @@ class NewRouteModalViewModel extends ChangeNotifier {
       selectedIds.addAll(editingRoute.stops.map((e) => e.id));
     }
 
-    // ✅ 5. Seçili olanları üstte göstermek için sırala
+    // ✅ 4. Seçilenleri en üste çek
     allItems.sort((a, b) {
       final aSelected = selectedIds.contains(a.id) ? 0 : 1;
       final bSelected = selectedIds.contains(b.id) ? 0 : 1;
       return aSelected.compareTo(bSelected);
     });
-
   }
 
   void toggleSelection(String id) {
@@ -178,7 +233,6 @@ class NewRouteModalViewModel extends ChangeNotifier {
         'stopOrder': order++, // ✅ sıralı index
       });
     }
-
   }
 
   void disposeControllers() {
@@ -229,6 +283,5 @@ class NewRouteModalViewModel extends ChangeNotifier {
         'stopOrder': order++,
       });
     }
-
   }
 }

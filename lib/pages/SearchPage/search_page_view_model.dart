@@ -19,45 +19,93 @@ class SearchPageViewModel extends ChangeNotifier with BaseViewModel {
     'popularSearchTerm_5',
     'popularSearchTerm_6',
   ];
-  final List<CategoryContentItem> _allItems = [
-    CategoryContentItem(
-      id: '1',
-      title: 'Terzi Baba Türbesi',
-      description: 'Erzincan merkezde bulunan tarihi türbe.',
-      imageUrl:
-          'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-      latitude: 39.7509,
-      longitude: 39.4958,
-    ),
-    CategoryContentItem(
-      id: '2',
-      title: 'Girlevik Şelalesi',
-      description: 'Erzincan\'ın doğal güzelliklerinden biri olan şelale.',
-      imageUrl:
-          'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-      latitude: 39.6290,
-      longitude: 39.6412,
-    ),
-    CategoryContentItem(
-      id: '3',
-      title: 'Ergan Dağı Kayak Merkezi',
-      description: 'Erzincan\'da kış turizmi için ideal kayak merkezi.',
-      imageUrl:
-          'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-      latitude: 39.6133,
-      longitude: 39.5061,
-    ),
-    CategoryContentItem(
-      id: '4',
-      title: 'Kemaliye (Eğin)',
-      description: 'Tarihi evleri ve doğal güzellikleriyle ünlü ilçe.',
-      imageUrl:
-          'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-      latitude: 39.2614,
-      longitude: 38.4911,
-    ),
-  ];
-  List<CategoryContentItem> get allItems => _allItems;
+
+  List<CategoryContentItem> get allItems {
+    final lang =
+        EasyLocalization.of(navigationService.navigatorKey.currentContext!)!
+            .locale
+            .languageCode;
+
+    final List<CategoryContentItem> trItems = [
+      CategoryContentItem(
+        id: '1',
+        title: 'Terzi Baba Türbesi',
+        description: 'Erzincan merkezde bulunan tarihi türbe.',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+        latitude: 39.7509,
+        longitude: 39.4958,
+      ),
+      CategoryContentItem(
+        id: '2',
+        title: 'Girlevik Şelalesi',
+        description: 'Erzincan\'ın doğal güzelliklerinden biri olan şelale.',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+        latitude: 39.6290,
+        longitude: 39.6412,
+      ),
+      CategoryContentItem(
+        id: '3',
+        title: 'Ergan Dağı Kayak Merkezi',
+        description: 'Erzincan\'da kış turizmi için ideal kayak merkezi.',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+        latitude: 39.6133,
+        longitude: 39.5061,
+      ),
+      CategoryContentItem(
+        id: '4',
+        title: 'Kemaliye (Eğin)',
+        description: 'Tarihi evleri ve doğal güzellikleriyle ünlü ilçe.',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+        latitude: 39.2614,
+        longitude: 38.4911,
+      ),
+    ];
+
+    final List<CategoryContentItem> enItems = [
+      CategoryContentItem(
+        id: '1',
+        title: 'Terzi Baba Tomb',
+        description: 'A historical tomb located in the center of Erzincan.',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+        latitude: 39.7509,
+        longitude: 39.4958,
+      ),
+      CategoryContentItem(
+        id: '2',
+        title: 'Girlevik Waterfall',
+        description: 'A famous natural beauty and photography spot.',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+        latitude: 39.6290,
+        longitude: 39.6412,
+      ),
+      CategoryContentItem(
+        id: '3',
+        title: 'Ergan Mountain Ski Center',
+        description: 'An ideal ski resort for winter tourism in Erzincan.',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+        latitude: 39.6133,
+        longitude: 39.5061,
+      ),
+      CategoryContentItem(
+        id: '4',
+        title: 'Kemaliye (Eğin)',
+        description: 'Famous for its historic houses and natural beauty.',
+        imageUrl:
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+        latitude: 39.2614,
+        longitude: 38.4911,
+      ),
+    ];
+
+    return lang == 'tr' ? trItems : enItems;
+  }
 
   Future<void> loadRecentSearches() async {
     final prefs = await SharedPreferences.getInstance();

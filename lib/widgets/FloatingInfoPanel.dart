@@ -27,7 +27,7 @@ class FloatingInfoPanel extends StatelessWidget {
       children: [
         if (showPanel && point != null)
           Positioned(
-            top: 20 + kToolbarHeight,
+            top: 45 + kToolbarHeight,
             left: 20,
             right: 20,
             child: AnimatedOpacity(
@@ -114,9 +114,9 @@ class FloatingInfoPanel extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child:  Text(
+                      child: Text(
                         'floatingPanelDetailsButton'.tr(),
-                        style:const TextStyle(
+                        style: const TextStyle(
                           color: ColorConstants.buttonColor,
                           fontWeight: FontWeight.bold,
                         ),
@@ -205,9 +205,9 @@ class FloatingInfoPanel extends StatelessWidget {
                   angle: -45 * math.pi / 180,
                   child: const Icon(Icons.navigation, color: Colors.white),
                 ),
-                label:  Text(
+                label: Text(
                   'floatingPanelNearestButton'.tr(),
-                  style:const TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),

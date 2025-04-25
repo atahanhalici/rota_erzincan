@@ -63,7 +63,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
     final double appBarHeight = kToolbarHeight + statusBarHeight;
     final double expandedHeight = appBarHeight + 160;
     return Scaffold(
-      drawer: viewModel.category.id == 1
+      drawer: viewModel.category.id == 8
           ? CustomDrawer(
               toggleTheme: themeProvider.toggleTheme,
               isDarkMode: themeProvider.isDarkMode,
