@@ -223,6 +223,14 @@ class _NewRouteModalState extends State<NewRouteModal> {
                               width: 44,
                               height: 44,
                               fit: BoxFit.cover,
+                              imageErrorBuilder: (context, error, stackTrace) {
+                                return Image.asset(
+                                  ImageConstants.loading,
+                                  fit: BoxFit.cover,
+                                  width: 44,
+                                  height: 44,
+                                );
+                              },
                             ),
                           ),
                           title: Text(

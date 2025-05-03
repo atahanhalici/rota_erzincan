@@ -61,6 +61,12 @@ class BuildGalleryItem extends StatelessWidget {
                   placeholder: ImageConstants.loading,
                   image: imageUrl,
                   fit: BoxFit.cover,
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      ImageConstants.loading,
+                      fit: BoxFit.cover,
+                    );
+                  },
                 ),
                 Positioned.fill(
                   child: Container(

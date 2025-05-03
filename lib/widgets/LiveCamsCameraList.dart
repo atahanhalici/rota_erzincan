@@ -84,6 +84,12 @@ class LiveCamsCameraList extends StatelessWidget {
                                 .loading, // Yüklenirken gösterilecek resim
                             image: cam.thumbnail,
                             fit: BoxFit.cover,
+                              imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      ImageConstants.loading,
+                      fit: BoxFit.cover,
+                    );
+                  },
                           ),
                         ),
                         const Positioned.fill(

@@ -56,6 +56,12 @@ class _CategoryCardState extends State<CategoryCard>
                       placeholder: ImageConstants.loading,
                       image: widget.item.imageUrl,
                       fit: BoxFit.cover,
+                      imageErrorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          ImageConstants.loading,
+                          fit: BoxFit.cover,
+                        );
+                      },
                     ),
                   ),
 
@@ -85,6 +91,12 @@ class _CategoryCardState extends State<CategoryCard>
                           placeholder: ImageConstants.loading,
                           image: widget.item.imageUrl,
                           fit: BoxFit.cover,
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              ImageConstants.loading,
+                              fit: BoxFit.cover,
+                            );
+                          },
                         ),
                       ),
 

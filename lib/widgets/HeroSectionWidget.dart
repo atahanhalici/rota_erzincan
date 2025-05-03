@@ -40,6 +40,12 @@ class HeroSectionWidget extends StatelessWidget {
                       image:
                           "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/ergan.jpeg?alt=media&token=21637606-bf8f-4bf3-b758-ef8858560097",
                       fit: BoxFit.cover,
+                        imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      ImageConstants.loading,
+                      fit: BoxFit.cover,
+                    );
+                  },
                     ),
                   ),
                   Container(

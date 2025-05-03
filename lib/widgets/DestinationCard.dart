@@ -68,8 +68,8 @@ class _DestinationCardState extends State<DestinationCard>
           if (widget.title.contains("Ergan")) {
             _homeModel.navigateToErgan(context);
           } else {
-            _homeModel.navigateToCategoryDetail(
-                widget.title, widget.subtitle, widget.imageUrl, widget.icon,widget.id);
+            _homeModel.navigateToCategoryDetail(widget.title, widget.subtitle,
+                widget.imageUrl, widget.icon, widget.id);
           }
         },
         onTapDown: (_) {
@@ -124,6 +124,12 @@ class _DestinationCardState extends State<DestinationCard>
                               placeholder: ImageConstants.loading,
                               image: widget.imageUrl,
                               fit: BoxFit.cover,
+                              imageErrorBuilder: (context, error, stackTrace) {
+                                return Image.asset(
+                                  ImageConstants.loading,
+                                  fit: BoxFit.cover,
+                                );
+                              },
                             ),
                           ),
                         ),

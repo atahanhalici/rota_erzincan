@@ -52,6 +52,13 @@ class PlaceCardWidget extends StatelessWidget {
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: 180,
+                imageErrorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    ImageConstants.loading,
+                    fit: BoxFit.cover,
+                    height: 180,
+                  );
+                },
               ),
             ),
             Padding(

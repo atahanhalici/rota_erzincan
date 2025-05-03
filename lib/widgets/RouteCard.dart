@@ -56,6 +56,12 @@ class _RouteCardState extends State<RouteCard>
                       placeholder: ImageConstants.loading,
                       image: widget.item.imageUrl,
                       fit: BoxFit.cover,
+                      imageErrorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          ImageConstants.loading,
+                          fit: BoxFit.cover,
+                        );
+                      },
                     ),
                   ),
 

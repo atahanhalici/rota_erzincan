@@ -84,6 +84,12 @@ class EventSliverAppBar extends StatelessWidget {
                       placeholder: ImageConstants.loading,
                       image: viewModel.imageUrl,
                       fit: BoxFit.cover,
+                        imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      ImageConstants.loading,
+                      fit: BoxFit.cover,
+                    );
+                  },
                     ),
                     Container(
                       decoration: BoxDecoration(

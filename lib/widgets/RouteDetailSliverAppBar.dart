@@ -85,6 +85,12 @@ class RouteDetailSliverAppBar extends StatelessWidget {
                       placeholder: ImageConstants.loading,
                       image: viewModel.route.imageUrl,
                       fit: BoxFit.cover,
+                      imageErrorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          ImageConstants.loading,
+                          fit: BoxFit.cover,
+                        );
+                      },
                     ),
                     Container(
                       decoration: BoxDecoration(

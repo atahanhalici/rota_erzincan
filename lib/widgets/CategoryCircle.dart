@@ -69,6 +69,12 @@ class CategoryCircle extends StatelessWidget {
                           .loading, // Yüklenirken gösterilecek resim
                       image: model.imageUrl,
                       fit: BoxFit.cover,
+                       imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      ImageConstants.loading,
+                      fit: BoxFit.cover,
+                    );
+                  },
                     ),
                   ),
                 ),
