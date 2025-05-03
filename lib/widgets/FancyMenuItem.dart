@@ -8,6 +8,7 @@ class FancyMenuItem extends StatelessWidget {
   final String label;
   final VoidCallback onTap;
   final Color color;
+  final double height;
 
   const FancyMenuItem({
     super.key,
@@ -15,6 +16,7 @@ class FancyMenuItem extends StatelessWidget {
     required this.label,
     required this.onTap,
     required this.color,
+    required this.height,
   });
 
   @override
@@ -22,19 +24,19 @@ class FancyMenuItem extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final bool isDark = themeProvider.isDarkMode;
 
-    // Tema uyumlu renkler
     final backgroundColor = isDark
-        ? Colors.white.withValues(alpha: 0.05)
-        : Colors.grey.shade100.withValues(alpha: 0.95);
+        ? Colors.white.withOpacity(0.05)
+        : Colors.grey.shade100.withOpacity(0.95);
     final borderColor =
-        isDark ? Colors.white.withValues(alpha: 0.2) : Colors.grey.shade300;
+        isDark ? Colors.white.withOpacity(0.2) : Colors.grey.shade300;
     final textColor = isDark ? Colors.white : Colors.black87;
     final iconArrowColor = isDark ? Colors.white60 : Colors.black45;
 
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        height: height,
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(16),
@@ -42,13 +44,13 @@ class FancyMenuItem extends StatelessWidget {
           boxShadow: [
             if (!isDark)
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.04),
+                color: Colors.black.withOpacity(0.04),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
           ],
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           children: [
             Container(
@@ -57,8 +59,8 @@ class FancyMenuItem extends StatelessWidget {
                 shape: BoxShape.circle,
                 gradient: LinearGradient(
                   colors: [
-                    color.withValues(alpha: 0.9),
-                    color.withValues(alpha: 0.7),
+                    color.withOpacity(0.9),
+                    color.withOpacity(0.7),
                   ],
                 ),
               ),

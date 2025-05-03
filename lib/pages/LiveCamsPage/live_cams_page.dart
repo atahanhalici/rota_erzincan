@@ -42,7 +42,7 @@ class _LiveCamsPageState extends State<LiveCamsPage>
       ),
     );
 
-   WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       viewModel = Provider.of<LiveCamsPageViewModel>(context, listen: false);
       viewModel.loadCameras(context);
       _controller.forward();
@@ -73,76 +73,79 @@ class _LiveCamsPageState extends State<LiveCamsPage>
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     viewModel = Provider.of<LiveCamsPageViewModel>(context, listen: true);
-    return Scaffold(
-      backgroundColor: themeProvider.backgroundColor,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            decoration: BoxDecoration(
-              color: themeProvider.cardColor.withValues(alpha: 0.85),
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        backgroundColor: themeProvider.backgroundColor,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              decoration: BoxDecoration(
+                color: themeProvider.cardColor.withValues(alpha: 0.85),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: themeProvider.isDarkMode
+                        ? Colors.black.withValues(alpha: 0.4)
+                        : Colors.grey.withValues(alpha: 0.2),
+                    blurRadius: 15,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: themeProvider.isDarkMode
-                      ? Colors.black.withValues(alpha: 0.4)
-                      : Colors.grey.withValues(alpha: 0.2),
-                  blurRadius: 15,
-                  offset: const Offset(0, 4),
+              child: Appbar(
+                actionIcon: const Icon(
+                  Icons.search,
+                  size: 30,
+                  color: ColorConstants.buttonColor,
+                ),
+                onActionPressed: () {
+                  viewModel.navigateToSearch();
+                },
+              )),
+        ),
+        body: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                LiveCamsHeaderTitle(
+                  animation: _headerAnimation,
+                  themeProvider: themeProvider,
+                ),
+                LiveCamsSubtitle(
+                  animation: _controller,
+                  themeProvider: themeProvider,
+                ),
+                Expanded(
+                  child: viewModel.isLoading
+                      ? LiveCamsCameraList(
+                          themeProvider: themeProvider,
+                          cameras: viewModel.cameras,
+                          controller: _controller,
+                          onTap: _goFullScreen,
+                        )
+                      : LiveCamsShimmerList(
+                          themeProvider: themeProvider,
+                          controller: _controller,
+                        ),
                 ),
               ],
             ),
-            child: Appbar(
-              actionIcon: const Icon(
-                Icons.search,
-                size: 30,
-                color: ColorConstants.buttonColor,
+            const Positioned(
+              left: 16,
+              right: 16,
+              bottom: 0,
+              child: CustomBottomNavBar(
+                currentIndex: 0,
               ),
-              onActionPressed: () {
-                viewModel.navigateToSearch();
-              },
-            )),
-      ),
-      body: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              LiveCamsHeaderTitle(
-                animation: _headerAnimation,
-                themeProvider: themeProvider,
-              ),
-              LiveCamsSubtitle(
-                animation: _controller,
-                themeProvider: themeProvider,
-              ),
-              Expanded(
-                child: viewModel.isLoading
-                    ? LiveCamsCameraList(
-                        themeProvider: themeProvider,
-                        cameras: viewModel.cameras,
-                        controller: _controller,
-                        onTap: _goFullScreen,
-                      )
-                    : LiveCamsShimmerList(
-                        themeProvider: themeProvider,
-                        controller: _controller,
-                      ),
-              ),
-            ],
-          ),
-          const Positioned(
-            left: 16,
-            right: 16,
-            bottom: 0,
-            child: CustomBottomNavBar(
-              currentIndex: 0,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -194,12 +197,15 @@ class _FastLiveStreamState extends State<FastLiveStream> {
       child: PopScope(
         canPop: false, // Bu önemli! Default true
         onPopInvokedWithResult: (bool didPop, dynamic result) async {
-          await SystemChrome.setPreferredOrientations([
-            DeviceOrientation.portraitUp,
-          ]);
-          await Future.delayed(const Duration(milliseconds: 250));
-          if (mounted) {
-            NavigationService.instance.navigatorKey.currentState?.pop();
+          if (!didPop) {
+            // Yani Flutter henüz sayfayı pop etmedi
+            await SystemChrome.setPreferredOrientations([
+              DeviceOrientation.portraitUp,
+            ]);
+            await Future.delayed(const Duration(milliseconds: 250));
+            if (mounted) {
+              Navigator.of(context).pop(); // ya da navigationService
+            }
           }
         },
         child: Scaffold(

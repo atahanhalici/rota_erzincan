@@ -34,40 +34,46 @@ class EventDetailPage extends StatelessWidget {
       },
       child: Consumer<EventDetailViewModel>(
         builder: (context, viewModel, _) {
-          return Scaffold(
-            extendBodyBehindAppBar: false,
-            backgroundColor: themeProvider.backgroundColor,
-            body: Stack(
-              children: [
-                CustomScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  slivers: [
-                    EventSliverAppBar(
-                      themeProvider: themeProvider,
-                      viewModel: viewModel,
-                      appBarHeight: appBarHeight,
-                      expandedHeight: expandedHeight,
-                    ),
-                    const SliverToBoxAdapter(child: SizedBox(height: 12)),
-                    StickyHeader(
-                      title: viewModel.title,
-                      subtitle: viewModel.subtitle,
-                    ),
-                    viewModel.isLoading
-                        ? _buildLoadingSliver(
-                            themeProvider, viewModel.eventType)
-                        : _buildContentSliver(viewModel, themeProvider),
-                  ],
-                ),
-                DetailTopBarShadow(themeProvider: themeProvider,onActionPressed: viewModel.navigateToSearch,),
-                StatusBarOverlay(themeProvider: themeProvider),
-                const Positioned(
-                  left: 16,
-                  right: 16,
-                  bottom: 0,
-                  child: CustomBottomNavBar(currentIndex: 4),
-                ),
-              ],
+          return SafeArea(
+            top: false,
+            child: Scaffold(
+              extendBodyBehindAppBar: false,
+              backgroundColor: themeProvider.backgroundColor,
+              body: Stack(
+                children: [
+                  CustomScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    slivers: [
+                      EventSliverAppBar(
+                        themeProvider: themeProvider,
+                        viewModel: viewModel,
+                        appBarHeight: appBarHeight,
+                        expandedHeight: expandedHeight,
+                      ),
+                      const SliverToBoxAdapter(child: SizedBox(height: 12)),
+                      StickyHeader(
+                        title: viewModel.title,
+                        subtitle: viewModel.subtitle,
+                      ),
+                      viewModel.isLoading
+                          ? _buildLoadingSliver(
+                              themeProvider, viewModel.eventType)
+                          : _buildContentSliver(viewModel, themeProvider),
+                    ],
+                  ),
+                  DetailTopBarShadow(
+                    themeProvider: themeProvider,
+                    onActionPressed: viewModel.navigateToSearch,
+                  ),
+                  StatusBarOverlay(themeProvider: themeProvider),
+                  const Positioned(
+                    left: 16,
+                    right: 16,
+                    bottom: 0,
+                    child: CustomBottomNavBar(currentIndex: 4),
+                  ),
+                ],
+              ),
             ),
           );
         },

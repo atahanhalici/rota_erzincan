@@ -223,17 +223,33 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
 
   Future<void> getUserLocation(MapController mapController) async {
     try {
-      final permission = await Geolocator.requestPermission();
+      // Önce izin durumu kontrol et
+      LocationPermission permission = await Geolocator.checkPermission();
+
+      // Eğer izin verilmemişse → iste
       if (permission == LocationPermission.denied ||
           permission == LocationPermission.deniedForever) {
+        permission = await Geolocator.requestPermission();
+
+        // Yine verilmediyse → çık
+        if (permission == LocationPermission.denied ||
+            permission == LocationPermission.deniedForever) {
+          isLoading = false;
+          notifyListeners();
+          return;
+        }
+      }
+
+      // Konum servisi açık mı?
+      final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
         isLoading = false;
         notifyListeners();
         return;
       }
 
+      // Konum al
       Position? position = await Geolocator.getLastKnownPosition();
-
-      // Eğer cache yoksa yeni konum al
       position ??= await Geolocator.getCurrentPosition(
         locationSettings: const LocationSettings(
           accuracy: LocationAccuracy.medium,
@@ -256,8 +272,8 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
         );
 
         distanceToNearest = distanceInMeters < 1000
-            ? '${distanceInMeters.toStringAsFixed(0)} metre'
-            : '${(distanceInMeters / 1000).toStringAsFixed(1)} km';
+            ? '${distanceInMeters.toStringAsFixed(0)} ${'unitMeter'.tr()}'
+            : '${(distanceInMeters / 1000).toStringAsFixed(1)} ${'unitKilometer'.tr()}';
       }
     } catch (e) {
       isLoading = false;

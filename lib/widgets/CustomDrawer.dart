@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuItem.dart';
@@ -27,80 +28,200 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final _homeModel = Provider.of<HomePageViewModel>(context, listen: false);
+    final menuItemBuilders = _buildMenuItems(_homeModel, context);
+
     return Drawer(
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: isDarkMode
-                ? [const Color(0xFF1C1C1E), const Color(0xFF2C2C2E)]
-                : [const Color(0xFFF4F6F7), const Color(0xFFE5E8E8)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Column(
-          children: [
-            // Üstte DrawerHeader
-            DrawerHeader(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 9.1,
-                      child: Image.asset(ImageConstants.logo),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'appName'.tr(),
-                      style: TextStyle(
-                        color: textColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        letterSpacing: 1.2,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final height = constraints.maxHeight;
+
+          // Sabit alanlar
+          final headerHeight = height * 0.3;
+          final settingsHeight = height * 0.15;
+          final footerHeight = height * 0.1;
+
+          // Menüye kalan alanı hesapla
+          final remainingHeight =
+              height - headerHeight - settingsHeight - footerHeight;
+
+          // Item başına düşen yükseklik
+          final menuItemHeight = remainingHeight / menuItemBuilders.length;
+
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: isDarkMode
+                    ? [const Color(0xFF1C1C1E), const Color(0xFF2C2C2E)]
+                    : [const Color(0xFFF4F6F7), const Color(0xFFE5E8E8)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Column(
+              children: [
+                // HEADER
+                SizedBox(
+                  height: headerHeight,
+                  child: DrawerHeader(
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: headerHeight * 0.5,
+                            child: Image.asset(ImageConstants.logo),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            StringConstants.appName,
+                            style: TextStyle(
+                              color: textColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-
-            // Scrollable Menü ve Tema Butonu
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                children: [
-                  ..._buildMenuItems(_homeModel, context),
-                ],
-              ),
-            ),
-            _buildThemeSwitcher(themeProvider),
-            const SizedBox(height: 15),
-            LanguageSwitcher(isDarkMode: isDarkMode),
-            const SizedBox(height: 20),
-            // Sabit alt kısım
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: textColor.withValues(alpha: 0.1),
                   ),
                 ),
-              ),
-              child: Column(
-                children: [
-                  _buildSocialIcons(themeProvider),
-                  const SizedBox(height: 14),
-                  Text(
-                    'drawerCopyright'.tr(
-                        namedArgs: {'year': DateTime.now().year.toString()}),
-                    style: GoogleFonts.poppins(
-                      fontSize: 12,
-                      color: textColor.withValues(alpha: 0.6),
+
+                // MENU ITEMS
+                ...menuItemBuilders.map((builder) => SizedBox(
+                    height: menuItemHeight, child: builder(menuItemHeight))),
+
+                // TEMA / DİL SEÇİCİ
+                SizedBox(
+                  height: settingsHeight,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        _buildThemeSwitcher(themeProvider),
+                        LanguageSwitcher(isDarkMode: isDarkMode),
+                      ],
                     ),
                   ),
-                ],
+                ),
+
+                // ALT SİTELER
+                SizedBox(
+                  height: footerHeight,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        _buildSocialIcons(themeProvider),
+                        const SizedBox(height: 4),
+                        Text(
+                          'drawerCopyright'.tr(namedArgs: {
+                            'year': DateTime.now().year.toString()
+                          }),
+                          style: GoogleFonts.poppins(
+                            fontSize: 11,
+                            color: textColor.withValues(alpha: 0.6),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  List<Widget Function(double)> _buildMenuItems(
+      HomePageViewModel homeModel, BuildContext context) {
+    return [
+      (itemHeight) => FancyMenuItem(
+            icon: Icons.person,
+            label: 'drawerMessageFromGovernor'.tr(),
+            onTap: () => homeModel.navigateToDetails(
+              context,
+              imageUrl:
+                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/makam-foto-2.jpeg?alt=media&token=b9eb519f-17de-44c8-aee6-b03fa0bb8c35",
+              title: "Valimizden Mesaj",
+            ),
+            color: ColorConstants.buttonColor.withValues(alpha: 0.1),
+            height: itemHeight,
+          ),
+      (itemHeight) => FancyMenuItem(
+            icon: Icons.info_outline,
+            label: 'drawerAboutErzincan'.tr(),
+            onTap: () => homeModel.navigateToDetails(
+              context,
+              imageUrl:
+                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/erzincana-kar-yeniden-geliyor.jpg?alt=media&token=0b910000-dd18-4edc-8724-66268562adb4",
+              title: "Erzincan Hakkında",
+            ),
+            color: ColorConstants.buttonColor.withValues(alpha: 0.3),
+            height: itemHeight,
+          ),
+      (itemHeight) => FancyMenuItem(
+            icon: Icons.location_on,
+            label: 'drawerEmergencyAreas'.tr(),
+            onTap: () => homeModel.navigateToEmergencyAssemblyAreas(context),
+            color: ColorConstants.buttonColor,
+            height: itemHeight,
+          ),
+      (itemHeight) => FancyMenuItem(
+            icon: Icons.app_settings_alt,
+            label: 'drawerAboutApp'.tr(),
+            onTap: () => homeModel.navigateToDetails(
+              context,
+              imageUrl:
+                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/loading.jpg?alt=media&token=1e8517f0-5a7d-4d96-891b-3adb85d850c2",
+              title: "Uygulama Hakkında",
+            ),
+            color: ColorConstants.buttonColor.withValues(alpha: 0.7),
+            height: itemHeight,
+          ),
+      (itemHeight) => FancyMenuItem(
+            icon: Icons.feedback_outlined,
+            label: 'drawerFeedback'.tr(),
+            onTap: () => homeModel.navigateToGiveYourOpinion(context),
+            color: ColorConstants.buttonColor.withValues(alpha: 0.9),
+            height: itemHeight,
+          ),
+    ];
+  }
+
+  Widget _buildThemeSwitcher(ThemeProvider themeProvider) {
+    return GestureDetector(
+      onTap: () => toggleTheme(),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: themeProvider.textColor.withValues(alpha: 0.2),
+          borderRadius: BorderRadius.circular(30),
+          border: Border.all(
+            color: themeProvider.textColor.withValues(alpha: 0.3),
+            width: 1,
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              isDarkMode ? Icons.light_mode : Icons.dark_mode,
+              color: themeProvider.textColor,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              isDarkMode ? 'drawerLightMode'.tr() : 'drawerDarkMode'.tr(),
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: themeProvider.textColor,
               ),
             ),
           ],
@@ -109,102 +230,7 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildMenuItems(
-      HomePageViewModel homeModel, BuildContext context) {
-    return [
-      FancyMenuItem(
-        icon: Icons.person,
-        label: 'drawerMessageFromGovernor'.tr(),
-        onTap: () {
-          homeModel.navigateToDetails(context,
-              imageUrl:
-                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/makam-foto-2.jpeg?alt=media&token=b9eb519f-17de-44c8-aee6-b03fa0bb8c35",
-              title: "Valimizden Mesaj");
-        },
-        color: ColorConstants.buttonColor.withValues(alpha: 0.1),
-      ),
-      FancyMenuItem(
-        icon: Icons.info_outline,
-        label: 'drawerAboutErzincan'.tr(),
-        onTap: () {
-          homeModel.navigateToDetails(context,
-              imageUrl:
-                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/erzincana-kar-yeniden-geliyor.jpg?alt=media&token=0b910000-dd18-4edc-8724-66268562adb4",
-              title: "Erzincan Hakkında");
-        },
-        color: ColorConstants.buttonColor.withValues(alpha: 0.3),
-      ),
-      FancyMenuItem(
-        icon: Icons.location_on,
-        label: 'drawerEmergencyAreas'.tr(),
-        onTap: () {
-          homeModel.navigateToEmergencyAssemblyAreas(context);
-        },
-        color: ColorConstants.buttonColor,
-      ),
-      FancyMenuItem(
-        icon: Icons.app_settings_alt,
-        label: 'drawerAboutApp'.tr(),
-        onTap: () {
-          homeModel.navigateToDetails(context,
-              imageUrl:
-                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/loading.jpg?alt=media&token=1e8517f0-5a7d-4d96-891b-3adb85d850c2",
-              title: "Uygulama Hakkında");
-        },
-        color: ColorConstants.buttonColor.withValues(alpha: 0.7),
-      ),
-      FancyMenuItem(
-        icon: Icons.feedback_outlined,
-        label: 'drawerFeedback'.tr(),
-        onTap: () {
-          homeModel.navigateToGiveYourOpinion(context);
-        },
-        color: ColorConstants.buttonColor.withValues(alpha: 0.9),
-      ),
-    ];
-  }
-
-  Widget _buildThemeSwitcher(ThemeProvider themeProvider) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50),
-      child: GestureDetector(
-        onTap: () => toggleTheme(),
-        child: Container(
-          margin: const EdgeInsets.only(top: 10),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: themeProvider.textColor.withValues(alpha: 0.2),
-            borderRadius: BorderRadius.circular(30),
-            border: Border.all(
-              color: themeProvider.textColor.withValues(alpha: 0.3),
-              width: 1,
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                color: themeProvider.textColor,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                isDarkMode ? 'drawerLightMode'.tr() : 'drawerDarkMode'.tr(),
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: themeProvider.textColor,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildSocialIcons(ThemeProvider themeProvider) {
-    // Buraya kendi sayfanın URL’lerini koy
     final socialLinks = <IconData, String>{
       FontAwesomeIcons.facebook: 'https://www.facebook.com/erzincan.valiligi',
       FontAwesomeIcons.instagram: 'https://www.instagram.com/erzincanvaliligi',
@@ -221,7 +247,6 @@ class CustomDrawer extends StatelessWidget {
           onTap: () async {
             final url = entry.value;
             if (await canLaunchUrlString(url)) {
-              // in-app webview olarak açmak için:
               await launchUrlString(
                 url,
                 mode: LaunchMode.inAppWebView,
@@ -230,7 +255,6 @@ class CustomDrawer extends StatelessWidget {
                 ),
               );
             } else {
-              // cihaz tarayıcısında açmayı dene
               await launchUrlString(url, mode: LaunchMode.externalApplication);
             }
           },

@@ -62,52 +62,55 @@ class _CategoryDetailPageState extends State<CategoryDetailPage>
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     final double appBarHeight = kToolbarHeight + statusBarHeight;
     final double expandedHeight = appBarHeight + 160;
-    return Scaffold(
-      drawer: viewModel.category.id == 8
-          ? CustomDrawer(
-              toggleTheme: themeProvider.toggleTheme,
-              isDarkMode: themeProvider.isDarkMode,
-              textColor: themeProvider.textColor,
-            )
-          : null,
-      extendBodyBehindAppBar: false,
-      backgroundColor: themeProvider.backgroundColor,
-      body: Stack(
-        children: [
-          CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              DetailSliverAppBar(
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        drawer: viewModel.category.id == 8
+            ? CustomDrawer(
+                toggleTheme: themeProvider.toggleTheme,
+                isDarkMode: themeProvider.isDarkMode,
+                textColor: themeProvider.textColor,
+              )
+            : null,
+        extendBodyBehindAppBar: false,
+        backgroundColor: themeProvider.backgroundColor,
+        body: Stack(
+          children: [
+            CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              slivers: [
+                DetailSliverAppBar(
+                  themeProvider: themeProvider,
+                  viewModel: viewModel,
+                  appBarHeight: appBarHeight,
+                  expandedHeight: expandedHeight,
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 12)),
+                StickyHeader(
+                    title: viewModel.category.title,
+                    subtitle: viewModel.category.subtitle),
+                viewModel.isLoading
+                    ? _buildLoadingSliver(themeProvider)
+                    : ContentSliver(
+                        themeProvider: themeProvider,
+                        controller: _controller,
+                        viewModel: viewModel,
+                      ),
+              ],
+            ),
+            DetailTopBarShadow(
                 themeProvider: themeProvider,
-                viewModel: viewModel,
-                appBarHeight: appBarHeight,
-                expandedHeight: expandedHeight,
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 12)),
-              StickyHeader(
-                  title: viewModel.category.title,
-                  subtitle: viewModel.category.subtitle),
-              viewModel.isLoading
-                  ? _buildLoadingSliver(themeProvider)
-                  : ContentSliver(
-                      themeProvider: themeProvider,
-                      controller: _controller,
-                      viewModel: viewModel,
-                    ),
-            ],
-          ),
-          DetailTopBarShadow(
-              themeProvider: themeProvider,
-              onActionPressed: viewModel.navigateToSearch),
-          StatusBarOverlay(themeProvider: themeProvider),
-          Positioned(
-            left: 16,
-            right: 16,
-            bottom: 0,
-            child: CustomBottomNavBar(
-                currentIndex: viewModel.category.id == 8 ? 4 : 1),
-          ),
-        ],
+                onActionPressed: viewModel.navigateToSearch),
+            StatusBarOverlay(themeProvider: themeProvider),
+            Positioned(
+              left: 16,
+              right: 16,
+              bottom: 0,
+              child: CustomBottomNavBar(
+                  currentIndex: viewModel.category.id == 8 ? 4 : 1),
+            ),
+          ],
+        ),
       ),
     );
   }

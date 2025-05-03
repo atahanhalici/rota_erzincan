@@ -45,82 +45,85 @@ class _ErganKayakMerkeziPageState extends State<ErganKayakMerkeziPage>
       value: _viewModel,
       child: Consumer2<ThemeProvider, ErganViewModel>(
         builder: (context, themeProvider, viewModel, _) {
-          return Scaffold(
-            backgroundColor: themeProvider.backgroundColor,
-            extendBodyBehindAppBar: true,
-            appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(kToolbarHeight),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                decoration: BoxDecoration(
-                  color: themeProvider.cardColor.withValues(alpha: 0.85),
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: themeProvider.isDarkMode
-                          ? Colors.black.withValues(alpha: 0.4)
-                          : Colors.grey.withValues(alpha: 0.2),
-                      blurRadius: 15,
-                      offset: const Offset(0, 4),
+          return SafeArea(
+            top: false,
+            child: Scaffold(
+              backgroundColor: themeProvider.backgroundColor,
+              extendBodyBehindAppBar: true,
+              appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(kToolbarHeight),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  decoration: BoxDecoration(
+                    color: themeProvider.cardColor.withValues(alpha: 0.85),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
                     ),
-                  ],
-                ),
-                child: Appbar(
-                  actionIcon: const Icon(
-                    Icons.search,
-                    size: 30,
-                    color: ColorConstants.buttonColor,
-                  ),
-                  onActionPressed: () {
-                    viewModel.navigateToSearch();
-                  },
-                ),
-              ),
-            ),
-            body: Stack(
-              children: [
-                SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      HeroSectionWidget(
-                        animation: viewModel.headerAnimation,
-                        themeProvider: themeProvider,
+                    boxShadow: [
+                      BoxShadow(
+                        color: themeProvider.isDarkMode
+                            ? Colors.black.withValues(alpha: 0.4)
+                            : Colors.grey.withValues(alpha: 0.2),
+                        blurRadius: 15,
+                        offset: const Offset(0, 4),
                       ),
-                      WeatherSectionWidget(
-                        animation: viewModel.infoCardsAnimation,
-                        themeProvider: themeProvider,
-                      ),
-                      FacilityHeaderWidget(
-                        animation: viewModel.facilityHeaderAnimation,
-                        themeProvider: themeProvider,
-                      ),
-                      FacilityListWidget(
-                        animation: viewModel.facilityListAnimation,
-                        animationController: viewModel.animationController,
-                        themeProvider: themeProvider,
-                      ),
-                      AboutSectionWidget(
-                        animation: viewModel.aboutSectionAnimation,
-                        themeProvider: themeProvider,
-                      ),
-                      const SizedBox(height: 100)
                     ],
                   ),
-                ),
-                const Positioned(
-                  left: 16,
-                  right: 16,
-                  bottom: 0,
-                  child: CustomBottomNavBar(
-                    currentIndex: 0,
+                  child: Appbar(
+                    actionIcon: const Icon(
+                      Icons.search,
+                      size: 30,
+                      color: ColorConstants.buttonColor,
+                    ),
+                    onActionPressed: () {
+                      viewModel.navigateToSearch();
+                    },
                   ),
                 ),
-              ],
+              ),
+              body: Stack(
+                children: [
+                  SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        HeroSectionWidget(
+                          animation: viewModel.headerAnimation,
+                          themeProvider: themeProvider,
+                        ),
+                        WeatherSectionWidget(
+                          animation: viewModel.infoCardsAnimation,
+                          themeProvider: themeProvider,
+                        ),
+                        FacilityHeaderWidget(
+                          animation: viewModel.facilityHeaderAnimation,
+                          themeProvider: themeProvider,
+                        ),
+                        FacilityListWidget(
+                          animation: viewModel.facilityListAnimation,
+                          animationController: viewModel.animationController,
+                          themeProvider: themeProvider,
+                        ),
+                        AboutSectionWidget(
+                          animation: viewModel.aboutSectionAnimation,
+                          themeProvider: themeProvider,
+                        ),
+                        const SizedBox(height: 100)
+                      ],
+                    ),
+                  ),
+                  const Positioned(
+                    left: 16,
+                    right: 16,
+                    bottom: 0,
+                    child: CustomBottomNavBar(
+                      currentIndex: 0,
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },
