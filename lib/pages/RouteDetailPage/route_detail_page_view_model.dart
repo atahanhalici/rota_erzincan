@@ -89,10 +89,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
     isLoading = true;
     safeNotifyListeners();
 
-    final currentPosition = await Geolocator.getCurrentPosition();
-
     if (route.isUserAdded) {
-      // 🔹 Kullanıcı tarafından eklenen rota → veritabanından çek
       final db = await DatabaseHelper.instance.database;
       final List<Map<String, dynamic>> stopsData = await db.query(
         'route_stops',
@@ -101,24 +98,18 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       );
 
       contentItems = stopsData.map((map) {
-        final stop = RouteStop(
+        return RouteStop(
           id: map['id'] as String,
           title: map['title'] as String,
-          description: map['description'] ?? '', // veritabanında yoksa boş
+          description: map['description'] ?? '',
           imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc', // default image
+              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
           latitude: map['latitude'] as double,
           longitude: map['longitude'] as double,
         );
-
-        stop.distanceFromUser = Geolocator.distanceBetween(
-          currentPosition.latitude,
-          currentPosition.longitude,
-          stop.latitude,
-          stop.longitude,
-        );
-        return stop;
       }).toList();
+
+      // Mesafe ve süreler hesaplanmadan önce gösterim yapılabilsin
       route.stops = contentItems
           .map((e) => CategoryContentItem(
                 id: e.id,
@@ -129,27 +120,6 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
                 imageUrl: e.imageUrl,
               ))
           .toList();
-
-      double totalDistance = 0.0;
-      for (int i = 0; i < contentItems.length - 1; i++) {
-        final start = contentItems[i];
-        final end = contentItems[i + 1];
-        totalDistance += Geolocator.distanceBetween(
-          start.latitude,
-          start.longitude,
-          end.latitude,
-          end.longitude,
-        );
-      }
-
-      final double totalDistanceKm = totalDistance / 1000;
-      final Duration estimatedDuration =
-          Duration(minutes: (totalDistanceKm / 50 * 60).round());
-
-      route = route.copyWith(
-        distanceKm: double.parse(totalDistanceKm.toStringAsFixed(2)),
-        duration: estimatedDuration,
-      );
     } else {
       // 🔹 Hazır (sabit) rota → manuel sabit liste
       final String lang =
@@ -234,21 +204,63 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
           longitude: 39.4899,
         ),
       ];
-      List<RouteStop> contentItems =
-          lang == 'tr' ? contentItemsTr : contentItemsEn;
-      // 🔄 Mesafeleri hesapla
-      for (var stop in contentItems) {
-        final distance = Geolocator.distanceBetween(
-          currentPosition.latitude,
-          currentPosition.longitude,
-          stop.latitude,
-          stop.longitude,
-        );
-        stop.distanceFromUser = distance;
-      }
-      this.contentItems = contentItems;
+      contentItems = lang == 'tr' ? contentItemsTr : contentItemsEn;
     }
     isLoading = false;
+    safeNotifyListeners();
+
+    // 🔁 Mesafe ve süre hesaplamasını arka planda başlat
+    Future.microtask(() => calculateUserDistancesAsync());
+  }
+
+  Future<void> calculateUserDistancesAsync() async {
+    if (contentItems.isEmpty) return;
+
+    final currentPosition = await Geolocator.getCurrentPosition();
+
+    for (var stop in contentItems) {
+      stop.distanceFromUser = Geolocator.distanceBetween(
+        currentPosition.latitude,
+        currentPosition.longitude,
+        stop.latitude,
+        stop.longitude,
+      );
+    }
+
+    // UI'da gösterilecek listeyi güncelle
+    route.stops = contentItems
+        .map((e) => CategoryContentItem(
+              id: e.id,
+              title: e.title,
+              description: e.description,
+              latitude: e.latitude,
+              longitude: e.longitude,
+              imageUrl: e.imageUrl,
+              distanceFromUser: e.distanceFromUser,
+            ))
+        .toList();
+
+    // Sadece kullanıcı tanımlı rotalarda süre + mesafe gösterilsin
+    if (route.isUserAdded) {
+      double totalDistance = 0.0;
+      for (int i = 0; i < contentItems.length - 1; i++) {
+        totalDistance += Geolocator.distanceBetween(
+          contentItems[i].latitude,
+          contentItems[i].longitude,
+          contentItems[i + 1].latitude,
+          contentItems[i + 1].longitude,
+        );
+      }
+
+      final totalKm = totalDistance / 1000;
+      final estimatedDuration = Duration(minutes: (totalKm / 50 * 60).round());
+
+      route = route.copyWith(
+        distanceKm: double.parse(totalKm.toStringAsFixed(2)),
+        duration: estimatedDuration,
+      );
+    }
+
     safeNotifyListeners();
   }
 

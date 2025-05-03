@@ -161,21 +161,23 @@ class RouteContentSliver extends StatelessWidget {
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
-                        if (item.distanceFromUser != null)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4),
-                            child: Text(
-                              item.distanceFromUser! < 1000
-                                  ? '${'distancePrefix'.tr()} ${'distanceLessThanOne'.tr()}'
-                                  : '${'distancePrefix'.tr()} ${(item.distanceFromUser! / 1000).toStringAsFixed(1)}${'distanceUnitKm'.tr()}',
-                              style: GoogleFonts.poppins(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w400,
-                                color: themeProvider.textColor
-                                    .withValues(alpha: 0.6),
-                              ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: Text(
+                            item.distanceFromUser == null
+                                ? 'distanceCalculatingText'
+                                    .tr() // "Hesaplanıyor..."
+                                : item.distanceFromUser! < 1000
+                                    ? '${'distancePrefix'.tr()} ${'distanceLessThanOne'.tr()}'
+                                    : '${'distancePrefix'.tr()} ${(item.distanceFromUser! / 1000).toStringAsFixed(1)}${'distanceUnitKm'.tr()}',
+                            style: GoogleFonts.poppins(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w400,
+                              color: themeProvider.textColor
+                                  .withValues(alpha: 0.6),
                             ),
                           ),
+                        ),
                       ],
                     ),
                     InkWell(

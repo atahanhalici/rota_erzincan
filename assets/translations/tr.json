@@ -197,6 +197,7 @@
     "hourAbbreviation": "sa",
     "minuteAbbreviation": "dk",
     "minuteOnlyFormat": "{minutes} dk",
-    "hourMinuteFormat": "{hours} sa {minutes} dk"
+    "hourMinuteFormat": "{hours} sa {minutes} dk",
+    "distanceCalculatingText": "Mesafe hesaplanıyor..."
   }
   

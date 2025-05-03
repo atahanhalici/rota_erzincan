@@ -329,4 +329,6 @@ class StringConstants {
 
   // Swipe yönergesi
   static const swipeForAllInfo = 'Tüm bilgileri görmek için kaydır';
+
+  static const distanceCalculatingText = "Mesafe hesaplanıyor...";
 }

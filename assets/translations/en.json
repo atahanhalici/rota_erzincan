@@ -197,5 +197,6 @@
     "hourAbbreviation": "h",
     "minuteAbbreviation": "min",
     "minuteOnlyFormat": "{minutes} min",
-    "hourMinuteFormat": "{hours} h {minutes} min"
+    "hourMinuteFormat": "{hours} h {minutes} min",
+    "distanceCalculatingText": "Calculating distance..."
   }
