@@ -31,13 +31,16 @@ class CustomDrawer extends StatelessWidget {
     final menuItemBuilders = _buildMenuItems(_homeModel, context);
 
     return Drawer(
+      width: MediaQuery.of(context).size.width > 600
+          ? 400
+          : MediaQuery.of(context).size.width * 0.75,
       child: LayoutBuilder(
         builder: (context, constraints) {
           final height = constraints.maxHeight;
 
           // Sabit alanlar
           final headerHeight = height * 0.3;
-          final settingsHeight = height * 0.15;
+          final settingsHeight = height * 0.17;
           final footerHeight = height * 0.1;
 
           // Menüye kalan alanı hesapla

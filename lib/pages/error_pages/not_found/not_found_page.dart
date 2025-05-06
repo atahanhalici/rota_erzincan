@@ -13,75 +13,102 @@ class NotFound extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NavigationService navigationService = NavigationService.instance;
+    final navigationService = NavigationService.instance;
     final themeProvider = Provider.of<ThemeProvider>(context);
+
+    final media = context.sized;
+
     return Scaffold(
-        body: Center(
-      child: Padding(
-        padding: context.padding.medium,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Spacer(
-              flex: 8,
-            ),
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: themeProvider.cardColor,
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: [
-                  BoxShadow(
-                    color: themeProvider.buttonColor.withValues(alpha: 0.2),
-                    blurRadius: 20,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
-              ),
-              child: Column(
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: media.dynamicWidth(0.08),
+            vertical: media.dynamicHeight(0.04),
+          ),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final isSmallDevice = constraints.maxHeight < 600;
+
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset(ImageConstants.notFound),
-                  const SizedBox(height: 24),
-                  Text(
-                    'notFound'.tr(),
-                    style: GoogleFonts.poppins(
-                      textStyle:
-                          context.general.textTheme.headlineMedium!.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: themeProvider.textColor,
-                      ),
+                  SizedBox(height: media.dynamicHeight(0.02)),
+
+                  // CARD
+                  Container(
+                    width: constraints.maxWidth, // 🔥 Sabit genişlik
+                    padding: EdgeInsets.all(media.lowValue * 3),
+                    decoration: BoxDecoration(
+                      color: themeProvider.cardColor,
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: themeProvider.buttonColor.withOpacity(0.2),
+                          blurRadius: 20,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
                     ),
-                    textAlign: TextAlign.center,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(
+                          ImageConstants.notFound,
+                          height:
+                              media.dynamicHeight(isSmallDevice ? 0.2 : 0.25),
+                          fit: BoxFit.contain,
+                        ),
+                        SizedBox(height: media.lowValue * 2),
+                        Text(
+                          'notFound'.tr(),
+                          style: GoogleFonts.poppins(
+                            textStyle: context.general.textTheme.headlineSmall!
+                                .copyWith(
+                              fontWeight: FontWeight.w500,
+                              color: themeProvider.textColor,
+                            ),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: media.lowValue),
+                        Text(
+                          'notFoundSub'.tr(),
+                          style:
+                              context.general.textTheme.titleMedium!.copyWith(
+                            color: themeProvider.textColor.withOpacity(0.85),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'notFoundSub'.tr(),
-                    style: context.general.textTheme.titleMedium!.copyWith(
-                      color: themeProvider.textColor.withValues(alpha: 0.85),
-                    ),
-                    textAlign: TextAlign.center,
+
+                  // LOGO + BUTON
+                  Column(
+                    children: [
+                      SizedBox(height: media.dynamicHeight(0.04)),
+                      Image.asset(
+                        ImageConstants.logo,
+                        height: media.dynamicHeight(0.07),
+                      ),
+                      SizedBox(height: media.dynamicHeight(0.02)),
+                      SizedBox(
+                        width: constraints.maxWidth, // 🔥 Genişliği eşitler
+                        child: StadiumSideButton(
+                          text: 'back'.tr(),
+                          onPressed: () => navigationService.navigateToBack(),
+                          color: themeProvider.buttonColor,
+                          textColor: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
-              ),
-            ),
-            const Spacer(
-              flex: 5,
-            ),
-            Image.asset(
-              ImageConstants.logo,
-              height: context.sized.dynamicHeight(0.1),
-            ),
-            const Spacer(),
-            StadiumSideButton(
-              text: 'back'.tr(),
-              onPressed: () => navigationService.navigateToBack(),
-              color: themeProvider.buttonColor,
-              textColor: Colors.white,
-            ),
-          ],
+              );
+            },
+          ),
         ),
       ),
-    ));
+    );
   }
 }

@@ -10,53 +10,59 @@ class OutlinedButtonWithImage extends StatelessWidget {
   final String imagePath;
   final Color textColor;
   final Color backgroundColor;
-  const OutlinedButtonWithImage(
-      {super.key,
-      required this.onPressed,
-      required this.textColor,
-      required this.backgroundColor,
-      required this.text,
-      required this.imagePath});
+
+  const OutlinedButtonWithImage({
+    super.key,
+    required this.onPressed,
+    required this.textColor,
+    required this.backgroundColor,
+    required this.text,
+    required this.imagePath,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final sized = context.sized;
+    final buttonHeight = sized.dynamicHeight(0.06);
+    final imageWidth = buttonHeight * 0.5; // Görsel, yüksekliğin yarısı kadar
+    final fontSize = buttonHeight * 0.3; // Font yüksekliğin %40'ı
+
     return InkWell(
-        onTap: onPressed,
-        splashFactory: NoSplash.splashFactory,
-        highlightColor: ColorConstants.transparentColor,
-        child: Container(
-          width: double.infinity,
-          height: context.sized.dynamicHeight(0.06),
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            border: Border.all(color: ColorConstants.outlinedButtonBorderColor),
-            borderRadius:
-                BorderRadius.circular(context.sized.dynamicHeight(0.06)),
-          ),
-          child: Center(
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: context.padding.onlyLeftMedium,
-                    child: Image.asset(imagePath,
-                        width: context.sized.dynamicWidth(0.06)),
-                  ),
-                ),
-                Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      text.toUpperCase(),
-                      style: GoogleFonts.poppins(
-                          textStyle: TextStyle(
-                              color: textColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600)),
-                    )),
-              ],
+      onTap: onPressed,
+      splashFactory: NoSplash.splashFactory,
+      highlightColor: ColorConstants.transparentColor,
+      child: Container(
+        width: double.infinity,
+        height: buttonHeight,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          border: Border.all(color: ColorConstants.outlinedButtonBorderColor),
+          borderRadius: BorderRadius.circular(buttonHeight),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(right: sized.lowValue * 1.5),
+              child: Image.asset(
+                imagePath,
+                width: imageWidth,
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-        ));
+            Text(
+              text.toUpperCase(),
+              style: GoogleFonts.poppins(
+                textStyle: TextStyle(
+                  color: textColor,
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

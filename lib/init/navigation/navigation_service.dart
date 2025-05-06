@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rota_erzincan/animations/right_transition.dart';
 import 'package:rota_erzincan/constants/navigator_constants.dart';
 import 'package:rota_erzincan/init/navigation/INavigationService.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
@@ -111,13 +112,20 @@ class NavigationService implements INavigationService {
       page = NavigatorConstants.CATEGORYDETAIL;
 
       await navigatorKey.currentState?.pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (_) => ChangeNotifierProvider(
-            create: (_) => CategoryDetailViewModel(category: item),
-            child: const CategoryDetailPage(),
-          ),
+        PageRouteBuilder(
+          transitionDuration: const Duration(milliseconds: 300),
+          pageBuilder: (context, animation, secondaryAnimation) {
+            return ChangeNotifierProvider(
+              create: (_) => CategoryDetailViewModel(category: item),
+              child: const CategoryDetailPage(),
+            );
+          },
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return RightTransition(
+                context, animation, secondaryAnimation, child);
+          },
         ),
-        (route) => false, // 🔁 tüm sayfaları sil
+        (route) => false, // tüm stack'i sil
       );
     }
   }
