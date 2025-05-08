@@ -10,7 +10,6 @@ import 'package:rota_erzincan/constants/theme_data.dart';
 import 'package:rota_erzincan/init/navigation/custom_navigation_observer.dart';
 import 'package:rota_erzincan/init/navigation/navigation_route.dart';
 import 'package:rota_erzincan/init/navigation/navigation_service.dart';
-import 'package:rota_erzincan/init/start/application_start.dart';
 import 'package:rota_erzincan/pages/CategoriesPage/categories_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page_view_model.dart';
@@ -28,9 +27,13 @@ import 'package:rota_erzincan/pages/routesPage/routes_page_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 
 void main() async {
-  final splashViewModel = SplashPageViewModel();
-  ApplicationStart.init(splashViewModel);
+  // ✅ Flutter binding'leri ilk olarak başlat
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // ✅ EasyLocalization binding'i sonra başlat
   await EasyLocalization.ensureInitialized();
+
+  // Cihaz dilini belirleyelim
   final deviceLangCode = PlatformDispatcher.instance.locale.languageCode;
   final Locale initialLocale =
       deviceLangCode == 'tr' ? const Locale('tr') : const Locale('en');
@@ -55,7 +58,7 @@ void main() async {
           create: (context) => DetailPhotoViewPageViewModel(
               0), // veya uygun bir başlangıç index'i
         ),
-        ChangeNotifierProvider(create: (_) => splashViewModel),
+        ChangeNotifierProvider(create: (_) => SplashPageViewModel()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => SearchPageViewModel()),
         ChangeNotifierProvider(create: (_) => LiveCamsPageViewModel()),

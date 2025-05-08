@@ -43,7 +43,7 @@ class NotFound extends StatelessWidget {
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: themeProvider.buttonColor.withOpacity(0.2),
+                          color: themeProvider.buttonColor.withValues(alpha:0.2),
                           blurRadius: 20,
                           offset: const Offset(0, 6),
                         ),
@@ -75,7 +75,7 @@ class NotFound extends StatelessWidget {
                           'notFoundSub'.tr(),
                           style:
                               context.general.textTheme.titleMedium!.copyWith(
-                            color: themeProvider.textColor.withOpacity(0.85),
+                            color: themeProvider.textColor.withValues(alpha:0.85),
                           ),
                           textAlign: TextAlign.center,
                         ),

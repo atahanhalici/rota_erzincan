@@ -23,9 +23,11 @@ class CustomBottomNavBar extends StatelessWidget {
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
     final bottomPadding = mediaQuery.padding.bottom;
-    final scaleFactor = mediaQuery.textScaleFactor;
 
-    // 🔧 Responsive ayarlar
+// ✅ Ölçek değeri (double) — textScaler.scale(1.0) ile çağrılır
+    final scaleFactor = mediaQuery.textScaler.scale(1.0);
+
+// 🔧 Responsive ayarlar
     final barHeight = (screenHeight * 0.085).clamp(68.0, 84.0);
     final iconSize = (screenWidth * 0.052).clamp(20.0, 26.0);
     final isTablet = screenWidth >= 600;
@@ -61,26 +63,26 @@ class CustomBottomNavBar extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: isDark
                       ? [
-                          themeProvider.cardColor.withOpacity(0.7),
-                          themeProvider.cardColor.withOpacity(0.5),
+                          themeProvider.cardColor.withValues(alpha: 0.7),
+                          themeProvider.cardColor.withValues(alpha: 0.5),
                         ]
                       : [
-                          Colors.white.withOpacity(0.9),
-                          Colors.white.withOpacity(0.8),
+                          Colors.white.withValues(alpha: 0.9),
+                          Colors.white.withValues(alpha: 0.8),
                         ],
                 ),
                 borderRadius: BorderRadius.circular(30),
                 border: Border.all(
                   color: isDark
-                      ? Colors.white.withOpacity(0.1)
-                      : Colors.black.withOpacity(0.05),
+                      ? Colors.white.withValues(alpha: 0.1)
+                      : Colors.black.withValues(alpha: 0.05),
                   width: 1,
                 ),
                 boxShadow: [
                   BoxShadow(
                     color: isDark
-                        ? themeProvider.buttonColor.withOpacity(0.3)
-                        : Colors.black.withOpacity(0.08),
+                        ? themeProvider.buttonColor.withValues(alpha: 0.3)
+                        : Colors.black.withValues(alpha: 0.08),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
@@ -122,7 +124,7 @@ class CustomBottomNavBar extends StatelessWidget {
                                 boxShadow: [
                                   BoxShadow(
                                     color: themeProvider.buttonColor
-                                        .withOpacity(0.75),
+                                        .withValues(alpha: 0.75),
                                     blurRadius: 20,
                                     spreadRadius: 1,
                                   ),

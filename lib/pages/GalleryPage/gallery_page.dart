@@ -9,6 +9,7 @@ import 'package:rota_erzincan/widgets/BuildGalleryItem.dart';
 import 'package:rota_erzincan/widgets/CustomBottomNavBar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rota_erzincan/widgets/CustomDrawer.dart';
+import 'package:rota_erzincan/widgets/GalleryCategoryBar.dart';
 import 'package:shimmer/shimmer.dart';
 
 class GalleryPage extends StatefulWidget {
@@ -190,120 +191,10 @@ class _GalleryPageState extends State<GalleryPage>
                 ),
 
                 // Kategoriler
-                _galleryModel.isLoading
-                    ? AnimatedBuilder(
-                        animation: _controller,
-                        builder: (context, child) {
-                          return Transform.translate(
-                              offset: Offset(0, 50 * (1 - _controller.value)),
-                              child: Opacity(
-                                opacity: _controller.value,
-                                child: Container(
-                                  height: 45,
-                                  margin: const EdgeInsets.only(bottom: 20),
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    itemCount: 5,
-                                    itemBuilder: (context, index) {
-                                      return Shimmer.fromColors(
-                                        baseColor:
-                                            const Color(0xFFE0E0E0), // açık gri
-                                        highlightColor: const Color(
-                                            0xFFF5F5F5), // daha açık
-                                        period:
-                                            const Duration(milliseconds: 1000),
-                                        child: Container(
-                                          margin:
-                                              const EdgeInsets.only(right: 12),
-                                          width: 90,
-                                          height: 36,
-                                          decoration: BoxDecoration(
-                                            color: themeProvider.shimmerColor,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ));
-                        })
-                    : AnimatedBuilder(
-                        animation: _controller,
-                        builder: (context, child) {
-                          return Transform.translate(
-                            offset: Offset(0, 50 * (1 - _controller.value)),
-                            child: Opacity(
-                              opacity: _controller.value,
-                              child: Container(
-                                height: 45,
-                                margin: const EdgeInsets.only(bottom: 20),
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  itemCount: _galleryModel.categories.length,
-                                  itemBuilder: (context, index) {
-                                    bool isSelected =
-                                        _galleryModel.selectedCategoryIndex ==
-                                            index;
-                                    return GestureDetector(
-                                      onTap: () {
-                                        _galleryModel.changeCategory(index);
-                                      },
-                                      child: AnimatedContainer(
-                                        duration:
-                                            const Duration(milliseconds: 300),
-                                        margin:
-                                            const EdgeInsets.only(right: 12),
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20, vertical: 10),
-                                        decoration: BoxDecoration(
-                                          color: isSelected
-                                              ? themeProvider.buttonColor
-                                              : themeProvider.cardColor
-                                                  .withValues(alpha: 0.7),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: isSelected
-                                                  ? themeProvider.buttonColor
-                                                      .withValues(alpha: 0.4)
-                                                  : Colors.black
-                                                      .withValues(alpha: 0.05),
-                                              blurRadius: isSelected ? 10 : 5,
-                                              offset: const Offset(0, 3),
-                                            ),
-                                          ],
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            _galleryModel.categories[index],
-                                            style: GoogleFonts.poppins(
-                                              fontSize: 14,
-                                              fontWeight: isSelected
-                                                  ? FontWeight.w600
-                                                  : FontWeight.w500,
-                                              color: isSelected
-                                                  ? Colors.white
-                                                  : themeProvider.textColor
-                                                      .withValues(alpha: 0.8),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
+                GalleryCategoryBar(
+                    themeProvider: themeProvider,
+                    controller: _controller,
+                    galleryModel: _galleryModel),
 
                 // Grid alanı
                 Expanded(

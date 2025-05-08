@@ -12,10 +12,11 @@ class CategoryList extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = Provider.of<HomePageViewModel>(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final screenWidth = MediaQuery.of(context).size.width;
     if (viewModel.isLoading) {
       // Shimmer efekti
       return SizedBox(
-        height: 130,
+        height: screenWidth * 0.25 + 45,
         child: ListView.separated(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           scrollDirection: Axis.horizontal,
@@ -55,7 +56,7 @@ class CategoryList extends StatelessWidget {
 
     // Normal liste
     return SizedBox(
-      height: 130,
+      height: screenWidth * 0.25 + 45,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         scrollDirection: Axis.horizontal,

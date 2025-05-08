@@ -19,52 +19,48 @@ class ConnectivityService {
     return connectivityResult != ConnectivityResult.none;
   }
 
-  // İnternet bağlantısını dinlemeye başla
+  bool _isMonitoring = false; // Yeni eklendi
+
   void startMonitoring({
     required void Function() onDisconnected,
     required void Function() onReconnected,
   }) {
+    if (_isMonitoring) return;
+    _isMonitoring = true;
+
     _subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
-      // Her bağlantı değişiminde debounce uyguluyoruz
       if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
 
       _debounceTimer = Timer(const Duration(seconds: 2), () {
-        // Bağlantı kesilirse
         if (result == ConnectivityResult.none &&
             _lastConnectionStatus != ConnectivityResult.none) {
           _lastConnectionStatus = ConnectivityResult.none;
-          _wasDisconnected = true; // Bağlantı kesildiği için işaretliyoruz
-        
+          _wasDisconnected = true;
           onDisconnected();
-        }
-        // Bağlantı geri gelirse, debounce sonrası kontrol
-        else if (result != ConnectivityResult.none &&
+        } else if (result != ConnectivityResult.none &&
             _lastConnectionStatus == ConnectivityResult.none) {
           _lastConnectionStatus = result;
-        
           onReconnected();
-        }
+        } else {}
       });
     });
   }
 
   // Bağlantı kesilip geri geldi mi kontrolü
   bool wasPreviouslyDisconnected() {
-  
     return _wasDisconnected;
   }
 
   // Bağlantı geri geldikten sonra durumu sıfırlama
   void resetWasDisconnected() {
     _wasDisconnected = false; // Artık bağlantı olduğu için durumu sıfırlıyoruz
- 
   }
 
-  // Dinlemeyi durdur
   void stopMonitoring() {
     _subscription?.cancel();
     _debounceTimer?.cancel();
+    _isMonitoring = false; // eklendi
   }
 }

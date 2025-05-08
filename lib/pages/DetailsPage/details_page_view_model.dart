@@ -53,29 +53,52 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
     notifyListeners();
   }
 
-  Future<void> speakText(String localeCode) async {
-    if (localeCode == "tr") {
-      await _flutterTts.setLanguage("tr-TR"); // Türkçe konuşması için
-      await _flutterTts.setPitch(1.0);
-      await _flutterTts.setSpeechRate(0.55); // Hızlıysa 0.4 falan yap
-      await _flutterTts.speak(fullTextTr);
-    } else {
-      await _flutterTts.setLanguage("en-US");
-      await _flutterTts.setPitch(1.0);
-      await _flutterTts.setSpeechRate(0.5); // İngilizce için ideal oran
-      await _flutterTts.speak(fullTextEn);
-    }
-  }
-
-  Future<void> stopSpeaking() async {
-    await _flutterTts.stop();
-  }
+  bool _isSpeakingInProgress = false;
 
   Future<void> toggleSpeaking(String localeCode) async {
+    if (_isSpeakingInProgress) return; // zaten işlemdeyse blokla
+    _isSpeakingInProgress = true;
+
     if (isSpeaking) {
       await stopSpeaking();
     } else {
       await speakText(localeCode);
+    }
+
+    _isSpeakingInProgress = false;
+  }
+
+  Future<void> speakText(String localeCode) async {
+    try {
+      await stopSpeaking(); // Her ihtimale karşı önce durdur
+      await Future.delayed(
+          const Duration(milliseconds: 200)); // motor nefes alsın
+
+      if (localeCode == "tr") {
+        await _flutterTts.setLanguage("tr-TR");
+        await _flutterTts.setPitch(1.0);
+        await _flutterTts.setSpeechRate(0.55);
+        await _flutterTts.speak(fullTextTr);
+      } else {
+        await _flutterTts.setLanguage("en-US");
+        await _flutterTts.setPitch(1.0);
+        await _flutterTts.setSpeechRate(0.5);
+        await _flutterTts.speak(fullTextEn);
+      }
+    } catch (e) {
+      isSpeaking = false;
+      notifyListeners();
+      debugPrint("TTS ERROR: $e");
+    }
+  }
+
+  Future<void> stopSpeaking() async {
+    try {
+      await _flutterTts.stop();
+      isSpeaking = false;
+      notifyListeners();
+    } catch (e) {
+      debugPrint("Stop speaking error: $e");
     }
   }
 

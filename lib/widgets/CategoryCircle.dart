@@ -15,87 +15,89 @@ class CategoryCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    HomePageViewModel _homeModel =
-        Provider.of<HomePageViewModel>(context, listen: true);
+    final homeModel = Provider.of<HomePageViewModel>(context, listen: true);
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    final double outerSize = screenWidth * 0.25;
+    final double innerSize = outerSize * 0.92;
+    final double textSize = screenWidth * 0.03;
+
     return GestureDetector(
       onTap: () {
-        _homeModel.openStory(context, model);
+        homeModel.openStory(context, model);
       },
-      child: SizedBox(
-        width: 110,
-        height: 140,
-        child: Column(
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.redAccent,
-                        ColorConstants.buttonColor,
-                        ColorConstants.buttonColor.withValues(alpha: 0.8),
-                        Colors.red,
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: themeProvider.isDarkMode
-                            ? themeProvider.infoItemColor.withValues(alpha: 0.4)
-                            : Colors.black
-                                .withValues(alpha: 0.4), // Gölgenin rengi
-                        blurRadius: 8, // Gölgenin bulanıklık derecesi
-                        offset: const Offset(0, 2), // Gölgenin yeri (x, y)
-                      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+                top: 8, bottom: 4), // ☝️ Shadow nefes alır
+            child: Center(
+              child: Container(
+                width: outerSize,
+                height: outerSize,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.redAccent,
+                      ColorConstants.buttonColor,
+                      ColorConstants.buttonColor.withValues(alpha:0.8),
+                      Colors.red,
                     ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: themeProvider.isDarkMode
+                          ? themeProvider.infoItemColor.withValues(alpha:0.4)
+                          : Colors.black.withValues(alpha:0.4),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
-                Container(
-                  width: 92,
-                  height: 92,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                  ),
-                  child: ClipOval(
-                    child: FadeInImage.assetNetwork(
-                      placeholder: ImageConstants
-                          .loading, // Yüklenirken gösterilecek resim
-                      image: model.imageUrl,
-                      fit: BoxFit.cover,
-                       imageErrorBuilder: (context, error, stackTrace) {
-                    return Image.asset(
-                      ImageConstants.loading,
-                      fit: BoxFit.cover,
-                    );
-                  },
+                child: Center(
+                  child: Container(
+                    width: innerSize,
+                    height: innerSize,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                    child: ClipOval(
+                      child: FadeInImage.assetNetwork(
+                        placeholder: ImageConstants.loading,
+                        image: model.imageUrl,
+                        fit: BoxFit.cover,
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            ImageConstants.loading,
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              model.title,
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.poppins(
-                textStyle: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: themeProvider.textColor,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            model.title,
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.poppins(
+              textStyle: TextStyle(
+                fontSize: textSize.clamp(10, 14),
+                fontWeight: FontWeight.w500,
+                color: themeProvider.textColor,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

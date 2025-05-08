@@ -12,6 +12,7 @@ import 'package:rota_erzincan/widgets/AddToRouteDialog.dart';
 import 'package:rota_erzincan/widgets/BuildCircularButton.dart';
 import 'package:rota_erzincan/widgets/BuildInfoItem.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'dart:ui' as ui;
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key});
@@ -203,8 +204,7 @@ class _DetailsPageState extends State<DetailsPage>
                   children: [
                     // Hero Widget wrapped around the image
                     Hero(
-                      tag:
-                          'content_${viewModel.contentItem.id}', // Use unique tag for the Hero animation
+                      tag: 'content_${viewModel.contentItem.id}',
                       child: ClipRRect(
                         borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(30),
@@ -217,16 +217,22 @@ class _DetailsPageState extends State<DetailsPage>
                         ),
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.black.withValues(alpha: 0.8),
-                            Colors.black.withValues(alpha: 0.4),
-                            Colors.black.withValues(alpha: 0.1),
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.black.withValues(alpha: 0.8),
+                              Colors.black.withValues(alpha: 0.4),
+                              Colors.black.withValues(alpha: 0.1),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
                         ),
                       ),
                     ),
@@ -365,111 +371,218 @@ class _DetailsPageState extends State<DetailsPage>
                                       children: [
                                         // Yazı kısmı
                                         Expanded(
-                                          child: AnimatedBuilder(
-                                            animation: _headerAnimation,
-                                            builder: (context, child) {
-                                              return Transform.translate(
-                                                offset: Offset(
-                                                    _headerAnimation.value, 0),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          bottom: 15.0),
-                                                  child: Text(
-                                                    viewModel.contentItem.title,
-                                                    style: GoogleFonts.poppins(
-                                                      fontSize: 27,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: themeProvider
-                                                          .textColor,
-                                                      letterSpacing: 0.5,
-                                                      shadows: [
-                                                        Shadow(
-                                                          color: Colors.black
-                                                              .withValues(
-                                                                  alpha: 0.3),
-                                                          offset: const Offset(
-                                                              0, 2),
-                                                          blurRadius: 4,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    softWrap: true,
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-
-                                        // Butonlar kısmı
-                                        AnimatedBuilder(
-                                          animation: _buttonsAnimation,
-                                          builder: (context, child) {
-                                            return Transform.translate(
-                                              offset: Offset(
-                                                  0, _buttonsAnimation.value),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  BuildCircularButton(
-                                                    icon: Icons.add,
-                                                    onTap: () {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (_) =>
-                                                            ChangeNotifierProvider
-                                                                .value(
-                                                          value: Provider.of<
-                                                                  DetailsPageViewModel>(
-                                                              context,
-                                                              listen: false),
-                                                          child:
-                                                              const AddToRouteDialog(),
-                                                        ),
-                                                      );
-                                                    },
-                                                    bgColor: themeProvider
-                                                        .buttonColor,
-                                                    iconColor: Colors.white,
-                                                  ),
-                                                  BuildCircularButton(
-                                                    icon: Icons.location_on,
-                                                    onTap: () {
-                                                      viewModel.openMapApp(
-                                                          context,
-                                                          themeProvider);
-                                                    },
-                                                    bgColor:
-                                                        const Color.fromARGB(
-                                                            255, 211, 84, 0),
-                                                    iconColor:
-                                                        const Color.fromARGB(
-                                                            255, 245, 183, 70),
-                                                  ),
-                                                  BuildCircularButton(
-                                                    onTap: () async {
-                                                      await viewModel
-                                                          .toggleSpeaking(
-                                                              localeCode);
-                                                    },
-                                                    icon: viewModel.isSpeaking
-                                                        ? Icons.stop
-                                                        : Icons.play_arrow,
-                                                    isGlowing:
-                                                        viewModel.isSpeaking,
-                                                    bgColor:
-                                                        const Color.fromARGB(
-                                                            255, 211, 84, 0),
-                                                    iconColor:
-                                                        const Color.fromARGB(
-                                                            255, 245, 183, 70),
+                                          child: LayoutBuilder(
+                                            builder: (context, constraints) {
+                                              final textStyle =
+                                                  GoogleFonts.poppins(
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.bold,
+                                                color: themeProvider.textColor,
+                                                letterSpacing: 0.5,
+                                                shadows: [
+                                                  Shadow(
+                                                    color: Colors.black
+                                                        .withValues(alpha: 0.3),
+                                                    offset: const Offset(0, 2),
+                                                    blurRadius: 4,
                                                   ),
                                                 ],
-                                              ),
-                                            );
-                                          },
+                                              );
+
+                                              final text =
+                                                  viewModel.contentItem.title;
+
+                                              final span = TextSpan(
+                                                  text: text, style: textStyle);
+                                              final tp = TextPainter(
+                                                text: span,
+                                                maxLines: null,
+                                                textDirection:
+                                                    ui.TextDirection.ltr,
+                                              )..layout(
+                                                  maxWidth:
+                                                      constraints.maxWidth);
+
+                                              final lines =
+                                                  tp.computeLineMetrics();
+                                              final isSingleLine =
+                                                  lines.length == 1;
+
+                                              if (isSingleLine) {
+                                                final textWidth = tp.width;
+                                                const buttonWidthEstimate = 40.0 *
+                                                        3 +
+                                                    8.0 *
+                                                        2; // 3 buton + spacing
+                                                final fitsInOneLine = (textWidth +
+                                                        buttonWidthEstimate) <
+                                                    constraints.maxWidth;
+
+                                                if (fitsInOneLine) {
+                                                  // Hepsi aynı satıra sığıyorsa
+                                                  return Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Expanded(
+                                                        child: AnimatedBuilder(
+                                                          animation:
+                                                              _headerAnimation,
+                                                          builder:
+                                                              (context, child) {
+                                                            return Transform
+                                                                .translate(
+                                                              offset: Offset(
+                                                                  _headerAnimation
+                                                                      .value,
+                                                                  0),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        bottom:
+                                                                            15.0),
+                                                                child: Text(
+                                                                  text,
+                                                                  style:
+                                                                      textStyle,
+                                                                  softWrap:
+                                                                      false,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                      _buildButtonsRow(
+                                                          themeProvider,
+                                                          localeCode),
+                                                    ],
+                                                  );
+                                                } else {
+                                                  // Butonlar tek satıra sığmıyorsa: alta sağa yasla
+                                                  return Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      AnimatedBuilder(
+                                                        animation:
+                                                            _headerAnimation,
+                                                        builder:
+                                                            (context, child) {
+                                                          return Transform
+                                                              .translate(
+                                                            offset: Offset(
+                                                                _headerAnimation
+                                                                    .value,
+                                                                0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      bottom:
+                                                                          5.0),
+                                                              child: Text(
+                                                                text,
+                                                                style:
+                                                                    textStyle,
+                                                                softWrap: true,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                      Align(
+                                                        alignment: Alignment
+                                                            .centerRight,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  top: 6.0),
+                                                          child:
+                                                              _buildButtonsRow(
+                                                                  themeProvider,
+                                                                  localeCode),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                }
+                                              } else {
+                                                // Çok satırlıysa: son satıra butonları koy
+                                                final lastLine = lines.last;
+                                                final lastOffset = Offset(
+                                                    lastLine.left,
+                                                    lastLine.baseline);
+                                                final lastPosition = tp
+                                                    .getPositionForOffset(
+                                                        lastOffset)
+                                                    .offset
+                                                    .clamp(0, text.length);
+
+                                                final firstPart = text
+                                                    .substring(0, lastPosition);
+                                                final lastPart = text
+                                                    .substring(lastPosition);
+
+                                                return Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    AnimatedBuilder(
+                                                      animation:
+                                                          _headerAnimation,
+                                                      builder:
+                                                          (context, child) {
+                                                        return Transform
+                                                            .translate(
+                                                          offset: Offset(
+                                                              _headerAnimation
+                                                                  .value,
+                                                              0),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    bottom:
+                                                                        5.0),
+                                                            child: Text(
+                                                              firstPart,
+                                                              style: textStyle,
+                                                              softWrap: true,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Expanded(
+                                                          child: Text(
+                                                            lastPart,
+                                                            style: textStyle,
+                                                            softWrap: true,
+                                                          ),
+                                                        ),
+                                                        _buildButtonsRow(
+                                                            themeProvider,
+                                                            localeCode),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                );
+                                              }
+                                            },
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -824,6 +937,52 @@ class _DetailsPageState extends State<DetailsPage>
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildButtonsRow(ThemeProvider themeProvider, String localeCode) {
+    return AnimatedBuilder(
+      animation: _buttonsAnimation,
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(0, _buttonsAnimation.value),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BuildCircularButton(
+                icon: Icons.add,
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => ChangeNotifierProvider.value(
+                      value: Provider.of<DetailsPageViewModel>(context,
+                          listen: false),
+                      child: const AddToRouteDialog(),
+                    ),
+                  );
+                },
+                bgColor: themeProvider.buttonColor,
+                iconColor: Colors.white,
+              ),
+              const SizedBox(width: 8),
+              BuildCircularButton(
+                icon: Icons.location_on,
+                onTap: () => viewModel.openMapApp(context, themeProvider),
+                bgColor: const Color.fromARGB(255, 211, 84, 0),
+                iconColor: const Color.fromARGB(255, 245, 183, 70),
+              ),
+              const SizedBox(width: 8),
+              BuildCircularButton(
+                onTap: () => viewModel.toggleSpeaking(localeCode),
+                icon: viewModel.isSpeaking ? Icons.stop : Icons.play_arrow,
+                isGlowing: viewModel.isSpeaking,
+                bgColor: const Color.fromARGB(255, 211, 84, 0),
+                iconColor: const Color.fromARGB(255, 245, 183, 70),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

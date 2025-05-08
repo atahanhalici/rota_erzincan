@@ -397,38 +397,40 @@ class _GiveYourOpinionPageState extends State<GiveYourOpinionPage>
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: ClipRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                  child: Container(
-                    color: themeProvider.backgroundColor.withValues(alpha: 0.7),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(
-                          ImageConstants.logo,
-                          height: 45,
-                          fit: BoxFit.contain,
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          'footerCopyright'.tr(namedArgs: {
-                            'year': DateTime.now().year.toString()
-                          }),
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color:
-                                themeProvider.textColor.withValues(alpha: 0.6),
+              child: MediaQuery.of(context).viewInsets.bottom == 0
+                  ? ClipRect(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                        child: Container(
+                          color: themeProvider.backgroundColor.withValues(alpha:0.7),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.asset(
+                                ImageConstants.logo,
+                                height: 45,
+                                fit: BoxFit.contain,
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                'footerCopyright'.tr(namedArgs: {
+                                  'year': DateTime.now().year.toString()
+                                }),
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color:
+                                      themeProvider.textColor.withValues(alpha:0.6),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
+                      ),
+                    )
+                  : const SizedBox.shrink(), // 👈 klavye açıksa hiç çizme
+            )
           ],
         ),
       ),
