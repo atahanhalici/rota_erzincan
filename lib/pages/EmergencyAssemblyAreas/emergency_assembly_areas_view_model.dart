@@ -22,199 +22,182 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
 
   final List<Map<String, dynamic>> assemblyPointsTr = [
     {
-      'name': 'Fatih Mahallesi Parkı',
-      'point': const LatLng(39.7500, 39.4900),
-      'capacity': 1200,
+      'name': 'Spodek Arena',
+      'point': const LatLng(50.2599, 19.0216),
+      'capacity': 11000,
       'facilities': ['Su İkmal Noktası', 'İlk Yardım Çadırı'],
       'description':
-          'Geniş açık alan, çocuk oyun parkı bölümü ve ağaçlık alan bulunmakta.',
-      'contact': 'Mahalle Muhtarlığı: 0446 XXX XX XX'
+          'Katowice’nin simgesi olan arena, büyük etkinlikler için ideal.',
+      'contact': 'Spodek Yönetimi: +48 XXX XXX XXX'
     },
     {
-      'name': 'Erzincan Merkez Stadyumu',
-      'point': const LatLng(39.7475, 39.4905),
+      'name': 'Rynek Meydanı',
+      'point': const LatLng(50.2591, 19.0205),
       'capacity': 5000,
-      'facilities': [
-        'Tuvalet',
-        'Su İkmal Noktası',
-        'Mobil Sağlık Ünitesi',
-        'Çadır Alanı'
-      ],
-      'description': 'Büyük kapasiteli alan, tribünlü ve geniş otopark.',
-      'contact': 'Stadyum Yönetimi: 0446 XXX XX XX'
+      'facilities': ['Tuvalet', 'Su İkmal Noktası', 'Çadır Alanı'],
+      'description': 'Şehrin merkezi meydanı, kolay ulaşım ve geniş alan.',
+      'contact': 'Belediye Katowice: +48 XXX XXX XXX'
     },
     {
-      'name': 'Cumhuriyet Meydanı',
-      'point': const LatLng(39.7489, 39.4922),
-      'capacity': 3000,
-      'facilities': ['Tuvalet', 'Su İkmal Noktası', 'İlk Yardım Merkezi'],
-      'description': 'Şehir merkezindeki geniş meydan, ulaşımı kolay.',
-      'contact': 'Belediye: 0446 XXX XX XX'
-    },
-    {
-      'name': 'Atatürk Mahallesi Cami Önü',
-      'point': const LatLng(39.7460, 39.4870),
-      'capacity': 800,
-      'facilities': ['Su İkmal Noktası'],
-      'description': 'Cami önündeki geniş avlu, merkezi konumda.',
-      'contact': 'Cami İmamı: 0446 XXX XX XX'
-    },
-    {
-      'name': 'Halitpaşa İlkokulu Bahçesi',
-      'point': const LatLng(39.7490, 39.4888),
-      'capacity': 1500,
-      'facilities': ['Tuvalet', 'Su İkmal Noktası', 'Mobil Çadır'],
-      'description':
-          'Okul bahçesindeki geniş alan, etrafı çevrili güvenli bölge.',
-      'contact': 'Okul Müdürlüğü: 0446 XXX XX XX'
-    },
-    {
-      'name': 'Üniversite Kavşağı Parkı',
-      'point': const LatLng(39.7520, 39.4945),
-      'capacity': 1000,
-      'facilities': ['Tuvalet', 'Su İkmal Noktası', 'İlk Yardım İstasyonu'],
-      'description': 'Üniversite kampüsü yakınında, ulaşımı kolay.',
-      'contact': 'Üniversite Güvenlik: 0446 XXX XX XX'
-    },
-    {
-      'name': 'Erzincan AVM Arkası',
-      'point': const LatLng(39.7502, 39.4930),
+      'name': 'Nikiszowiec Parkı',
+      'point': const LatLng(50.2435, 19.0195),
       'capacity': 2000,
-      'facilities': ['Tuvalet', 'Su İkmal Noktası', 'Yemek Dağıtım Noktası'],
-      'description':
-          "AVM'nin geniş otopark alanı, kapalı ve açık alanları mevcut.",
-      'contact': 'AVM Yönetimi: 0446 XXX XX XX'
+      'facilities': ['Su İkmal Noktası', 'İlk Yardım Çadırı'],
+      'description': 'Tarihi Nikiszowiec bölgesinde geniş yeşil alan.',
+      'contact': 'Park Yönetimi: +48 XXX XXX XXX'
     },
     {
-      'name': 'Yeni Mahalle Pazar Yeri',
-      'point': const LatLng(39.7445, 39.4901),
+      'name': 'Silesian Park',
+      'point': const LatLng(50.2420, 19.0010),
+      'capacity': 8000,
+      'facilities': ['Tuvalet', 'Su İkmal Noktası', 'Yemek Dağıtım Noktası'],
+      'description': 'Şehrin en büyük park alanı, etkinlik ve yürüyüş alanı.',
+      'contact': 'Silesian Park Yönetimi: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Muzeum Śląskie Önü',
+      'point': const LatLng(50.2640, 19.0015),
+      'capacity': 3000,
+      'facilities': ['Su İkmal Noktası', 'İlk Yardım Merkezi'],
+      'description': 'Modern sanat müzesi önündeki açık alan.',
+      'contact': 'Müze İletişim: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Katowice Üniversite Kampüsü',
+      'point': const LatLng(50.2670, 19.0220),
+      'capacity': 4000,
+      'facilities': ['Tuvalet', 'Su İkmal Noktası', 'İlk Yardım İstasyonu'],
+      'description': 'Üniversite kampüsü içinde geniş ve ulaşımı kolay alan.',
+      'contact': 'Üniversite Güvenlik: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Strefa Kultury Alanı',
+      'point': const LatLng(50.2630, 19.0200),
+      'capacity': 6000,
+      'facilities': ['Tuvalet', 'Su İkmal Noktası', 'Çadır Alanı'],
+      'description': 'Kültürel etkinlik alanı, konum itibariyle merkezi.',
+      'contact': 'Strefa Kultury Yönetimi: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Plac Miarki',
+      'point': const LatLng(50.2600, 19.0180),
       'capacity': 2500,
       'facilities': ['Su İkmal Noktası', 'Çadır Alanı'],
-      'description': 'Haftalık pazar kurulan geniş alan, üstü açık.',
-      'contact': 'Mahalle Muhtarlığı: 0446 XXX XX XX'
+      'description': 'Haftalık pazar alanı, açık ve kolay erişilebilir.',
+      'contact': 'Belediye Katowice: +48 XXX XXX XXX'
     },
     {
-      'name': 'Belediye Önü Açık Alan',
-      'point': const LatLng(39.7466, 39.4932),
-      'capacity': 1200,
-      'facilities': ['Tuvalet', 'Su İkmal Noktası', 'İdari Merkez'],
-      'description':
-          'Belediye binası önündeki meydan, koordinasyon merkezi olarak kullanılır.',
-      'contact': 'Belediye Afet Koordinasyon: 0446 XXX XX XX'
+      'name': 'Rybnicka Açık Alan',
+      'point': const LatLng(50.2560, 19.0150),
+      'capacity': 2000,
+      'facilities': ['Tuvalet', 'Su İkmal Noktası'],
+      'description': 'Koordinasyon merkezi ve açık etkinlik alanı.',
+      'contact': 'Belediye Katowice: +48 XXX XXX XXX'
     },
     {
-      'name': 'Valilik Yanı Açık Alan',
-      'point': const LatLng(39.7472, 39.4940),
-      'capacity': 1000,
+      'name': 'Valilik Yanı Alanı',
+      'point': const LatLng(50.2585, 19.0190),
+      'capacity': 1500,
       'facilities': ['Tuvalet', 'Su İkmal Noktası', 'AFAD Yönetim Merkezi'],
       'description':
-          'Valilik binası yanındaki alan, resmi kurumlarla iletişimi kolay.',
-      'contact': 'Valilik AFAD Birimi: 0446 XXX XX XX'
+          'Valilik binası yakınındaki alan, resmi kurumlarla iletişim kolay.',
+      'contact': 'Valilik Katowice: +48 XXX XXX XXX'
     },
   ];
+
   final List<Map<String, dynamic>> assemblyPointsEn = [
     {
-      'name': 'Fatih Neighborhood Park',
-      'point': const LatLng(39.7500, 39.4900),
-      'capacity': 1200,
+      'name': 'Spodek Arena',
+      'point': const LatLng(50.2599, 19.0216),
+      'capacity': 11000,
       'facilities': ['Water Supply Station', 'First Aid Tent'],
-      'description':
-          'Large open area with children’s playground and tree-lined sections.',
-      'contact': 'Neighborhood Head Office: 0446 XXX XX XX'
+      'description': 'Iconic arena in Katowice, ideal for large events.',
+      'contact': 'Spodek Management: +48 XXX XXX XXX'
     },
     {
-      'name': 'Erzincan City Stadium',
-      'point': const LatLng(39.7475, 39.4905),
+      'name': 'Rynek Square',
+      'point': const LatLng(50.2591, 19.0205),
       'capacity': 5000,
-      'facilities': [
-        'Toilets',
-        'Water Supply Station',
-        'Mobile Health Unit',
-        'Tent Area'
-      ],
-      'description': 'High-capacity area with stands and large parking lot.',
-      'contact': 'Stadium Management: 0446 XXX XX XX'
+      'facilities': ['Toilets', 'Water Supply Station', 'Tent Area'],
+      'description': 'City center square with wide open area and easy access.',
+      'contact': 'Katowice Municipality: +48 XXX XXX XXX'
     },
     {
-      'name': 'Republic Square',
-      'point': const LatLng(39.7489, 39.4922),
-      'capacity': 3000,
-      'facilities': ['Toilets', 'Water Supply Station', 'First Aid Center'],
-      'description': 'Wide city square with easy access.',
-      'contact': 'Municipality: 0446 XXX XX XX'
-    },
-    {
-      'name': 'Atatürk Neighborhood Mosque Front',
-      'point': const LatLng(39.7460, 39.4870),
-      'capacity': 800,
-      'facilities': ['Water Supply Station'],
-      'description': 'Spacious mosque courtyard in a central location.',
-      'contact': 'Mosque Imam: 0446 XXX XX XX'
-    },
-    {
-      'name': 'Halitpaşa Primary School Yard',
-      'point': const LatLng(39.7490, 39.4888),
-      'capacity': 1500,
-      'facilities': ['Toilets', 'Water Supply Station', 'Mobile Tent'],
-      'description': 'Large schoolyard area, fenced and secure environment.',
-      'contact': 'School Directorate: 0446 XXX XX XX'
-    },
-    {
-      'name': 'University Junction Park',
-      'point': const LatLng(39.7520, 39.4945),
-      'capacity': 1000,
-      'facilities': ['Toilets', 'Water Supply Station', 'First Aid Station'],
-      'description': 'Near university campus, easily accessible.',
-      'contact': 'University Security: 0446 XXX XX XX'
-    },
-    {
-      'name': 'Behind Erzincan Mall',
-      'point': const LatLng(39.7502, 39.4930),
+      'name': 'Nikiszowiec Park',
+      'point': const LatLng(50.2435, 19.0195),
       'capacity': 2000,
+      'facilities': ['Water Supply Station', 'First Aid Tent'],
+      'description': 'Spacious green area in historic Nikiszowiec district.',
+      'contact': 'Park Management: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Silesian Park',
+      'point': const LatLng(50.2420, 19.0010),
+      'capacity': 8000,
       'facilities': [
         'Toilets',
         'Water Supply Station',
         'Food Distribution Point'
       ],
-      'description':
-          'Spacious mall parking lot with both open and closed areas.',
-      'contact': 'Mall Management: 0446 XXX XX XX'
+      'description': 'Largest park in the city, great for events and walks.',
+      'contact': 'Silesian Park Management: +48 XXX XXX XXX'
     },
     {
-      'name': 'Yeni Neighborhood Market Area',
-      'point': const LatLng(39.7445, 39.4901),
+      'name': 'Museum of Silesia Front',
+      'point': const LatLng(50.2640, 19.0015),
+      'capacity': 3000,
+      'facilities': ['Water Supply Station', 'First Aid Center'],
+      'description': 'Open area in front of the modern art museum.',
+      'contact': 'Museum Contact: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Katowice University Campus',
+      'point': const LatLng(50.2670, 19.0220),
+      'capacity': 4000,
+      'facilities': ['Toilets', 'Water Supply Station', 'First Aid Station'],
+      'description':
+          'Spacious area inside university campus, easily accessible.',
+      'contact': 'University Security: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Strefa Kultury Area',
+      'point': const LatLng(50.2630, 19.0200),
+      'capacity': 6000,
+      'facilities': ['Toilets', 'Water Supply Station', 'Tent Area'],
+      'description': 'Cultural event area, centrally located.',
+      'contact': 'Strefa Kultury Management: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Plac Miarki',
+      'point': const LatLng(50.2600, 19.0180),
       'capacity': 2500,
       'facilities': ['Water Supply Station', 'Tent Area'],
-      'description': 'Large open-air area where the weekly market is held.',
-      'contact': 'Neighborhood Head Office: 0446 XXX XX XX'
+      'description': 'Open-air area where weekly market is held.',
+      'contact': 'Katowice Municipality: +48 XXX XXX XXX'
     },
     {
-      'name': 'Open Area in Front of Municipality',
-      'point': const LatLng(39.7466, 39.4932),
-      'capacity': 1200,
-      'facilities': [
-        'Toilets',
-        'Water Supply Station',
-        'Administrative Center'
-      ],
-      'description':
-          'Municipal square, used as coordination center during emergencies.',
-      'contact': 'Municipality Disaster Coordination: 0446 XXX XX XX'
+      'name': 'Rybnicka Open Area',
+      'point': const LatLng(50.2560, 19.0150),
+      'capacity': 2000,
+      'facilities': ['Toilets', 'Water Supply Station'],
+      'description': 'Coordination center and open event area.',
+      'contact': 'Katowice Municipality: +48 XXX XXX XXX'
     },
     {
-      'name': 'Open Area Next to Governorship',
-      'point': const LatLng(39.7472, 39.4940),
-      'capacity': 1000,
+      'name': 'Next to Governorship Area',
+      'point': const LatLng(50.2585, 19.0190),
+      'capacity': 1500,
       'facilities': [
         'Toilets',
         'Water Supply Station',
         'AFAD Management Center'
       ],
       'description':
-          'Area next to the governorship, easy coordination with authorities.',
-      'contact': 'Governorship AFAD Unit: 0446 XXX XX XX'
+          'Area near governorship, easy coordination with authorities.',
+      'contact': 'Katowice Governorship: +48 XXX XXX XXX'
     },
   ];
+
   late String langCode;
   void initializeWithContext(BuildContext context) {
     langCode = context.locale.languageCode;

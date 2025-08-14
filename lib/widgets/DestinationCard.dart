@@ -65,7 +65,7 @@ class _DestinationCardState extends State<DestinationCard>
       },
       child: GestureDetector(
         onTap: () {
-          if (widget.title.contains("Ergan")) {
+          if (widget.title.contains("Spodek")) {
             _homeModel.navigateToErgan(context);
           } else {
             _homeModel.navigateToCategoryDetail(widget.title, widget.subtitle,

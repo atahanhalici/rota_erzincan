@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class StringConstants {
   // Can't instantiate this class. Use it directly.
   const StringConstants._();
-  static const String appName = "Rota Erzincan";
+  static const String appName = "Poznaj Katowice";
 
   //region Error screen strings
   static const String notFound = "Aradığınız Sayfayı Bulamadık";
@@ -52,7 +52,7 @@ class StringConstants {
   static const readMoreText = 'Devamını Oku';
   static const galleryTitle = 'Galeri';
   static const photoPrefix = 'Fotoğraf';
-  static const detailGalleryTitle = 'Terzibaba Mezarlığı ve Türbesi';
+  static const detailGalleryTitle = 'Spodek Arena';
 
   static const locationLoadingText = "Konumunuz alınıyor...";
   static const locationPermissionTitle = "Konum Erişimi Gerekli";

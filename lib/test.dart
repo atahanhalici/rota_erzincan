@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         bottomRight: Radius.circular(30),
                       ),
                       child: Image.network(
-                        "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc", //'https://picsum.photos/800/500',
+                        "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/spodek.jpg?alt=media&token=d4498059-0877-442a-a672-909a130fb2ba", //'https://picsum.photos/800/500',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -104,10 +104,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                     const Expanded(
+                      const Expanded(
                         child: Text(
                           "Terzibaba Mezarlığı ve Türbesi",
-                          style:  TextStyle(
+                          style: TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,

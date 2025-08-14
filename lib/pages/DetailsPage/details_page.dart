@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/image_constants.dart';
-import 'package:rota_erzincan/constants/string_constants.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/pages/DetailPhotoView/detail_photo_view_page_view_model.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
@@ -817,8 +816,8 @@ class _DetailsPageState extends State<DetailsPage>
                                                                 viewModel
                                                                     .imageUrls,
                                                             initialIndex: index,
-                                                            title: StringConstants
-                                                                .detailGalleryTitle,
+                                                            title: viewModel
+                                                                .targetTitle,
                                                           ),
                                                         ),
                                                       ),

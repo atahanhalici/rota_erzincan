@@ -41,7 +41,7 @@ class CategoryCircle extends StatelessWidget {
                     colors: [
                       Colors.redAccent,
                       ColorConstants.buttonColor,
-                      ColorConstants.buttonColor.withValues(alpha:0.8),
+                      ColorConstants.buttonColor.withValues(alpha: 0.8),
                       Colors.red,
                     ],
                     begin: Alignment.topLeft,
@@ -50,8 +50,8 @@ class CategoryCircle extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                       color: themeProvider.isDarkMode
-                          ? themeProvider.infoItemColor.withValues(alpha:0.4)
-                          : Colors.black.withValues(alpha:0.4),
+                          ? themeProvider.infoItemColor.withValues(alpha: 0.4)
+                          : Colors.black.withValues(alpha: 0.4),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),

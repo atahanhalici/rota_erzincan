@@ -32,13 +32,12 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
         "/details",
         CategoryContentItem(
           id: 'content_0',
-          title: 'Terzibaba Camii ve Külliyesi 1',
-          description:
-              'Bu Terzibaba Camii ve Külliyesi 1 kategorisi için içerik 1 açıklamasıdır.',
+          title: 'Spodek Arena',
+          description: 'Spodek Arena kategorisi için içerik açıklamasıdır.',
           imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-          latitude: 39.7531,
-          longitude: 39.4985,
+              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/spodek.jpg?alt=media&token=d4498059-0877-442a-a672-909a130fb2ba',
+          latitude: 50.2599,
+          longitude: 19.0216,
         ));
   }
 
@@ -160,7 +159,7 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
   void disposeController() {
     try {
       animationController.dispose();
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
     timer?.cancel();
     pageController.dispose();

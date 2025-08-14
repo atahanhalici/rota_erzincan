@@ -41,13 +41,12 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
     navigationService.navigateToDetailsPage(
       CategoryContentItem(
         id: 'content_0',
-        title: title ?? 'Terzibaba Camii ve Külliyesi 1',
-        description:
-            'Bu Terzibaba Camii ve Külliyesi 1 kategorisi için içerik 1 açıklamasıdır.',
+        title: title ?? 'Spodek Arena',
+        description: 'Spodek Arena kategorisi için içerik açıklamasıdır.',
         imageUrl: imageUrl ??
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.6152,
-        longitude: 39.5558,
+            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/spodek.jpg?alt=media&token=d4498059-0877-442a-a672-909a130fb2ba',
+        latitude: 50.2599,
+        longitude: 19.0216,
       ),
     );
   }
@@ -74,11 +73,8 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
         subtitle: subtitle,
         imageUrl: imageUrl,
         id: id);
-    if (id == 1) {
-      navigationService.navigateToCategoryDetailClear(_categoryItem);
-    } else {
-      navigationService.navigateToCategoryDetail(_categoryItem);
-    }
+
+    navigationService.navigateToCategoryDetail(_categoryItem);
   }
 
   void navigateToSearch() {

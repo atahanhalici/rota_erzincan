@@ -29,78 +29,78 @@ class SearchPageViewModel extends ChangeNotifier with BaseViewModel {
     final List<CategoryContentItem> trItems = [
       CategoryContentItem(
         id: '1',
-        title: 'Terzi Baba Türbesi',
-        description: 'Erzincan merkezde bulunan tarihi türbe.',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.7509,
-        longitude: 39.4958,
+        title: 'Spodek Arena',
+        description:
+            'Katowice’nin simgesi, konser ve etkinlikler için ünlü arena.',
+        imageUrl: 'https://picsum.photos/id/1011/600/400',
+        latitude: 50.2599,
+        longitude: 19.0216,
       ),
       CategoryContentItem(
         id: '2',
-        title: 'Girlevik Şelalesi',
-        description: 'Erzincan\'ın doğal güzelliklerinden biri olan şelale.',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.6290,
-        longitude: 39.6412,
+        title: 'Nikiszowiec',
+        description:
+            'Tarihi işçi yerleşimi, geleneksel mimarisi ve kültürel etkinlikleriyle ünlü.',
+        imageUrl: 'https://picsum.photos/id/1025/600/400',
+        latitude: 50.2475,
+        longitude: 19.0263,
       ),
       CategoryContentItem(
         id: '3',
-        title: 'Ergan Dağı Kayak Merkezi',
-        description: 'Erzincan\'da kış turizmi için ideal kayak merkezi.',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.6133,
-        longitude: 39.5061,
+        title: 'Silesia City Center',
+        description:
+            'Alışveriş, eğlence ve restoranların bulunduğu büyük bir alışveriş merkezi.',
+        imageUrl: 'https://picsum.photos/id/1043/600/400',
+        latitude: 50.2570,
+        longitude: 19.0250,
       ),
       CategoryContentItem(
         id: '4',
-        title: 'Kemaliye (Eğin)',
-        description: 'Tarihi evleri ve doğal güzellikleriyle ünlü ilçe.',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.2614,
-        longitude: 38.4911,
+        title: 'Katowice Botanik Bahçesi',
+        description:
+            'Doğa yürüyüşleri ve bitki çeşitleri ile dolu sakin bir alan.',
+        imageUrl: 'https://picsum.photos/id/1062/600/400',
+        latitude: 50.2605,
+        longitude: 19.0150,
       ),
     ];
 
     final List<CategoryContentItem> enItems = [
       CategoryContentItem(
         id: '1',
-        title: 'Terzi Baba Tomb',
-        description: 'A historical tomb located in the center of Erzincan.',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.7509,
-        longitude: 39.4958,
+        title: 'Spodek Arena',
+        description:
+            'The iconic arena of Katowice, famous for concerts and events.',
+        imageUrl: 'https://picsum.photos/id/1011/600/400',
+        latitude: 50.2599,
+        longitude: 19.0216,
       ),
       CategoryContentItem(
         id: '2',
-        title: 'Girlevik Waterfall',
-        description: 'A famous natural beauty and photography spot.',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.6290,
-        longitude: 39.6412,
+        title: 'Nikiszowiec',
+        description:
+            'Historic worker settlement known for traditional architecture and cultural events.',
+        imageUrl: 'https://picsum.photos/id/1025/600/400',
+        latitude: 50.2475,
+        longitude: 19.0263,
       ),
       CategoryContentItem(
         id: '3',
-        title: 'Ergan Mountain Ski Center',
-        description: 'An ideal ski resort for winter tourism in Erzincan.',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.6133,
-        longitude: 39.5061,
+        title: 'Silesia City Center',
+        description:
+            'A large shopping center with shops, entertainment, and restaurants.',
+        imageUrl: 'https://picsum.photos/id/1043/600/400',
+        latitude: 50.2570,
+        longitude: 19.0250,
       ),
       CategoryContentItem(
         id: '4',
-        title: 'Kemaliye (Eğin)',
-        description: 'Famous for its historic houses and natural beauty.',
-        imageUrl:
-            'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-        latitude: 39.2614,
-        longitude: 38.4911,
+        title: 'Katowice Botanical Garden',
+        description:
+            'A peaceful area filled with walking paths and plant varieties.',
+        imageUrl: 'https://picsum.photos/id/1062/600/400',
+        latitude: 50.2605,
+        longitude: 19.0150,
       ),
     ];
 

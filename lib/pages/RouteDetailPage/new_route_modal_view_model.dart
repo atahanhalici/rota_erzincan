@@ -27,92 +27,96 @@ class NewRouteModalViewModel extends ChangeNotifier with BaseViewModel {
     final List<CategoryContentItem> itemTr = [
       CategoryContentItem(
         id: 'item_0',
-        title: 'Ergan Dağı Kayak Merkezi',
+        title: 'Spodek Arena',
         description:
-            'Kış turizmiyle öne çıkan, doğayla iç içe bir kayak merkezi.',
+            'Katowice’nin simgesi, konser ve etkinlikler için ünlü arena.',
         imageUrl: 'https://picsum.photos/id/1011/600/400',
-        latitude: 39.6152,
-        longitude: 39.5558,
+        latitude: 50.2599,
+        longitude: 19.0216,
       ),
       CategoryContentItem(
         id: 'item_1',
-        title: 'Girlevik Şelalesi',
+        title: 'Nikiszowiec',
         description:
-            'Doğal güzelliğiyle ünlü, piknik ve fotoğrafçılık için harika bir şelale.',
+            'Tarihi işçi yerleşimi, geleneksel mimarisi ve kültürel etkinlikleriyle ünlü.',
         imageUrl: 'https://picsum.photos/id/1025/600/400',
-        latitude: 39.6255,
-        longitude: 39.7813,
+        latitude: 50.2475,
+        longitude: 19.0263,
       ),
       CategoryContentItem(
         id: 'item_2',
-        title: 'Kemaliye Karanlık Kanyon',
+        title: 'Silesia City Center',
         description:
-            'Dünyanın en dar geçitlerinden biri, manzaralı yürüyüş yollarıyla ünlü.',
+            'Alışveriş, eğlence ve restoranların bulunduğu büyük bir alışveriş merkezi.',
         imageUrl: 'https://picsum.photos/id/1043/600/400',
-        latitude: 39.2601,
-        longitude: 38.4968,
+        latitude: 50.2570,
+        longitude: 19.0250,
       ),
       CategoryContentItem(
         id: 'item_3',
-        title: 'Ekşisu Mesire Alanı',
-        description: 'Doğal maden suyu kaynakları ve piknik alanları ile ünlü.',
+        title: 'Katowice Botanik Bahçesi',
+        description:
+            'Doğa yürüyüşleri ve bitki çeşitleri ile dolu sakin bir alan.',
         imageUrl: 'https://picsum.photos/id/1062/600/400',
-        latitude: 39.6613,
-        longitude: 39.6907,
+        latitude: 50.2605,
+        longitude: 19.0150,
       ),
       CategoryContentItem(
         id: 'item_4',
-        title: 'Erzincan Kalesi',
+        title: 'Rynek w Katowicach',
         description:
-            'Tarihi dokusunu koruyan ve şehre hâkim bir noktada bulunan kale.',
+            'Şehrin merkezi meydanı, kafeler ve tarihi yapılarla çevrili.',
         imageUrl: 'https://picsum.photos/id/1050/600/400',
-        latitude: 39.7508,
-        longitude: 39.4977,
+        latitude: 50.2590,
+        longitude: 19.0210,
       ),
     ];
 
     final List<CategoryContentItem> itemEn = [
       CategoryContentItem(
         id: 'item_0',
-        title: 'Ergan Mountain Ski Center',
+        title: 'Spodek Arena',
         description:
-            'A ski resort integrated with nature, famous for winter tourism.',
+            'The iconic arena of Katowice, famous for concerts and events.',
         imageUrl: 'https://picsum.photos/id/1011/600/400',
-        latitude: 39.6152,
-        longitude: 39.5558,
+        latitude: 50.2599,
+        longitude: 19.0216,
       ),
       CategoryContentItem(
         id: 'item_1',
-        title: 'Girlevik Waterfall',
-        description: 'A beautiful waterfall ideal for picnics and photography.',
+        title: 'Nikiszowiec',
+        description:
+            'Historic worker settlement known for traditional architecture and cultural events.',
         imageUrl: 'https://picsum.photos/id/1025/600/400',
-        latitude: 39.6255,
-        longitude: 39.7813,
+        latitude: 50.2475,
+        longitude: 19.0263,
       ),
       CategoryContentItem(
         id: 'item_2',
-        title: 'Kemaliye Dark Canyon',
+        title: 'Silesia City Center',
         description:
-            'One of the narrowest canyons in the world, famous for its scenic trails.',
+            'A large shopping center with shops, entertainment, and restaurants.',
         imageUrl: 'https://picsum.photos/id/1043/600/400',
-        latitude: 39.2601,
-        longitude: 38.4968,
+        latitude: 50.2570,
+        longitude: 19.0250,
       ),
       CategoryContentItem(
         id: 'item_3',
-        title: 'Ekşisu Recreation Area',
-        description: 'Famous for its natural mineral springs and picnic areas.',
+        title: 'Katowice Botanical Garden',
+        description:
+            'A peaceful area filled with walking paths and plant varieties.',
         imageUrl: 'https://picsum.photos/id/1062/600/400',
-        latitude: 39.6613,
-        longitude: 39.6907,
+        latitude: 50.2605,
+        longitude: 19.0150,
       ),
       CategoryContentItem(
         id: 'item_4',
-        title: 'Erzincan Castle',
-        description: 'A historical castle overlooking the city.',
+        title: 'Rynek w Katowicach',
+        description:
+            'The central square of the city, surrounded by cafes and historic buildings.',
         imageUrl: 'https://picsum.photos/id/1050/600/400',
-        latitude: 39.7508,
-        longitude: 39.4977,
+        latitude: 50.2590,
+        longitude: 19.0210,
       ),
     ];
 
@@ -199,7 +203,7 @@ class NewRouteModalViewModel extends ChangeNotifier with BaseViewModel {
       title: nameController.text.trim(),
       subtitle: descController.text.trim(),
       imageUrl:
-          'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/erzincana-kar-yeniden-geliyor.jpg?alt=media&token=0b910000-dd18-4edc-8724-66268562adb4',
+          'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/c3e4721f-bb4c-4a09-8067-837ef3e98c2e.jpg?alt=media&token=15a6edd4-d9cf-48ab-ad25-addaf92c3f9b',
       iconName: "map_rounded",
       distanceKm: double.parse(totalDistanceKm.toStringAsFixed(2)),
       duration: estimatedDuration,

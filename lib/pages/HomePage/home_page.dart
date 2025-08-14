@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage>
                                 Opacity(
                                   opacity: 0.4,
                                   child: Image.network(
-                                    "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/YbJ067cDS03GSSQ.jpg?alt=media&token=50bfb43b-07dc-4250-b2a2-7f667fcc1321",
+                                    "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/katowice-nasil-bir-sehir-3-1-1024x683.png?alt=media&token=bc607803-290e-4ec7-b358-f52198ea5a1c",
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                     height: double.infinity,

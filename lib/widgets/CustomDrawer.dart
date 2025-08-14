@@ -151,8 +151,8 @@ class CustomDrawer extends StatelessWidget {
             onTap: () => homeModel.navigateToDetails(
               context,
               imageUrl:
-                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/makam-foto-2.jpeg?alt=media&token=b9eb519f-17de-44c8-aee6-b03fa0bb8c35",
-              title: "Valimizden Mesaj",
+                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/e6c7257a-ec72-4d66-aaf4-0c810177df3a.JPEG?alt=media&token=c134b930-a4d5-4b5a-b99f-40b12156d8bb",
+              title: 'drawerMessageFromGovernor'.tr(),
             ),
             color: ColorConstants.buttonColor.withValues(alpha: 0.1),
             height: itemHeight,
@@ -163,8 +163,8 @@ class CustomDrawer extends StatelessWidget {
             onTap: () => homeModel.navigateToDetails(
               context,
               imageUrl:
-                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/erzincana-kar-yeniden-geliyor.jpg?alt=media&token=0b910000-dd18-4edc-8724-66268562adb4",
-              title: "Erzincan Hakkında",
+                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/c3e4721f-bb4c-4a09-8067-837ef3e98c2e.jpg?alt=media&token=15a6edd4-d9cf-48ab-ad25-addaf92c3f9b",
+              title: 'drawerAboutErzincan'.tr(),
             ),
             color: ColorConstants.buttonColor.withValues(alpha: 0.3),
             height: itemHeight,
@@ -182,8 +182,8 @@ class CustomDrawer extends StatelessWidget {
             onTap: () => homeModel.navigateToDetails(
               context,
               imageUrl:
-                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/loading.jpg?alt=media&token=1e8517f0-5a7d-4d96-891b-3adb85d850c2",
-              title: "Uygulama Hakkında",
+                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/loading.jpg?alt=media&token=e6373a4d-70ac-4c60-a206-c51232801210",
+              title: 'drawerAboutApp'.tr(),
             ),
             color: ColorConstants.buttonColor.withValues(alpha: 0.7),
             height: itemHeight,
@@ -235,11 +235,10 @@ class CustomDrawer extends StatelessWidget {
 
   Widget _buildSocialIcons(ThemeProvider themeProvider) {
     final socialLinks = <IconData, String>{
-      FontAwesomeIcons.facebook: 'https://www.facebook.com/erzincan.valiligi',
-      FontAwesomeIcons.instagram: 'https://www.instagram.com/erzincanvaliligi',
-      FontAwesomeIcons.xTwitter: 'https://x.com/ervalilik',
-      FontAwesomeIcons.youtube:
-          'https://www.youtube.com/channel/UCEvKITSEAzNA342u4XEaQTw',
+      FontAwesomeIcons.facebook: 'https://www.facebook.com/atahan.halici.1',
+      FontAwesomeIcons.instagram: 'https://www.instagram.com/atahanhalici/',
+      FontAwesomeIcons.xTwitter: 'https://x.com/atahanhalici',
+      FontAwesomeIcons.youtube: 'https://www.youtube.com/@atahanhalici',
     };
 
     return Row(

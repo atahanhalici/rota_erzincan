@@ -16,15 +16,15 @@ class ApiService {
     await Future.delayed(const Duration(milliseconds: 500));
 
     final List<String> titles = [
-      "Tarih ve Kültür",
-      "Doğa",
-      "Gastronomi",
-      "İnanç",
-      "Müze ve Sanat",
-      "Alışveriş",
-      "El Sanatları",
-      "Gençlik - Spor",
-      "Acenteler",
+      "Endüstri", // Endüstri ve Madencilik Mirası
+      "Doğa Parkları", // Parklar ve Doğa Alanları
+      "Silezya Mutfağı", // Silezya Mutfağı
+      "Dini Miras", // Dini Miras
+      "Müzeler", // Müzeler ve Modern Sanat
+      "Alışveriş", // Alışveriş ve Pazarlar
+      "El Sanatları", // Yerel El Sanatları ve Tasarım
+      "Etkinlikler", // Etkinlikler ve Spor
+      "Turizm Ofisleri" // Turizm Ofisleri ve Acenteler
     ];
 
     return titles.asMap().entries.map((entry) {
@@ -41,15 +41,15 @@ class ApiService {
     await Future.delayed(const Duration(milliseconds: 500));
 
     final List<String> titles = [
-      "History & Culture",
-      "Nature",
-      "Gastronomy",
-      "Faith",
-      "Museums & Art",
-      "Shopping",
-      "Handicrafts",
-      "Youth & Sports",
-      "Agencies",
+      "Industry", // Industrial & Mining Heritage
+      "Nature", // Parks & Nature Areas
+      "Cuisine", // Silesian Cuisine
+      "Religion", // Religious Heritage
+      "Museums", // Museums & Modern Art
+      "Shopping", // Shopping & Markets
+      "Crafts", // Local Handicrafts & Design
+      "Events", // Events & Sports
+      "Tourism" // Tourist Offices & Agencies
     ];
 
     return titles.asMap().entries.map((entry) {
@@ -63,97 +63,97 @@ class ApiService {
   }
 
   Future<List<CategoryItem>> fetchAllCategoriesTr() async {
-    await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
+    await Future.delayed(const Duration(milliseconds: 500));
 
     final List<Map<String, dynamic>> responseData = [
       {
         "id": 0,
         "title": "Müzeler",
-        "subtitle": "Erzincan'ın tarihi müzeleri",
+        "subtitle": "Silezya Müzesi ve diğer kültürel merkezler",
         "imageUrl": "https://picsum.photos/id/1003/600/900",
         "icon": Icons.museum,
       },
       {
         "id": 1,
         "title": "Lezzet Durakları",
-        "subtitle": "Yöresel tatları keşfedin",
+        "subtitle": "Silezya mutfağının yerel tatlarını keşfedin",
         "imageUrl": "https://picsum.photos/id/1080/600/900",
         "icon": Icons.restaurant,
       },
       {
         "id": 2,
-        "title": "Kış Sporları",
-        "subtitle": "Kayak ve diğer kış aktiviteleri",
+        "title": "Etkinlikler ve Spor",
+        "subtitle": "Spodek Arena ve şehirdeki spor aktiviteleri",
         "imageUrl": "https://picsum.photos/id/1011/600/900",
-        "icon": Icons.snowboarding,
+        "icon": Icons.sports_soccer,
       },
       {
         "id": 3,
-        "title": "Şehrin Simgesel Eserleri",
-        "subtitle": "Erzincan'ın sembol yapıları",
+        "title": "Simgesel Yapılar",
+        "subtitle": "Spodek, Nikiszowiec ve diğer önemli noktalar",
         "imageUrl": "https://picsum.photos/id/1015/600/900",
         "icon": Icons.location_city,
       },
       {
         "id": 4,
-        "title": "Camiler",
-        "subtitle": "Tarihi ve modern camiler",
+        "title": "Kiliseler",
+        "subtitle": "Tarihi ve modern ibadethaneler",
         "imageUrl": "https://picsum.photos/id/1016/600/900",
-        "icon": Icons.mosque,
+        "icon": Icons.church,
       },
       {
         "id": 5,
-        "title": "Türbeler",
-        "subtitle": "Dini ve tarihi türbeler",
+        "title": "Endüstri Mirası",
+        "subtitle": "Eski madenler, fabrikalar ve müzeler",
         "imageUrl": "https://picsum.photos/id/1019/600/900",
-        "icon": Icons.account_balance,
+        "icon": Icons.factory,
       },
       {
         "id": 6,
         "title": "Oteller",
-        "subtitle": "Konaklama seçenekleri",
+        "subtitle": "Konforlu konaklama seçenekleri",
         "imageUrl": "https://picsum.photos/id/1020/600/900",
         "icon": Icons.hotel,
       },
       {
         "id": 7,
-        "title": "Kale ve Köprüler",
-        "subtitle": "Tarihi yapılar ve manzaralar",
+        "title": "Köprüler ve Meydanlar",
+        "subtitle": "Tarihi köprüler ve şehir meydanları",
         "imageUrl": "https://picsum.photos/id/1024/600/900",
         "icon": Icons.fort,
       },
       {
         "id": 8,
-        "title": "Sinemalar",
-        "subtitle": "Film ve eğlence mekanları",
+        "title": "Tiyatro ve Sinema",
+        "subtitle": "Kültürel sahneler ve sinema salonları",
         "imageUrl": "https://picsum.photos/id/1025/600/900",
         "icon": Icons.movie,
       },
       {
         "id": 9,
-        "title": "Arkeolojik Alanlar",
-        "subtitle": "Antik yerleşimler ve kazı alanları",
+        "title": "Madencilik Alanları",
+        "subtitle": "Maden turları ve açık hava müzeleri",
         "imageUrl": "https://picsum.photos/id/1026/600/900",
         "icon": Icons.architecture,
       },
       {
         "id": 10,
-        "title": "Kiliseler",
-        "subtitle": "Tarihi kiliseler ve manastırlar",
+        "title": "Sanat Galerileri",
+        "subtitle": "Modern sanat galerileri ve sergiler",
         "imageUrl": "https://picsum.photos/id/1027/600/900",
-        "icon": Icons.church,
-      },
-      {
-        "id": 11,
-        "title": "Zanaat ve Halk Sanatları",
-        "subtitle": "Yerel el sanatları ve atölyeler",
-        "imageUrl": "https://picsum.photos/id/1031/600/900",
         "icon": Icons.brush,
       },
       {
+        "id": 11,
+        "title": "Yerel El Sanatları",
+        "subtitle": "Seramik, tekstil ve el işi ürünler",
+        "imageUrl": "https://picsum.photos/id/1031/600/900",
+        "icon": Icons.handyman,
+      },
+      {
         "id": 12,
-        "title": "Parklar ve Piknik Alanları",
-        "subtitle": "Doğayla iç içe alanlar",
+        "title": "Parklar ve Bahçeler",
+        "subtitle": "Silezya Parkı ve doğal alanlar",
         "imageUrl": "https://picsum.photos/id/1033/600/900",
         "icon": Icons.park,
       },
@@ -167,41 +167,41 @@ class ApiService {
       {
         "id": 14,
         "title": "Nasıl Gelirim",
-        "subtitle": "Ulaşım rehberi",
+        "subtitle": "Katowice ulaşım rehberi",
         "imageUrl": "https://picsum.photos/id/1036/600/900",
         "icon": Icons.directions_bus,
       },
       {
         "id": 15,
-        "title": "Şehir İçi Ulaşım İmkanları",
-        "subtitle": "Toplu taşıma ve araç kiralama",
+        "title": "Şehir İçi Ulaşım",
+        "subtitle": "Tramvay, otobüs ve bisiklet yolları",
         "imageUrl": "https://picsum.photos/id/1037/600/900",
         "icon": Icons.emoji_transportation,
       },
       {
         "id": 16,
-        "title": "Erzincan Lezzetleri",
-        "subtitle": "Yöresel mutfak ve tarifler",
+        "title": "Katowice Lezzetleri",
+        "subtitle": "Yerel restoranlar ve tarifler",
         "imageUrl": "https://picsum.photos/id/1038/600/900",
         "icon": Icons.restaurant_menu,
       },
       {
         "id": 17,
         "title": "Spor Alanları",
-        "subtitle": "Spor tesisleri ve aktiviteleri",
+        "subtitle": "Açık hava ve kapalı spor tesisleri",
         "imageUrl": "https://picsum.photos/id/1039/600/900",
-        "icon": Icons.sports_soccer,
+        "icon": Icons.sports,
       },
     ];
 
-    // Map'ten CategoryItem listesine dönüştür
     return responseData.map((data) {
       return CategoryItem(
-          title: data['title'],
-          subtitle: data['subtitle'],
-          imageUrl: data['imageUrl'],
-          icon: data['icon'],
-          id: data["id"]);
+        title: data['title'],
+        subtitle: data['subtitle'],
+        imageUrl: data['imageUrl'],
+        icon: data['icon'],
+        id: data["id"],
+      );
     }).toList();
   }
 
@@ -212,128 +212,128 @@ class ApiService {
       {
         "id": 0,
         "title": "Museums",
-        "subtitle": "Historical museums of Erzincan",
+        "subtitle": "Silesian Museum and cultural centers",
         "imageUrl": "https://picsum.photos/id/1003/600/900",
         "icon": Icons.museum,
       },
       {
         "id": 1,
         "title": "Taste Stops",
-        "subtitle": "Discover local flavors",
+        "subtitle": "Discover Silesian cuisine",
         "imageUrl": "https://picsum.photos/id/1080/600/900",
         "icon": Icons.restaurant,
       },
       {
         "id": 2,
-        "title": "Winter Sports",
-        "subtitle": "Skiing and winter activities",
+        "title": "Events & Sports",
+        "subtitle": "Spodek Arena and sports activities",
         "imageUrl": "https://picsum.photos/id/1011/600/900",
-        "icon": Icons.snowboarding,
+        "icon": Icons.sports_soccer,
       },
       {
         "id": 3,
         "title": "Iconic Landmarks",
-        "subtitle": "Symbolic structures of Erzincan",
+        "subtitle": "Spodek, Nikiszowiec and other highlights",
         "imageUrl": "https://picsum.photos/id/1015/600/900",
         "icon": Icons.location_city,
       },
       {
         "id": 4,
-        "title": "Mosques",
-        "subtitle": "Historic and modern mosques",
+        "title": "Churches",
+        "subtitle": "Historic and modern places of worship",
         "imageUrl": "https://picsum.photos/id/1016/600/900",
-        "icon": Icons.mosque,
+        "icon": Icons.church,
       },
       {
         "id": 5,
-        "title": "Tombs",
-        "subtitle": "Religious and historical shrines",
+        "title": "Industrial Heritage",
+        "subtitle": "Former mines, factories and museums",
         "imageUrl": "https://picsum.photos/id/1019/600/900",
-        "icon": Icons.account_balance,
+        "icon": Icons.factory,
       },
       {
         "id": 6,
         "title": "Hotels",
-        "subtitle": "Accommodation options",
+        "subtitle": "Comfortable accommodation options",
         "imageUrl": "https://picsum.photos/id/1020/600/900",
         "icon": Icons.hotel,
       },
       {
         "id": 7,
-        "title": "Castles and Bridges",
-        "subtitle": "Historic structures and views",
+        "title": "Bridges & Squares",
+        "subtitle": "Historic bridges and city squares",
         "imageUrl": "https://picsum.photos/id/1024/600/900",
         "icon": Icons.fort,
       },
       {
         "id": 8,
-        "title": "Cinemas",
-        "subtitle": "Film and entertainment venues",
+        "title": "Theatre & Cinema",
+        "subtitle": "Cultural stages and cinemas",
         "imageUrl": "https://picsum.photos/id/1025/600/900",
         "icon": Icons.movie,
       },
       {
         "id": 9,
-        "title": "Archaeological Sites",
-        "subtitle": "Ancient settlements and excavations",
+        "title": "Mining Sites",
+        "subtitle": "Mine tours and open-air museums",
         "imageUrl": "https://picsum.photos/id/1026/600/900",
         "icon": Icons.architecture,
       },
       {
         "id": 10,
-        "title": "Churches",
-        "subtitle": "Historical churches and monasteries",
+        "title": "Art Galleries",
+        "subtitle": "Modern art exhibitions and galleries",
         "imageUrl": "https://picsum.photos/id/1027/600/900",
-        "icon": Icons.church,
-      },
-      {
-        "id": 11,
-        "title": "Crafts & Folk Arts",
-        "subtitle": "Local crafts and workshops",
-        "imageUrl": "https://picsum.photos/id/1031/600/900",
         "icon": Icons.brush,
       },
       {
+        "id": 11,
+        "title": "Local Handicrafts",
+        "subtitle": "Ceramics, textiles and handmade goods",
+        "imageUrl": "https://picsum.photos/id/1031/600/900",
+        "icon": Icons.handyman,
+      },
+      {
         "id": 12,
-        "title": "Parks and Picnic Areas",
-        "subtitle": "Places close to nature",
+        "title": "Parks & Gardens",
+        "subtitle": "Silesian Park and green areas",
         "imageUrl": "https://picsum.photos/id/1033/600/900",
         "icon": Icons.park,
       },
       {
         "id": 13,
         "title": "Libraries",
-        "subtitle": "Book and culture centers",
+        "subtitle": "Book and cultural centers",
         "imageUrl": "https://picsum.photos/id/1035/600/900",
         "icon": Icons.book,
       },
       {
         "id": 14,
         "title": "How to Get Here",
-        "subtitle": "Transportation guide",
+        "subtitle": "Transportation guide for Katowice",
         "imageUrl": "https://picsum.photos/id/1036/600/900",
         "icon": Icons.directions_bus,
       },
       {
         "id": 15,
-        "title": "Urban Transport Options",
-        "subtitle": "Public transport and car rental",
+        "title": "Urban Transport",
+        "subtitle": "Trams, buses and bike lanes",
         "imageUrl": "https://picsum.photos/id/1037/600/900",
         "icon": Icons.emoji_transportation,
       },
       {
         "id": 16,
-        "title": "Erzincan Flavors",
-        "subtitle": "Local cuisine and recipes",
+        "title": "Katowice Flavors",
+        "subtitle": "Local restaurants and recipes",
         "imageUrl": "https://picsum.photos/id/1038/600/900",
         "icon": Icons.restaurant_menu,
       },
       {
         "id": 17,
         "title": "Sports Areas",
-        "subtitle": "Sports facilities and activities",
+        "subtitle": "Indoor and outdoor sports facilities",
         "imageUrl": "https://picsum.photos/id/1039/600/900",
-        "icon": Icons.sports_soccer,
+        "icon": Icons.sports,
       },
     ];
 
@@ -349,62 +349,64 @@ class ApiService {
   }
 
   Future<List<RouteItem>> fetchAllRoutesTr() async {
-    await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
+    await Future.delayed(const Duration(milliseconds: 500));
 
     final List<Map<String, dynamic>> responseData = [
       {
-        "title": "Tarihin İçinden Rotası",
-        "subtitle": "Erzincan'ın tarihi ve kültürel zenginliklerini keşfedin.",
+        "title": "Tarihi Mahalleler",
+        "subtitle": "Nikiszowiec ve Giszowiec'te geçmişe yolculuk.",
         "imageUrl": "https://picsum.photos/id/1011/600/400",
         "icon": "account_balance",
-        "distanceKm": 1.6,
-        "durationMinutes": 20,
+        "distanceKm": 2.0,
+        "durationMinutes": 30,
       },
       {
-        "title": "Çocuğumla Geziyorum Rotası",
-        "subtitle": "Ailece eğlenebileceğiniz parklar ve etkinlikler.",
+        "title": "Sanat ve Müze",
+        "subtitle": "Silesian Museum ve modern sanat noktaları.",
         "imageUrl": "https://picsum.photos/id/1027/600/400",
-        "icon": "child_friendly",
-        "distanceKm": 2.1,
+        "icon": "museum",
+        "distanceKm": 1.8,
         "durationMinutes": 25,
       },
       {
-        "title": "Doğadan Esintiler Rotası",
-        "subtitle": "Doğayla iç içe huzurlu rotaları keşfedin.",
+        "title": "Doğa ve Parklar",
+        "subtitle": "Silesian Park ve Üç Gölet Vadisi'nde huzur.",
         "imageUrl": "https://picsum.photos/id/1043/600/400",
         "icon": "nature_people",
-        "distanceKm": 3.0,
-        "durationMinutes": 40,
+        "distanceKm": 3.5,
+        "durationMinutes": 45,
       },
       {
-        "title": "Sporcunun Dostu Rotası",
-        "subtitle": "Aktif yaşamı sevenler için ideal parkurlar.",
+        "title": "Spor ve Etkinlikler",
+        "subtitle": "Spodek Arena ve şehir spor alanları.",
         "imageUrl": "https://picsum.photos/id/1052/600/400",
         "icon": "fitness_center",
-        "distanceKm": 2.7,
-        "durationMinutes": 32,
+        "distanceKm": 2.5,
+        "durationMinutes": 35,
       },
       {
-        "title": "Erzincan ve Macera Rotası",
-        "subtitle": "Adrenalin ve keşif dolu bir Erzincan deneyimi.",
+        "title": "Madencilik Mirası",
+        "subtitle": "Kömür madeni turları ve maden müzeleri.",
         "imageUrl": "https://picsum.photos/id/1062/600/400",
         "icon": "explore",
-        "distanceKm": 4.4,
-        "durationMinutes": 55,
+        "distanceKm": 4.0,
+        "durationMinutes": 50,
       },
     ];
+
     const uuid = Uuid();
     return responseData.map((data) {
       return RouteItem(
-          id: uuid.v4(),
-          title: data['title'],
-          subtitle: data['subtitle'],
-          imageUrl: data['imageUrl'],
-          iconName: data['icon'],
-          distanceKm: data['distanceKm'],
-          duration: Duration(minutes: data['durationMinutes']),
-          isUserAdded: false,
-          stops: []);
+        id: uuid.v4(),
+        title: data['title'],
+        subtitle: data['subtitle'],
+        imageUrl: data['imageUrl'],
+        iconName: data['icon'],
+        distanceKm: data['distanceKm'],
+        duration: Duration(minutes: data['durationMinutes']),
+        isUserAdded: false,
+        stops: [],
+      );
     }).toList();
   }
 
@@ -413,45 +415,44 @@ class ApiService {
 
     final List<Map<String, dynamic>> responseData = [
       {
-        "title": "Journey Through History",
-        "subtitle":
-            "Discover the historical and cultural richness of Erzincan.",
+        "title": "Historic Districts",
+        "subtitle": "Travel back in time in Nikiszowiec and Giszowiec.",
         "imageUrl": "https://picsum.photos/id/1011/600/400",
         "icon": "account_balance",
-        "distanceKm": 1.6,
-        "durationMinutes": 20,
+        "distanceKm": 2.0,
+        "durationMinutes": 30,
       },
       {
-        "title": "Exploring with My Child",
-        "subtitle": "Family-friendly parks and activities.",
+        "title": "Art & Museums",
+        "subtitle": "Explore the Silesian Museum and modern art spots.",
         "imageUrl": "https://picsum.photos/id/1027/600/400",
-        "icon": "child_friendly",
-        "distanceKm": 2.1,
+        "icon": "museum",
+        "distanceKm": 1.8,
         "durationMinutes": 25,
       },
       {
-        "title": "Breeze from Nature",
-        "subtitle": "Discover peaceful routes in nature.",
+        "title": "Nature & Parks",
+        "subtitle": "Peaceful walks in Silesian Park and Three Ponds Valley.",
         "imageUrl": "https://picsum.photos/id/1043/600/400",
         "icon": "nature_people",
-        "distanceKm": 3.0,
-        "durationMinutes": 40,
+        "distanceKm": 3.5,
+        "durationMinutes": 45,
       },
       {
-        "title": "Athlete’s Companion Route",
-        "subtitle": "Perfect paths for an active lifestyle.",
+        "title": "Sports & Events",
+        "subtitle": "Experience Spodek Arena and city sports facilities.",
         "imageUrl": "https://picsum.photos/id/1052/600/400",
         "icon": "fitness_center",
-        "distanceKm": 2.7,
-        "durationMinutes": 32,
+        "distanceKm": 2.5,
+        "durationMinutes": 35,
       },
       {
-        "title": "Erzincan Adventure Route",
-        "subtitle": "An Erzincan experience full of adrenaline and discovery.",
+        "title": "Mining Heritage",
+        "subtitle": "Coal mine tours and mining museums.",
         "imageUrl": "https://picsum.photos/id/1062/600/400",
         "icon": "explore",
-        "distanceKm": 4.4,
-        "durationMinutes": 55,
+        "distanceKm": 4.0,
+        "durationMinutes": 50,
       },
     ];
 
@@ -475,49 +476,66 @@ class ApiService {
     await Future.delayed(const Duration(milliseconds: 500));
     final Random random = Random();
 
-    return List.generate(
-      10,
-      (index) {
-        // Erzincan merkezine göre ±0.02 derece sapma
-        double latitude = 39.75 + (random.nextDouble() * 0.04 - 0.02);
-        double longitude = 39.49 + (random.nextDouble() * 0.04 - 0.02);
+    final List<String> placesTr = [
+      "Nikiszowiec Mahallesi",
+      "Silesian Müzesi",
+      "Spodek Arena",
+      "Silezya Parkı",
+      "Christ the King Katedrali",
+      "Üç Gölet Vadisi",
+      "NOSPR Binası",
+      "Giszowiec Mahallesi",
+      "Kościuszko Parkı",
+      "Modern Sanat Galerisi",
+    ];
 
-        return CategoryContentItem(
-          id: 'content_${category.title.toLowerCase()}_$index',
-          title: 'Terzibaba Camii ve Külliyesi ${index + 1}',
-          description:
-              'Bu Terzibaba Camii ve Külliyesi ${index + 1} kategorisi için içerik ${index + 1} açıklamasıdır.',
-          imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-          latitude: latitude,
-          longitude: longitude,
-        );
-      },
-    );
+    return List.generate(10, (index) {
+      double latitude = 50.2649 + (random.nextDouble() * 0.04 - 0.02);
+      double longitude = 19.0238 + (random.nextDouble() * 0.04 - 0.02);
+
+      return CategoryContentItem(
+        id: 'content_${category.title.toLowerCase()}_$index',
+        title: placesTr[index],
+        description: '${placesTr[index]} hakkında bilgi ve gezi önerileri.',
+        imageUrl:
+            'https://picsum.photos/seed/${category.title}_${index + 1}/600/1000',
+        latitude: latitude,
+        longitude: longitude,
+      );
+    });
   }
 
   Future<List<CategoryContentItem>> getContentsEn(CategoryItem category) async {
     await Future.delayed(const Duration(milliseconds: 500));
     final Random random = Random();
 
-    return List.generate(
-      10,
-      (index) {
-        double latitude = 39.75 + (random.nextDouble() * 0.04 - 0.02);
-        double longitude = 39.49 + (random.nextDouble() * 0.04 - 0.02);
+    final List<String> placesEn = [
+      "Nikiszowiec District",
+      "Silesian Museum",
+      "Spodek Arena",
+      "Silesian Park",
+      "Christ the King Cathedral",
+      "Valley of Three Ponds",
+      "NOSPR Building",
+      "Giszowiec District",
+      "Kościuszko Park",
+      "Modern Art Gallery",
+    ];
 
-        return CategoryContentItem(
-          id: 'content_${category.title.toLowerCase()}_$index',
-          title: 'Terzibaba Mosque and Complex ${index + 1}',
-          description:
-              'This is the content description ${index + 1} for the Terzibaba Mosque and Complex in category ${index + 1}.',
-          imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-          latitude: latitude,
-          longitude: longitude,
-        );
-      },
-    );
+    return List.generate(10, (index) {
+      double latitude = 50.2649 + (random.nextDouble() * 0.04 - 0.02);
+      double longitude = 19.0238 + (random.nextDouble() * 0.04 - 0.02);
+
+      return CategoryContentItem(
+        id: 'content_${category.title.toLowerCase()}_$index',
+        title: placesEn[index],
+        description: 'Information and travel tips for ${placesEn[index]}.',
+        imageUrl:
+            'https://picsum.photos/seed/${category.title}_${index + 1}/600/1000',
+        latitude: latitude,
+        longitude: longitude,
+      );
+    });
   }
 
   Future<List<CategoryContentItem>> getEventsTr() async {
@@ -528,7 +546,7 @@ class ApiService {
         id: 'content_filmler_0',
         title: 'Vizyondaki Filmler',
         description:
-            'Erzincan sinemalarında izleyebileceğiniz filmleri keşfedin.',
+            'Katowice sinemalarında izleyebileceğiniz güncel filmleri keşfedin.',
         imageUrl: 'https://picsum.photos/seed/movie_theater/600/400',
         latitude: 0, // örnek koordinatlar
         longitude: 0,
@@ -537,9 +555,9 @@ class ApiService {
         id: 'content_tiyatrolar_1',
         title: 'Tiyatrolar',
         description:
-            'Kültürel etkinlikler ve sahne sanatları için eşsiz tiyatrolar.',
+            'Katowice’de kültürel etkinlikler ve sahne sanatları için eşsiz tiyatrolar.',
         imageUrl: 'https://picsum.photos/seed/theater_stage/600/400',
-        latitude: 0, // örnek koordinatlar
+        latitude: 0,
         longitude: 0,
       ),
     ];
@@ -552,7 +570,7 @@ class ApiService {
       CategoryContentItem(
         id: 'content_filmler_0',
         title: 'Now Showing',
-        description: 'Discover movies currently playing in Erzincan cinemas.',
+        description: 'Discover the latest movies playing in Katowice cinemas.',
         imageUrl: 'https://picsum.photos/seed/movie_theater/600/400',
         latitude: 0,
         longitude: 0,
@@ -560,7 +578,8 @@ class ApiService {
       CategoryContentItem(
         id: 'content_tiyatrolar_1',
         title: 'Theaters',
-        description: 'Unique theaters for cultural events and performing arts.',
+        description:
+            'Unique theaters in Katowice for cultural events and performing arts.',
         imageUrl: 'https://picsum.photos/seed/theater_stage/600/400',
         latitude: 0,
         longitude: 0,
@@ -573,43 +592,43 @@ class ApiService {
 
     final List<Map<String, dynamic>> _features = [
       {
-        "title": "Ergan Dağı Kayak Merkezi",
-        "subtitle": "Canlı Durum",
+        "title": "Spodek Arena",
+        "subtitle": "Canlı Etkinlikler",
         "imageUrl": "https://picsum.photos/id/1036/800/500",
-        "icon": Icons.snowboarding,
+        "icon": Icons.sports_basketball,
         "id": 0
       },
       {
-        "title": "Bu Ayın Etkinlikleri",
+        "title": "Bu Ayın Festivalleri",
         "subtitle": "Kaçırma!",
         "imageUrl": "https://picsum.photos/id/169/800/500",
         "icon": Icons.event,
         "id": 1
       },
       {
-        "title": "Macera ve Doğa",
-        "subtitle": "İç İçe Olduğu Yerler",
+        "title": "Parklar ve Doğa",
+        "subtitle": "Yeşil Alanlar",
         "imageUrl": "https://picsum.photos/id/110/800/500",
-        "icon": Icons.terrain,
+        "icon": Icons.park,
         "id": 2
       },
       {
-        "title": "Coğrafi İşaretli Ürünler",
-        "subtitle": "Yerel Lezzetler",
+        "title": "Silezya Lezzetleri",
+        "subtitle": "Yerel Tatlar",
         "imageUrl": "https://picsum.photos/id/292/800/500",
-        "icon": Icons.verified,
+        "icon": Icons.restaurant,
         "id": 3
       },
       {
-        "title": "Görülmesi Gereken Yerler",
-        "subtitle": "Erzincan'ın İncileri",
+        "title": "Gezilecek Yerler",
+        "subtitle": "Katowice'nin İncileri",
         "imageUrl": "https://picsum.photos/id/15/800/500",
         "icon": Icons.place,
         "id": 4
       },
       {
         "title": "Yapmadan Ayrılmayın",
-        "subtitle": "Deneyimler",
+        "subtitle": "Özel Deneyimler",
         "imageUrl": "https://picsum.photos/id/184/800/500",
         "icon": Icons.star,
         "id": 5
@@ -631,43 +650,43 @@ class ApiService {
 
     final List<Map<String, dynamic>> _features = [
       {
-        "title": "Ergan Mountain Ski Center",
-        "subtitle": "Live Status",
+        "title": "Spodek Arena",
+        "subtitle": "Live Events",
         "imageUrl": "https://picsum.photos/id/1036/800/500",
-        "icon": Icons.snowboarding,
+        "icon": Icons.sports_basketball,
         "id": 0
       },
       {
-        "title": "This Month's Events",
-        "subtitle": "Don’t Miss It!",
+        "title": "This Month's Festivals",
+        "subtitle": "Don't Miss It!",
         "imageUrl": "https://picsum.photos/id/169/800/500",
         "icon": Icons.event,
         "id": 1
       },
       {
-        "title": "Adventure & Nature",
-        "subtitle": "Places Surrounded by Nature",
+        "title": "Parks & Nature",
+        "subtitle": "Green Spaces",
         "imageUrl": "https://picsum.photos/id/110/800/500",
-        "icon": Icons.terrain,
+        "icon": Icons.park,
         "id": 2
       },
       {
-        "title": "Geographical Indications",
-        "subtitle": "Local Delicacies",
+        "title": "Silesian Cuisine",
+        "subtitle": "Local Flavors",
         "imageUrl": "https://picsum.photos/id/292/800/500",
-        "icon": Icons.verified,
+        "icon": Icons.restaurant,
         "id": 3
       },
       {
-        "title": "Must-See Places",
-        "subtitle": "Hidden Gems of Erzincan",
+        "title": "Must-See Spots",
+        "subtitle": "Katowice's Gems",
         "imageUrl": "https://picsum.photos/id/15/800/500",
         "icon": Icons.place,
         "id": 4
       },
       {
-        "title": "Don't Leave Without Trying",
-        "subtitle": "Experiences",
+        "title": "Don't Leave Without",
+        "subtitle": "Unique Experiences",
         "imageUrl": "https://picsum.photos/id/184/800/500",
         "icon": Icons.star,
         "id": 5
@@ -773,93 +792,84 @@ class ApiService {
   }
 
   Future<Map<String, List<PhotoModel>>> fetchGalleryPhotosTr() async {
-    await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
+    await Future.delayed(const Duration(milliseconds: 500));
 
     final Map<String, List<Map<String, String>>> rawCategorizedImages = {
       "Tümü": [
         {
-          "title": "Erzincan Vadisi",
+          "title": "Spodek Arena",
           "url": "https://picsum.photos/id/1015/600/900"
         },
         {
-          "title": "Dağ Manzarası",
+          "title": "Nikiszowiec",
           "url": "https://picsum.photos/id/1016/600/900"
         },
         {
-          "title": "Köprü ve Irmak",
+          "title": "Silezya Müzesi",
           "url": "https://picsum.photos/id/1018/600/900"
         },
         {
-          "title": "Tarihi Evler",
+          "title": "Kültür Merkezi",
           "url": "https://picsum.photos/id/1019/600/900"
         },
         {
-          "title": "Erzincan Sofrası",
+          "title": "Katowice Manzarası",
           "url": "https://picsum.photos/id/1020/600/900"
         },
+        {"title": "Parklar", "url": "https://picsum.photos/id/1021/600/900"},
         {
-          "title": "Mimari Detaylar",
-          "url": "https://picsum.photos/id/1021/600/900"
+          "title": "Sanat ve Heykeller",
+          "url": "https://picsum.photos/id/1022/600/900"
         },
-        {"title": "Yayla Yolu", "url": "https://picsum.photos/id/1022/600/900"},
         {
-          "title": "Kültürel Etkinlik",
+          "title": "Festival Alanı",
           "url": "https://picsum.photos/id/1023/600/900"
         },
         {
-          "title": "Lezzetli Tatlar",
+          "title": "Yerel Lezzetler",
           "url": "https://picsum.photos/id/1024/600/900"
         },
         {
-          "title": "Erzincan Manzarası",
+          "title": "Şehir Sokakları",
           "url": "https://picsum.photos/id/1025/600/900"
         },
       ],
       "Doğa": [
+        {"title": "Parklar", "url": "https://picsum.photos/id/1021/600/900"},
         {
-          "title": "Erzincan Vadisi",
-          "url": "https://picsum.photos/id/1015/600/900"
-        },
-        {
-          "title": "Dağ Manzarası",
-          "url": "https://picsum.photos/id/1016/600/900"
-        },
-        {"title": "Yayla Yolu", "url": "https://picsum.photos/id/1022/600/900"},
-        {
-          "title": "Erzincan Manzarası",
-          "url": "https://picsum.photos/id/1025/600/900"
+          "title": "Katowice Manzarası",
+          "url": "https://picsum.photos/id/1020/600/900"
         },
       ],
       "Mimari": [
         {
-          "title": "Tarihi Evler",
-          "url": "https://picsum.photos/id/1019/600/900"
+          "title": "Nikiszowiec",
+          "url": "https://picsum.photos/id/1016/600/900"
         },
         {
-          "title": "Mimari Detaylar",
-          "url": "https://picsum.photos/id/1021/600/900"
+          "title": "Silezya Müzesi",
+          "url": "https://picsum.photos/id/1018/600/900"
+        },
+        {
+          "title": "Kültür Merkezi",
+          "url": "https://picsum.photos/id/1019/600/900"
         },
       ],
       "Kültür": [
         {
-          "title": "Kültürel Etkinlik",
+          "title": "Festival Alanı",
           "url": "https://picsum.photos/id/1023/600/900"
         },
       ],
       "Yemek": [
         {
-          "title": "Erzincan Sofrası",
-          "url": "https://picsum.photos/id/1020/600/900"
-        },
-        {
-          "title": "Lezzetli Tatlar",
+          "title": "Yerel Lezzetler",
           "url": "https://picsum.photos/id/1024/600/900"
         },
       ]
     };
 
     final categorizedImages = <String, List<PhotoModel>>{};
-
     rawCategorizedImages.forEach((key, value) {
       categorizedImages[key] =
           value.map((item) => PhotoModel.fromJson(item)).toList();
@@ -874,90 +884,76 @@ class ApiService {
     final Map<String, List<Map<String, String>>> rawCategorizedImages = {
       "All": [
         {
-          "title": "Erzincan Valley",
+          "title": "Spodek Arena",
           "url": "https://picsum.photos/id/1015/600/900"
         },
         {
-          "title": "Mountain View",
+          "title": "Nikiszowiec",
           "url": "https://picsum.photos/id/1016/600/900"
         },
         {
-          "title": "Bridge and River",
+          "title": "Silesian Museum",
           "url": "https://picsum.photos/id/1018/600/900"
         },
         {
-          "title": "Historic Houses",
+          "title": "Culture Center",
           "url": "https://picsum.photos/id/1019/600/900"
         },
         {
-          "title": "Erzincan Table",
+          "title": "Katowice View",
           "url": "https://picsum.photos/id/1020/600/900"
         },
+        {"title": "Parks", "url": "https://picsum.photos/id/1021/600/900"},
         {
-          "title": "Architectural Details",
-          "url": "https://picsum.photos/id/1021/600/900"
-        },
-        {
-          "title": "Highland Road",
+          "title": "Art & Sculptures",
           "url": "https://picsum.photos/id/1022/600/900"
         },
         {
-          "title": "Cultural Event",
+          "title": "Festival Area",
           "url": "https://picsum.photos/id/1023/600/900"
         },
         {
-          "title": "Tasty Flavors",
+          "title": "Local Flavors",
           "url": "https://picsum.photos/id/1024/600/900"
         },
         {
-          "title": "Erzincan Landscape",
+          "title": "City Streets",
           "url": "https://picsum.photos/id/1025/600/900"
         },
       ],
       "Nature": [
+        {"title": "Parks", "url": "https://picsum.photos/id/1021/600/900"},
         {
-          "title": "Erzincan Valley",
-          "url": "https://picsum.photos/id/1015/600/900"
-        },
-        {
-          "title": "Mountain View",
-          "url": "https://picsum.photos/id/1016/600/900"
-        },
-        {
-          "title": "Highland Road",
-          "url": "https://picsum.photos/id/1022/600/900"
-        },
-        {
-          "title": "Erzincan Landscape",
-          "url": "https://picsum.photos/id/1025/600/900"
+          "title": "Katowice View",
+          "url": "https://picsum.photos/id/1020/600/900"
         },
       ],
       "Architecture": [
         {
-          "title": "Historic Houses",
-          "url": "https://picsum.photos/id/1019/600/900"
+          "title": "Nikiszowiec",
+          "url": "https://picsum.photos/id/1016/600/900"
         },
         {
-          "title": "Architectural Details",
-          "url": "https://picsum.photos/id/1021/600/900"
+          "title": "Silesian Museum",
+          "url": "https://picsum.photos/id/1018/600/900"
+        },
+        {
+          "title": "Culture Center",
+          "url": "https://picsum.photos/id/1019/600/900"
         },
       ],
       "Culture": [
         {
-          "title": "Cultural Event",
+          "title": "Festival Area",
           "url": "https://picsum.photos/id/1023/600/900"
         },
       ],
       "Cuisine": [
         {
-          "title": "Erzincan Table",
-          "url": "https://picsum.photos/id/1020/600/900"
-        },
-        {
-          "title": "Tasty Flavors",
+          "title": "Local Flavors",
           "url": "https://picsum.photos/id/1024/600/900"
         },
-      ],
+      ]
     };
 
     final categorizedImages = <String, List<PhotoModel>>{};

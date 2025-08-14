@@ -103,7 +103,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
           title: map['title'] as String,
           description: map['description'] ?? '',
           imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
+              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/spodek.jpg?alt=media&token=d4498059-0877-442a-a672-909a130fb2ba',
           latitude: map['latitude'] as double,
           longitude: map['longitude'] as double,
         );
@@ -130,80 +130,81 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       final List<RouteStop> contentItemsTr = [
         RouteStop(
           id: '1',
-          title: 'Saat Kulesi',
-          description: 'Tarihi Erzincan saat kulesi.',
-          imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-          latitude: 39.7524,
-          longitude: 39.4921,
+          title: 'Spodek Arena',
+          description:
+              'Katowice’nin simgesi, konser ve etkinlikler için ünlü arena.',
+          imageUrl: 'https://picsum.photos/id/1011/600/400',
+          latitude: 50.2599,
+          longitude: 19.0216,
         ),
         RouteStop(
           id: '2',
-          title: 'Erzincan Müzesi',
-          description: 'Yerel tarih ve kültür zenginliği.',
-          imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-          latitude: 39.7508,
-          longitude: 39.4935,
+          title: 'Nikiszowiec',
+          description:
+              'Tarihi işçi yerleşimi, geleneksel mimarisi ve kültürel etkinlikleriyle ünlü.',
+          imageUrl: 'https://picsum.photos/id/1025/600/400',
+          latitude: 50.2475,
+          longitude: 19.0263,
         ),
         RouteStop(
           id: '3',
-          title: 'Erzincan Müzesi 2',
-          description: 'Yerel tarih ve kültür zenginliği.',
-          imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-          latitude: 39.7497,
-          longitude: 39.4912,
+          title: 'Silesia City Center',
+          description:
+              'Alışveriş, eğlence ve restoranların bulunduğu büyük bir alışveriş merkezi.',
+          imageUrl: 'https://picsum.photos/id/1043/600/400',
+          latitude: 50.2570,
+          longitude: 19.0250,
         ),
         RouteStop(
           id: '4',
-          title: 'Erzincan Müzesi 3',
-          description: 'Yerel tarih ve kültür zenginliği.',
-          imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-          latitude: 39.7511,
-          longitude: 39.4899,
+          title: 'Katowice Botanik Bahçesi',
+          description:
+              'Doğa yürüyüşleri ve bitki çeşitleri ile dolu sakin bir alan.',
+          imageUrl: 'https://picsum.photos/id/1062/600/400',
+          latitude: 50.2605,
+          longitude: 19.0150,
         ),
       ];
 
       final List<RouteStop> contentItemsEn = [
         RouteStop(
           id: '1',
-          title: 'Clock Tower',
-          description: 'Historic Erzincan clock tower.',
-          imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-          latitude: 39.7524,
-          longitude: 39.4921,
+          title: 'Spodek Arena',
+          description:
+              'The iconic arena of Katowice, famous for concerts and events.',
+          imageUrl: 'https://picsum.photos/id/1011/600/400',
+          latitude: 50.2599,
+          longitude: 19.0216,
         ),
         RouteStop(
           id: '2',
-          title: 'Erzincan Museum',
-          description: 'Rich in local history and culture.',
-          imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-          latitude: 39.7508,
-          longitude: 39.4935,
+          title: 'Nikiszowiec',
+          description:
+              'Historic worker settlement known for traditional architecture and cultural events.',
+          imageUrl: 'https://picsum.photos/id/1025/600/400',
+          latitude: 50.2475,
+          longitude: 19.0263,
         ),
         RouteStop(
           id: '3',
-          title: 'Erzincan Museum 2',
-          description: 'Rich in local history and culture.',
-          imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-          latitude: 39.7497,
-          longitude: 39.4912,
+          title: 'Silesia City Center',
+          description:
+              'A large shopping center with shops, entertainment, and restaurants.',
+          imageUrl: 'https://picsum.photos/id/1043/600/400',
+          latitude: 50.2570,
+          longitude: 19.0250,
         ),
         RouteStop(
           id: '4',
-          title: 'Erzincan Museum 3',
-          description: 'Rich in local history and culture.',
-          imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/terzibaba.jpg?alt=media&token=3d5dbf8c-7919-42f2-8b9c-be386be509cc',
-          latitude: 39.7511,
-          longitude: 39.4899,
+          title: 'Katowice Botanical Garden',
+          description:
+              'A peaceful area filled with walking paths and plant varieties.',
+          imageUrl: 'https://picsum.photos/id/1062/600/400',
+          latitude: 50.2605,
+          longitude: 19.0150,
         ),
       ];
+
       contentItems = lang == 'tr' ? contentItemsTr : contentItemsEn;
     }
     isLoading = false;

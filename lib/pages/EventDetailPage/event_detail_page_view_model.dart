@@ -41,13 +41,13 @@ class EventDetailViewModel extends ChangeNotifier with BaseViewModel {
               MovieItem(
                 title: 'Dune: Çöl Gezegeni',
                 imageUrl: 'https://picsum.photos/seed/dune/200/300',
-                cinema: 'Erzincan AVM Sineması',
+                cinema: 'Spodek Sineması',
                 sessions: ['13:00', '16:00', '19:30'],
               ),
               MovieItem(
                 title: 'Godzilla x Kong',
                 imageUrl: 'https://picsum.photos/seed/godzillakong/200/300',
-                cinema: 'Erzincan Park Sineması',
+                cinema: 'Silesia Park Sineması',
                 sessions: ['14:15', '17:00', '21:00'],
               ),
             ]
@@ -55,13 +55,13 @@ class EventDetailViewModel extends ChangeNotifier with BaseViewModel {
               MovieItem(
                 title: 'Dune: Desert Planet',
                 imageUrl: 'https://picsum.photos/seed/dune/200/300',
-                cinema: 'Erzincan Mall Cinema',
+                cinema: 'Spodek Cinema',
                 sessions: ['1:00 PM', '4:00 PM', '7:30 PM'],
               ),
               MovieItem(
                 title: 'Godzilla x Kong',
                 imageUrl: 'https://picsum.photos/seed/godzillakong/200/300',
-                cinema: 'Erzincan Park Cinema',
+                cinema: 'Silesia Park Cinema',
                 sessions: ['2:15 PM', '5:00 PM', '9:00 PM'],
               ),
             ];
@@ -71,13 +71,13 @@ class EventDetailViewModel extends ChangeNotifier with BaseViewModel {
               TheaterPlayItem(
                 title: 'Şahane Düğün',
                 imageUrl: 'https://picsum.photos/seed/theater1/200/300',
-                venue: 'Erzincan Şehir Tiyatrosu',
+                venue: 'Katowice Şehir Tiyatrosu',
                 date: '25 Nisan 2025, 20:00',
               ),
               TheaterPlayItem(
                 title: 'Bir Delinin Hatıra Defteri',
                 imageUrl: 'https://picsum.photos/seed/theater2/200/300',
-                venue: 'Halk Eğitim Salonu',
+                venue: 'Halk Eğitim Salonu Katowice',
                 date: '28 Nisan 2025, 19:30',
               ),
             ]
@@ -85,13 +85,13 @@ class EventDetailViewModel extends ChangeNotifier with BaseViewModel {
               TheaterPlayItem(
                 title: 'A Perfect Wedding',
                 imageUrl: 'https://picsum.photos/seed/theater1/200/300',
-                venue: 'Erzincan City Theater',
+                venue: 'Katowice City Theater',
                 date: 'April 25, 2025, 8:00 PM',
               ),
               TheaterPlayItem(
                 title: 'Diary of a Madman',
                 imageUrl: 'https://picsum.photos/seed/theater2/200/300',
-                venue: 'Public Education Hall',
+                venue: 'Public Education Hall Katowice',
                 date: 'April 28, 2025, 7:30 PM',
               ),
             ];
