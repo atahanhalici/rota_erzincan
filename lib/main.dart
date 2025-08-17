@@ -35,10 +35,14 @@ void main() async {
 
   // Cihaz dilini belirleyelim
   final deviceLangCode = PlatformDispatcher.instance.locale.languageCode;
-  final Locale initialLocale =
-      deviceLangCode == 'tr' ? const Locale('tr') : const Locale('en');
+final Locale initialLocale = 
+    deviceLangCode == 'tr'
+        ? const Locale('tr')
+        : deviceLangCode == 'pl'
+            ? const Locale('pl')
+            : const Locale('en');
   runApp(EasyLocalization(
-    supportedLocales: const [Locale('tr'), Locale('en')],
+    supportedLocales: const [Locale('tr'), Locale('en'), Locale('pl'),],
     path: 'assets/translations',
     fallbackLocale: const Locale('tr'),
     startLocale: initialLocale, // 🎯 Cihaz diline göre belirliyoruz

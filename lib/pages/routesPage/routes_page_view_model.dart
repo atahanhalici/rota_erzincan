@@ -75,7 +75,9 @@ class RoutesPageViewModel extends ChangeNotifier with BaseViewModel {
 
     routeItems = lang == 'tr'
         ? await _apiService.fetchAllRoutesTr()
-        : await _apiService.fetchAllRoutesEn();
+        : lang == 'pl'
+            ? await _apiService.fetchAllRoutesPl()
+            : await _apiService.fetchAllRoutesEn();
 
     isLoading = false;
     notifyListeners(); // shimmer dursun, liste gözüksün

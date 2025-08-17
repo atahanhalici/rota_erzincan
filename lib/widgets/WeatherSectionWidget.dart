@@ -171,6 +171,7 @@ class WeatherSectionWidget extends StatelessWidget {
                                   const SizedBox(height: 12),
                                   Text(
                                     item.label,
+                                    textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,
@@ -180,6 +181,7 @@ class WeatherSectionWidget extends StatelessWidget {
                                   const SizedBox(height: 4),
                                   Text(
                                     item.value,
+                                    textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,

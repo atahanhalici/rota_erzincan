@@ -205,7 +205,50 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
         ),
       ];
 
-      contentItems = lang == 'tr' ? contentItemsTr : contentItemsEn;
+      final List<RouteStop> contentItemsPl = [
+        RouteStop(
+          id: '1',
+          title: 'Spodek Arena',
+          description:
+              'Ikoniczna arena w Katowicach, znana z koncertów i wydarzeń.',
+          imageUrl: 'https://picsum.photos/id/1011/600/400',
+          latitude: 50.2599,
+          longitude: 19.0216,
+        ),
+        RouteStop(
+          id: '2',
+          title: 'Nikiszowiec',
+          description:
+              'Historyczne osiedle robotnicze, słynące z tradycyjnej architektury i wydarzeń kulturalnych.',
+          imageUrl: 'https://picsum.photos/id/1025/600/400',
+          latitude: 50.2475,
+          longitude: 19.0263,
+        ),
+        RouteStop(
+          id: '3',
+          title: 'Silesia City Center',
+          description:
+              'Duże centrum handlowe z sklepami, rozrywką i restauracjami.',
+          imageUrl: 'https://picsum.photos/id/1043/600/400',
+          latitude: 50.2570,
+          longitude: 19.0250,
+        ),
+        RouteStop(
+          id: '4',
+          title: 'Ogród Botaniczny Katowice',
+          description:
+              'Spokojny obszar z alejkami spacerowymi i różnorodnością roślin.',
+          imageUrl: 'https://picsum.photos/id/1062/600/400',
+          latitude: 50.2605,
+          longitude: 19.0150,
+        ),
+      ];
+
+      contentItems = lang == 'tr'
+          ? contentItemsTr
+          : lang == 'pl'
+              ? contentItemsPl
+              : contentItemsEn;
     }
     isLoading = false;
     safeNotifyListeners();

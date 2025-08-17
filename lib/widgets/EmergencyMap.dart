@@ -30,8 +30,11 @@ class EmergencyMap extends StatelessWidget {
     final selectedPoint = viewModel.selectedPoint;
     final nearest = viewModel.getNearestPoint();
     final lang = context.locale.languageCode;
-    final assemblyPoints =
-        lang == 'tr' ? viewModel.assemblyPointsTr : viewModel.assemblyPointsEn;
+    final assemblyPoints = lang == 'tr'
+        ? viewModel.assemblyPointsTr
+        : lang == 'pl'
+            ? viewModel.assemblyPointsPl
+            : viewModel.assemblyPointsEn;
     return FlutterMap(
       mapController: mapController,
       options: MapOptions(

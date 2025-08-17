@@ -28,11 +28,15 @@ class CategoryDetailViewModel extends ChangeNotifier with BaseViewModel {
     if (category.id == 8) {
       _contentItems = locale == 'tr'
           ? await _apiService.getEventsTr()
-          : await _apiService.getEventsEn();
+          : locale == 'pl'
+              ? await _apiService.getEventsPl()
+              : await _apiService.getEventsEn();
     } else {
       _contentItems = locale == 'tr'
           ? await _apiService.getContentsTr(category)
-          : await _apiService.getContentsEn(category);
+          : locale == 'pl'
+              ? await _apiService.getContentsPl(category)
+              : await _apiService.getContentsEn(category);
     }
 
     _isLoading = false;

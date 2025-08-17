@@ -38,14 +38,14 @@ class HeroSectionWidget extends StatelessWidget {
                     child: FadeInImage.assetNetwork(
                       placeholder: ImageConstants.logo,
                       image:
-                          "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/ergan.jpeg?alt=media&token=21637606-bf8f-4bf3-b758-ef8858560097",
+                          "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/spodek_ic.jpg?alt=media&token=f2163062-9335-462b-a5bd-e48cd30dda4f",
                       fit: BoxFit.cover,
-                        imageErrorBuilder: (context, error, stackTrace) {
-                    return Image.asset(
-                      ImageConstants.loading,
-                      fit: BoxFit.cover,
-                    );
-                  },
+                      imageErrorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          ImageConstants.loading,
+                          fit: BoxFit.cover,
+                        );
+                      },
                     ),
                   ),
                   Container(
@@ -147,7 +147,7 @@ class HeroSectionWidget extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(width: 16),
-                                Icon(Icons.height,
+                                Icon(Icons.access_time,
                                     color: Colors.white.withValues(alpha: 0.9),
                                     size: 16),
                                 const SizedBox(width: 4),

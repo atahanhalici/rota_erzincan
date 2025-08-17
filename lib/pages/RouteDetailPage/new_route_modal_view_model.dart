@@ -120,8 +120,60 @@ class NewRouteModalViewModel extends ChangeNotifier with BaseViewModel {
       ),
     ];
 
-    // ✅ Dil kontrolü ile doğru listeyi al
-    final selectedLangItems = lang == 'tr' ? itemTr : itemEn;
+    final List<CategoryContentItem> itemPl = [
+      CategoryContentItem(
+        id: 'item_0',
+        title: 'Spodek Arena',
+        description:
+            'Ikoniczna arena w Katowicach, znana z koncertów i wydarzeń.',
+        imageUrl: 'https://picsum.photos/id/1011/600/400',
+        latitude: 50.2599,
+        longitude: 19.0216,
+      ),
+      CategoryContentItem(
+        id: 'item_1',
+        title: 'Nikiszowiec',
+        description:
+            'Historyczne osiedle robotnicze, znane z tradycyjnej architektury i wydarzeń kulturalnych.',
+        imageUrl: 'https://picsum.photos/id/1025/600/400',
+        latitude: 50.2475,
+        longitude: 19.0263,
+      ),
+      CategoryContentItem(
+        id: 'item_2',
+        title: 'Silesia City Center',
+        description:
+            'Duże centrum handlowe z sklepami, rozrywką i restauracjami.',
+        imageUrl: 'https://picsum.photos/id/1043/600/400',
+        latitude: 50.2570,
+        longitude: 19.0250,
+      ),
+      CategoryContentItem(
+        id: 'item_3',
+        title: 'Ogród Botaniczny Katowice',
+        description:
+            'Spokojny obszar z alejkami spacerowymi i różnorodnością roślin.',
+        imageUrl: 'https://picsum.photos/id/1062/600/400',
+        latitude: 50.2605,
+        longitude: 19.0150,
+      ),
+      CategoryContentItem(
+        id: 'item_4',
+        title: 'Rynek w Katowicach',
+        description:
+            'Centralny plac miasta, otoczony kawiarniami i zabytkowymi budynkami.',
+        imageUrl: 'https://picsum.photos/id/1050/600/400',
+        latitude: 50.2590,
+        longitude: 19.0210,
+      ),
+    ];
+
+// ✅ Dil kontrolü ile doğru listeyi al
+    final selectedLangItems = lang == 'tr'
+        ? itemTr
+        : lang == 'pl'
+            ? itemPl
+            : itemEn;
 
     // ✅ 1. Benzersiz ID map’i oluştur
     final Map<String, CategoryContentItem> uniqueMap = {};

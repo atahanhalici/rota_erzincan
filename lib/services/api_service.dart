@@ -62,6 +62,31 @@ class ApiService {
     }).toList();
   }
 
+  Future<List<CategoryModel>> fetchCategoriesPl() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    final List<String> titles = [
+      "Przemysł", // Dziedzictwo przemysłowe i górnicze
+      "Parki i Przyroda", // Parki i obszary przyrodnicze
+      "Kuchnia Śląska", // Kuchnia Śląska
+      "Dziedzictwo Religijne", // Dziedzictwo religijne
+      "Muzea", // Muzea i sztuka nowoczesna
+      "Zakupy", // Zakupy i targi
+      "Rękodzieło", // Rękodzieło lokalne i design
+      "Wydarzenia", // Wydarzenia i sport
+      "Biura Turystyczne" // Biura turystyczne i agencje
+    ];
+
+    return titles.asMap().entries.map((entry) {
+      int index = entry.key;
+      String title = entry.value;
+      return CategoryModel(
+        title: title,
+        imageUrl: "https://picsum.photos/seed/${index + 1}/600/1000",
+      );
+    }).toList();
+  }
+
   Future<List<CategoryItem>> fetchAllCategoriesTr() async {
     await Future.delayed(const Duration(milliseconds: 500));
 
@@ -348,6 +373,149 @@ class ApiService {
     }).toList();
   }
 
+  Future<List<CategoryItem>> fetchAllCategoriesPl() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    final List<Map<String, dynamic>> responseData = [
+      {
+        "id": 0,
+        "title": "Muzea",
+        "subtitle": "Śląskie Muzeum i centra kultury",
+        "imageUrl": "https://picsum.photos/id/1003/600/900",
+        "icon": Icons.museum,
+      },
+      {
+        "id": 1,
+        "title": "Przystanki Smakowe",
+        "subtitle": "Odkryj kuchnię śląską",
+        "imageUrl": "https://picsum.photos/id/1080/600/900",
+        "icon": Icons.restaurant,
+      },
+      {
+        "id": 2,
+        "title": "Wydarzenia i Sport",
+        "subtitle": "Spodek Arena i aktywności sportowe",
+        "imageUrl": "https://picsum.photos/id/1011/600/900",
+        "icon": Icons.sports_soccer,
+      },
+      {
+        "id": 3,
+        "title": "Ikoniczne Punkty",
+        "subtitle": "Spodek, Nikiszowiec i inne atrakcje",
+        "imageUrl": "https://picsum.photos/id/1015/600/900",
+        "icon": Icons.location_city,
+      },
+      {
+        "id": 4,
+        "title": "Kościoły",
+        "subtitle": "Historyczne i nowoczesne miejsca kultu",
+        "imageUrl": "https://picsum.photos/id/1016/600/900",
+        "icon": Icons.church,
+      },
+      {
+        "id": 5,
+        "title": "Dziedzictwo Przemysłowe",
+        "subtitle": "Dawne kopalnie, fabryki i muzea",
+        "imageUrl": "https://picsum.photos/id/1019/600/900",
+        "icon": Icons.factory,
+      },
+      {
+        "id": 6,
+        "title": "Hotele",
+        "subtitle": "Komfortowe opcje zakwaterowania",
+        "imageUrl": "https://picsum.photos/id/1020/600/900",
+        "icon": Icons.hotel,
+      },
+      {
+        "id": 7,
+        "title": "Mosty i Place",
+        "subtitle": "Historyczne mosty i place miejskie",
+        "imageUrl": "https://picsum.photos/id/1024/600/900",
+        "icon": Icons.fort,
+      },
+      {
+        "id": 8,
+        "title": "Teatr i Kino",
+        "subtitle": "Sceny kulturalne i sale kinowe",
+        "imageUrl": "https://picsum.photos/id/1025/600/900",
+        "icon": Icons.movie,
+      },
+      {
+        "id": 9,
+        "title": "Tereny Górnicze",
+        "subtitle": "Wycieczki po kopalniach i skanseny",
+        "imageUrl": "https://picsum.photos/id/1026/600/900",
+        "icon": Icons.architecture,
+      },
+      {
+        "id": 10,
+        "title": "Galerie Sztuki",
+        "subtitle": "Wystawy i galerie sztuki nowoczesnej",
+        "imageUrl": "https://picsum.photos/id/1027/600/900",
+        "icon": Icons.brush,
+      },
+      {
+        "id": 11,
+        "title": "Rękodzieło Lokalnie",
+        "subtitle": "Ceramika, tekstylia i ręcznie robione produkty",
+        "imageUrl": "https://picsum.photos/id/1031/600/900",
+        "icon": Icons.handyman,
+      },
+      {
+        "id": 12,
+        "title": "Parki i Ogrody",
+        "subtitle": "Park Śląski i tereny zielone",
+        "imageUrl": "https://picsum.photos/id/1033/600/900",
+        "icon": Icons.park,
+      },
+      {
+        "id": 13,
+        "title": "Biblioteki",
+        "subtitle": "Centra książki i kultury",
+        "imageUrl": "https://picsum.photos/id/1035/600/900",
+        "icon": Icons.book,
+      },
+      {
+        "id": 14,
+        "title": "Jak Dotrzeć",
+        "subtitle": "Przewodnik transportowy po Katowicach",
+        "imageUrl": "https://picsum.photos/id/1036/600/900",
+        "icon": Icons.directions_bus,
+      },
+      {
+        "id": 15,
+        "title": "Transport Miejski",
+        "subtitle": "Tramwaje, autobusy i ścieżki rowerowe",
+        "imageUrl": "https://picsum.photos/id/1037/600/900",
+        "icon": Icons.emoji_transportation,
+      },
+      {
+        "id": 16,
+        "title": "Smaki Katowic",
+        "subtitle": "Lokalne restauracje i przepisy",
+        "imageUrl": "https://picsum.photos/id/1038/600/900",
+        "icon": Icons.restaurant_menu,
+      },
+      {
+        "id": 17,
+        "title": "Obiekty Sportowe",
+        "subtitle": "Hale i obiekty sportowe na świeżym powietrzu",
+        "imageUrl": "https://picsum.photos/id/1039/600/900",
+        "icon": Icons.sports,
+      },
+    ];
+
+    return responseData.map((data) {
+      return CategoryItem(
+        id: data['id'],
+        title: data['title'],
+        subtitle: data['subtitle'],
+        imageUrl: data['imageUrl'],
+        icon: data['icon'],
+      );
+    }).toList();
+  }
+
   Future<List<RouteItem>> fetchAllRoutesTr() async {
     await Future.delayed(const Duration(milliseconds: 500));
 
@@ -472,6 +640,68 @@ class ApiService {
     }).toList();
   }
 
+  Future<List<RouteItem>> fetchAllRoutesPl() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    final List<Map<String, dynamic>> responseData = [
+      {
+        "title": "Historyczne Dzielnice",
+        "subtitle": "Podróż w czasie w Nikiszowiec i Giszowiec.",
+        "imageUrl": "https://picsum.photos/id/1011/600/400",
+        "icon": "account_balance",
+        "distanceKm": 2.0,
+        "durationMinutes": 30,
+      },
+      {
+        "title": "Sztuka i Muzea",
+        "subtitle": "Odkryj Śląskie Muzeum i nowoczesne miejsca sztuki.",
+        "imageUrl": "https://picsum.photos/id/1027/600/400",
+        "icon": "museum",
+        "distanceKm": 1.8,
+        "durationMinutes": 25,
+      },
+      {
+        "title": "Przyroda i Parki",
+        "subtitle": "Spokojne spacery w Parku Śląskim i Dolinie Trzech Stawów.",
+        "imageUrl": "https://picsum.photos/id/1043/600/400",
+        "icon": "nature_people",
+        "distanceKm": 3.5,
+        "durationMinutes": 45,
+      },
+      {
+        "title": "Sport i Wydarzenia",
+        "subtitle": "Doświadcz Spodek Areny i miejskich obiektów sportowych.",
+        "imageUrl": "https://picsum.photos/id/1052/600/400",
+        "icon": "fitness_center",
+        "distanceKm": 2.5,
+        "durationMinutes": 35,
+      },
+      {
+        "title": "Dziedzictwo Górnictwa",
+        "subtitle": "Wycieczki po kopalniach i muzeach górniczych.",
+        "imageUrl": "https://picsum.photos/id/1062/600/400",
+        "icon": "explore",
+        "distanceKm": 4.0,
+        "durationMinutes": 50,
+      },
+    ];
+
+    const uuid = Uuid();
+    return responseData.map((data) {
+      return RouteItem(
+        id: uuid.v4(),
+        title: data['title'],
+        subtitle: data['subtitle'],
+        imageUrl: data['imageUrl'],
+        iconName: data['icon'],
+        distanceKm: data['distanceKm'],
+        duration: Duration(minutes: data['durationMinutes']),
+        isUserAdded: false,
+        stops: [],
+      );
+    }).toList();
+  }
+
   Future<List<CategoryContentItem>> getContentsTr(CategoryItem category) async {
     await Future.delayed(const Duration(milliseconds: 500));
     final Random random = Random();
@@ -538,6 +768,40 @@ class ApiService {
     });
   }
 
+  Future<List<CategoryContentItem>> getContentsPl(CategoryItem category) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    final Random random = Random();
+
+    final List<String> placesPl = [
+      "Dzielnica Nikiszowiec",
+      "Muzeum Śląskie",
+      "Arena Spodek",
+      "Park Śląski",
+      "Katedra Chrystusa Króla",
+      "Dolina Trzech Stawów",
+      "Budynek NOSPR",
+      "Dzielnica Giszowiec",
+      "Park Kościuszki",
+      "Galeria Sztuki Nowoczesnej",
+    ];
+
+    return List.generate(10, (index) {
+      double latitude = 50.2649 + (random.nextDouble() * 0.04 - 0.02);
+      double longitude = 19.0238 + (random.nextDouble() * 0.04 - 0.02);
+
+      return CategoryContentItem(
+        id: 'content_${category.title.toLowerCase()}_$index',
+        title: placesPl[index],
+        description:
+            'Informacje i wskazówki turystyczne dotyczące ${placesPl[index]}.',
+        imageUrl:
+            'https://picsum.photos/seed/${category.title}_${index + 1}/600/1000',
+        latitude: latitude,
+        longitude: longitude,
+      );
+    });
+  }
+
   Future<List<CategoryContentItem>> getEventsTr() async {
     await Future.delayed(const Duration(milliseconds: 500));
 
@@ -580,6 +844,30 @@ class ApiService {
         title: 'Theaters',
         description:
             'Unique theaters in Katowice for cultural events and performing arts.',
+        imageUrl: 'https://picsum.photos/seed/theater_stage/600/400',
+        latitude: 0,
+        longitude: 0,
+      ),
+    ];
+  }
+
+  Future<List<CategoryContentItem>> getEventsPl() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    return [
+      CategoryContentItem(
+        id: 'content_filmler_0',
+        title: 'Filmy w Kinach',
+        description: 'Odkryj najnowsze filmy grane w kinach w Katowicach.',
+        imageUrl: 'https://picsum.photos/seed/movie_theater/600/400',
+        latitude: 0, // przykładowe współrzędne
+        longitude: 0,
+      ),
+      CategoryContentItem(
+        id: 'content_tiyatrolar_1',
+        title: 'Teatry',
+        description:
+            'Unikalne teatry w Katowicach na wydarzenia kulturalne i sztuki sceniczne.',
         imageUrl: 'https://picsum.photos/seed/theater_stage/600/400',
         latitude: 0,
         longitude: 0,
@@ -703,65 +991,158 @@ class ApiService {
     return _features.map((item) => FeatureModel.fromJson(item)).toList();
   }
 
-  Future<List<InfoCardModel>> fetchInfoCardsTr() async {
-    await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
+  Future<List<FeatureModel>> fetchFeaturesPl() async {
+    await Future.delayed(
+        const Duration(milliseconds: 500)); // sztuczne opóźnienie
 
-    final rawData = [
-      {"label": "Sıcaklık", "value": "-2°C", "icon": "thermostat"},
-      {"label": "Rüzgar", "value": "15 km/h", "icon": "air"},
-      {"label": "Hava", "value": "Kar Yağışlı", "icon": "cloud"},
-      {"label": "3278 m", "value": "150 cm", "icon": "ac_unit"},
-      {"label": "2355 m", "value": "120 cm", "icon": "ac_unit"},
-      {"label": "1740 m", "value": "95 cm", "icon": "ac_unit"},
+    final List<Map<String, dynamic>> _features = [
+      {
+        "title": "Arena Spodek",
+        "subtitle": "Wydarzenia na żywo",
+        "imageUrl": "https://picsum.photos/id/1036/800/500",
+        "icon": Icons.sports_basketball,
+        "id": 0
+      },
+      {
+        "title": "Festiwale tego miesiąca",
+        "subtitle": "Nie przegap!",
+        "imageUrl": "https://picsum.photos/id/169/800/500",
+        "icon": Icons.event,
+        "id": 1
+      },
+      {
+        "title": "Parki i przyroda",
+        "subtitle": "Zielone przestrzenie",
+        "imageUrl": "https://picsum.photos/id/110/800/500",
+        "icon": Icons.park,
+        "id": 2
+      },
+      {
+        "title": "Kuchnia Śląska",
+        "subtitle": "Lokalne smaki",
+        "imageUrl": "https://picsum.photos/id/292/800/500",
+        "icon": Icons.restaurant,
+        "id": 3
+      },
+      {
+        "title": "Miejsca, które trzeba zobaczyć",
+        "subtitle": "Perły Katowic",
+        "imageUrl": "https://picsum.photos/id/15/800/500",
+        "icon": Icons.place,
+        "id": 4
+      },
+      {
+        "title": "Nie odchodź bez tego",
+        "subtitle": "Wyjątkowe doświadczenia",
+        "imageUrl": "https://picsum.photos/id/184/800/500",
+        "icon": Icons.star,
+        "id": 5
+      },
+      {
+        "title": "Zakwaterowanie",
+        "subtitle": "Gdzie się zatrzymać?",
+        "imageUrl": "https://picsum.photos/id/238/800/500",
+        "icon": Icons.hotel,
+        "id": 6
+      },
     ];
 
-    List<InfoCardModel> infoCards =
-        rawData.map((e) => InfoCardModel.fromJson(e)).toList();
-    return infoCards;
+    return _features.map((item) => FeatureModel.fromJson(item)).toList();
+  }
+
+  Future<List<InfoCardModel>> fetchInfoCardsTr() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    final rawData = [
+      {"label": "Hava Durumu", "value": "21°C", "icon": "cloud"},
+      {"label": "Kapasite", "value": "11.000 kişi", "icon": "groups"},
+      {"label": "Etkinlik Sayısı", "value": "Yılda 300+", "icon": "event"},
+      {"label": "Açılış Yılı", "value": "1971", "icon": "history_edu"},
+      {
+        "label": "Mevcut Etkinlik",
+        "value": "Basketbol Maçı",
+        "icon": "sports_basketball"
+      },
+      {"label": "İç Alan", "value": "29.473 m²", "icon": "aspect_ratio"},
+    ];
+
+    return rawData.map((e) => InfoCardModel.fromJson(e)).toList();
   }
 
   Future<List<InfoCardModel>> fetchInfoCardsEn() async {
     await Future.delayed(const Duration(milliseconds: 500));
 
     final rawData = [
-      {"label": "Temperature", "value": "-2°C", "icon": "thermostat"},
-      {"label": "Wind", "value": "15 km/h", "icon": "air"},
-      {"label": "Weather", "value": "Snowy", "icon": "cloud"},
-      {"label": "3278 m", "value": "150 cm", "icon": "ac_unit"},
-      {"label": "2355 m", "value": "120 cm", "icon": "ac_unit"},
-      {"label": "1740 m", "value": "95 cm", "icon": "ac_unit"},
+      {"label": "Weather", "value": "21°C", "icon": "cloud"},
+      {"label": "Capacity", "value": "11,000 people", "icon": "groups"},
+      {"label": "Events per Year", "value": "300+", "icon": "event"},
+      {"label": "Opening Year", "value": "1971", "icon": "history_edu"},
+      {
+        "label": "Current Event",
+        "value": "Basketball Match",
+        "icon": "sports_basketball"
+      },
+      {"label": "Indoor Area", "value": "29,473 m²", "icon": "aspect_ratio"},
+    ];
+
+    return rawData.map((e) => InfoCardModel.fromJson(e)).toList();
+  }
+
+  Future<List<InfoCardModel>> fetchInfoCardsPl() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    final rawData = [
+      {"label": "Pogoda", "value": "21°C", "icon": "cloud"},
+      {"label": "Pojemność", "value": "11 000 osób", "icon": "groups"},
+      {"label": "Liczba wydarzeń", "value": "300+ rocznie", "icon": "event"},
+      {"label": "Rok otwarcia", "value": "1971", "icon": "history_edu"},
+      {
+        "label": "Aktualne wydarzenie",
+        "value": "Mecz koszykówki",
+        "icon": "sports_basketball"
+      },
+      {
+        "label": "Powierzchnia wewnętrzna",
+        "value": "29 473 m²",
+        "icon": "aspect_ratio"
+      },
     ];
 
     return rawData.map((e) => InfoCardModel.fromJson(e)).toList();
   }
 
   Future<List<FacilityModel>> fetchFacilityItemsTr() async {
-    await Future.delayed(const Duration(milliseconds: 500)); // sahte gecikme
+    await Future.delayed(const Duration(milliseconds: 500));
 
     final List<Map<String, dynamic>> items = [
       {
-        "label": "Kameralar",
-        "icon": Icons.videocam,
+        "label": "Basketbol Sahası",
+        "icon": Icons.sports_basketball,
         "active": true,
-        "extraText": "İzlemek için tıklayın",
-        "onTap": () {},
         "id": 0
       },
-      {"label": "Gondol", "icon": Icons.cable, "active": true, "id": 1},
       {
-        "label": "Kızak Pisti",
-        "icon": Icons.snowboarding,
-        "active": false,
-        "id": 2
+        "label": "Konser Alanı",
+        "icon": Icons.music_note,
+        "active": true,
+        "id": 1
       },
-      {"label": "T-Bar", "icon": Icons.arrow_upward, "active": true, "id": 3},
-      {"label": "1. Etap", "icon": Icons.landscape, "active": true, "id": 4},
-      {"label": "2. Etap", "icon": Icons.terrain, "active": false, "id": 5},
+      {"label": "Buz Pisti", "icon": Icons.ac_unit, "active": false, "id": 2},
+      {
+        "label": "Restoran & Kafeler",
+        "icon": Icons.restaurant,
+        "active": true,
+        "id": 3
+      },
+      {
+        "label": "Konferans Salonu",
+        "icon": Icons.business_center,
+        "active": true,
+        "id": 4
+      },
     ];
 
-    List<FacilityModel> facilityItems =
-        items.map((e) => FacilityModel.fromJson(e)).toList();
-    return facilityItems;
+    return items.map((e) => FacilityModel.fromJson(e)).toList();
   }
 
   Future<List<FacilityModel>> fetchFacilityItemsEn() async {
@@ -769,23 +1150,64 @@ class ApiService {
 
     final List<Map<String, dynamic>> items = [
       {
-        "label": "Cameras",
-        "icon": Icons.videocam,
+        "label": "Basketball Court",
+        "icon": Icons.sports_basketball,
         "active": true,
-        "extraText": "Tap to watch",
-        "onTap": () {},
         "id": 0
       },
-      {"label": "Gondola", "icon": Icons.cable, "active": true, "id": 1},
       {
-        "label": "Sled Track",
-        "icon": Icons.snowboarding,
-        "active": false,
-        "id": 2
+        "label": "Concert Hall",
+        "icon": Icons.music_note,
+        "active": true,
+        "id": 1
       },
-      {"label": "T-Bar", "icon": Icons.arrow_upward, "active": true, "id": 3},
-      {"label": "Stage 1", "icon": Icons.landscape, "active": true, "id": 4},
-      {"label": "Stage 2", "icon": Icons.terrain, "active": false, "id": 5},
+      {"label": "Ice Rink", "icon": Icons.ac_unit, "active": false, "id": 2},
+      {
+        "label": "Restaurants & Cafes",
+        "icon": Icons.restaurant,
+        "active": true,
+        "id": 3
+      },
+      {
+        "label": "Conference Hall",
+        "icon": Icons.business_center,
+        "active": true,
+        "id": 4
+      },
+    ];
+
+    return items.map((e) => FacilityModel.fromJson(e)).toList();
+  }
+
+  Future<List<FacilityModel>> fetchFacilityItemsPl() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    final List<Map<String, dynamic>> items = [
+      {
+        "label": "Boisko do koszykówki",
+        "icon": Icons.sports_basketball,
+        "active": true,
+        "id": 0
+      },
+      {
+        "label": "Sala koncertowa",
+        "icon": Icons.music_note,
+        "active": true,
+        "id": 1
+      },
+      {"label": "Lodowisko", "icon": Icons.ac_unit, "active": false, "id": 2},
+      {
+        "label": "Restauracje i kawiarnie",
+        "icon": Icons.restaurant,
+        "active": true,
+        "id": 3
+      },
+      {
+        "label": "Sala konferencyjna",
+        "icon": Icons.business_center,
+        "active": true,
+        "id": 4
+      },
     ];
 
     return items.map((e) => FacilityModel.fromJson(e)).toList();
@@ -954,6 +1376,93 @@ class ApiService {
           "url": "https://picsum.photos/id/1024/600/900"
         },
       ]
+    };
+
+    final categorizedImages = <String, List<PhotoModel>>{};
+    rawCategorizedImages.forEach((key, value) {
+      categorizedImages[key] =
+          value.map((item) => PhotoModel.fromJson(item)).toList();
+    });
+
+    return categorizedImages;
+  }
+
+  Future<Map<String, List<PhotoModel>>> fetchGalleryPhotosPl() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    final Map<String, List<Map<String, String>>> rawCategorizedImages = {
+      "Wszystko": [
+        {
+          "title": "Spodek Arena",
+          "url": "https://picsum.photos/id/1015/600/900"
+        },
+        {
+          "title": "Nikiszowiec",
+          "url": "https://picsum.photos/id/1016/600/900"
+        },
+        {
+          "title": "Muzeum Śląskie",
+          "url": "https://picsum.photos/id/1018/600/900"
+        },
+        {
+          "title": "Centrum Kultury",
+          "url": "https://picsum.photos/id/1019/600/900"
+        },
+        {
+          "title": "Widok Katowic",
+          "url": "https://picsum.photos/id/1020/600/900"
+        },
+        {"title": "Parki", "url": "https://picsum.photos/id/1021/600/900"},
+        {
+          "title": "Sztuka i Rzeźby",
+          "url": "https://picsum.photos/id/1022/600/900"
+        },
+        {
+          "title": "Obszar Festiwalowy",
+          "url": "https://picsum.photos/id/1023/600/900"
+        },
+        {
+          "title": "Lokalne Smaki",
+          "url": "https://picsum.photos/id/1024/600/900"
+        },
+        {
+          "title": "Ulice Miasta",
+          "url": "https://picsum.photos/id/1025/600/900"
+        },
+      ],
+      "Przyroda": [
+        {"title": "Parki", "url": "https://picsum.photos/id/1021/600/900"},
+        {
+          "title": "Widok Katowic",
+          "url": "https://picsum.photos/id/1020/600/900"
+        },
+      ],
+      "Architektura": [
+        {
+          "title": "Nikiszowiec",
+          "url": "https://picsum.photos/id/1016/600/900"
+        },
+        {
+          "title": "Muzeum Śląskie",
+          "url": "https://picsum.photos/id/1018/600/900"
+        },
+        {
+          "title": "Centrum Kultury",
+          "url": "https://picsum.photos/id/1019/600/900"
+        },
+      ],
+      "Kultura": [
+        {
+          "title": "Obszar Festiwalowy",
+          "url": "https://picsum.photos/id/1023/600/900"
+        },
+      ],
+      "Kuchnia": [
+        {
+          "title": "Lokalne Smaki",
+          "url": "https://picsum.photos/id/1024/600/900"
+        },
+      ],
     };
 
     final categorizedImages = <String, List<PhotoModel>>{};

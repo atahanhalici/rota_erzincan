@@ -15,7 +15,9 @@ class CategoriesPageViewModel extends ChangeNotifier with BaseViewModel {
     final langCode = context.locale.languageCode;
     categoryItems = langCode == 'tr'
         ? await _apiService.fetchAllCategoriesTr()
-        : await _apiService.fetchAllCategoriesEn();
+        : langCode == 'pl'
+            ? await _apiService.fetchAllCategoriesPl()
+            : await _apiService.fetchAllCategoriesEn();
 
     isLoading = false;
     notifyListeners(); // shimmer dursun, liste gözüksün

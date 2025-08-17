@@ -23,7 +23,10 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
       "Spodek Arena and its surroundings are among the most important modern architectural and cultural landmarks in Katowice. The arena serves as a central hub for various sports and cultural events. Built in the 1970s, the structure is one of the city's iconic buildings due to its functional and aesthetic design. With its large dome, spacious interior, and striking details, it is one of the most popular venues in the region. The surrounding area provides ample space for visitors."
       "The venue is more than just an event space; it also hosts cultural gatherings and social activities. Concerts, trade fairs, and various festivals are regularly organized here. The arena and nearby facilities offer various services to meet the needs of all visitors. Especially during major events, a significant influx of attendees can be observed. Spodek Arena is not only an important cultural center for the residents of Katowice but also an attractive destination for tourists from outside the city."
       "Spodek Arena stands out in the Katowice cityscape and offers a unique visual spectacle with its evening lighting. Its design, reflecting elegant details of modern architecture, provides visitors with an impressive and enjoyable experience. As an integral part of Katowice’s cultural and social life, Spodek Arena has remained a symbol of the city for decades.";
-
+  final String fullTextPl =
+      "Spodek Arena i jej okolice należą do najważniejszych nowoczesnych zabytków architektonicznych i kulturowych w Katowicach. Arena pełni funkcję centralnego punktu dla różnych wydarzeń sportowych i kulturalnych. Zbudowana w latach 70., budowla jest jednym z ikonicznych budynków miasta dzięki swojemu funkcjonalnemu i estetycznemu projektowi. Duża kopuła, przestronne wnętrze i uderzające detale sprawiają, że jest to jedno z najpopularniejszych miejsc w regionie. Okoliczny teren zapewnia odwiedzającym dużo przestrzeni."
+      "Obiekt to nie tylko miejsce wydarzeń; odbywają się tu również spotkania kulturalne i zajęcia społeczne. Regularnie organizowane są koncerty, targi i różne festiwale. Arena i pobliskie obiekty oferują różnorodne usługi, aby zaspokoić potrzeby wszystkich odwiedzających. Szczególnie podczas dużych wydarzeń obserwuje się znaczny napływ uczestników. Spodek Arena jest nie tylko ważnym centrum kulturalnym dla mieszkańców Katowic, ale także atrakcyjnym celem turystycznym dla osób spoza miasta."
+      "Spodek Arena wyróżnia się w panoramie Katowic i oferuje wyjątkowe widowisko wizualne dzięki wieczornemu oświetleniu. Jej projekt, odzwierciedlający eleganckie detale nowoczesnej architektury, zapewnia odwiedzającym imponujące i przyjemne doświadczenie. Jako integralna część życia kulturalnego i społecznego Katowic, Spodek Arena pozostaje symbolem miasta od dziesięcioleci.";
   final List<String> imageUrls = List.generate(
       3, (index) => 'https://picsum.photos/800/500?random=$index');
   final FlutterTts _flutterTts = FlutterTts();
@@ -81,6 +84,11 @@ class DetailsPageViewModel extends ChangeNotifier with BaseViewModel {
         await _flutterTts.setPitch(1.0);
         await _flutterTts.setSpeechRate(0.55);
         await _flutterTts.speak(fullTextTr);
+      } else if (localeCode == "pl") {
+        await _flutterTts.setLanguage("pl-PL");
+        await _flutterTts.setPitch(1.0);
+        await _flutterTts.setSpeechRate(0.55);
+        await _flutterTts.speak(fullTextPl);
       } else {
         await _flutterTts.setLanguage("en-US");
         await _flutterTts.setPitch(1.0);

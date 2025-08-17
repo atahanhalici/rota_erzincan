@@ -166,8 +166,12 @@ class _DetailsPageState extends State<DetailsPage>
     final themeProvider = Provider.of<ThemeProvider>(context);
     final viewModel = Provider.of<DetailsPageViewModel>(context);
     final localeCode = context.locale.languageCode;
-    final selectedText =
-        localeCode == 'tr' ? viewModel.fullTextTr : viewModel.fullTextEn;
+    final selectedText = localeCode == 'tr'
+        ? viewModel.fullTextTr
+        : localeCode == 'pl'
+            ? viewModel.fullTextPl
+            : viewModel.fullTextEn;
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [

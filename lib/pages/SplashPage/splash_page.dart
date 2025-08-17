@@ -53,7 +53,7 @@ class _SplashPageState extends State<SplashPage>
           // 🔹 Sol üst logo
           Positioned(
             top: 70,
-            left: 20,
+            right: 20,
             child: Image.asset(
               ImageConstants.logo,
               width: 160,

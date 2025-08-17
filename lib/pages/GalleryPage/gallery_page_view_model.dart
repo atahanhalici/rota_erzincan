@@ -37,7 +37,10 @@ class GalleryPageViewModel extends ChangeNotifier with BaseViewModel {
     final langCode = context.locale.languageCode;
     categorizedImages = langCode == 'tr'
         ? await _apiService.fetchGalleryPhotosTr()
-        : await _apiService.fetchGalleryPhotosEn();
+        : langCode == 'pl'
+            ? await _apiService.fetchGalleryPhotosPl()
+            : await _apiService.fetchGalleryPhotosEn();
+
     isLoading = false;
     notifyListeners();
   }

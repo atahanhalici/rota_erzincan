@@ -24,10 +24,15 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
     final langCode = context.locale.languageCode;
     _categories = langCode == 'tr'
         ? await _apiService.fetchCategoriesTr()
-        : await _apiService.fetchCategoriesEn();
+        : langCode == 'pl'
+            ? await _apiService.fetchCategoriesPl()
+            : await _apiService.fetchCategoriesEn();
+
     _features = langCode == 'tr'
         ? await _apiService.fetchFeaturesTr()
-        : await _apiService.fetchFeaturesEn();
+        : langCode == 'pl'
+            ? await _apiService.fetchFeaturesPl()
+            : await _apiService.fetchFeaturesEn();
 
     isLoading = false;
     notifyListeners();

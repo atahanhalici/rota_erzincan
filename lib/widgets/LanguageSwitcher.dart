@@ -107,6 +107,18 @@ class _LanguageSwitcherState extends State<LanguageSwitcher> {
                 ],
               ),
             ),
+            DropdownMenuItem(
+              value: 'pl',
+              child: Row(
+                children: [
+                  const Text('🇵🇱', style: TextStyle(fontSize: 16)),
+                  const SizedBox(width: 8),
+                  Text('Polski',
+                      style: GoogleFonts.poppins(
+                          fontSize: 14, color: themeProvider.textColor)),
+                ],
+              ),
+            ),
           ],
           onChanged: (value) {
             if (value != null) {

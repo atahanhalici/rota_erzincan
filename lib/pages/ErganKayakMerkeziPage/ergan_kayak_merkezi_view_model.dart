@@ -35,10 +35,15 @@ class ErganViewModel extends ChangeNotifier with BaseViewModel {
     // 🔽 Buraya API çağrıları
     infoCards = locale == 'tr'
         ? await _apiService.fetchInfoCardsTr()
-        : await _apiService.fetchInfoCardsEn();
+        : locale == 'pl'
+            ? await _apiService.fetchInfoCardsPl()
+            : await _apiService.fetchInfoCardsEn();
+
     facilityItems = locale == 'tr'
         ? await _apiService.fetchFacilityItemsTr()
-        : await _apiService.fetchFacilityItemsEn(); // örnek
+        : locale == 'pl'
+            ? await _apiService.fetchFacilityItemsPl()
+            : await _apiService.fetchFacilityItemsEn();
 
     isLoading = false;
     isInitialized = true;
@@ -97,7 +102,7 @@ class ErganViewModel extends ChangeNotifier with BaseViewModel {
   }
 
   void navigateToCameras() {
-    navigationService.navigateToPage("/cameras", null);
+    // navigationService.navigateToPage("/cameras", null);
   }
 
   Widget get animatedTextKit => AnimatedTextKit(

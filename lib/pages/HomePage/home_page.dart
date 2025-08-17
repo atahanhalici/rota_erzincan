@@ -475,9 +475,9 @@ class _HomePageState extends State<HomePage>
                                   SizedBox(
                                     width: context.sized.width,
                                     child: ElevatedButton(
-                                      onPressed: () {
-                                        _homeModel.navigateToDetails(context);
-                                      },
+                onPressed: () {
+                  _homeModel.navigateToDetails(context);
+                },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor:
                                             themeProvider.buttonColor,
