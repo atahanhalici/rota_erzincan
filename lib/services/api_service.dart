@@ -79,6 +79,24 @@ class ApiService {
         return Icons.restaurant_menu;
       case 'sports':
         return Icons.sports;
+      case 'cloud':
+        return Icons.cloud;
+      case 'groups':
+        return Icons.groups;
+      case 'event':
+        return Icons.event;
+      case 'history_edu':
+        return Icons.history_edu;
+      case 'sports_basketball':
+        return Icons.sports_basketball;
+      case 'aspect_ratio':
+        return Icons.aspect_ratio;
+      case 'music_note':
+        return Icons.music_note;
+      case 'ac_unit':
+        return Icons.ac_unit;
+      case 'business_center':
+        return Icons.business_center;
       default:
         return Icons.help_outline; // fallback
     }
@@ -101,6 +119,31 @@ class ApiService {
       ErrorHandler.handle("Bilinmeyen hata: $e");
     }
     return null; // 👈 hata varsa null dön
+  }
+
+  Future<http.Response?> _safePost(
+      String path, Map<String, dynamic> body) async {
+    try {
+      final response = await http
+          .post(
+            _u(path),
+            headers: {HttpHeaders.contentTypeHeader: "application/json"},
+            body: jsonEncode(body),
+          )
+          .timeout(const Duration(seconds: 10));
+      return response;
+    } on SocketException {
+      ErrorHandler.handle("İnternet bağlantısı yok.");
+    } on HttpException {
+      ErrorHandler.handle("Sunucuya ulaşılamadı.");
+    } on FormatException {
+      ErrorHandler.handle("Geçersiz yanıt formatı.");
+    } on TimeoutException {
+      ErrorHandler.handle("Sunucudan yanıt alınamadı (timeout).");
+    } catch (e) {
+      ErrorHandler.handle("Bilinmeyen hata: $e");
+    }
+    return null;
   }
 
   /// StatusCode kontrolü + JSON decode
@@ -582,6 +625,39 @@ class ApiService {
           );
         }
       }).toList(),
+    );
+  }
+
+  /// ============== FEEDBACK ==============
+  Future<Map<String, dynamic>> submitFeedback({
+    required String senderName,
+    required String senderEmail,
+    required String message,
+  }) async {
+    final r = await _safePost('feedback/submit', {
+      "senderName": senderName,
+      "senderEmail": senderEmail,
+      "message": message,
+    });
+
+    if (r == null) {
+      return {"success": false, "error": "İstek başarısız oldu"};
+    }
+
+    if (r.statusCode == 201 || r.statusCode == 200) {
+      try {
+        return jsonDecode(utf8.decode(r.bodyBytes))
+            as Map<String, dynamic>; // backend'den success JSON
+      } catch (e) {
+        return {"success": false, "error": "JSON parse hatası: $e"};
+      }
+    }
+
+    // Diğer durumlar hata
+    throw ApiException(
+      "Feedback gönderilemedi",
+      statusCode: r.statusCode,
+      body: r.body,
     );
   }
 }

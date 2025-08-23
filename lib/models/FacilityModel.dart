@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rota_erzincan/services/api_service.dart'; // iconFromName erişmek için (path'i seninkine göre ayarla)
 
 class FacilityModel {
   final int id;
@@ -18,34 +19,15 @@ class FacilityModel {
   });
 
   factory FacilityModel.fromJson(Map<String, dynamic> json) {
+    final iconStr = json['icon']?.toString();
+
     return FacilityModel(
       id: json['id'],
-      label: json['label'],
-      icon: json['icon'] is String
-          ? _mapIcon(json['icon'])
-          : json['icon'] as IconData,
+      label: json['label'] ?? '',
+      icon: ApiService.iconFromName(iconStr), // 👈 artık buradan geliyor
       active: json['active'] ?? false,
       extraText: json['extraText'],
       onTap: null, // genelde API'den gelmeyecek, UI'da atanacak
     );
-  }
-
-  static IconData _mapIcon(String iconName) {
-    switch (iconName) {
-      case 'videocam':
-        return Icons.videocam;
-      case 'cable':
-        return Icons.cable;
-      case 'snowboarding':
-        return Icons.snowboarding;
-      case 'arrow_upward':
-        return Icons.arrow_upward;
-      case 'landscape':
-        return Icons.landscape;
-      case 'terrain':
-        return Icons.terrain;
-      default:
-        return Icons.help_outline;
-    }
   }
 }

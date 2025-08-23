@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rota_erzincan/services/api_service.dart'; // iconFromName erişmek için (path'i seninkine göre ayarla)
 
 class InfoCardModel {
   final String label;
@@ -12,25 +13,12 @@ class InfoCardModel {
   });
 
   factory InfoCardModel.fromJson(Map<String, dynamic> json) {
-    return InfoCardModel(
-      label: json['label'],
-      value: json['value'],
-      icon: _mapIcon(json['icon']),
-    );
-  }
+    final iconStr = json['icon']?.toString();
 
-  static IconData _mapIcon(String iconName) {
-    switch (iconName) {
-      case 'thermostat':
-        return Icons.thermostat;
-      case 'air':
-        return Icons.air;
-      case 'cloud':
-        return Icons.cloud;
-      case 'ac_unit':
-        return Icons.ac_unit;
-      default:
-        return Icons.info;
-    }
+    return InfoCardModel(
+      label: json['label'] ?? '',
+      value: json['value'] ?? '',
+      icon: ApiService.iconFromName(iconStr), // 👈 buradan çeviriyor
+    );
   }
 }
