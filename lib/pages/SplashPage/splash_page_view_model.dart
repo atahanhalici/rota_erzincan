@@ -80,7 +80,7 @@ class SplashPageViewModel with ChangeNotifier, BaseViewModel {
 
   Future<void> checkVersion(String clientVersion) async {
     final databaseValue = await _versionService.getVersionNumber();
-
+    print(databaseValue);
     if (databaseValue == "error") {
       _serverError = true;
       navigationService.navigateToPageClear(("/serverError"), null);

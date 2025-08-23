@@ -197,88 +197,114 @@ class EmergencyAssemblyAreasViewModel extends ChangeNotifier
       'contact': 'Katowice Governorship: +48 XXX XXX XXX'
     },
   ];
-final List<Map<String, dynamic>> assemblyPointsPl = [
-  {
-    'name': 'Spodek Arena',
-    'point': const LatLng(50.2599, 19.0216),
-    'capacity': 11000,
-    'facilities': ['Stacja Zaopatrzenia w Wodę', 'Namiot Pierwszej Pomocy'],
-    'description': 'Ikoniczna arena w Katowicach, idealna na duże wydarzenia.',
-    'contact': 'Zarząd Spodek: +48 XXX XXX XXX'
-  },
-  {
-    'name': 'Rynek',
-    'point': const LatLng(50.2591, 19.0205),
-    'capacity': 5000,
-    'facilities': ['Toalety', 'Stacja Zaopatrzenia w Wodę', 'Strefa Namiotowa'],
-    'description': 'Centralny plac miasta z szeroką przestrzenią i łatwym dostępem.',
-    'contact': 'Urząd Miasta Katowice: +48 XXX XXX XXX'
-  },
-  {
-    'name': 'Park Nikiszowiec',
-    'point': const LatLng(50.2435, 19.0195),
-    'capacity': 2000,
-    'facilities': ['Stacja Zaopatrzenia w Wodę', 'Namiot Pierwszej Pomocy'],
-    'description': 'Przestronny teren zielony w historycznej dzielnicy Nikiszowiec.',
-    'contact': 'Zarząd Parku: +48 XXX XXX XXX'
-  },
-  {
-    'name': 'Park Śląski',
-    'point': const LatLng(50.2420, 19.0010),
-    'capacity': 8000,
-    'facilities': ['Toalety', 'Stacja Zaopatrzenia w Wodę', 'Punkt Dystrybucji Żywności'],
-    'description': 'Największy park w mieście, idealny na wydarzenia i spacery.',
-    'contact': 'Zarząd Parku Śląskiego: +48 XXX XXX XXX'
-  },
-  {
-    'name': 'Przód Muzeum Śląskiego',
-    'point': const LatLng(50.2640, 19.0015),
-    'capacity': 3000,
-    'facilities': ['Stacja Zaopatrzenia w Wodę', 'Centrum Pierwszej Pomocy'],
-    'description': 'Otwarta przestrzeń przed muzeum sztuki nowoczesnej.',
-    'contact': 'Kontakt z Muzeum: +48 XXX XXX XXX'
-  },
-  {
-    'name': 'Kampus Uniwersytetu w Katowicach',
-    'point': const LatLng(50.2670, 19.0220),
-    'capacity': 4000,
-    'facilities': ['Toalety', 'Stacja Zaopatrzenia w Wodę', 'Stanowisko Pierwszej Pomocy'],
-    'description': 'Przestronny teren na kampusie uniwersyteckim, łatwo dostępny.',
-    'contact': 'Ochrona Uniwersytetu: +48 XXX XXX XXX'
-  },
-  {
-    'name': 'Strefa Kultury',
-    'point': const LatLng(50.2630, 19.0200),
-    'capacity': 6000,
-    'facilities': ['Toalety', 'Stacja Zaopatrzenia w Wodę', 'Strefa Namiotowa'],
-    'description': 'Centralnie położona strefa wydarzeń kulturalnych.',
-    'contact': 'Zarząd Strefy Kultury: +48 XXX XXX XXX'
-  },
-  {
-    'name': 'Plac Miarki',
-    'point': const LatLng(50.2600, 19.0180),
-    'capacity': 2500,
-    'facilities': ['Stacja Zaopatrzenia w Wodę', 'Strefa Namiotowa'],
-    'description': 'Otwarta przestrzeń targowa, łatwo dostępna.',
-    'contact': 'Urząd Miasta Katowice: +48 XXX XXX XXX'
-  },
-  {
-    'name': 'Otwarte Tereny Rybnicka',
-    'point': const LatLng(50.2560, 19.0150),
-    'capacity': 2000,
-    'facilities': ['Toalety', 'Stacja Zaopatrzenia w Wodę'],
-    'description': 'Centrum koordynacyjne i przestrzeń otwarta dla wydarzeń.',
-    'contact': 'Urząd Miasta Katowice: +48 XXX XXX XXX'
-  },
-  {
-    'name': 'Teren Obok Województwa',
-    'point': const LatLng(50.2585, 19.0190),
-    'capacity': 1500,
-    'facilities': ['Toalety', 'Stacja Zaopatrzenia w Wodę', 'Centrum Zarządzania AFAD'],
-    'description': 'Teren przy urzędzie wojewódzkim, łatwa koordynacja z władzami.',
-    'contact': 'Urząd Wojewódzki Katowice: +48 XXX XXX XXX'
-  },
-];
+  final List<Map<String, dynamic>> assemblyPointsPl = [
+    {
+      'name': 'Spodek Arena',
+      'point': const LatLng(50.2599, 19.0216),
+      'capacity': 11000,
+      'facilities': ['Stacja Zaopatrzenia w Wodę', 'Namiot Pierwszej Pomocy'],
+      'description':
+          'Ikoniczna arena w Katowicach, idealna na duże wydarzenia.',
+      'contact': 'Zarząd Spodek: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Rynek',
+      'point': const LatLng(50.2591, 19.0205),
+      'capacity': 5000,
+      'facilities': [
+        'Toalety',
+        'Stacja Zaopatrzenia w Wodę',
+        'Strefa Namiotowa'
+      ],
+      'description':
+          'Centralny plac miasta z szeroką przestrzenią i łatwym dostępem.',
+      'contact': 'Urząd Miasta Katowice: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Park Nikiszowiec',
+      'point': const LatLng(50.2435, 19.0195),
+      'capacity': 2000,
+      'facilities': ['Stacja Zaopatrzenia w Wodę', 'Namiot Pierwszej Pomocy'],
+      'description':
+          'Przestronny teren zielony w historycznej dzielnicy Nikiszowiec.',
+      'contact': 'Zarząd Parku: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Park Śląski',
+      'point': const LatLng(50.2420, 19.0010),
+      'capacity': 8000,
+      'facilities': [
+        'Toalety',
+        'Stacja Zaopatrzenia w Wodę',
+        'Punkt Dystrybucji Żywności'
+      ],
+      'description':
+          'Największy park w mieście, idealny na wydarzenia i spacery.',
+      'contact': 'Zarząd Parku Śląskiego: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Przód Muzeum Śląskiego',
+      'point': const LatLng(50.2640, 19.0015),
+      'capacity': 3000,
+      'facilities': ['Stacja Zaopatrzenia w Wodę', 'Centrum Pierwszej Pomocy'],
+      'description': 'Otwarta przestrzeń przed muzeum sztuki nowoczesnej.',
+      'contact': 'Kontakt z Muzeum: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Kampus Uniwersytetu w Katowicach',
+      'point': const LatLng(50.2670, 19.0220),
+      'capacity': 4000,
+      'facilities': [
+        'Toalety',
+        'Stacja Zaopatrzenia w Wodę',
+        'Stanowisko Pierwszej Pomocy'
+      ],
+      'description':
+          'Przestronny teren na kampusie uniwersyteckim, łatwo dostępny.',
+      'contact': 'Ochrona Uniwersytetu: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Strefa Kultury',
+      'point': const LatLng(50.2630, 19.0200),
+      'capacity': 6000,
+      'facilities': [
+        'Toalety',
+        'Stacja Zaopatrzenia w Wodę',
+        'Strefa Namiotowa'
+      ],
+      'description': 'Centralnie położona strefa wydarzeń kulturalnych.',
+      'contact': 'Zarząd Strefy Kultury: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Plac Miarki',
+      'point': const LatLng(50.2600, 19.0180),
+      'capacity': 2500,
+      'facilities': ['Stacja Zaopatrzenia w Wodę', 'Strefa Namiotowa'],
+      'description': 'Otwarta przestrzeń targowa, łatwo dostępna.',
+      'contact': 'Urząd Miasta Katowice: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Otwarte Tereny Rybnicka',
+      'point': const LatLng(50.2560, 19.0150),
+      'capacity': 2000,
+      'facilities': ['Toalety', 'Stacja Zaopatrzenia w Wodę'],
+      'description': 'Centrum koordynacyjne i przestrzeń otwarta dla wydarzeń.',
+      'contact': 'Urząd Miasta Katowice: +48 XXX XXX XXX'
+    },
+    {
+      'name': 'Teren Obok Województwa',
+      'point': const LatLng(50.2585, 19.0190),
+      'capacity': 1500,
+      'facilities': [
+        'Toalety',
+        'Stacja Zaopatrzenia w Wodę',
+        'Centrum Zarządzania AFAD'
+      ],
+      'description':
+          'Teren przy urzędzie wojewódzkim, łatwa koordynacja z władzami.',
+      'contact': 'Urząd Wojewódzki Katowice: +48 XXX XXX XXX'
+    },
+  ];
 
   late String langCode;
   void initializeWithContext(BuildContext context) {

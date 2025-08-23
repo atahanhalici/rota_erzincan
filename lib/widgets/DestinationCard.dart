@@ -5,13 +5,14 @@ import 'package:rota_erzincan/constants/image_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/pages/HomePage/home_page.view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
+import 'package:rota_erzincan/utilities/icon_utilities.dart';
 
 class DestinationCard extends StatefulWidget {
   final String title;
   final String subtitle;
   final String imageUrl;
   final int id;
-  final IconData icon;
+  final String iconName;
 
   const DestinationCard({
     super.key,
@@ -19,7 +20,7 @@ class DestinationCard extends StatefulWidget {
     required this.subtitle,
     required this.imageUrl,
     required this.id,
-    required this.icon,
+    required this.iconName,
   });
 
   @override
@@ -69,7 +70,7 @@ class _DestinationCardState extends State<DestinationCard>
             _homeModel.navigateToErgan(context);
           } else {
             _homeModel.navigateToCategoryDetail(widget.title, widget.subtitle,
-                widget.imageUrl, widget.icon, widget.id);
+                widget.imageUrl, widget.iconName, widget.id);
           }
         },
         onTapDown: (_) {
@@ -175,7 +176,7 @@ class _DestinationCardState extends State<DestinationCard>
                                   ],
                                 ),
                                 child: Icon(
-                                  widget.icon,
+                                 IconUtils.fromName(widget.iconName),
                                   color: Colors.white,
                                   size: 22,
                                 ),

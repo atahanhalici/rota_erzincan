@@ -1,13 +1,13 @@
-import 'package:easy_localization/easy_localization.dart';
+//import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/CameraModel.dart';
-import 'package:rota_erzincan/services/api_service.dart';
+//import 'package:rota_erzincan/services/api_service.dart';
 import 'package:video_player/video_player.dart';
 
 class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
-  final ApiService _apiService = ApiService();
+  //final ApiService _apiService = ApiService();
   bool _isDisposed = false;
   bool isLoading = false;
 
@@ -16,10 +16,10 @@ class LiveCamsPageViewModel extends ChangeNotifier with BaseViewModel {
   Future<void> loadCameras(BuildContext context) async {
     isLoading = false;
     _isDisposed = false;
-    final lang = context.locale.languageCode;
-    cameras = lang == 'tr'
+    // final lang = context.locale.languageCode;
+    /* cameras = lang == 'tr'
         ? await _apiService.fetchFakeCamerasTr()
-        : await _apiService.fetchFakeCamerasEn();
+        : await _apiService.fetchFakeCamerasEn();*/
     isLoading = true;
     notifyListeners();
   }

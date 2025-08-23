@@ -1,6 +1,21 @@
+import 'dart:io';
+import 'package:rota_erzincan/services/api_service.dart';
+
 class VersionService {
+  final ApiService _apiService = ApiService();
+
   Future<String?> getVersionNumber() async {
-    await Future.delayed(const Duration(milliseconds: 500)); // 0.5 saniye bekleme
-    return '1.0.0'; // Dönen sonuç
+    try {
+      final version = await _apiService.fetchVersion();
+      if (Platform.isAndroid) {
+        return version!["android"];
+      } else if (Platform.isIOS) {
+        return version!["ios"];
+      }
+      return "error";
+    } catch (e) {
+      // Sunucu veya bağlantı hatası olursa "error" döndür
+      return "error";
+    }
   }
 }

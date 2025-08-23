@@ -70,53 +70,56 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
     navigationService.navigateToPage("/giveYourOpinion", null);
   }
 
-  void navigateToCategoryDetail(
-      String title, String subtitle, String imageUrl, IconData icon, int id) {
-    CategoryItem _categoryItem = CategoryItem(
-        icon: icon,
-        title: title,
-        subtitle: subtitle,
-        imageUrl: imageUrl,
-        id: id);
-
-    navigationService.navigateToCategoryDetail(_categoryItem);
-  }
 
   void navigateToSearch() {
     navigationService.navigateToSearchPage();
   }
 
-  void navigateBottomBar(BuildContext context, int index,
-      {String? title,
-      String? subtitle,
-      String? imageUrl,
-      IconData? icon,
-      int? id}) {
-    if (index == 0) {
-      navigationService.navigateToPageClear("/home", null);
-    } else if (index == 1) {
-      navigationService.navigateToPageClear("/categories", null);
-    } else if (index == 2) {
-      navigationService.navigateToPageClear("/gallery", null);
-    } else if (index == 3) {
-      navigationService.navigateToPageClear("/routes", null);
-    } else if (index == 4) {
-      if (title != null &&
-          subtitle != null &&
-          imageUrl != null &&
-          icon != null &&
-          id != null) {
-        navigationService.navigateToCategoryDetailClear(
-          CategoryItem(
-              title: title,
-              subtitle: subtitle,
-              imageUrl: imageUrl,
-              icon: icon,
-              id: id),
-        );
-      }
+  void navigateToCategoryDetail(
+    String title, String subtitle, String imageUrl, String iconName, int id) {
+  CategoryItem _categoryItem = CategoryItem(
+    iconName: iconName,
+    title: title,
+    subtitle: subtitle,
+    imageUrl: imageUrl,
+    id: id,
+  );
+
+  navigationService.navigateToCategoryDetail(_categoryItem);
+}
+
+void navigateBottomBar(BuildContext context, int index,
+    {String? title,
+    String? subtitle,
+    String? imageUrl,
+    String? iconName,
+    int? id}) {
+  if (index == 0) {
+    navigationService.navigateToPageClear("/home", null);
+  } else if (index == 1) {
+    navigationService.navigateToPageClear("/categories", null);
+  } else if (index == 2) {
+    navigationService.navigateToPageClear("/gallery", null);
+  } else if (index == 3) {
+    navigationService.navigateToPageClear("/routes", null);
+  } else if (index == 4) {
+    if (title != null &&
+        subtitle != null &&
+        imageUrl != null &&
+        iconName != null &&
+        id != null) {
+      navigationService.navigateToCategoryDetailClear(
+        CategoryItem(
+          title: title,
+          subtitle: subtitle,
+          imageUrl: imageUrl,
+          iconName: iconName,
+          id: id,
+        ),
+      );
     }
   }
+}
 
   void openStory(BuildContext context, CategoryModel model) {
     int currentIndex = categories.indexOf(model);

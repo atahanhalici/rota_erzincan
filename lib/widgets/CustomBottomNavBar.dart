@@ -105,7 +105,7 @@ class CustomBottomNavBar extends StatelessWidget {
                             idx,
                             title: 'eventHighlightTitle'.tr(),
                             subtitle: 'eventHighlightSubtitle'.tr(),
-                            icon: Icons.event,
+                            iconName: "event",
                             imageUrl: "https://picsum.photos/id/169/800/500",
                             id: 8,
                           );
