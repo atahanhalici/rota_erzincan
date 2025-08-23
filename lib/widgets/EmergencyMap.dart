@@ -1,8 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
+import 'package:rota_erzincan/models/AssemblyPointModel.dart';
 import 'package:rota_erzincan/pages/EmergencyAssemblyAreas/emergency_assembly_areas_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:latlong2/latlong.dart';
@@ -29,16 +29,12 @@ class EmergencyMap extends StatelessWidget {
     final userLocation = viewModel.userLocation;
     final selectedPoint = viewModel.selectedPoint;
     final nearest = viewModel.getNearestPoint();
-    final lang = context.locale.languageCode;
-    final assemblyPoints = lang == 'tr'
-        ? viewModel.assemblyPointsTr
-        : lang == 'pl'
-            ? viewModel.assemblyPointsPl
-            : viewModel.assemblyPointsEn;
+    final assemblyPoints = viewModel.assemblyPoints;
+
     return FlutterMap(
       mapController: mapController,
       options: MapOptions(
-        initialCenter: userLocation!,
+        initialCenter: userLocation ?? const LatLng(0, 0), // ✅ null guard
         initialZoom: 15,
         onTap: (_, __) => viewModel.clearSelectedPoint(),
       ),
@@ -47,6 +43,8 @@ class EmergencyMap extends StatelessWidget {
           urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
           userAgentPackageName: 'com.poznajkato.app',
         ),
+
+        // ✅ Kullanıcı konumu varsa göster
         if (userLocation != null)
           CircleLayer(
             circles: [
@@ -59,6 +57,7 @@ class EmergencyMap extends StatelessWidget {
               ),
             ],
           ),
+
         MarkerLayer(
           markers: [
             if (userLocation != null)
@@ -87,19 +86,15 @@ class EmergencyMap extends StatelessWidget {
                 ),
               ),
 
-            // Diğer tüm markerlar (seçili olan hariç)
+            // ✅ Diğer tüm markerlar (seçili olan hariç)
             ...assemblyPoints.where((area) {
-              final point = area['point'] as LatLng;
-              return selectedPoint == null ||
-                  !_isSamePoint(point, selectedPoint);
+              return selectedPoint == null || !_isSamePoint(area.point, selectedPoint);
             }).map((area) {
-              final point = area['point'] as LatLng;
-              final isNearest =
-                  nearest != null && _isSamePoint(point, nearest['point']);
+              final isNearest = nearest != null && _isSamePoint(area.point, nearest.point);
               return Marker(
                 width: 60,
                 height: 60,
-                point: point,
+                point: area.point,
                 child: GestureDetector(
                   onTap: () => viewModel.toggleFloatingPanel(area),
                   child: _buildMarker(
@@ -112,19 +107,18 @@ class EmergencyMap extends StatelessWidget {
             }),
           ],
         ),
-        // Seçili marker en üste ekleniyor
+
+        // ✅ Seçili marker en üste ekleniyor
         if (selectedPoint != null)
           MarkerLayer(
             markers: assemblyPoints
-                .where((area) => _isSamePoint(area['point'], selectedPoint))
+                .where((area) => _isSamePoint(area.point, selectedPoint))
                 .map((area) {
-              final point = area['point'] as LatLng;
-              final isNearest =
-                  nearest != null && _isSamePoint(point, nearest['point']);
+              final isNearest = nearest != null && _isSamePoint(area.point, nearest.point);
               return Marker(
                 width: 500,
                 height: 80,
-                point: point,
+                point: area.point,
                 child: GestureDetector(
                   onTap: () => viewModel.toggleFloatingPanel(area),
                   child: _buildMarker(
@@ -140,8 +134,9 @@ class EmergencyMap extends StatelessWidget {
     );
   }
 
+  /// ✅ Marker artık AssemblyPointModel alıyor
   Widget _buildMarker({
-    required Map<String, dynamic> area,
+    required AssemblyPointModel area,
     required bool isSelected,
     required bool isNearest,
   }) {
@@ -161,9 +156,7 @@ class EmergencyMap extends StatelessWidget {
                 BoxShadow(
                   color: (isSelected
                           ? Colors.blue
-                          : (isNearest
-                              ? Colors.green
-                              : ColorConstants.buttonColor))
+                          : (isNearest ? Colors.green : ColorConstants.buttonColor))
                       .withValues(alpha: 0.5),
                   blurRadius: isSelected ? 12 : 8,
                   spreadRadius: isSelected ? 4 : 2,
@@ -187,7 +180,7 @@ class EmergencyMap extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                area['name'],
+                area.name, // ✅ artık modelden
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 11,

@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rota_erzincan/models/AssemblyPointModel.dart';
 import 'package:rota_erzincan/pages/EmergencyAssemblyAreas/emergency_assembly_areas_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/AppBar.dart';
@@ -31,22 +32,16 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
+
     Future.microtask(() =>
         Provider.of<EmergencyAssemblyAreasViewModel>(context, listen: false)
             .getUserLocation(_mapController));
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final viewModel =
           Provider.of<EmergencyAssemblyAreasViewModel>(context, listen: false);
       viewModel.initializeWithContext(context);
     });
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final viewModel =
-        Provider.of<EmergencyAssemblyAreasViewModel>(context, listen: false);
-    viewModel.initializeWithContext(context);
   }
 
   @override
@@ -61,86 +56,91 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
-      backgroundColor: themeProvider.backgroundColor,
-      extendBodyBehindAppBar: true,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          decoration: BoxDecoration(
-            color: themeProvider.cardColor.withValues(alpha: 0.85),
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: themeProvider.isDarkMode
-                    ? Colors.black.withValues(alpha: 0.3)
-                    : Colors.grey.withValues(alpha: 0.2),
-                blurRadius: 10,
-                offset: const Offset(0, 2),
+        backgroundColor: themeProvider.backgroundColor,
+        extendBodyBehindAppBar: true,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            decoration: BoxDecoration(
+              color: themeProvider.cardColor.withValues(alpha: 0.85),
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20),
               ),
-            ],
-          ),
-          child: Appbar(
-            actionIcon: const Icon(
-              Icons.my_location,
-              size: 26,
-              color: ColorConstants.buttonColor,
-            ),
-            onActionPressed: () {
-              final userLocation = viewModel.userLocation;
-              if (userLocation != null) {
-                _mapController.move(userLocation, 16);
-                viewModel.toggleFloatingPanel(null);
-              }
-            },
-          ),
-        ),
-      ),
-      body: viewModel.isLoading
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CircularProgressIndicator(),
-                  const SizedBox(height: 20),
-                  Text(
-                    'locationLoadingText'.tr(),
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: themeProvider.textColor),
-                  ),
-                ],
-              ),
-            )
-          : Stack(
-              children: [
-                EmergencyMap(
-                  mapController: _mapController,
-                  animationController: _animationController,
-                  themeProvider: themeProvider,
+              boxShadow: [
+                BoxShadow(
+                  color: themeProvider.isDarkMode
+                      ? Colors.black.withValues(alpha: 0.3)
+                      : Colors.grey.withValues(alpha: 0.2),
+                  blurRadius: 10,
+                  offset: const Offset(0, 2),
                 ),
-                FloatingInfoPanel(
-                  onDetailTap: (point) => _showAssemblyPointDetails(
-                      context, point, themeProvider, viewModel),
-                  mapController: _mapController,
-                ),
-                const LegendPanel(),
-                if (viewModel.userLocation == null)
-                  _buildPermissionWarning(themeProvider, viewModel),
               ],
             ),
-    );
+            child: Appbar(
+              actionIcon: const Icon(
+                Icons.my_location,
+                size: 26,
+                color: ColorConstants.buttonColor,
+              ),
+              onActionPressed: () {
+                final userLocation = viewModel.userLocation;
+                if (userLocation != null) {
+                  _mapController.move(userLocation, 16);
+                  viewModel.toggleFloatingPanel(null);
+                }
+              },
+            ),
+          ),
+        ),
+        body: viewModel.isLoading
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 20),
+                    Text(
+                      'locationLoadingText'.tr(),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: themeProvider.textColor),
+                    ),
+                  ],
+                ),
+              )
+            : Stack(
+                children: [
+                  EmergencyMap(
+                    mapController: _mapController,
+                    animationController: _animationController,
+                    themeProvider: themeProvider,
+                  ),
+                  FloatingInfoPanel(
+                    onDetailTap: (AssemblyPointModel point) =>
+                        _showAssemblyPointDetails(
+                      context,
+                      point,
+                      themeProvider,
+                      viewModel,
+                    ),
+                    mapController: _mapController,
+                  ),
+                  const LegendPanel(),
+                  if (viewModel.userLocation == null)
+                    _buildPermissionWarning(themeProvider, viewModel),
+                ],
+              ));
   }
 
   void _showAssemblyPointDetails(
-      BuildContext context,
-      Map<String, dynamic> point,
-      ThemeProvider themeProvider,
-      EmergencyAssemblyAreasViewModel viewModel) {
+    BuildContext context,
+    AssemblyPointModel point,
+    ThemeProvider themeProvider,
+    EmergencyAssemblyAreasViewModel viewModel,
+  ) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -151,9 +151,9 @@ class _EmergencyAssemblyAreasPageState extends State<EmergencyAssemblyAreasPage>
           viewModel.openMapApp(
             context,
             themeProvider,
-            point['point'].latitude,
-            point['point'].longitude,
-            point['name'],
+            point.point.latitude,
+            point.point.longitude,
+            point.name,
           );
         },
       ),

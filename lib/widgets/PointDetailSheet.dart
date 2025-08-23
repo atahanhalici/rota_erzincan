@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rota_erzincan/models/AssemblyPointModel.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class PointDetailSheet extends StatelessWidget {
-  final Map<String, dynamic> point;
+  final AssemblyPointModel point;
   final void Function() onNavigatePressed;
 
-  const PointDetailSheet(
-      {super.key, required this.point, required this.onNavigatePressed});
+  const PointDetailSheet({
+    super.key,
+    required this.point,
+    required this.onNavigatePressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,7 @@ class PointDetailSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          // --- drag handle
           Container(
             margin: const EdgeInsets.only(top: 10),
             width: 50,
@@ -35,6 +40,7 @@ class PointDetailSheet extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
           ),
+          // --- Header
           Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -45,8 +51,11 @@ class PointDetailSheet extends StatelessWidget {
                     color: ColorConstants.buttonColor.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Icon(Icons.location_on,
-                      color: ColorConstants.buttonColor, size: 28),
+                  child: const Icon(
+                    Icons.location_on,
+                    color: ColorConstants.buttonColor,
+                    size: 28,
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -54,7 +63,7 @@ class PointDetailSheet extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        point['name'],
+                        point.name,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -76,28 +85,38 @@ class PointDetailSheet extends StatelessWidget {
             ),
           ),
           const Divider(height: 1),
+
+          // --- Details
           Flexible(
             child: ListView(
               shrinkWrap: true,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               children: [
                 _buildInfoRow(
-                    Icons.people,
-                    'capacityLabel'.tr(),
-                    '${point['capacity']} ${'capacityUnit'.tr()}',
-                    themeProvider),
-                const SizedBox(height: 16),
-                _buildInfoRow(
-                  Icons.description,
-                  'descriptionLabel'.tr(),
-                  point['description'],
+                  Icons.people,
+                  'capacityLabel'.tr(),
+                  '${point.capacity} ${'capacityUnit'.tr()}',
                   themeProvider,
                 ),
                 const SizedBox(height: 16),
-                _buildFacilitiesSection(point['facilities'], themeProvider),
+                if (point.description != null && point.description.isNotEmpty)
+                  _buildInfoRow(
+                    Icons.description,
+                    'descriptionLabel'.tr(),
+                    point.description,
+                    themeProvider,
+                  ),
                 const SizedBox(height: 16),
-                _buildInfoRow(Icons.phone, 'contactLabel'.tr(),
-                    point['contact'], themeProvider),
+                if (point.facilities.isNotEmpty)
+                  _buildFacilitiesSection(point.facilities, themeProvider),
+                const SizedBox(height: 16),
+                if (point.contact != null && point.contact.isNotEmpty)
+                  _buildInfoRow(
+                    Icons.phone,
+                    'contactLabel'.tr(),
+                    point.contact,
+                    themeProvider,
+                  ),
                 const SizedBox(height: 24),
                 ElevatedButton.icon(
                   onPressed: onNavigatePressed,
@@ -113,7 +132,9 @@ class PointDetailSheet extends StatelessWidget {
                   label: Text(
                     'navigateButtonLabel'.tr(),
                     style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -125,8 +146,12 @@ class PointDetailSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoRow(IconData icon, String title, String content,
-      ThemeProvider themeProvider) {
+  Widget _buildInfoRow(
+    IconData icon,
+    String title,
+    String content,
+    ThemeProvider themeProvider,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -159,7 +184,9 @@ class PointDetailSheet extends StatelessWidget {
   }
 
   Widget _buildFacilitiesSection(
-      List<String> facilities, ThemeProvider themeProvider) {
+    List<String> facilities,
+    ThemeProvider themeProvider,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

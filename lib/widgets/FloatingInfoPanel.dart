@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
 import 'package:rota_erzincan/constants/color_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rota_erzincan/models/AssemblyPointModel.dart';
 import 'package:rota_erzincan/pages/EmergencyAssemblyAreas/emergency_assembly_areas_view_model.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'dart:math' as math;
@@ -10,18 +11,22 @@ import 'dart:math' as math;
 import 'package:rota_erzincan/widgets/EmergencyPhoneBottomSheet.dart';
 
 class FloatingInfoPanel extends StatelessWidget {
-  final void Function(Map<String, dynamic> point) onDetailTap;
+  final void Function(AssemblyPointModel point) onDetailTap; // ✅ tip düzeltildi
   final MapController mapController;
-  const FloatingInfoPanel(
-      {super.key, required this.onDetailTap, required this.mapController});
+  const FloatingInfoPanel({
+    super.key,
+    required this.onDetailTap,
+    required this.mapController,
+  });
 
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<EmergencyAssemblyAreasViewModel>(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
     final showPanel = viewModel.showFloatingPanel;
-    final point = viewModel.floatingPanelData;
-    final nearestPoint = viewModel.getNearestPoint();
+    final AssemblyPointModel? point = viewModel.floatingPanelData; // ✅ model
+    final AssemblyPointModel? nearestPoint =
+        viewModel.getNearestPoint(); // ✅ model
 
     return Stack(
       children: [
@@ -54,7 +59,7 @@ class FloatingInfoPanel extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            point['name'],
+                            point.name, // ✅ modelden alınıyor
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -72,7 +77,7 @@ class FloatingInfoPanel extends StatelessWidget {
                               ),
                               const SizedBox(width: 4),
                               Text(
-                                '${point['capacity']} ${'floatingPanelPersonSuffix'.tr()}',
+                                '${point.capacity} ${'floatingPanelPersonSuffix'.tr()}',
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: themeProvider.textColor
@@ -88,7 +93,7 @@ class FloatingInfoPanel extends StatelessWidget {
                               ),
                               const SizedBox(width: 4),
                               Text(
-                                '${point['facilities'].length} ${'floatingPanelFacilitySuffix'.tr()}',
+                                '${point.facilities.length} ${'floatingPanelFacilitySuffix'.tr()}',
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: themeProvider.textColor
@@ -103,7 +108,7 @@ class FloatingInfoPanel extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         viewModel.toggleFloatingPanel(null);
-                        onDetailTap(point);
+                        onDetailTap(point); // ✅ model gönderiyoruz
                       },
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
@@ -151,7 +156,6 @@ class FloatingInfoPanel extends StatelessWidget {
                     },
                     child: const Icon(Icons.phone, color: Colors.white),
                   ),
-
                   const SizedBox(width: 10),
 
                   // Refresh location button
@@ -177,18 +181,17 @@ class FloatingInfoPanel extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () {
                   if (nearestPoint != null) {
-                    // 1. Seçili alanı güncelle
-                    viewModel.selectPoint(nearestPoint['point']);
-
-                    // 2. Floating paneli en yakın alanla birlikte göster
+                    // ✅ artık model
+                    viewModel.selectPoint(nearestPoint.point);
                     viewModel.toggleFloatingPanel(nearestPoint);
-                    mapController.move(nearestPoint['point'], 16);
+                    mapController.move(nearestPoint.point, 16);
+
                     viewModel.openMapApp(
                       context,
                       themeProvider,
-                      nearestPoint['point'].latitude,
-                      nearestPoint['point'].longitude,
-                      nearestPoint['name'],
+                      nearestPoint.point.latitude,
+                      nearestPoint.point.longitude,
+                      nearestPoint.name,
                     );
                   }
                 },

@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
+import 'package:rota_erzincan/models/AssemblyPointModel.dart';
 import 'package:rota_erzincan/models/MovieItem.dart';
 import 'package:rota_erzincan/models/TheaterPlayItem.dart';
 import 'package:rota_erzincan/utilities/error_handler.dart';
@@ -658,6 +659,37 @@ class ApiService {
       "Feedback gönderilemedi",
       statusCode: r.statusCode,
       body: r.body,
+    );
+  }
+
+  // ===================== ASSEMBLY POINTS =====================
+  Future<List<AssemblyPointModel>> fetchAssemblyPointsTr() async {
+    final r = await _safeGet('assembly_points_tr');
+    if (r == null) return [];
+    return _require200(
+      r,
+      (data) =>
+          (data as List).map((e) => AssemblyPointModel.fromJson(e)).toList(),
+    );
+  }
+
+  Future<List<AssemblyPointModel>> fetchAssemblyPointsEn() async {
+    final r = await _safeGet('assembly_points_en');
+    if (r == null) return [];
+    return _require200(
+      r,
+      (data) =>
+          (data as List).map((e) => AssemblyPointModel.fromJson(e)).toList(),
+    );
+  }
+
+  Future<List<AssemblyPointModel>> fetchAssemblyPointsPl() async {
+    final r = await _safeGet('assembly_points_pl');
+    if (r == null) return [];
+    return _require200(
+      r,
+      (data) =>
+          (data as List).map((e) => AssemblyPointModel.fromJson(e)).toList(),
     );
   }
 }
