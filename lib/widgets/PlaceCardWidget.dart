@@ -76,7 +76,9 @@ class PlaceCardWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    place.description,
+                    place.description.length > 100
+                        ? '${place.description.substring(0, 100)}...'
+                        : place.description,
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       color: themeProvider.textColor.withValues(alpha: 0.7),

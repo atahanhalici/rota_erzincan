@@ -708,4 +708,77 @@ class ApiService {
           (data as List).map((e) => AssemblyPointModel.fromJson(e)).toList(),
     );
   }
+
+  // ===================== SEARCH CONTENT (PLACES) =====================
+  Future<List<CategoryContentItem>> searchContentsTr(String query,
+      {String? categoryId}) async {
+    // Kategori varsa hem category hem q parametrelerini ekle
+    final params = [
+      if (categoryId != null) 'category=$categoryId',
+      if (query.isNotEmpty) 'q=$query'
+    ].join('&');
+
+    final r = await _safeGet('places_tr${params.isNotEmpty ? "?$params" : ""}');
+    if (r == null) return [];
+    return _require200(
+      r,
+      (data) => (data as List)
+          .map((e) => CategoryContentItem(
+                id: e['id']?.toString() ?? _uuid.v4(),
+                title: e['title'] ?? '',
+                description: e['description'] ?? '',
+                imageUrl: e['imageUrl'] ?? '',
+                latitude: (e['latitude'] ?? 0).toDouble(),
+                longitude: (e['longitude'] ?? 0).toDouble(),
+                category: e['category']?.toString(),
+                extraImages: e['extraImages'] != null
+                    ? List<String>.from(e['extraImages'])
+                    : null,
+                hours: e['hours'] != null
+                    ? Map<String, String>.from(e['hours'])
+                    : null,
+                shortAddress: e['shortAddress'],
+                rating: e['rating'] != null
+                    ? (e['rating'] as num).toDouble()
+                    : null,
+              ))
+          .toList(),
+    );
+  }
+
+  Future<List<CategoryContentItem>> searchContentsEn(String query) async {
+    final r = await _safeGet('places_en?q=$query');
+    if (r == null) return [];
+    return _require200(
+      r,
+      (data) => (data as List)
+          .map((e) => CategoryContentItem(
+                id: e['id']?.toString() ?? _uuid.v4(),
+                title: e['title'] ?? '',
+                description: e['description'] ?? '',
+                imageUrl: e['imageUrl'] ?? '',
+                latitude: (e['latitude'] ?? 0).toDouble(),
+                longitude: (e['longitude'] ?? 0).toDouble(),
+              ))
+          .toList(),
+    );
+  }
+
+  Future<List<CategoryContentItem>> searchContentsPl(String query) async {
+    final r = await _safeGet('places_pl?q=$query');
+    if (r == null) return [];
+    return _require200(
+      r,
+      (data) => (data as List)
+          .map((e) => CategoryContentItem(
+                id: e['id']?.toString() ?? _uuid.v4(),
+                title: e['title'] ?? '',
+                description: e['description'] ?? '',
+                imageUrl: e['imageUrl'] ?? '',
+                latitude: (e['latitude'] ?? 0).toDouble(),
+                longitude: (e['longitude'] ?? 0).toDouble(),
+              ))
+          .toList(),
+    );
+  }
 }

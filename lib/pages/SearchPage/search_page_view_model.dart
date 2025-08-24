@@ -3,12 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
+import 'package:rota_erzincan/services/api_service.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuLogoItem.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 
 class SearchPageViewModel extends ChangeNotifier with BaseViewModel {
+  final ApiService apiService = ApiService();
   final List<String> _recentSearches = [];
   List<String> get recentSearches => _recentSearches;
   final List<String> keys = [
@@ -19,92 +21,40 @@ class SearchPageViewModel extends ChangeNotifier with BaseViewModel {
     'popularSearchTerm_5',
     'popularSearchTerm_6',
   ];
+  List<CategoryContentItem> _items = [];
+  List<CategoryContentItem> get items => _items;
 
-  List<CategoryContentItem> get allItems {
-    final lang =
-        EasyLocalization.of(navigationService.navigatorKey.currentContext!)!
-            .locale
-            .languageCode;
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+  Future<void> fetchPlaces() async {
+    _isLoading = true;
+    notifyListeners();
 
-    final List<CategoryContentItem> trItems = [
-      CategoryContentItem(
-        id: '1',
-        title: 'Spodek Arena',
-        description:
-            'Katowice’nin simgesi, konser ve etkinlikler için ünlü arena.',
-        imageUrl: 'https://picsum.photos/id/1011/600/400',
-        latitude: 50.2599,
-        longitude: 19.0216,
-      ),
-      CategoryContentItem(
-        id: '2',
-        title: 'Nikiszowiec',
-        description:
-            'Tarihi işçi yerleşimi, geleneksel mimarisi ve kültürel etkinlikleriyle ünlü.',
-        imageUrl: 'https://picsum.photos/id/1025/600/400',
-        latitude: 50.2475,
-        longitude: 19.0263,
-      ),
-      CategoryContentItem(
-        id: '3',
-        title: 'Silesia City Center',
-        description:
-            'Alışveriş, eğlence ve restoranların bulunduğu büyük bir alışveriş merkezi.',
-        imageUrl: 'https://picsum.photos/id/1043/600/400',
-        latitude: 50.2570,
-        longitude: 19.0250,
-      ),
-      CategoryContentItem(
-        id: '4',
-        title: 'Katowice Botanik Bahçesi',
-        description:
-            'Doğa yürüyüşleri ve bitki çeşitleri ile dolu sakin bir alan.',
-        imageUrl: 'https://picsum.photos/id/1062/600/400',
-        latitude: 50.2605,
-        longitude: 19.0150,
-      ),
-    ];
+    try {
+      final lang = EasyLocalization.of(
+        navigationService.navigatorKey.currentContext!,
+      )!
+          .locale
+          .languageCode;
 
-    final List<CategoryContentItem> enItems = [
-      CategoryContentItem(
-        id: '1',
-        title: 'Spodek Arena',
-        description:
-            'The iconic arena of Katowice, famous for concerts and events.',
-        imageUrl: 'https://picsum.photos/id/1011/600/400',
-        latitude: 50.2599,
-        longitude: 19.0216,
-      ),
-      CategoryContentItem(
-        id: '2',
-        title: 'Nikiszowiec',
-        description:
-            'Historic worker settlement known for traditional architecture and cultural events.',
-        imageUrl: 'https://picsum.photos/id/1025/600/400',
-        latitude: 50.2475,
-        longitude: 19.0263,
-      ),
-      CategoryContentItem(
-        id: '3',
-        title: 'Silesia City Center',
-        description:
-            'A large shopping center with shops, entertainment, and restaurants.',
-        imageUrl: 'https://picsum.photos/id/1043/600/400',
-        latitude: 50.2570,
-        longitude: 19.0250,
-      ),
-      CategoryContentItem(
-        id: '4',
-        title: 'Katowice Botanical Garden',
-        description:
-            'A peaceful area filled with walking paths and plant varieties.',
-        imageUrl: 'https://picsum.photos/id/1062/600/400',
-        latitude: 50.2605,
-        longitude: 19.0150,
-      ),
-    ];
+      List<CategoryContentItem> results = [];
 
-    return lang == 'tr' ? trItems : enItems;
+      if (lang == 'tr') {
+        results = await apiService.searchContentsTr("");
+      } else if (lang == 'en') {
+        results = await apiService.searchContentsEn("");
+      } else if (lang == 'pl') {
+        results = await apiService.searchContentsPl("");
+      }
+
+      _items = results;
+    } catch (e) {
+      debugPrint("❌ fetchPlaces error: $e");
+      _items = [];
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 
   Future<void> loadRecentSearches() async {

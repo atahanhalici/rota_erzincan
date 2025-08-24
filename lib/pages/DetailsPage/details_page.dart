@@ -173,7 +173,7 @@ class _DetailsPageState extends State<DetailsPage>
           SliverAppBar(
             iconTheme: IconThemeData(color: themeProvider.textColor),
             leading: Padding(
-              padding: const EdgeInsets.only(bottom: 60),
+              padding: const EdgeInsets.only(bottom: 90),
               child: AnimatedBuilder(
                 animation: _fadeAnimation,
                 builder: (context, child) {
@@ -190,13 +190,13 @@ class _DetailsPageState extends State<DetailsPage>
               ),
             ),
             expandedHeight: 350,
-            toolbarHeight: 110,
+            toolbarHeight: 140,
             floating: false,
             pinned: true,
             backgroundColor: themeProvider.transparentColor,
             flexibleSpace: LayoutBuilder(
               builder: (context, constraints) {
-                double opacity = (constraints.maxHeight < 180) ? 1.0 : 0.0;
+                double opacity = (constraints.maxHeight < 200) ? 1.0 : 0.0;
                 return Stack(
                   fit: StackFit.expand,
                   children: [
@@ -252,6 +252,7 @@ class _DetailsPageState extends State<DetailsPage>
                                   offset: Offset(0, _headerAnimation.value),
                                   child: Text(
                                     viewModel.contentItem.title,
+                                    textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,

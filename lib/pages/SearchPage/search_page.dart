@@ -39,6 +39,7 @@ class _SearchPageState extends State<SearchPage>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel = Provider.of<SearchPageViewModel>(context, listen: false);
       _viewModel.loadRecentSearches(); // Kaydedilen aramaları getir
+      _viewModel.fetchPlaces();
     });
   }
 
@@ -207,13 +208,13 @@ class _SearchPageState extends State<SearchPage>
                             const SizedBox(height: 12),
                           ],
                           ...(_hasSearchQuery
-                                  ? _viewModel.allItems
+                                  ? _viewModel.items
                                       .where((item) => item.title
                                           .toLowerCase()
                                           .contains(_searchController.text
                                               .toLowerCase()))
                                       .toList()
-                                  : _viewModel.allItems)
+                                  : _viewModel.items)
                               .map((item) => PlaceCardWidget(
                                     place: item,
                                     controller: _searchController,
