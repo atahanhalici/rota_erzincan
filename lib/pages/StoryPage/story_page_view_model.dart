@@ -31,13 +31,10 @@ class StoryPageViewModel extends ChangeNotifier with BaseViewModel {
     navigationService.navigateToPage(
         "/details",
         CategoryContentItem(
-          id: 'content_0',
-          title: 'Spodek Arena',
-          description: 'Spodek Arena kategorisi için içerik açıklamasıdır.',
-          imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/spodek.jpg?alt=media&token=d4498059-0877-442a-a672-909a130fb2ba',
-          latitude: 50.2599,
-          longitude: 19.0216,
+          id: initialIndex.toString(),
+          title: stories[initialIndex].title,
+          description: stories[initialIndex].description,
+          imageUrl: stories[initialIndex].imageUrl,
         ));
   }
 

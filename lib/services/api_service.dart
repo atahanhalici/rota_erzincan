@@ -168,7 +168,9 @@ class ApiService {
         r,
         (data) => (data as List)
             .map((e) => CategoryModel(
-                title: e['title'] ?? '', imageUrl: e['imageUrl'] ?? ''))
+                title: e['title'] ?? '',
+                imageUrl: e['imageUrl'] ?? '',
+                description: e['description'] ?? ''))
             .toList());
   }
 
@@ -179,7 +181,9 @@ class ApiService {
         r,
         (data) => (data as List)
             .map((e) => CategoryModel(
-                title: e['title'] ?? '', imageUrl: e['imageUrl'] ?? ''))
+                title: e['title'] ?? '',
+                imageUrl: e['imageUrl'] ?? '',
+                description: e['description'] ?? ''))
             .toList());
   }
 
@@ -190,7 +194,9 @@ class ApiService {
         r,
         (data) => (data as List)
             .map((e) => CategoryModel(
-                title: e['title'] ?? '', imageUrl: e['imageUrl'] ?? ''))
+                title: e['title'] ?? '',
+                imageUrl: e['imageUrl'] ?? '',
+                description: e['description'] ?? ''))
             .toList());
   }
 
