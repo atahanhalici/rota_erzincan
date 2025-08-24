@@ -166,11 +166,6 @@ class _DetailsPageState extends State<DetailsPage>
     final themeProvider = Provider.of<ThemeProvider>(context);
     final viewModel = Provider.of<DetailsPageViewModel>(context);
     final localeCode = context.locale.languageCode;
-    final selectedText = localeCode == 'tr'
-        ? viewModel.fullTextTr
-        : localeCode == 'pl'
-            ? viewModel.fullTextPl
-            : viewModel.fullTextEn;
 
     return Scaffold(
       body: CustomScrollView(
@@ -281,6 +276,35 @@ class _DetailsPageState extends State<DetailsPage>
                     AnimatedBuilder(
                       animation: _controller,
                       builder: (context, child) {
+                        final rating = viewModel.contentItem.rating;
+                        final hours = viewModel.todayHours;
+                        final shortAddress = viewModel.contentItem.shortAddress;
+
+                        // Eğer hepsi null veya boşsa widget'ı hiç gösterme
+                        if ((rating == null || rating.toString().isEmpty) &&
+                            (hours == null || hours.toString().isEmpty) &&
+                            (shortAddress == null ||
+                                shortAddress.toString().isEmpty)) {
+                          return const SizedBox.shrink();
+                        }
+
+                        // Gösterilecek öğeleri listele
+                        List<Widget> infoItems = [];
+                        if (hours != null && hours.toString().isNotEmpty) {
+                          infoItems.add(BuildInfoItem(
+                              icon: Icons.access_time, text: hours.toString()));
+                        }
+                        if (shortAddress != null &&
+                            shortAddress.toString().isNotEmpty) {
+                          infoItems.add(BuildInfoItem(
+                              icon: Icons.location_on,
+                              text: shortAddress.toString()));
+                        }
+                        if (rating != null && rating.toString().isNotEmpty) {
+                          infoItems.add(BuildInfoItem(
+                              icon: Icons.star, text: rating.toString()));
+                        }
+
                         return Positioned(
                           left: 0,
                           right: 0,
@@ -291,7 +315,7 @@ class _DetailsPageState extends State<DetailsPage>
                               opacity: _fadeAnimation.value,
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
+                                    horizontal: 20, vertical: 12),
                                 margin:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 decoration: BoxDecoration(
@@ -304,20 +328,13 @@ class _DetailsPageState extends State<DetailsPage>
                                     width: 1,
                                   ),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    BuildInfoItem(
-                                        icon: Icons.access_time,
-                                        text: 'openingHoursText'.tr()),
-                                    BuildInfoItem(
-                                        icon: Icons.location_on,
-                                        text: 'locationErzincan'.tr()),
-                                    BuildInfoItem(
-                                        icon: Icons.star,
-                                        text: 'ratingDefault'.tr()),
-                                  ],
+                                child: Wrap(
+                                  alignment: WrapAlignment.spaceEvenly,
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  spacing: 16, // Yatay boşluk
+                                  runSpacing:
+                                      8, // Dikey boşluk (satırlar arası)
+                                  children: infoItems,
                                 ),
                               ),
                             ),
@@ -605,8 +622,13 @@ class _DetailsPageState extends State<DetailsPage>
                                     const SizedBox(height: 20),
                                     Text(
                                       viewModel.isExpanded
-                                          ? selectedText
-                                          : '${selectedText.substring(0, 300)}...',
+                                          ? viewModel.contentItem.description
+                                          : (viewModel.contentItem.description
+                                                      .length >
+                                                  300
+                                              ? '${viewModel.contentItem.description.substring(0, 300)}...'
+                                              : viewModel
+                                                  .contentItem.description),
                                       textAlign: TextAlign.justify,
                                       style: GoogleFonts.poppins(
                                         fontSize: 17,
@@ -616,306 +638,84 @@ class _DetailsPageState extends State<DetailsPage>
                                         letterSpacing: 0.3,
                                       ),
                                     ),
-                                    const SizedBox(height: 20),
-                                    Center(
-                                      child: AnimatedBuilder(
-                                        animation: _buttonsAnimation,
-                                        builder: (context, child) {
-                                          return Transform.translate(
-                                            offset: Offset(
-                                                0, _buttonsAnimation.value),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                gradient: LinearGradient(
-                                                  colors: [
-                                                    themeProvider.buttonColor
-                                                        .withValues(alpha: 0.8),
-                                                    themeProvider.buttonColor
-                                                        .withValues(alpha: 0.4),
-                                                  ],
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                                border: Border.all(
-                                                  color: themeProvider
-                                                      .buttonColor
-                                                      .withValues(alpha: 0.3),
-                                                  width: 1,
-                                                ),
-                                                boxShadow: [
-                                                  BoxShadow(
+                                    if (viewModel
+                                            .contentItem.description.length >
+                                        300)
+                                      const SizedBox(height: 20),
+                                    if (viewModel
+                                            .contentItem.description.length >
+                                        300)
+                                      Center(
+                                        child: AnimatedBuilder(
+                                          animation: _buttonsAnimation,
+                                          builder: (context, child) {
+                                            return Transform.translate(
+                                              offset: Offset(
+                                                  0, _buttonsAnimation.value),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                    colors: [
+                                                      themeProvider.buttonColor
+                                                          .withValues(
+                                                              alpha: 0.8),
+                                                      themeProvider.buttonColor
+                                                          .withValues(
+                                                              alpha: 0.4),
+                                                    ],
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
+                                                  border: Border.all(
                                                     color: themeProvider
                                                         .buttonColor
-                                                        .withValues(alpha: 0.2),
-                                                    blurRadius: 10,
-                                                    offset: const Offset(0, 4),
+                                                        .withValues(alpha: 0.3),
+                                                    width: 1,
                                                   ),
-                                                ],
-                                              ),
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: themeProvider
-                                                      .transparentColor,
-                                                  shadowColor: themeProvider
-                                                      .transparentColor,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
-                                                  ),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 32,
-                                                      vertical: 16),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: themeProvider
+                                                          .buttonColor
+                                                          .withValues(
+                                                              alpha: 0.2),
+                                                      blurRadius: 10,
+                                                      offset:
+                                                          const Offset(0, 4),
+                                                    ),
+                                                  ],
                                                 ),
-                                                onPressed: () {
-                                                  viewModel.toggleExpanded();
-                                                },
-                                                child: Text(
-                                                  viewModel.isExpanded
-                                                      ? 'showLessText'.tr()
-                                                      : 'readMoreText'.tr(),
-                                                  style: GoogleFonts.poppins(
-                                                    color: Colors.white,
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w600,
-                                                    letterSpacing: 0.5,
+                                                child: ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        themeProvider
+                                                            .transparentColor,
+                                                    shadowColor: themeProvider
+                                                        .transparentColor,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30),
+                                                    ),
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 32,
+                                                        vertical: 16),
                                                   ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        AnimatedBuilder(
-                          animation: _galleryAnimation,
-                          builder: (context, child) {
-                            return Transform.translate(
-                              offset:
-                                  Offset(0, 30 * (1 - _galleryAnimation.value)),
-                              child: Opacity(
-                                opacity: _galleryAnimation.value,
-                                child: Container(
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    color: themeProvider.cardColor,
-                                    borderRadius: BorderRadius.circular(25),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color:
-                                            Colors.black.withValues(alpha: 0.3),
-                                        blurRadius: 15,
-                                        offset: const Offset(0, 8),
-                                      ),
-                                      BoxShadow(
-                                        color: themeProvider.buttonColor
-                                            .withValues(alpha: 0.1),
-                                        blurRadius: 20,
-                                        offset: const Offset(0, 0),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(8),
-                                            decoration: BoxDecoration(
-                                              color: themeProvider.buttonColor
-                                                  .withValues(alpha: 0.1),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            child: Icon(
-                                              Icons.photo_library,
-                                              color:
-                                                  themeProvider.infoItemColor,
-                                              size: 24,
-                                            ),
-                                          ),
-                                          const SizedBox(width: 12),
-                                          Text(
-                                            'galleryTitle'.tr(),
-                                            style: GoogleFonts.poppins(
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.bold,
-                                              color: themeProvider.textColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 20),
-                                      SizedBox(
-                                        height: 170,
-                                        child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: viewModel.imageUrls.length,
-                                          itemBuilder: (context, index) {
-                                            // Create staggered animation for each gallery item
-                                            final delay = 0.5 + (index * 0.1);
-                                            final itemAnimation = Tween<double>(
-                                                    begin: 0.0, end: 1.0)
-                                                .animate(
-                                              CurvedAnimation(
-                                                parent: _controller,
-                                                curve: Interval(
-                                                  delay < 1.0 ? delay : 0.9,
-                                                  (delay + 0.2) < 1.0
-                                                      ? (delay + 0.2)
-                                                      : 1.0,
-                                                  curve: Curves.easeOutQuart,
-                                                ),
-                                              ),
-                                            );
-
-                                            return AnimatedBuilder(
-                                              animation: itemAnimation,
-                                              builder: (context, child) {
-                                                return Transform.translate(
-                                                  offset: Offset(
-                                                      30 *
-                                                          (1 -
-                                                              itemAnimation
-                                                                  .value),
-                                                      0),
-                                                  child: Opacity(
-                                                    opacity:
-                                                        itemAnimation.value,
-                                                    child: child,
-                                                  ),
-                                                );
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 12),
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (_) =>
-                                                            ChangeNotifierProvider(
-                                                          create: (_) =>
-                                                              DetailPhotoViewPageViewModel(
-                                                                  index),
-                                                          child:
-                                                              DetailPhotoView(
-                                                            imageUrl: viewModel
-                                                                    .imageUrls[
-                                                                index],
-                                                            heroTag:
-                                                                'gallery_image_$index',
-                                                            galleryImages:
-                                                                viewModel
-                                                                    .imageUrls,
-                                                            initialIndex: index,
-                                                            title: viewModel
-                                                                .targetTitle,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    );
+                                                  onPressed: () {
+                                                    viewModel.toggleExpanded();
                                                   },
-                                                  child: Hero(
-                                                    tag: 'image$index',
-                                                    child: Container(
-                                                      width: 200,
-                                                      height: double.infinity,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            color: Colors.black
-                                                                .withValues(
-                                                                    alpha: 0.3),
-                                                            blurRadius: 12,
-                                                            offset:
-                                                                const Offset(
-                                                                    0, 6),
-                                                          ),
-                                                          BoxShadow(
-                                                            color: themeProvider
-                                                                .buttonColor
-                                                                .withValues(
-                                                                    alpha: 0.1),
-                                                            blurRadius: 15,
-                                                            offset:
-                                                                const Offset(
-                                                                    0, 0),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
-                                                        child: Stack(
-                                                          fit: StackFit.expand,
-                                                          children: [
-                                                            FadeInImage
-                                                                .assetNetwork(
-                                                              placeholder:
-                                                                  ImageConstants
-                                                                      .loading,
-                                                              image: viewModel
-                                                                      .imageUrls[
-                                                                  index],
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                            Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                gradient:
-                                                                    LinearGradient(
-                                                                  colors: [
-                                                                    themeProvider
-                                                                        .transparentColor,
-                                                                    Colors.black
-                                                                        .withValues(
-                                                                            alpha:
-                                                                                0.7),
-                                                                  ],
-                                                                  begin: Alignment
-                                                                      .topCenter,
-                                                                  end: Alignment
-                                                                      .bottomCenter,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Positioned(
-                                                              left: 12,
-                                                              right: 12,
-                                                              bottom: 12,
-                                                              child: Text(
-                                                                '${'photoPrefix'.tr()} ${index + 1}',
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .poppins(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
+                                                  child: Text(
+                                                    viewModel.isExpanded
+                                                        ? 'showLessText'.tr()
+                                                        : 'readMoreText'.tr(),
+                                                    style: GoogleFonts.poppins(
+                                                      color: Colors.white,
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      letterSpacing: 0.5,
                                                     ),
                                                   ),
                                                 ),
@@ -924,13 +724,263 @@ class _DetailsPageState extends State<DetailsPage>
                                           },
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                  ],
                                 ),
                               ),
                             );
                           },
                         ),
+                        const SizedBox(height: 20),
+                        if (viewModel.contentItem.extraImages != null &&
+                            viewModel.contentItem.extraImages!.isNotEmpty)
+                          AnimatedBuilder(
+                            animation: _galleryAnimation,
+                            builder: (context, child) {
+                              return Transform.translate(
+                                offset: Offset(
+                                    0, 30 * (1 - _galleryAnimation.value)),
+                                child: Opacity(
+                                  opacity: _galleryAnimation.value,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      color: themeProvider.cardColor,
+                                      borderRadius: BorderRadius.circular(25),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black
+                                              .withValues(alpha: 0.3),
+                                          blurRadius: 15,
+                                          offset: const Offset(0, 8),
+                                        ),
+                                        BoxShadow(
+                                          color: themeProvider.buttonColor
+                                              .withValues(alpha: 0.1),
+                                          blurRadius: 20,
+                                          offset: const Offset(0, 0),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.all(8),
+                                              decoration: BoxDecoration(
+                                                color: themeProvider.buttonColor
+                                                    .withValues(alpha: 0.1),
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              child: Icon(
+                                                Icons.photo_library,
+                                                color:
+                                                    themeProvider.infoItemColor,
+                                                size: 24,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 12),
+                                            Text(
+                                              'galleryTitle'.tr(),
+                                              style: GoogleFonts.poppins(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.bold,
+                                                color: themeProvider.textColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 20),
+                                        SizedBox(
+                                          height: 170,
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: viewModel.contentItem
+                                                .extraImages!.length,
+                                            itemBuilder: (context, index) {
+                                              // Create staggered animation for each gallery item
+                                              final delay = 0.5 + (index * 0.1);
+                                              final itemAnimation =
+                                                  Tween<double>(
+                                                          begin: 0.0, end: 1.0)
+                                                      .animate(
+                                                CurvedAnimation(
+                                                  parent: _controller,
+                                                  curve: Interval(
+                                                    delay < 1.0 ? delay : 0.9,
+                                                    (delay + 0.2) < 1.0
+                                                        ? (delay + 0.2)
+                                                        : 1.0,
+                                                    curve: Curves.easeOutQuart,
+                                                  ),
+                                                ),
+                                              );
+
+                                              return AnimatedBuilder(
+                                                animation: itemAnimation,
+                                                builder: (context, child) {
+                                                  return Transform.translate(
+                                                    offset: Offset(
+                                                        30 *
+                                                            (1 -
+                                                                itemAnimation
+                                                                    .value),
+                                                        0),
+                                                    child: Opacity(
+                                                      opacity:
+                                                          itemAnimation.value,
+                                                      child: child,
+                                                    ),
+                                                  );
+                                                },
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 12),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (_) =>
+                                                              ChangeNotifierProvider(
+                                                            create: (_) =>
+                                                                DetailPhotoViewPageViewModel(
+                                                                    index),
+                                                            child:
+                                                                DetailPhotoView(
+                                                              imageUrl: viewModel
+                                                                      .contentItem
+                                                                      .extraImages![
+                                                                  index],
+                                                              heroTag:
+                                                                  'image$index',
+                                                              galleryImages: viewModel
+                                                                  .contentItem
+                                                                  .extraImages!,
+                                                              initialIndex:
+                                                                  index,
+                                                              title: viewModel
+                                                                  .contentItem
+                                                                  .title,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Hero(
+                                                      tag: 'image$index',
+                                                      child: Container(
+                                                        width: 200,
+                                                        height: double.infinity,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color: Colors
+                                                                  .black
+                                                                  .withValues(
+                                                                      alpha:
+                                                                          0.3),
+                                                              blurRadius: 12,
+                                                              offset:
+                                                                  const Offset(
+                                                                      0, 6),
+                                                            ),
+                                                            BoxShadow(
+                                                              color: themeProvider
+                                                                  .buttonColor
+                                                                  .withValues(
+                                                                      alpha:
+                                                                          0.1),
+                                                              blurRadius: 15,
+                                                              offset:
+                                                                  const Offset(
+                                                                      0, 0),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                          child: Stack(
+                                                            fit:
+                                                                StackFit.expand,
+                                                            children: [
+                                                              FadeInImage
+                                                                  .assetNetwork(
+                                                                placeholder:
+                                                                    ImageConstants
+                                                                        .loading,
+                                                                image: viewModel
+                                                                    .contentItem
+                                                                    .extraImages![index],
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                              Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  gradient:
+                                                                      LinearGradient(
+                                                                    colors: [
+                                                                      themeProvider
+                                                                          .transparentColor,
+                                                                      Colors
+                                                                          .black
+                                                                          .withValues(
+                                                                              alpha: 0.7),
+                                                                    ],
+                                                                    begin: Alignment
+                                                                        .topCenter,
+                                                                    end: Alignment
+                                                                        .bottomCenter,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Positioned(
+                                                                left: 12,
+                                                                right: 12,
+                                                                bottom: 12,
+                                                                child: Text(
+                                                                  '${'photoPrefix'.tr()} ${index + 1}',
+                                                                  style: GoogleFonts
+                                                                      .poppins(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                       ],
                     ),
                   ),
@@ -944,6 +994,9 @@ class _DetailsPageState extends State<DetailsPage>
   }
 
   Widget _buildButtonsRow(ThemeProvider themeProvider, String localeCode) {
+    final hasLocation = viewModel.contentItem.latitude != null &&
+        viewModel.contentItem.longitude != null;
+
     return AnimatedBuilder(
       animation: _buttonsAnimation,
       builder: (context, child) {
@@ -951,30 +1004,35 @@ class _DetailsPageState extends State<DetailsPage>
           offset: Offset(0, _buttonsAnimation.value),
           child: Row(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              BuildCircularButton(
-                icon: Icons.add,
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => ChangeNotifierProvider.value(
-                      value: Provider.of<DetailsPageViewModel>(context,
-                          listen: false),
-                      child: const AddToRouteDialog(),
-                    ),
-                  );
-                },
-                bgColor: themeProvider.buttonColor,
-                iconColor: Colors.white,
-              ),
-              const SizedBox(width: 8),
-              BuildCircularButton(
-                icon: Icons.location_on,
-                onTap: () => viewModel.openMapApp(context, themeProvider),
-                bgColor: const Color.fromARGB(255, 211, 84, 0),
-                iconColor: const Color.fromARGB(255, 245, 183, 70),
-              ),
-              const SizedBox(width: 8),
+              if (hasLocation) ...[
+                BuildCircularButton(
+                  icon: Icons.add,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => ChangeNotifierProvider.value(
+                        value: Provider.of<DetailsPageViewModel>(context,
+                            listen: false),
+                        child: const AddToRouteDialog(),
+                      ),
+                    );
+                  },
+                  bgColor: themeProvider.buttonColor,
+                  iconColor: Colors.white,
+                ),
+                const SizedBox(width: 8),
+                BuildCircularButton(
+                  icon: Icons.location_on,
+                  onTap: () => viewModel.openMapApp(context, themeProvider),
+                  bgColor: const Color.fromARGB(255, 211, 84, 0),
+                  iconColor: const Color.fromARGB(255, 245, 183, 70),
+                ),
+                const SizedBox(width: 8),
+              ],
+
+              // Her zaman gösterilecek TTS butonu
               BuildCircularButton(
                 onTap: () => viewModel.toggleSpeaking(localeCode),
                 icon: viewModel.isSpeaking ? Icons.stop : Icons.play_arrow,

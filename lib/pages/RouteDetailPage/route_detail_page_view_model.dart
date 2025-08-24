@@ -430,7 +430,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
                       Navigator.pop(context);
                       await MapLauncher.showMarker(
                         mapType: map.mapType,
-                        coords: Coords(stop.latitude, stop.longitude),
+                        coords: Coords(stop.latitude!, stop.longitude!),
                         title: stop.title,
                       );
                     },

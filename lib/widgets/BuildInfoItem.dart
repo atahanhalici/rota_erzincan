@@ -8,23 +8,36 @@ class BuildInfoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          icon,
-          color: Colors.white.withValues(alpha: 0.8),
-          size: 16,
+    return IntrinsicWidth(
+      child: Container(
+        constraints: const BoxConstraints(
+          maxWidth: 120, // Maksimum genişlik sınırı
         ),
-        const SizedBox(width: 6),
-        Text(
-          text,
-          style: GoogleFonts.poppins(
-            color: Colors.white.withValues(alpha: 0.8),
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              color: Colors.white.withValues(alpha: 0.8),
+              size: 16,
+            ),
+            const SizedBox(width: 6),
+            Expanded(
+              child: Text(
+                text,
+                style: GoogleFonts.poppins(
+                  color: Colors.white.withValues(alpha: 0.8),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                softWrap: true,
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

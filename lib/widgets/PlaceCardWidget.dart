@@ -89,7 +89,7 @@ class PlaceCardWidget extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             viewModel.openMapApp(context, themeProvider,
-                                place.latitude, place.longitude, place.title);
+                                place.latitude!, place.longitude!, place.title);
                           },
                           child: Container(
                             height: 44,

@@ -144,28 +144,35 @@ class CustomDrawer extends StatelessWidget {
 
   List<Widget Function(double)> _buildMenuItems(
       HomePageViewModel homeModel, BuildContext context) {
+    final langCode = context.locale.languageCode;
     return [
       (itemHeight) => FancyMenuItem(
             icon: Icons.person,
             label: 'drawerMessageFromGovernor'.tr(),
-            onTap: () => homeModel.navigateToDetails(
-              context,
-              imageUrl:
-                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/e6c7257a-ec72-4d66-aaf4-0c810177df3a.JPEG?alt=media&token=c134b930-a4d5-4b5a-b99f-40b12156d8bb",
-              title: 'drawerMessageFromGovernor'.tr(),
-            ),
+            onTap: () => homeModel.navigateToDetails(context,
+                imageUrl:
+                    "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/e6c7257a-ec72-4d66-aaf4-0c810177df3a.JPEG?alt=media&token=c134b930-a4d5-4b5a-b99f-40b12156d8bb",
+                title: 'drawerMessageFromGovernor'.tr(),
+                desc: langCode == 'tr'
+                    ? 'Merhaba! Ben Atahan Halıcı, Poznaj Katowice’i tamamen sizin için tasarladım ve geliştirdim. Şehrin gizli köşelerini keşfetmeniz, en etkileyici rotaları takip etmeniz ve Katowice deneyiminizi unutulmaz hâle getirmeniz için her detayı özenle ekledim. Kullanıcı dostu arayüz, hızlı navigasyon, interaktif içerikler ve güncel bilgilerle uygulamayı tamamen optimize ettim. Amacım, her adımda sizin için şehri daha anlamlı ve keyifli hâle getirmek. Her keşfinizde yanınızda olacağım ve Katowice’yi benim gözümden deneyimlemenizi sağlayacağım!'
+                    : langCode == 'en'
+                        ? 'Hello! I\'m Atahan Halıcı, and I designed and developed Poznaj Katowice entirely for you. I meticulously added every detail so you can explore the city\'s hidden gems, follow the most impressive routes, and make your Katowice experience truly unforgettable. With a user-friendly interface, fast navigation, interactive content, and up-to-date information, I optimized the app completely for your convenience. My goal is to make the city more meaningful and enjoyable at every step, letting you experience Katowice through my eyes!'
+                        : 'Cześć! Jestem Atahan Halıcı i całkowicie zaprojektowałem oraz opracowałem Poznaj Katowice dla Ciebie. Starannie dodałem każdy detal, abyś mógł odkrywać ukryte zakątki miasta, śledzić najbardziej imponujące trasy i uczynić swoje doświadczenie w Katowicach naprawdę niezapomnianym. Dzięki przyjaznemu interfejsowi, szybkiej nawigacji, interaktywnym treściom i aktualnym informacjom, zoptymalizowałem aplikację w pełni dla Twojej wygody. Moim celem jest sprawienie, by miasto było bardziej znaczące i przyjemne na każdym kroku, pozwalając Ci doświadczać Katowic moimi oczami!'),
             color: ColorConstants.buttonColor.withValues(alpha: 0.1),
             height: itemHeight,
           ),
       (itemHeight) => FancyMenuItem(
             icon: Icons.info_outline,
             label: 'drawerAboutErzincan'.tr(),
-            onTap: () => homeModel.navigateToDetails(
-              context,
-              imageUrl:
-                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/c3e4721f-bb4c-4a09-8067-837ef3e98c2e.jpg?alt=media&token=15a6edd4-d9cf-48ab-ad25-addaf92c3f9b",
-              title: 'drawerAboutErzincan'.tr(),
-            ),
+            onTap: () => homeModel.navigateToDetails(context,
+                imageUrl:
+                    "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/c3e4721f-bb4c-4a09-8067-837ef3e98c2e.jpg?alt=media&token=15a6edd4-d9cf-48ab-ad25-addaf92c3f9b",
+                title: 'drawerAboutErzincan'.tr(),
+                desc: langCode == 'tr'
+                    ? 'Katowice, modern şehir yaşamı ile tarihi dokuyu harmanlayan, kültür ve sanatın kalbinde bir destinasyondur. Ben Atahan Halıcı olarak, bu şehri sizin gözünüzden değil, kendi deneyimlerimden yola çıkarak tanıtıyorum. Katowice’nin etkileyici mimarisi, yeşil alanları ve hareketli sokakları sizi büyüleyecek. Şehrin gizli köşelerini, eşsiz kafelerini, restoranlarını ve sanat galerilerini keşfedin. Her adımda Katowice’nin ruhunu hissedin ve benim keşif notlarımı takip ederek unutulmaz anılar biriktirin.'
+                    : langCode == 'en'
+                        ? 'Katowice is a city that blends modern urban life with historical charm, placing culture and art at its heart. I, Atahan Halıcı, present this city not from the outside, but through my own experiences. The striking architecture, green spaces, and lively streets of Katowice will captivate you. Explore the hidden corners, unique cafes, restaurants, and art galleries. Feel the spirit of the city in every step and create unforgettable memories by following my personal discovery notes.'
+                        : 'Katowice to miasto, które łączy nowoczesne życie miejskie z historycznym urokiem, stawiając kulturę i sztukę w centrum uwagi. Ja, Atahan Halıcı, przedstawiam to miasto nie z zewnątrz, ale poprzez własne doświadczenia. Imponująca architektura, zielone przestrzenie i tętniące życiem ulice Katowic oczarują Cię. Odkryj ukryte zakątki, unikalne kawiarnie, restauracje i galerie sztuki. Poczuj ducha miasta na każdym kroku i twórz niezapomniane wspomnienia, podążając za moimi osobistymi notatkami z odkryć.'),
             color: ColorConstants.buttonColor.withValues(alpha: 0.3),
             height: itemHeight,
           ),
@@ -179,12 +186,15 @@ class CustomDrawer extends StatelessWidget {
       (itemHeight) => FancyMenuItem(
             icon: Icons.app_settings_alt,
             label: 'drawerAboutApp'.tr(),
-            onTap: () => homeModel.navigateToDetails(
-              context,
-              imageUrl:
-                  "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/loading.jpg?alt=media&token=e6373a4d-70ac-4c60-a206-c51232801210",
-              title: 'drawerAboutApp'.tr(),
-            ),
+            onTap: () => homeModel.navigateToDetails(context,
+                imageUrl:
+                    "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/loading.jpg?alt=media&token=e6373a4d-70ac-4c60-a206-c51232801210",
+                title: 'drawerAboutApp'.tr(),
+                desc: langCode == 'tr'
+                    ? '“Poznaj Katowice” uygulaması, Katowice’yi keşfetmenin en kolay ve keyifli yolu olarak tasarlandı. Şehrin popüler rotalarını, gizli köşelerini, tarihi ve kültürel noktalarını tek bir yerden görebilir, her mekanın detaylı açıklamalarına, görsellerine ve haritalarına kolayca ulaşabilirsiniz. Favori mekanlarınızı kaydedebilir, kendi keşiflerinizi paylaşabilir ve gezilerinizi tamamen kişiselleştirebilirsiniz. Uygulama, her adımda size rehberlik ederek Katowice deneyiminizi unutulmaz kılmayı hedefliyor.'
+                    : langCode == 'en'
+                        ? 'The “Poznaj Katowice” app is designed to make exploring Katowice easy and enjoyable. Discover the city’s popular routes, hidden spots, historic and cultural sites, all in one place. Access detailed descriptions, images, and maps for every location. Save your favorite places, share your discoveries, and personalize your trips. The app guides you every step of the way to make your Katowice experience unforgettable.'
+                        : 'Aplikacja „Poznaj Katowice” została zaprojektowana tak, aby odkrywanie Katowic było łatwe i przyjemne. Odkryj popularne trasy, ukryte miejsca, zabytki i miejsca kulturalne w jednym miejscu. Uzyskaj dostęp do szczegółowych opisów, zdjęć i map dla każdej lokalizacji. Zapisuj swoje ulubione miejsca, dziel się odkryciami i personalizuj swoje wycieczki. Aplikacja prowadzi Cię na każdym kroku, aby Twoje doświadczenie w Katowicach było niezapomniane.'),
             color: ColorConstants.buttonColor.withValues(alpha: 0.7),
             height: itemHeight,
           ),

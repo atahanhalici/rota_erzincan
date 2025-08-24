@@ -235,10 +235,10 @@ class NewRouteModalViewModel extends ChangeNotifier with BaseViewModel {
       final end = stops[i + 1];
 
       final distance = Geolocator.distanceBetween(
-        start.latitude,
-        start.longitude,
-        end.latitude,
-        end.longitude,
+        start.latitude!,
+        start.longitude!,
+        end.latitude!,
+        end.longitude!,
       );
 
       totalDistance += distance; // metre cinsinden
@@ -302,10 +302,10 @@ class NewRouteModalViewModel extends ChangeNotifier with BaseViewModel {
     double totalDistance = 0.0;
     for (int i = 0; i < stops.length - 1; i++) {
       totalDistance += Geolocator.distanceBetween(
-        stops[i].latitude,
-        stops[i].longitude,
-        stops[i + 1].latitude,
-        stops[i + 1].longitude,
+        stops[i].latitude!,
+        stops[i].longitude!,
+        stops[i + 1].latitude!,
+        stops[i + 1].longitude!,
       );
     }
 

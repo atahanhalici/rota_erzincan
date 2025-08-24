@@ -475,9 +475,20 @@ class _HomePageState extends State<HomePage>
                                   SizedBox(
                                     width: context.sized.width,
                                     child: ElevatedButton(
-                onPressed: () {
-                  _homeModel.navigateToDetails(context);
-                },
+                                      onPressed: () {
+                                        final langCode =
+                                            context.locale.languageCode;
+                                        _homeModel.navigateToDetails(context,
+                                            imageUrl:
+                                                "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/c3e4721f-bb4c-4a09-8067-837ef3e98c2e.jpg?alt=media&token=15a6edd4-d9cf-48ab-ad25-addaf92c3f9b",
+                                            title: 'drawerAboutErzincan'.tr(),
+                                            base: true,
+                                            desc: langCode == 'tr'
+                                                ? 'Katowice, modern şehir yaşamı ile tarihi dokuyu harmanlayan, kültür ve sanatın kalbinde bir destinasyondur. Ben Atahan Halıcı olarak, bu şehri sizin gözünüzden değil, kendi deneyimlerimden yola çıkarak tanıtıyorum. Katowice’nin etkileyici mimarisi, yeşil alanları ve hareketli sokakları sizi büyüleyecek. Şehrin gizli köşelerini, eşsiz kafelerini, restoranlarını ve sanat galerilerini keşfedin. Her adımda Katowice’nin ruhunu hissedin ve benim keşif notlarımı takip ederek unutulmaz anılar biriktirin.'
+                                                : langCode == 'en'
+                                                    ? 'Katowice is a city that blends modern urban life with historical charm, placing culture and art at its heart. I, Atahan Halıcı, present this city not from the outside, but through my own experiences. The striking architecture, green spaces, and lively streets of Katowice will captivate you. Explore the hidden corners, unique cafes, restaurants, and art galleries. Feel the spirit of the city in every step and create unforgettable memories by following my personal discovery notes.'
+                                                    : 'Katowice to miasto, które łączy nowoczesne życie miejskie z historycznym urokiem, stawiając kulturę i sztukę w centrum uwagi. Ja, Atahan Halıcı, przedstawiam to miasto nie z zewnątrz, ale poprzez własne doświadczenia. Imponująca architektura, zielone przestrzenie i tętniące życiem ulice Katowic oczarują Cię. Odkryj ukryte zakątki, unikalne kawiarnie, restauracje i galerie sztuki. Poczuj ducha miasta na każdym kroku i twórz niezapomniane wspomnienia, podążając za moimi osobistymi notatkami z odkryć.');
+                                      },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor:
                                             themeProvider.buttonColor,

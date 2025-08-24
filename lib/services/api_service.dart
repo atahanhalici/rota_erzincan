@@ -312,20 +312,36 @@ class ApiService {
 
   // ===================== CATEGORY CONTENT (PLACES) =====================
   Future<List<CategoryContentItem>> getContentsTr(CategoryItem category) async {
-    final r = await _safeGet('places_tr');
+    // Eğer category.id varsa query parametre olarak ekle
+    final query = category.id != null ? '?category=${category.id}' : '';
+    final r = await _safeGet('places_tr$query');
+
     if (r == null) return [];
+
     return _require200(
-        r,
-        (data) => (data as List)
-            .map((e) => CategoryContentItem(
-                  id: e['id']?.toString() ?? _uuid.v4(),
-                  title: e['title'] ?? '',
-                  description: e['description'] ?? '',
-                  imageUrl: e['imageUrl'] ?? '',
-                  latitude: (e['latitude'] ?? 0).toDouble(),
-                  longitude: (e['longitude'] ?? 0).toDouble(),
-                ))
-            .toList());
+      r,
+      (data) => (data as List)
+          .map((e) => CategoryContentItem(
+                id: e['id']?.toString() ?? _uuid.v4(),
+                title: e['title'] ?? '',
+                description: e['description'] ?? '',
+                imageUrl: e['imageUrl'] ?? '',
+                latitude: (e['latitude'] ?? 0).toDouble(),
+                longitude: (e['longitude'] ?? 0).toDouble(),
+                category: e['category']?.toString(),
+                extraImages: e['extraImages'] != null
+                    ? List<String>.from(e['extraImages'])
+                    : null,
+                hours: e['hours'] != null
+                    ? Map<String, String>.from(e['hours'])
+                    : null,
+                shortAddress: e['shortAddress'],
+                rating: e['rating'] != null
+                    ? (e['rating'] as num).toDouble()
+                    : null,
+              ))
+          .toList(),
+    );
   }
 
   Future<List<CategoryContentItem>> getContentsEn(CategoryItem category) async {
