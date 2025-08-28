@@ -186,96 +186,162 @@ class _NewRouteModalState extends State<NewRouteModal> {
                 constraints: BoxConstraints(
                   maxHeight: MediaQuery.of(context).size.height * 0.5,
                 ),
-                child: Scrollbar(
-                  thickness: 4,
-                  radius: const Radius.circular(10),
-                  child: ListView.builder(
-                    padding: const EdgeInsets.only(right: 12),
-                    shrinkWrap: true,
-                    itemCount: vm.allItems.length,
-                    itemBuilder: (context, index) {
-                      final item = vm.allItems[index];
-                      final isSelected = vm.selectedIds.contains(item.id);
-
-                      return Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: isSelected
-                              ? themeProvider.buttonColor.withValues(alpha: 0.1)
-                              : themeProvider.isDarkMode
-                                  ? const Color(0xFF333333)
-                                  : Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          border: isSelected
-                              ? Border.all(
-                                  color: themeProvider.buttonColor, width: 1.5)
-                              : null,
+                child: Builder(
+                  builder: (context) {
+                    if (vm.isLoading) {
+                      return const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: CircularProgressIndicator(),
                         ),
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 4),
-                          leading: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: FadeInImage.assetNetwork(
-                              placeholder: ImageConstants.loading,
-                              image: item.imageUrl,
-                              width: 44,
-                              height: 44,
-                              fit: BoxFit.cover,
-                              imageErrorBuilder: (context, error, stackTrace) {
-                                return Image.asset(
-                                  ImageConstants.loading,
-                                  fit: BoxFit.cover,
-                                  width: 44,
-                                  height: 44,
-                                );
-                              },
+                      );
+                    }
+
+                    if (vm.errorMessage != null) {
+                      return Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              vm.errorMessage!,
+                              style: GoogleFonts.poppins(
+                                color: Colors.redAccent,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                          ),
-                          title: Text(
-                            item.title,
+                            const SizedBox(height: 8),
+                            ElevatedButton(
+                              onPressed: () => vm.fetchPlaces(),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: themeProvider.buttonColor,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              child: Text(
+                                "Tekrar Dene",
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+
+                    if (vm.allItems.isEmpty) {
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            "Durak bulunamadı.",
                             style: GoogleFonts.poppins(
                               fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: themeProvider.textColor,
-                            ),
-                          ),
-                          subtitle: Text(
-                            item.description,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.poppins(
-                              fontSize: 12,
                               color: themeProvider.textColor
                                   .withValues(alpha: 0.7),
                             ),
                           ),
-                          trailing: Container(
-                            width: 28,
-                            height: 28,
+                        ),
+                      );
+                    }
+
+                    return Scrollbar(
+                      thickness: 4,
+                      radius: const Radius.circular(10),
+                      child: ListView.builder(
+                        padding: const EdgeInsets.only(right: 12),
+                        shrinkWrap: true,
+                        itemCount: vm.allItems.length,
+                        itemBuilder: (context, index) {
+                          final item = vm.allItems[index];
+                          final isSelected = vm.selectedIds.contains(item.id);
+
+                          return Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
                             decoration: BoxDecoration(
                               color: isSelected
                                   ? themeProvider.buttonColor
+                                      .withValues(alpha: 0.1)
                                   : themeProvider.isDarkMode
-                                      ? const Color(0xFF444444)
-                                      : const Color(0xFFEEEEEE),
-                              shape: BoxShape.circle,
+                                      ? const Color(0xFF333333)
+                                      : Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              border: isSelected
+                                  ? Border.all(
+                                      color: themeProvider.buttonColor,
+                                      width: 1.5)
+                                  : null,
                             ),
-                            child: Icon(
-                              isSelected ? Icons.check : Icons.add,
-                              color: isSelected
-                                  ? Colors.white
-                                  : themeProvider.textColor
+                            child: ListTile(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 4),
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: FadeInImage.assetNetwork(
+                                  placeholder: ImageConstants.loading,
+                                  image: item.imageUrl,
+                                  width: 44,
+                                  height: 44,
+                                  fit: BoxFit.cover,
+                                  imageErrorBuilder:
+                                      (context, error, stackTrace) {
+                                    return Image.asset(
+                                      ImageConstants.loading,
+                                      fit: BoxFit.cover,
+                                      width: 44,
+                                      height: 44,
+                                    );
+                                  },
+                                ),
+                              ),
+                              title: Text(
+                                item.title,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: themeProvider.textColor,
+                                ),
+                              ),
+                              subtitle: Text(
+                                item.description,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  color: themeProvider.textColor
                                       .withValues(alpha: 0.7),
-                              size: 16,
+                                ),
+                              ),
+                              trailing: Container(
+                                width: 28,
+                                height: 28,
+                                decoration: BoxDecoration(
+                                  color: isSelected
+                                      ? themeProvider.buttonColor
+                                      : themeProvider.isDarkMode
+                                          ? const Color(0xFF444444)
+                                          : const Color(0xFFEEEEEE),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  isSelected ? Icons.check : Icons.add,
+                                  color: isSelected
+                                      ? Colors.white
+                                      : themeProvider.textColor
+                                          .withValues(alpha: 0.7),
+                                  size: 16,
+                                ),
+                              ),
+                              onTap: () => vm.toggleSelection(item.id),
                             ),
-                          ),
-                          onTap: () => vm.toggleSelection(item.id),
-                        ),
-                      );
-                    },
-                  ),
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 16),

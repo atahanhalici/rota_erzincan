@@ -198,5 +198,6 @@
     "minuteAbbreviation": "min",
     "minuteOnlyFormat": "{minutes} min",
     "hourMinuteFormat": "{hours} godz {minutes} min",
-    "distanceCalculatingText": "Obliczanie odległości..."
+    "distanceCalculatingText": "Obliczanie odległości...",
+    "error_generic": "Wystąpił błąd, spróbuj ponownie."
 }

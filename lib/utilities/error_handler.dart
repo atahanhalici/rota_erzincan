@@ -15,7 +15,6 @@ class ErrorHandler {
       nav.navigateToPageClear(NavigatorConstants.SERVER_ERROR, null);
     } else {
       // Farklı hataları burada loglayabilirsin
-      print("Unhandled error: $error");
     }
   }
 }

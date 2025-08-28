@@ -67,4 +67,12 @@ class RouteItem {
       stops: stops ?? this.stops,
     );
   }
+
+  @override
+  String toString() {
+    return 'RouteItem(id: $id, title: $title, subtitle: $subtitle, '
+        'imageUrl: $imageUrl, iconName: $iconName, distanceKm: $distanceKm, '
+        'duration: ${duration.inMinutes}m, isUserAdded: $isUserAdded, '
+        'stops: ${stops.map((s) => s.title).toList()})';
+  }
 }

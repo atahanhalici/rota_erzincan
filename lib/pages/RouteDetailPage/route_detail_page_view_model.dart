@@ -4,17 +4,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
-import 'package:rota_erzincan/models/RouteStop.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:rota_erzincan/services/api_service.dart';
 import 'package:rota_erzincan/services/database_helper.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/widgets/FancyMenuLogoItem.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
+  final ApiService apiService = ApiService();
   RouteItem route;
-  List<RouteStop> contentItems = [];
+  List<CategoryContentItem> contentItems = [];
   bool isLoading = true;
   String? _mapErrorMessage;
   String? get mapErrorMessage => _mapErrorMessage;
@@ -91,164 +92,53 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
 
     if (route.isUserAdded) {
       final db = await DatabaseHelper.instance.database;
+
+      // 1️⃣ Sadece stopId'leri çek
       final List<Map<String, dynamic>> stopsData = await db.query(
         'route_stops',
+        columns: ['stopId'],
         where: 'routeId = ?',
         whereArgs: [route.id],
+        orderBy: 'stopOrder ASC',
       );
 
-      contentItems = stopsData.map((map) {
-        return RouteStop(
-          id: map['id'] as String,
-          title: map['title'] as String,
-          description: map['description'] ?? '',
-          imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/spodek.jpg?alt=media&token=d4498059-0877-442a-a672-909a130fb2ba',
-          latitude: map['latitude'] as double,
-          longitude: map['longitude'] as double,
-        );
-      }).toList();
+      final stopIds = stopsData.map((e) => e['stopId'] as String).toList();
+      final lang = EasyLocalization.of(
+        navigationService.navigatorKey.currentContext!,
+      )!
+          .locale
+          .languageCode;
 
-      // Mesafe ve süreler hesaplanmadan önce gösterim yapılabilsin
-      route.stops = contentItems
+      if (lang == 'tr') {
+        contentItems = await apiService.fetchStopsByIdsTr(stopIds);
+      } else if (lang == 'en') {
+        contentItems = await apiService.fetchStopsByIdsEn(stopIds);
+      } else if (lang == 'pl') {
+        contentItems = await apiService.fetchStopsByIdsPl(stopIds);
+      }
+      // 2️⃣ Backend'den durak detaylarını al
+
+      // 3️⃣ route.stops'u güncelle
+      route.stops = contentItems;
+    } else {
+      // 🔹 Hazır (sabit) rota → manuel sabit liste
+      print(route);
+      contentItems = route.stops
           .map((e) => CategoryContentItem(
                 id: e.id,
                 title: e.title,
                 description: e.description,
+                imageUrl: e.imageUrl,
                 latitude: e.latitude,
                 longitude: e.longitude,
-                imageUrl: e.imageUrl,
+                distanceFromUser: e.distanceFromUser,
+                category: e.category,
+                extraImages: e.extraImages,
+                hours: e.hours,
+                shortAddress: e.shortAddress,
+                rating: e.rating,
               ))
           .toList();
-    } else {
-      // 🔹 Hazır (sabit) rota → manuel sabit liste
-      final String lang =
-          EasyLocalization.of(navigationService.navigatorKey.currentContext!)!
-              .locale
-              .languageCode;
-
-      final List<RouteStop> contentItemsTr = [
-        RouteStop(
-          id: '1',
-          title: 'Spodek Arena',
-          description:
-              'Katowice’nin simgesi, konser ve etkinlikler için ünlü arena.',
-          imageUrl: 'https://picsum.photos/id/1011/600/400',
-          latitude: 50.2599,
-          longitude: 19.0216,
-        ),
-        RouteStop(
-          id: '2',
-          title: 'Nikiszowiec',
-          description:
-              'Tarihi işçi yerleşimi, geleneksel mimarisi ve kültürel etkinlikleriyle ünlü.',
-          imageUrl: 'https://picsum.photos/id/1025/600/400',
-          latitude: 50.2475,
-          longitude: 19.0263,
-        ),
-        RouteStop(
-          id: '3',
-          title: 'Silesia City Center',
-          description:
-              'Alışveriş, eğlence ve restoranların bulunduğu büyük bir alışveriş merkezi.',
-          imageUrl: 'https://picsum.photos/id/1043/600/400',
-          latitude: 50.2570,
-          longitude: 19.0250,
-        ),
-        RouteStop(
-          id: '4',
-          title: 'Katowice Botanik Bahçesi',
-          description:
-              'Doğa yürüyüşleri ve bitki çeşitleri ile dolu sakin bir alan.',
-          imageUrl: 'https://picsum.photos/id/1062/600/400',
-          latitude: 50.2605,
-          longitude: 19.0150,
-        ),
-      ];
-
-      final List<RouteStop> contentItemsEn = [
-        RouteStop(
-          id: '1',
-          title: 'Spodek Arena',
-          description:
-              'The iconic arena of Katowice, famous for concerts and events.',
-          imageUrl: 'https://picsum.photos/id/1011/600/400',
-          latitude: 50.2599,
-          longitude: 19.0216,
-        ),
-        RouteStop(
-          id: '2',
-          title: 'Nikiszowiec',
-          description:
-              'Historic worker settlement known for traditional architecture and cultural events.',
-          imageUrl: 'https://picsum.photos/id/1025/600/400',
-          latitude: 50.2475,
-          longitude: 19.0263,
-        ),
-        RouteStop(
-          id: '3',
-          title: 'Silesia City Center',
-          description:
-              'A large shopping center with shops, entertainment, and restaurants.',
-          imageUrl: 'https://picsum.photos/id/1043/600/400',
-          latitude: 50.2570,
-          longitude: 19.0250,
-        ),
-        RouteStop(
-          id: '4',
-          title: 'Katowice Botanical Garden',
-          description:
-              'A peaceful area filled with walking paths and plant varieties.',
-          imageUrl: 'https://picsum.photos/id/1062/600/400',
-          latitude: 50.2605,
-          longitude: 19.0150,
-        ),
-      ];
-
-      final List<RouteStop> contentItemsPl = [
-        RouteStop(
-          id: '1',
-          title: 'Spodek Arena',
-          description:
-              'Ikoniczna arena w Katowicach, znana z koncertów i wydarzeń.',
-          imageUrl: 'https://picsum.photos/id/1011/600/400',
-          latitude: 50.2599,
-          longitude: 19.0216,
-        ),
-        RouteStop(
-          id: '2',
-          title: 'Nikiszowiec',
-          description:
-              'Historyczne osiedle robotnicze, słynące z tradycyjnej architektury i wydarzeń kulturalnych.',
-          imageUrl: 'https://picsum.photos/id/1025/600/400',
-          latitude: 50.2475,
-          longitude: 19.0263,
-        ),
-        RouteStop(
-          id: '3',
-          title: 'Silesia City Center',
-          description:
-              'Duże centrum handlowe z sklepami, rozrywką i restauracjami.',
-          imageUrl: 'https://picsum.photos/id/1043/600/400',
-          latitude: 50.2570,
-          longitude: 19.0250,
-        ),
-        RouteStop(
-          id: '4',
-          title: 'Ogród Botaniczny Katowice',
-          description:
-              'Spokojny obszar z alejkami spacerowymi i różnorodnością roślin.',
-          imageUrl: 'https://picsum.photos/id/1062/600/400',
-          latitude: 50.2605,
-          longitude: 19.0150,
-        ),
-      ];
-
-      contentItems = lang == 'tr'
-          ? contentItemsTr
-          : lang == 'pl'
-              ? contentItemsPl
-              : contentItemsEn;
     }
     isLoading = false;
     safeNotifyListeners();
@@ -266,8 +156,8 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       stop.distanceFromUser = Geolocator.distanceBetween(
         currentPosition.latitude,
         currentPosition.longitude,
-        stop.latitude,
-        stop.longitude,
+        stop.latitude!,
+        stop.longitude!,
       );
     }
 
@@ -289,10 +179,10 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       double totalDistance = 0.0;
       for (int i = 0; i < contentItems.length - 1; i++) {
         totalDistance += Geolocator.distanceBetween(
-          contentItems[i].latitude,
-          contentItems[i].longitude,
-          contentItems[i + 1].latitude,
-          contentItems[i + 1].longitude,
+          contentItems[i].latitude!,
+          contentItems[i].longitude!,
+          contentItems[i + 1].latitude!,
+          contentItems[i + 1].longitude!,
         );
       }
 
@@ -468,14 +358,14 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
     }
   }
 
-  Future<double?> getDistanceToStop(RouteStop stop) async {
+  Future<double?> getDistanceToStop(CategoryContentItem stop) async {
     try {
       final position = await Geolocator.getCurrentPosition();
       final distanceInMeters = Geolocator.distanceBetween(
         position.latitude,
         position.longitude,
-        stop.latitude,
-        stop.longitude,
+        stop.latitude!,
+        stop.longitude!,
       );
       return distanceInMeters;
     } catch (e) {
@@ -502,7 +392,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
 
       final List<Waypoint> waypoints = contentItems
           .sublist(0, contentItems.length - 1)
-          .map((e) => Waypoint(e.latitude, e.longitude, e.title))
+          .map((e) => Waypoint(e.latitude!, e.longitude!, e.title))
           .toList();
 
       final googleMapsApp = availableMaps.firstWhere(
@@ -579,7 +469,7 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
                       await MapLauncher.showDirections(
                         mapType: map.mapType,
                         destination:
-                            Coords(lastStop.latitude, lastStop.longitude),
+                            Coords(lastStop.latitude!, lastStop.longitude!),
                         destinationTitle: lastStop.title,
                         waypoints: waypoints,
                       );

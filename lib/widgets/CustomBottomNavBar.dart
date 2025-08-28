@@ -106,7 +106,8 @@ class CustomBottomNavBar extends StatelessWidget {
                             title: 'eventHighlightTitle'.tr(),
                             subtitle: 'eventHighlightSubtitle'.tr(),
                             iconName: "event",
-                            imageUrl: "https://picsum.photos/id/169/800/500",
+                            imageUrl:
+                                "https://s.inyourpocket.com/img/text/poland/katowice/jaden-live-at-fest-festival-poland-photo-by.jpg",
                             id: 8,
                           );
                         }

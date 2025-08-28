@@ -27,31 +27,34 @@ class DatabaseHelper {
   }
 
   Future<void> _onCreate(Database db, int version) async {
+    // routes tablosu
     await db.execute('''
-      CREATE TABLE routes (
-        id TEXT PRIMARY KEY,
-        title TEXT,
-        subtitle TEXT, -- ✅ burada olmalı
-        imageUrl TEXT,
-        icon TEXT,
-        distanceKm REAL,
-        durationMinutes INTEGER,
-        isUserAdded INTEGER
-      )
-    ''');
+    CREATE TABLE routes (
+      id TEXT PRIMARY KEY,
+      title TEXT,
+      subtitle TEXT,
+      imageUrl TEXT,
+      icon TEXT,
+      distanceKm REAL,
+      durationMinutes INTEGER,
+      isUserAdded INTEGER
+    )
+  ''');
 
+    // route_stops tablosu
     await db.execute('''
-      CREATE TABLE route_stops (
-        id TEXT PRIMARY KEY,
-        routeId TEXT,
-        latitude REAL,
-        longitude REAL,
-        title TEXT,
-        description TEXT, -- 🔺 eklendi
-        stopOrder INTEGER DEFAULT 0, -- ✅ EKLE BUNU
-        FOREIGN KEY(routeId) REFERENCES routes(id) ON DELETE CASCADE
-      )
-    ''');
+    CREATE TABLE route_stops (
+      id TEXT PRIMARY KEY,
+      stopId TEXT,              -- ✅ StopId eklendi
+      routeId TEXT,
+      latitude REAL,
+      longitude REAL,
+      title TEXT,
+      description TEXT,
+      stopOrder INTEGER DEFAULT 0,
+      FOREIGN KEY(routeId) REFERENCES routes(id) ON DELETE CASCADE
+    )
+  ''');
   }
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
@@ -60,7 +63,11 @@ class DatabaseHelper {
     }
     if (oldVersion < 3) {
       await db.execute(
-          'ALTER TABLE route_stops ADD COLUMN stopOrder INTEGER DEFAULT 0'); // ✅ EKLENDİ
+          'ALTER TABLE route_stops ADD COLUMN stopOrder INTEGER DEFAULT 0');
+    }
+    if (oldVersion < 4) {
+      await db.execute(
+          'ALTER TABLE route_stops ADD COLUMN stopId TEXT'); // ✅ StopId için upgrade
     }
   }
 

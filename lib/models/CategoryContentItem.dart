@@ -28,4 +28,22 @@ class CategoryContentItem {
     this.shortAddress,
     this.rating,
   });
+
+  @override
+  String toString() {
+    return 'CategoryContentItem('
+        'id: $id, '
+        'title: $title, '
+        'description: $description, '
+        'imageUrl: $imageUrl, '
+        'latitude: $latitude, '
+        'longitude: $longitude, '
+        'distanceFromUser: $distanceFromUser, '
+        'category: $category, '
+        'extraImages: $extraImages, '
+        'hours: $hours, '
+        'shortAddress: $shortAddress, '
+        'rating: $rating'
+        ')';
+  }
 }

@@ -10,8 +10,9 @@ class BuildInfoItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntrinsicWidth(
       child: Container(
-        constraints: const BoxConstraints(
-          maxWidth: 120, // Maksimum genişlik sınırı
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width *
+              0.75, // Maksimum genişlik sınırı
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

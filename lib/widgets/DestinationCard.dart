@@ -176,7 +176,7 @@ class _DestinationCardState extends State<DestinationCard>
                                   ],
                                 ),
                                 child: Icon(
-                                 IconUtils.fromName(widget.iconName),
+                                  IconUtils.fromName(widget.iconName),
                                   color: Colors.white,
                                   size: 22,
                                 ),

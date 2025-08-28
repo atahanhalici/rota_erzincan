@@ -256,64 +256,211 @@ class ApiService {
   Future<List<RouteItem>> fetchAllRoutesTr() async {
     final r = await _safeGet('routes_tr');
     if (r == null) return [];
-    return _require200(
-        r,
-        (data) => (data as List)
-            .map((e) => RouteItem(
-                  id: _uuid.v4(),
-                  title: e['title'] ?? '',
-                  subtitle: e['subtitle'] ?? '',
-                  imageUrl: e['imageUrl'] ?? '',
-                  iconName: e['icon'],
-                  distanceKm: (e['distanceKm'] ?? 0).toDouble(),
-                  duration:
-                      Duration(minutes: (e['durationMinutes'] ?? 0).toInt()),
-                  isUserAdded: false,
-                  stops: [],
-                ))
-            .toList());
+
+    final stopsRaw = await _safeGet('places_tr');
+    final stopsData = stopsRaw != null
+        ? (jsonDecode(stopsRaw.body) as List<dynamic>)
+        : <dynamic>[];
+
+    // stopsMap'i string id üzerinden oluştur
+    final stopsMap = {
+      for (var s in stopsData) (s['_id'].toString()): s,
+    };
+
+    return _require200(r, (data) {
+      final routes = jsonDecode(r.body) as List<dynamic>;
+
+      return routes.map((e) {
+        // stops arrayindeki ObjectId'leri string olarak al
+        final stopIds = (e['stops'] as List<dynamic>?)
+                ?.map((id) => id.toString())
+                .toList() ??
+            [];
+
+        final stops = stopIds
+            .map((id) {
+              final s = stopsMap[id];
+              if (s == null) return null;
+              return CategoryContentItem(
+                id: s['_id'].toString(),
+                title: s['title'] ?? '',
+                description: s['description'] ?? '',
+                imageUrl: s['imageUrl'] ?? '',
+                latitude: (s['latitude'] as num?)?.toDouble(),
+                longitude: (s['longitude'] as num?)?.toDouble(),
+                distanceFromUser: (s['distanceFromUser'] as num?)?.toDouble(),
+                category: s['category'] ?? '',
+                extraImages: (s['extraImages'] is List)
+                    ? (s['extraImages'] as List)
+                        .map((e) => e.toString())
+                        .toList()
+                    : <String>[],
+                hours: (s['hours'] is Map)
+                    ? Map<String, String>.from((s['hours'] as Map)
+                        .map((k, v) => MapEntry(k.toString(), v.toString())))
+                    : {},
+                shortAddress: s['shortAddress'] ?? '',
+                rating: (s['rating'] != null)
+                    ? (s['rating'] as num).toDouble()
+                    : 0.0,
+              );
+            })
+            .whereType<CategoryContentItem>()
+            .toList();
+
+        return RouteItem(
+          id: _uuid.v4(),
+          title: e['title'] ?? '',
+          subtitle: e['subtitle'] ?? '',
+          imageUrl: e['imageUrl'] ?? '',
+          iconName: e['icon'] ?? '',
+          distanceKm: (e['distanceKm'] ?? 0).toDouble(),
+          duration: Duration(minutes: (e['durationMinutes'] ?? 0).toInt()),
+          isUserAdded: false,
+          stops: stops,
+        );
+      }).toList();
+    });
   }
 
   Future<List<RouteItem>> fetchAllRoutesEn() async {
     final r = await _safeGet('routes_en');
     if (r == null) return [];
-    return _require200(
-        r,
-        (data) => (data as List)
-            .map((e) => RouteItem(
-                  id: _uuid.v4(),
-                  title: e['title'] ?? '',
-                  subtitle: e['subtitle'] ?? '',
-                  imageUrl: e['imageUrl'] ?? '',
-                  iconName: e['icon'],
-                  distanceKm: (e['distanceKm'] ?? 0).toDouble(),
-                  duration:
-                      Duration(minutes: (e['durationMinutes'] ?? 0).toInt()),
-                  isUserAdded: false,
-                  stops: [],
-                ))
-            .toList());
+
+    final stopsRaw = await _safeGet('places_en');
+    final stopsData = stopsRaw != null
+        ? (jsonDecode(stopsRaw.body) as List<dynamic>)
+        : <dynamic>[];
+
+    // stopsMap'i string id üzerinden oluştur
+    final stopsMap = {
+      for (var s in stopsData) (s['_id'].toString()): s,
+    };
+
+    return _require200(r, (data) {
+      final routes = jsonDecode(r.body) as List<dynamic>;
+
+      return routes.map((e) {
+        // stops arrayindeki ObjectId'leri string olarak al
+        final stopIds = (e['stops'] as List<dynamic>?)
+                ?.map((id) => id.toString())
+                .toList() ??
+            [];
+
+        final stops = stopIds
+            .map((id) {
+              final s = stopsMap[id];
+              if (s == null) return null;
+              return CategoryContentItem(
+                id: s['_id'].toString(),
+                title: s['title'] ?? '',
+                description: s['description'] ?? '',
+                imageUrl: s['imageUrl'] ?? '',
+                latitude: (s['latitude'] as num?)?.toDouble(),
+                longitude: (s['longitude'] as num?)?.toDouble(),
+                distanceFromUser: (s['distanceFromUser'] as num?)?.toDouble(),
+                category: s['category'] ?? '',
+                extraImages: (s['extraImages'] is List)
+                    ? (s['extraImages'] as List)
+                        .map((e) => e.toString())
+                        .toList()
+                    : <String>[],
+                hours: (s['hours'] is Map)
+                    ? Map<String, String>.from((s['hours'] as Map)
+                        .map((k, v) => MapEntry(k.toString(), v.toString())))
+                    : {},
+                shortAddress: s['shortAddress'] ?? '',
+                rating: (s['rating'] != null)
+                    ? (s['rating'] as num).toDouble()
+                    : 0.0,
+              );
+            })
+            .whereType<CategoryContentItem>()
+            .toList();
+
+        return RouteItem(
+          id: _uuid.v4(),
+          title: e['title'] ?? '',
+          subtitle: e['subtitle'] ?? '',
+          imageUrl: e['imageUrl'] ?? '',
+          iconName: e['icon'] ?? '',
+          distanceKm: (e['distanceKm'] ?? 0).toDouble(),
+          duration: Duration(minutes: (e['durationMinutes'] ?? 0).toInt()),
+          isUserAdded: false,
+          stops: stops,
+        );
+      }).toList();
+    });
   }
 
   Future<List<RouteItem>> fetchAllRoutesPl() async {
     final r = await _safeGet('routes_pl');
     if (r == null) return [];
-    return _require200(
-        r,
-        (data) => (data as List)
-            .map((e) => RouteItem(
-                  id: _uuid.v4(),
-                  title: e['title'] ?? '',
-                  subtitle: e['subtitle'] ?? '',
-                  imageUrl: e['imageUrl'] ?? '',
-                  iconName: e['icon'],
-                  distanceKm: (e['distanceKm'] ?? 0).toDouble(),
-                  duration:
-                      Duration(minutes: (e['durationMinutes'] ?? 0).toInt()),
-                  isUserAdded: false,
-                  stops: [],
-                ))
-            .toList());
+
+    final stopsRaw = await _safeGet('places_pl');
+    final stopsData = stopsRaw != null
+        ? (jsonDecode(stopsRaw.body) as List<dynamic>)
+        : <dynamic>[];
+
+    // stopsMap'i string id üzerinden oluştur
+    final stopsMap = {
+      for (var s in stopsData) (s['_id'].toString()): s,
+    };
+
+    return _require200(r, (data) {
+      final routes = jsonDecode(r.body) as List<dynamic>;
+
+      return routes.map((e) {
+        // stops arrayindeki ObjectId'leri string olarak al
+        final stopIds = (e['stops'] as List<dynamic>?)
+                ?.map((id) => id.toString())
+                .toList() ??
+            [];
+
+        final stops = stopIds
+            .map((id) {
+              final s = stopsMap[id];
+              if (s == null) return null;
+              return CategoryContentItem(
+                id: s['_id'].toString(),
+                title: s['title'] ?? '',
+                description: s['description'] ?? '',
+                imageUrl: s['imageUrl'] ?? '',
+                latitude: (s['latitude'] as num?)?.toDouble(),
+                longitude: (s['longitude'] as num?)?.toDouble(),
+                distanceFromUser: (s['distanceFromUser'] as num?)?.toDouble(),
+                category: s['category'] ?? '',
+                extraImages: (s['extraImages'] is List)
+                    ? (s['extraImages'] as List)
+                        .map((e) => e.toString())
+                        .toList()
+                    : <String>[],
+                hours: (s['hours'] is Map)
+                    ? Map<String, String>.from((s['hours'] as Map)
+                        .map((k, v) => MapEntry(k.toString(), v.toString())))
+                    : {},
+                shortAddress: s['shortAddress'] ?? '',
+                rating: (s['rating'] != null)
+                    ? (s['rating'] as num).toDouble()
+                    : 0.0,
+              );
+            })
+            .whereType<CategoryContentItem>()
+            .toList();
+
+        return RouteItem(
+          id: _uuid.v4(),
+          title: e['title'] ?? '',
+          subtitle: e['subtitle'] ?? '',
+          imageUrl: e['imageUrl'] ?? '',
+          iconName: e['icon'] ?? '',
+          distanceKm: (e['distanceKm'] ?? 0).toDouble(),
+          duration: Duration(minutes: (e['durationMinutes'] ?? 0).toInt()),
+          isUserAdded: false,
+          stops: stops,
+        );
+      }).toList();
+    });
   }
 
   // ===================== CATEGORY CONTENT (PLACES) =====================
@@ -783,6 +930,112 @@ class ApiService {
                 imageUrl: e['imageUrl'] ?? '',
                 latitude: (e['latitude'] ?? 0).toDouble(),
                 longitude: (e['longitude'] ?? 0).toDouble(),
+              ))
+          .toList(),
+    );
+  }
+
+  Future<List<CategoryContentItem>> fetchStopsByIdsTr(
+      List<String> stopIds) async {
+    if (stopIds.isEmpty) return [];
+
+    // ids query parametresi ile birleştir
+    final params = 'customIds=${stopIds.join(",")}'; // ✅ artık custom id
+    final r = await _safeGet('places_tr?$params');
+
+    if (r == null) return [];
+
+    return _require200(
+      r,
+      (data) => (data as List)
+          .map((e) => CategoryContentItem(
+                id: e['id']?.toString() ?? _uuid.v4(), // ✅ artık 'id'
+                title: e['title'] ?? '',
+                description: e['description'] ?? '',
+                imageUrl: e['imageUrl'] ?? '',
+                latitude: (e['latitude'] ?? 0).toDouble(),
+                longitude: (e['longitude'] ?? 0).toDouble(),
+                category: e['category']?.toString(),
+                extraImages: e['extraImages'] != null
+                    ? List<String>.from(e['extraImages'])
+                    : null,
+                hours: e['hours'] != null
+                    ? Map<String, String>.from(e['hours'])
+                    : null,
+                shortAddress: e['shortAddress'],
+                rating: e['rating'] != null
+                    ? (e['rating'] as num).toDouble()
+                    : null,
+              ))
+          .toList(),
+    );
+  }
+
+  Future<List<CategoryContentItem>> fetchStopsByIdsEn(
+      List<String> stopIds) async {
+    if (stopIds.isEmpty) return [];
+
+    final params = 'customIds=${stopIds.join(",")}';
+    final r = await _safeGet('places_en?$params');
+
+    if (r == null) return [];
+
+    return _require200(
+      r,
+      (data) => (data as List)
+          .map((e) => CategoryContentItem(
+                id: e['id']?.toString() ?? _uuid.v4(),
+                title: e['title'] ?? '',
+                description: e['description'] ?? '',
+                imageUrl: e['imageUrl'] ?? '',
+                latitude: (e['latitude'] ?? 0).toDouble(),
+                longitude: (e['longitude'] ?? 0).toDouble(),
+                category: e['category']?.toString(),
+                extraImages: e['extraImages'] != null
+                    ? List<String>.from(e['extraImages'])
+                    : null,
+                hours: e['hours'] != null
+                    ? Map<String, String>.from(e['hours'])
+                    : null,
+                shortAddress: e['shortAddress'],
+                rating: e['rating'] != null
+                    ? (e['rating'] as num).toDouble()
+                    : null,
+              ))
+          .toList(),
+    );
+  }
+
+// Lehçe
+  Future<List<CategoryContentItem>> fetchStopsByIdsPl(
+      List<String> stopIds) async {
+    if (stopIds.isEmpty) return [];
+
+    final params = 'customIds=${stopIds.join(",")}';
+    final r = await _safeGet('places_pl?$params');
+    if (r == null) return [];
+
+    return _require200(
+      r,
+      (data) => (data as List)
+          .map((e) => CategoryContentItem(
+                id: e['id']?.toString() ?? _uuid.v4(),
+                title: e['title'] ?? '',
+                description: e['description'] ?? '',
+                imageUrl: e['imageUrl'] ?? '',
+                latitude: (e['latitude'] ?? 0).toDouble(),
+                longitude: (e['longitude'] ?? 0).toDouble(),
+                category: e['category']?.toString(),
+                extraImages: e['extraImages'] != null
+                    ? List<String>.from(e['extraImages'])
+                    : null,
+                hours: e['hours'] != null
+                    ? Map<String, String>.from(e['hours'])
+                    : null,
+                shortAddress: e['shortAddress'],
+                rating: e['rating'] != null
+                    ? (e['rating'] as num).toDouble()
+                    : null,
               ))
           .toList(),
     );

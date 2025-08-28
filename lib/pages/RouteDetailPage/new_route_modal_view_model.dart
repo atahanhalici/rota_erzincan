@@ -4,210 +4,106 @@ import 'package:geolocator/geolocator.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';
 import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
+import 'package:rota_erzincan/services/api_service.dart';
 import 'package:rota_erzincan/services/database_helper.dart';
 import 'package:uuid/uuid.dart';
 
 class NewRouteModalViewModel extends ChangeNotifier with BaseViewModel {
+  final ApiService apiService = ApiService();
   final nameController = TextEditingController();
   final descController = TextEditingController();
   final uuid = const Uuid();
 
-  late List<CategoryContentItem> allItems;
+  List<CategoryContentItem> allItems = [];
   final Set<String> selectedIds = {};
+
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  String? _errorMessage;
+  String? get errorMessage => _errorMessage;
 
   NewRouteModalViewModel({
     CategoryContentItem? initialItem,
     RouteItem? editingRoute,
   }) {
-    final lang =
-        EasyLocalization.of(navigationService.navigatorKey.currentContext!)!
-            .locale
-            .languageCode;
+    _init(initialItem: initialItem, editingRoute: editingRoute);
+  }
 
-    final List<CategoryContentItem> itemTr = [
-      CategoryContentItem(
-        id: 'item_0',
-        title: 'Spodek Arena',
-        description:
-            'Katowice’nin simgesi, konser ve etkinlikler için ünlü arena.',
-        imageUrl: 'https://picsum.photos/id/1011/600/400',
-        latitude: 50.2599,
-        longitude: 19.0216,
-      ),
-      CategoryContentItem(
-        id: 'item_1',
-        title: 'Nikiszowiec',
-        description:
-            'Tarihi işçi yerleşimi, geleneksel mimarisi ve kültürel etkinlikleriyle ünlü.',
-        imageUrl: 'https://picsum.photos/id/1025/600/400',
-        latitude: 50.2475,
-        longitude: 19.0263,
-      ),
-      CategoryContentItem(
-        id: 'item_2',
-        title: 'Silesia City Center',
-        description:
-            'Alışveriş, eğlence ve restoranların bulunduğu büyük bir alışveriş merkezi.',
-        imageUrl: 'https://picsum.photos/id/1043/600/400',
-        latitude: 50.2570,
-        longitude: 19.0250,
-      ),
-      CategoryContentItem(
-        id: 'item_3',
-        title: 'Katowice Botanik Bahçesi',
-        description:
-            'Doğa yürüyüşleri ve bitki çeşitleri ile dolu sakin bir alan.',
-        imageUrl: 'https://picsum.photos/id/1062/600/400',
-        latitude: 50.2605,
-        longitude: 19.0150,
-      ),
-      CategoryContentItem(
-        id: 'item_4',
-        title: 'Rynek w Katowicach',
-        description:
-            'Şehrin merkezi meydanı, kafeler ve tarihi yapılarla çevrili.',
-        imageUrl: 'https://picsum.photos/id/1050/600/400',
-        latitude: 50.2590,
-        longitude: 19.0210,
-      ),
-    ];
+  Future<void> _init({
+    CategoryContentItem? initialItem,
+    RouteItem? editingRoute,
+  }) async {
+    await fetchPlaces();
 
-    final List<CategoryContentItem> itemEn = [
-      CategoryContentItem(
-        id: 'item_0',
-        title: 'Spodek Arena',
-        description:
-            'The iconic arena of Katowice, famous for concerts and events.',
-        imageUrl: 'https://picsum.photos/id/1011/600/400',
-        latitude: 50.2599,
-        longitude: 19.0216,
-      ),
-      CategoryContentItem(
-        id: 'item_1',
-        title: 'Nikiszowiec',
-        description:
-            'Historic worker settlement known for traditional architecture and cultural events.',
-        imageUrl: 'https://picsum.photos/id/1025/600/400',
-        latitude: 50.2475,
-        longitude: 19.0263,
-      ),
-      CategoryContentItem(
-        id: 'item_2',
-        title: 'Silesia City Center',
-        description:
-            'A large shopping center with shops, entertainment, and restaurants.',
-        imageUrl: 'https://picsum.photos/id/1043/600/400',
-        latitude: 50.2570,
-        longitude: 19.0250,
-      ),
-      CategoryContentItem(
-        id: 'item_3',
-        title: 'Katowice Botanical Garden',
-        description:
-            'A peaceful area filled with walking paths and plant varieties.',
-        imageUrl: 'https://picsum.photos/id/1062/600/400',
-        latitude: 50.2605,
-        longitude: 19.0150,
-      ),
-      CategoryContentItem(
-        id: 'item_4',
-        title: 'Rynek w Katowicach',
-        description:
-            'The central square of the city, surrounded by cafes and historic buildings.',
-        imageUrl: 'https://picsum.photos/id/1050/600/400',
-        latitude: 50.2590,
-        longitude: 19.0210,
-      ),
-    ];
-
-    final List<CategoryContentItem> itemPl = [
-      CategoryContentItem(
-        id: 'item_0',
-        title: 'Spodek Arena',
-        description:
-            'Ikoniczna arena w Katowicach, znana z koncertów i wydarzeń.',
-        imageUrl: 'https://picsum.photos/id/1011/600/400',
-        latitude: 50.2599,
-        longitude: 19.0216,
-      ),
-      CategoryContentItem(
-        id: 'item_1',
-        title: 'Nikiszowiec',
-        description:
-            'Historyczne osiedle robotnicze, znane z tradycyjnej architektury i wydarzeń kulturalnych.',
-        imageUrl: 'https://picsum.photos/id/1025/600/400',
-        latitude: 50.2475,
-        longitude: 19.0263,
-      ),
-      CategoryContentItem(
-        id: 'item_2',
-        title: 'Silesia City Center',
-        description:
-            'Duże centrum handlowe z sklepami, rozrywką i restauracjami.',
-        imageUrl: 'https://picsum.photos/id/1043/600/400',
-        latitude: 50.2570,
-        longitude: 19.0250,
-      ),
-      CategoryContentItem(
-        id: 'item_3',
-        title: 'Ogród Botaniczny Katowice',
-        description:
-            'Spokojny obszar z alejkami spacerowymi i różnorodnością roślin.',
-        imageUrl: 'https://picsum.photos/id/1062/600/400',
-        latitude: 50.2605,
-        longitude: 19.0150,
-      ),
-      CategoryContentItem(
-        id: 'item_4',
-        title: 'Rynek w Katowicach',
-        description:
-            'Centralny plac miasta, otoczony kawiarniami i zabytkowymi budynkami.',
-        imageUrl: 'https://picsum.photos/id/1050/600/400',
-        latitude: 50.2590,
-        longitude: 19.0210,
-      ),
-    ];
-
-// ✅ Dil kontrolü ile doğru listeyi al
-    final selectedLangItems = lang == 'tr'
-        ? itemTr
-        : lang == 'pl'
-            ? itemPl
-            : itemEn;
-
-    // ✅ 1. Benzersiz ID map’i oluştur
-    final Map<String, CategoryContentItem> uniqueMap = {};
-
-    for (final item in [
-      ...selectedLangItems,
-      if (initialItem != null) initialItem,
-      if (editingRoute != null) ...editingRoute.stops,
-    ]) {
-      uniqueMap[item.id] = item;
-    }
-
-    // ✅ 2. Listeyi oluştur
-    allItems = uniqueMap.values.toList();
-
-    // ✅ 3. Seçili olanları işaretle
+    // ✅ Initial item varsa ekle
     if (initialItem != null) {
+      if (!allItems.any((e) => e.id == initialItem.id)) {
+        allItems.insert(0, initialItem);
+      }
       selectedIds.add(initialItem.id);
     }
 
+    // ✅ Editing route varsa doldur
     if (editingRoute != null) {
       nameController.text = editingRoute.title;
       descController.text = editingRoute.subtitle;
-      selectedIds.addAll(editingRoute.stops.map((e) => e.id));
+
+      for (final stop in editingRoute.stops) {
+        if (!allItems.any((e) => e.id == stop.id)) {
+          allItems.add(stop);
+        }
+        selectedIds.add(stop.id);
+      }
     }
 
-    // ✅ 4. Seçilenleri en üste çek
+    // ✅ Seçilenleri üste çek
     allItems.sort((a, b) {
       final aSelected = selectedIds.contains(a.id) ? 0 : 1;
       final bSelected = selectedIds.contains(b.id) ? 0 : 1;
       return aSelected.compareTo(bSelected);
     });
+
+    notifyListeners();
   }
 
+  Future<void> fetchPlaces() async {
+    if (allItems.isNotEmpty) {
+      // ✅ Zaten dolu → tekrar API çağırma
+      return;
+    }
+
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      final lang = EasyLocalization.of(
+        navigationService.navigatorKey.currentContext!,
+      )!
+          .locale
+          .languageCode;
+
+      List<CategoryContentItem> results = [];
+
+      if (lang == 'tr') {
+        results = await apiService.searchContentsTr("");
+      } else if (lang == 'en') {
+        results = await apiService.searchContentsEn("");
+      } else if (lang == 'pl') {
+        results = await apiService.searchContentsPl("");
+      }
+
+      allItems = results;
+    } catch (e) {
+      debugPrint("❌ fetchPlaces error: $e");
+      allItems = [];
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  // ✅ Seçim işlemleri
   void toggleSelection(String id) {
     if (selectedIds.contains(id)) {
       selectedIds.remove(id);
@@ -277,16 +173,12 @@ class NewRouteModalViewModel extends ChangeNotifier with BaseViewModel {
       'isUserAdded': route.isUserAdded ? 1 : 0,
     });
     int order = 0;
-    // ✅ Stop'ları kaydet
+// ✅ Stop ID'lerini kaydet
     for (final stop in stops) {
       await db.insert('route_stops', {
-        'id': stop.id,
+        'stopId': stop.id, // sadece _id
         'routeId': route.id,
-        'latitude': stop.latitude,
-        'longitude': stop.longitude,
-        'title': stop.title,
-        'description': stop.description,
-        'stopOrder': order++, // ✅ sıralı index
+        'stopOrder': order++, // sıralı index
       });
     }
   }
@@ -324,19 +216,15 @@ class NewRouteModalViewModel extends ChangeNotifier with BaseViewModel {
       whereArgs: [routeId],
     );
 
-    // ✅ Eski durakları sil
     await db.delete('route_stops', where: 'routeId = ?', whereArgs: [routeId]);
 
+    // ✅ Sadece stop _id ve sıralamayı kaydet
     int order = 0;
     for (final stop in stops) {
       await db.insert('route_stops', {
-        'id': stop.id,
+        'stopId': stop.id, // sadece _id
         'routeId': routeId,
-        'latitude': stop.latitude,
-        'longitude': stop.longitude,
-        'title': stop.title,
-        'description': stop.description,
-        'stopOrder': order++,
+        'stopOrder': order++, // sıralı index
       });
     }
   }
