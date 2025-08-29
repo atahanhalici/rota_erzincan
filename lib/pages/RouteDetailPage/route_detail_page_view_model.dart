@@ -29,6 +29,12 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
           latitude: stop.latitude,
           longitude: stop.longitude,
           distanceFromUser: stop.distanceFromUser,
+          category: stop.category,
+          extraImages: stop.extraImages?.cast<String>(),
+          hours: stop.hours
+              ?.map((key, value) => MapEntry(key.toString(), value.toString())),
+          shortAddress: stop.shortAddress,
+          rating: stop.rating,
         );
       }).toList();
 
@@ -122,7 +128,6 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
       route.stops = contentItems;
     } else {
       // 🔹 Hazır (sabit) rota → manuel sabit liste
-      print(route);
       contentItems = route.stops
           .map((e) => CategoryContentItem(
                 id: e.id,
@@ -167,10 +172,16 @@ class RouteDetailPageViewModel extends ChangeNotifier with BaseViewModel {
               id: e.id,
               title: e.title,
               description: e.description,
+              imageUrl: e.imageUrl,
               latitude: e.latitude,
               longitude: e.longitude,
-              imageUrl: e.imageUrl,
               distanceFromUser: e.distanceFromUser,
+              category: e.category,
+              extraImages: e.extraImages?.cast<String>(),
+              hours: e.hours?.map(
+                  (key, value) => MapEntry(key.toString(), value.toString())),
+              shortAddress: e.shortAddress,
+              rating: e.rating,
             ))
         .toList();
 

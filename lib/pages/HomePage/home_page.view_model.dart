@@ -80,7 +80,6 @@ class HomePageViewModel extends ChangeNotifier with BaseViewModel {
       imageUrl: imageUrl,
       id: id,
     );
-
     navigationService.navigateToCategoryDetail(_categoryItem);
   }
 

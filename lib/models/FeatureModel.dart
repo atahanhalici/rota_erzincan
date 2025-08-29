@@ -1,4 +1,3 @@
-
 class FeatureModel {
   final String title;
   final String subtitle;
@@ -21,7 +20,14 @@ class FeatureModel {
       subtitle: json["subtitle"],
       imageUrl: json["imageUrl"],
       id: json["id"],
-      iconName: json["icon"], // Direkt icon objesi döndüğümüz için map'e gerek yok
+      iconName:
+          json["icon"], // Direkt icon objesi döndüğümüz için map'e gerek yok
     );
+  }
+
+  @override
+  String toString() {
+    return 'FeatureModel(id: $id, title: $title, subtitle: $subtitle, '
+        'imageUrl: $imageUrl, iconName: $iconName)';
   }
 }

@@ -18,4 +18,10 @@ class CategoryItem {
 
   // IconData'ya dönüştüren getter
   IconData get icon => ApiService.iconFromName(iconName);
+
+  @override
+  String toString() {
+    return 'CategoryItem(id: $id, title: $title, subtitle: $subtitle, '
+        'imageUrl: $imageUrl, iconName: $iconName)';
+  }
 }
