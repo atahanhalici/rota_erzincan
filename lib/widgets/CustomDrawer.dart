@@ -151,7 +151,7 @@ class CustomDrawer extends StatelessWidget {
             label: 'drawerMessageFromGovernor'.tr(),
             onTap: () => homeModel.navigateToDetails(context,
                 imageUrl:
-                    "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/e6c7257a-ec72-4d66-aaf4-0c810177df3a.JPEG?alt=media&token=c134b930-a4d5-4b5a-b99f-40b12156d8bb",
+                    "https://firebasestorage.googleapis.com/v0/b/karga-303a6.appspot.com/o/IMG_6108.JPEG?alt=media&token=99e9dab5-765c-42c3-8bde-f3517211a0a4",
                 title: 'drawerMessageFromGovernor'.tr(),
                 desc: langCode == 'tr'
                     ? 'Merhaba! Ben Atahan Halıcı, Poznaj Katowice’i tamamen sizin için tasarladım ve geliştirdim. Şehrin gizli köşelerini keşfetmeniz, en etkileyici rotaları takip etmeniz ve Katowice deneyiminizi unutulmaz hâle getirmeniz için her detayı özenle ekledim. Kullanıcı dostu arayüz, hızlı navigasyon, interaktif içerikler ve güncel bilgilerle uygulamayı tamamen optimize ettim. Amacım, her adımda sizin için şehri daha anlamlı ve keyifli hâle getirmek. Her keşfinizde yanınızda olacağım ve Katowice’yi benim gözümden deneyimlemenizi sağlayacağım!'

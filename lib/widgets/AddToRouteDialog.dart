@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:rota_erzincan/init/navigation/navigation_service.dart';
+import 'package:rota_erzincan/models/CategoryContentItem.dart';
 import 'package:rota_erzincan/models/RouteItem.dart';
 import 'package:rota_erzincan/pages/RouteDetailPage/new_route_modal_view_model.dart';
+import 'package:rota_erzincan/services/api_service.dart';
 import 'package:rota_erzincan/theme_provider.dart';
 import 'package:rota_erzincan/services/database_helper.dart';
 import 'package:rota_erzincan/pages/DetailsPage/details_page_view_model.dart';
@@ -21,7 +24,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
   List<RouteItem> _routes = [];
   Set<String> _selectedRouteIds = {};
   bool _isLoading = true;
-
+  final ApiService apiService = ApiService();
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
 
@@ -60,10 +63,10 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
         subtitle: map['subtitle'] as String,
         imageUrl: map['imageUrl'] as String,
         iconName: map['icon'] as String,
-        distanceKm: map['distanceKm'] as double,
+        distanceKm: (map['distanceKm'] as num).toDouble(),
         duration: Duration(minutes: map['durationMinutes'] as int),
         isUserAdded: (map['isUserAdded'] as int) == 1,
-        stops: [],
+        stops: [], // stops ayrı sorguyla doldurulacak
       );
     }).toList();
 
@@ -76,12 +79,13 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
         whereArgs: [route.id],
       );
 
-      final matched =
-          existing.any((e) => e['id'].toString() == stopId.toString());
+      final matched = existing.any(
+        (e) => e['stopId'].toString() == stopId.toString(),
+      );
 
       if (matched) {
         newlySelected.add(route.id);
-      } else {}
+      }
     }
 
     setState(() {
@@ -405,24 +409,21 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
     for (var route in _routes) {
       final wasSelected = _selectedRouteIds.contains(route.id);
 
+      // Bu stop zaten o route'ta var mı?
       final existing = await db.query(
         'route_stops',
-        where: 'routeId = ? AND id = ?',
+        where: 'routeId = ? AND stopId = ?',
         whereArgs: [route.id, content.id],
       );
 
       final isAlreadyInDb = existing.isNotEmpty;
 
       if (wasSelected && !isAlreadyInDb) {
-        // ✅ EKLEME işlemi
+        // ✅ EKLE
         await db.insert('route_stops', {
-          'id': content.id,
+          'stopId': content.id,
           'routeId': route.id,
-          'latitude': content.latitude,
-          'longitude': content.longitude,
-          'title': content.title,
-          'description': content.description,
-          'stopOrder': 0,
+          'stopOrder': 0, // sıralama için sen güncelleyeceksin
         });
 
         await _updateRouteDistanceAndDuration(route.id);
@@ -446,8 +447,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                 ),
               ],
             ),
-            backgroundColor:
-                Colors.green.shade700, // ya da Colors.green.shade700
+            backgroundColor: Colors.green.shade700,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -460,7 +460,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
               onPressed: () async {
                 await db.delete(
                   'route_stops',
-                  where: 'routeId = ? AND id = ?',
+                  where: 'routeId = ? AND stopId = ?',
                   whereArgs: [route.id, content.id],
                 );
                 await _updateRouteDistanceAndDuration(route.id);
@@ -469,10 +469,10 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
           ),
         );
       } else if (!wasSelected && isAlreadyInDb) {
-        // ❌ SİLME işlemi
+        // ❌ SİL
         await db.delete(
           'route_stops',
-          where: 'routeId = ? AND id = ?',
+          where: 'routeId = ? AND stopId = ?',
           whereArgs: [route.id, content.id],
         );
 
@@ -489,7 +489,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
                     'routeStopRemovedMessage'.tr(
                       namedArgs: {
                         'stopTitle': content.title,
-                        'routeTitle': route.title
+                        'routeTitle': route.title,
                       },
                     ),
                     style: const TextStyle(color: Colors.white),
@@ -509,12 +509,8 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
               textColor: Colors.white,
               onPressed: () async {
                 await db.insert('route_stops', {
-                  'id': content.id,
+                  'stopId': content.id,
                   'routeId': route.id,
-                  'latitude': content.latitude,
-                  'longitude': content.longitude,
-                  'title': content.title,
-                  'description': content.description,
                   'stopOrder': 0,
                 });
                 await _updateRouteDistanceAndDuration(route.id);
@@ -522,20 +518,9 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
             ),
           ),
         );
-      } else if (wasSelected && isAlreadyInDb) {
-        // 🛠️ Zaten ekli olanı güncelle
-        await db.update(
-          'route_stops',
-          {
-            'latitude': content.latitude,
-            'longitude': content.longitude,
-            'title': content.title,
-            'description': content.description,
-          },
-          where: 'routeId = ? AND id = ?',
-          whereArgs: [route.id, content.id],
-        );
       }
+      // wasSelected && isAlreadyInDb durumunda artık güncelleme gerekmiyor,
+      // çünkü stop bilgileri contentItems tablosunda duruyor.
     }
 
     Navigator.pop(context); // modalı kapat
@@ -544,21 +529,54 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
   Future<void> _updateRouteDistanceAndDuration(String routeId) async {
     final db = await DatabaseHelper.instance.database;
 
-    final stops = await db.query(
+    // 1️⃣ StopId’leri al
+    final stopsData = await db.query(
       'route_stops',
+      columns: ['stopId'],
       where: 'routeId = ?',
       whereArgs: [routeId],
       orderBy: 'stopOrder ASC',
     );
 
-    double totalDistance = 0.0;
+    final stopIds = stopsData.map((e) => e['stopId'] as String).toList();
+    if (stopIds.length < 2) {
+      // tek stop varsa mesafe = 0, süre = 0
+      await db.update(
+        'routes',
+        {'distanceKm': 0.0, 'durationMinutes': 0},
+        where: 'id = ?',
+        whereArgs: [routeId],
+      );
+      return;
+    }
 
+    // 2️⃣ Dil belirle
+    final lang = EasyLocalization.of(
+      NavigationService.instance.navigatorKey.currentContext!,
+    )!
+        .locale
+        .languageCode;
+
+    // 3️⃣ API’den stop detaylarını çek
+    List<CategoryContentItem> stops = [];
+    if (lang == 'tr') {
+      stops = await apiService.fetchStopsByIdsTr(stopIds);
+    } else if (lang == 'en') {
+      stops = await apiService.fetchStopsByIdsEn(stopIds);
+    } else if (lang == 'pl') {
+      stops = await apiService.fetchStopsByIdsPl(stopIds);
+    }
+
+    // 4️⃣ Mesafe hesapla
+    double totalDistance = 0.0;
     for (int i = 0; i < stops.length - 1; i++) {
+      final start = stops[i];
+      final end = stops[i + 1];
       totalDistance += Geolocator.distanceBetween(
-        stops[i]['latitude'] as double,
-        stops[i]['longitude'] as double,
-        stops[i + 1]['latitude'] as double,
-        stops[i + 1]['longitude'] as double,
+        start.latitude ?? 0,
+        start.longitude ?? 0,
+        end.latitude ?? 0,
+        end.longitude ?? 0,
       );
     }
 
@@ -566,6 +584,7 @@ class _AddToRouteDialogState extends State<AddToRouteDialog>
     final estimatedDuration =
         Duration(minutes: (totalDistanceKm / 50 * 60).round());
 
+    // 5️⃣ DB’yi güncelle
     await db.update(
       'routes',
       {

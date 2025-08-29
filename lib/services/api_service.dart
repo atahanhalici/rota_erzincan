@@ -510,6 +510,17 @@ class ApiService {
                   imageUrl: e['imageUrl'] ?? '',
                   latitude: (e['latitude'] ?? 0).toDouble(),
                   longitude: (e['longitude'] ?? 0).toDouble(),
+                  category: e['category']?.toString(),
+                  extraImages: e['extraImages'] != null
+                      ? List<String>.from(e['extraImages'])
+                      : null,
+                  hours: e['hours'] != null
+                      ? Map<String, String>.from(e['hours'])
+                      : null,
+                  shortAddress: e['shortAddress'],
+                  rating: e['rating'] != null
+                      ? (e['rating'] as num).toDouble()
+                      : null,
                 ))
             .toList());
   }
@@ -527,6 +538,17 @@ class ApiService {
                   imageUrl: e['imageUrl'] ?? '',
                   latitude: (e['latitude'] ?? 0).toDouble(),
                   longitude: (e['longitude'] ?? 0).toDouble(),
+                  category: e['category']?.toString(),
+                  extraImages: e['extraImages'] != null
+                      ? List<String>.from(e['extraImages'])
+                      : null,
+                  hours: e['hours'] != null
+                      ? Map<String, String>.from(e['hours'])
+                      : null,
+                  shortAddress: e['shortAddress'],
+                  rating: e['rating'] != null
+                      ? (e['rating'] as num).toDouble()
+                      : null,
                 ))
             .toList());
   }
@@ -899,8 +921,14 @@ class ApiService {
     );
   }
 
-  Future<List<CategoryContentItem>> searchContentsEn(String query) async {
-    final r = await _safeGet('places_en?q=$query');
+  Future<List<CategoryContentItem>> searchContentsEn(String query,
+      {String? categoryId}) async {
+    final params = [
+      if (categoryId != null) 'category=$categoryId',
+      if (query.isNotEmpty) 'q=$query'
+    ].join('&');
+
+    final r = await _safeGet('places_en${params.isNotEmpty ? "?$params" : ""}');
     if (r == null) return [];
     return _require200(
       r,
@@ -912,13 +940,30 @@ class ApiService {
                 imageUrl: e['imageUrl'] ?? '',
                 latitude: (e['latitude'] ?? 0).toDouble(),
                 longitude: (e['longitude'] ?? 0).toDouble(),
+                category: e['category']?.toString(),
+                extraImages: e['extraImages'] != null
+                    ? List<String>.from(e['extraImages'])
+                    : null,
+                hours: e['hours'] != null
+                    ? Map<String, String>.from(e['hours'])
+                    : null,
+                shortAddress: e['shortAddress'],
+                rating: e['rating'] != null
+                    ? (e['rating'] as num).toDouble()
+                    : null,
               ))
           .toList(),
     );
   }
 
-  Future<List<CategoryContentItem>> searchContentsPl(String query) async {
-    final r = await _safeGet('places_pl?q=$query');
+  Future<List<CategoryContentItem>> searchContentsPl(String query,
+      {String? categoryId}) async {
+    final params = [
+      if (categoryId != null) 'category=$categoryId',
+      if (query.isNotEmpty) 'q=$query'
+    ].join('&');
+
+    final r = await _safeGet('places_pl${params.isNotEmpty ? "?$params" : ""}');
     if (r == null) return [];
     return _require200(
       r,
@@ -930,6 +975,17 @@ class ApiService {
                 imageUrl: e['imageUrl'] ?? '',
                 latitude: (e['latitude'] ?? 0).toDouble(),
                 longitude: (e['longitude'] ?? 0).toDouble(),
+                category: e['category']?.toString(),
+                extraImages: e['extraImages'] != null
+                    ? List<String>.from(e['extraImages'])
+                    : null,
+                hours: e['hours'] != null
+                    ? Map<String, String>.from(e['hours'])
+                    : null,
+                shortAddress: e['shortAddress'],
+                rating: e['rating'] != null
+                    ? (e['rating'] as num).toDouble()
+                    : null,
               ))
           .toList(),
     );
