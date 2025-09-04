@@ -67,7 +67,9 @@ class _NewRouteModalState extends State<NewRouteModal> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'newRouteTitle'.tr(),
+                          widget.editingRoute != null
+                              ? 'updateRouteTitle'.tr()
+                              : 'newRouteTitle'.tr(),
                           style: GoogleFonts.poppins(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -75,7 +77,9 @@ class _NewRouteModalState extends State<NewRouteModal> {
                           ),
                         ),
                         Text(
-                          'newRouteSubtitle'.tr(),
+                          widget.editingRoute != null
+                              ? 'updateRouteSubtitle'.tr()
+                              : 'newRouteSubtitle'.tr(),
                           style: GoogleFonts.poppins(
                             fontSize: 13,
                             color:

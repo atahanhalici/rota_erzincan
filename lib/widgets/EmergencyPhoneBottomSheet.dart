@@ -44,7 +44,13 @@ class EmergencyPhoneBottomSheet extends StatelessWidget {
               'emergencyPhone112'.tr(), "112", Colors.red),
           const SizedBox(height: 10),
           _buildEmergencyCallButton(
-              'emergencyPhone122'.tr(), "122", Colors.orange),
+              'emergencyPhone997'.tr(), "997", Colors.blue),
+          const SizedBox(height: 10),
+          _buildEmergencyCallButton(
+              'emergencyPhone122'.tr(), "998", Colors.orange),
+          const SizedBox(height: 10),
+          _buildEmergencyCallButton(
+              'emergencyPhone999'.tr(), "999", Colors.green),
         ],
       ),
     );

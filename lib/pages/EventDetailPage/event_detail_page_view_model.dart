@@ -1,5 +1,7 @@
 // lib/viewmodels/event_detail_view_model.dart
 
+// ignore_for_file: prefer_iterable_wheretype
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:rota_erzincan/core/base/base_view_model.dart';

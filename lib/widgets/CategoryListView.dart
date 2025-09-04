@@ -61,7 +61,6 @@ class _CategoryListViewState extends State<CategoryListView> {
             itemCount: viewModel.features.length,
             itemBuilder: (context, index) {
               final feature = viewModel.features[index];
-              print(feature);
               return Padding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                 child: DestinationCard(
